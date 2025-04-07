@@ -19,7 +19,7 @@ function LoginPage(){
                             <div className="login-field-label">
                                 Hasło:
                             </div>
-                            <input id="password" className="login-field login-field-last" type="text" placeholder="Wprowadz hasło" />
+                            <input id="password" className="login-field login-field-last" type="password" placeholder="Wprowadz hasło" />
                         </form>
                     </div>
                     <div className="login-register">
