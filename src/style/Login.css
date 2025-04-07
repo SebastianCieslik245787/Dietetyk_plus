@@ -11,7 +11,7 @@
     width: 25%;
     height: 70%;
     margin: 7% 37.5%;
-    background-color: #EFECEC;
+    background-color: #fafafa;
     opacity: 90%;
     float: left;
     box-shadow: 0 8px 5px -6px rgb(137, 137, 149);
@@ -48,7 +48,7 @@
     margin: 5% 0 20% 0;
     float: left;
     font-size: 0.8rem;
-    background-color: #F4F4F4;
+    background-color: #efefef;
     color: #343232;
     box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
 }
@@ -105,7 +105,7 @@
 }
 
 .register-link:hover{
-    color: #3a7c2f;
+    color: #4b913c;
 }
 
 .login-button{
