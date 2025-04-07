@@ -1,12 +1,11 @@
-import MainPage from "./pages/MainPage.jsx";
-
 import "./style/style.css"
+import LoginPage from "./pages/Login.jsx";
 
 function App() {
 
   return (
     <>
-        {MainPage()}
+        {LoginPage()}
     </>
   )
 }
