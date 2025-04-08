@@ -1,9 +1,15 @@
 import "../style/NavigationBar.css"
+import { useNavigate } from "react-router-dom";
 
 import logo from "../images/logo.webp"
 import loginIcon from "../images/login_icon.png"
 
 function NavigationBar() {
+    const navigate = useNavigate();
+
+    const handleLoginClick = () => {
+        navigate("/login");
+    };
     return (
         <>
             <div className="navbar-container">
@@ -25,7 +31,7 @@ function NavigationBar() {
                         Kontakt
                     </p>
                 </div>
-                <div className="login">
+                <div className="login" onClick={handleLoginClick}>
                     <p className="login-text item-text">
                         Zaloguj się
                     </p>
