@@ -10,10 +10,19 @@ function NavigationBar() {
     const handleLoginClick = () => {
         navigate("/login");
     };
+
+    const handleAboutUsClick = () => {
+        navigate("/about-us");
+    };
+
+    const handleHomePageClick = () => {
+        navigate("*");
+    };
+
     return (
         <>
             <div className="navbar-container">
-                <div className="logo">
+                <div className="logo" onClick={handleHomePageClick}>
                     <img src={logo} alt="logo"/>
                 </div>
                 <div className="item">
@@ -21,7 +30,7 @@ function NavigationBar() {
                         Oferta
                     </p>
                 </div>
-                <div className="item">
+                <div className="item" onClick={handleAboutUsClick}>
                     <p className="item-text">
                         O nas
                     </p>
