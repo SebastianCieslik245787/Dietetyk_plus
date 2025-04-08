@@ -400,7 +400,7 @@ function HomePage() {
                     Jak się z nami skontaktować?
                 </p>
             </div>
-            <div className="contact-container">
+            <div className="home-contact-container">
                 <div className="contact-bar">
                     <p className="contact-text">
                         +48 123 456 789
