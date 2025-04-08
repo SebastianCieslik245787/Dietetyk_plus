@@ -2,7 +2,7 @@ import "../style/NavigationBar.css"
 import { useNavigate } from "react-router-dom";
 
 import logo from "../images/logo.webp"
-import loginIcon from "../images/login_icon.png"
+import loginIcon from "../images/icons/login_icon.png"
 
 function NavigationBar() {
     const navigate = useNavigate();
