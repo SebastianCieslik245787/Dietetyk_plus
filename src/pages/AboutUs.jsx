@@ -16,8 +16,8 @@ function AboutUs() {
                         • Nasi klienci obdarzeni są opieką najlepszych dietetyków.
                         <br/><br/>
                         • Nasz zespół to dietetycy kliniczni, sportowi i psychodietetycy, którzy regularnie prowadzą
-                        wykłady na konferencjach i stale poszerzają swoją wiedzę, aby być na bieżąco z najnowszymi
-                        badaniami.
+                        wykłady na konferencjach i stale  poszerzają swoją wiedzę, aby być na bieżąco z najnowszymi
+                         badaniami.
                         <br/><br/>
                         • Do każdego pacjenta wystosowujemy indywidualną ofertę w zależności od indywidualnych potrzeb.
                         <br/><br/>

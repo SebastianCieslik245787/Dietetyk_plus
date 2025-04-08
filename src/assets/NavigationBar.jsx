@@ -19,6 +19,10 @@ function NavigationBar() {
         navigate("*");
     };
 
+    const handleContactPageClick = () => {
+        navigate("/contact");
+    };
+
     return (
         <>
             <div className="navbar-container">
@@ -35,7 +39,7 @@ function NavigationBar() {
                         O nas
                     </p>
                 </div>
-                <div className="item item-last">
+                <div className="item item-last" onClick={handleContactPageClick}>
                     <p className="item-text">
                         Kontakt
                     </p>
