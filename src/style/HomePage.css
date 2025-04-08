@@ -39,15 +39,15 @@
 
 .contact-container{
     width: 100vw;
-    height: 30vh;
+    height: 50vh;
     position: relative;
     background-color: #efefef;
 }
 
 .contact-bar{
-    width: 55vh;
+    width: 30vw;
     height: 10vh;
-    margin: 10vh 22vh;
+    margin: 15vh 10vw 25vh 10vw;
     float: left;
     position: relative;
 }
@@ -108,7 +108,7 @@
 }
 
 .why-diet-text{
-    padding-left: 50px;
+    padding-left: 55px;
     padding-right: 50px;
     width: 100%;
     height: 8.5%;
@@ -120,4 +120,260 @@
     color: #A67F01;
     font-size: 0.7rem;
     line-height: 1.1rem;
+}
+
+.type-of-diets-content{
+    position: absolute;
+    width: 90%;
+    height: 90%;
+}
+
+.diet-type{
+    float: left;
+    width: 60%;
+    height: 30%;
+    margin: 5% 0 0 0;
+    background-color: #EFECEC;
+    position: relative;
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+    opacity: 90%;
+}
+
+.diet-type > img{
+    float: left;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid white;
+    margin: 5.5% 7%;
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+}
+
+.upper-diet-type-text-content, .lower-diet-type-text-content{
+    width: 65%;
+    float: left;
+    position: relative;
+}
+
+.upper-diet-type-header, .lower-diet-type-header{
+    width: 100%;
+    height: 20%;
+    float: left;
+}
+
+.upper-diet-type-header-text, .lower-diet-type-header-text{
+    text-align: center;
+    color: #484848;
+    font-size: 2rem;
+    line-height: 4rem;
+}
+
+.upper-diet-type-text, .lower-diet-type-text{
+    width: 100%;
+    height: 80%;
+    padding-top: 5%;
+    float: left;
+    text-align: center;
+    color: #484848;
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.lower-diet-type{
+    float: right;
+}
+
+.lower-diet-type > img{
+    float: right;
+}
+
+.lower-diet-type-text-content{
+    margin-left: 5%;
+}
+
+.other-diets-button{
+    width: 20%;
+    height: 8%;
+    margin: 5% 40%;
+    background-color: #EFECEC;
+    border-radius: 50px;
+    float: right;
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+    transition: 0.4s;
+    cursor: pointer;
+    opacity: 95%;
+}
+
+.other-diets-button-text{
+    width: 65%;
+    height: 100%;
+    float: left;
+    text-align: right;
+    font-size: 1.5rem;
+    line-height: 3.5rem;
+    color: #060606;
+}
+
+.other-diets-button > img{
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin: 7% 0 0 1%;
+}
+
+.other-diets-button:hover > img{
+    filter: brightness(0) saturate(100%) invert(38%) sepia(77%) saturate(920%) hue-rotate(324deg) brightness(95%) contrast(86%);
+}
+
+.other-diets-button:hover > .other-diets-button-text{
+    color: #E24F4F;
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+.our-offer-content{
+    position: absolute;
+    width: 90%;
+    height: 90%;
+}
+
+.offers{
+    width: 25%;
+    height: 70%;
+    background-color: #EFECEC;
+    margin: 7.5% 4.16%;
+    float: left;
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+    border-radius: 10px;
+    opacity: 95%;
+}
+
+.offer-content{
+    width: 90%;
+    height: 95%;
+    margin: 4% 5% 0 5%;
+}
+
+.offer-header{
+    width: 100%;
+    height: 15%;
+    border-bottom: 1px solid #9D9999;
+    display: flex;
+}
+
+.offer-header-text{
+    font-size: 1.5rem;
+    text-align: center;
+    color: #484848;
+    align-content: center;
+    align-self: center;
+}
+
+.offer-items{
+    width: 100%;
+    height: 70%;
+    margin-top: 7%;
+}
+
+.offer-item{
+    width: 100%;
+    height: 19%;
+    margin-top: 5%;
+    border-radius: 15px;
+    position: relative;
+    background-color: #d7d7d7;
+}
+
+.offer-item > img{
+    width: 40px;
+    height: 40px;
+    margin: 20px;
+    float: left;
+}
+
+.offer-item-text-content{
+    width: 75%;
+    height: 100%;
+    float: left;
+    position: relative;
+}
+
+.offer-item-header-text{
+    font-size: 0.7rem;
+    line-height: 1.4rem;
+    height: 1.2rem;
+    float: left;
+    font-weight: bold;
+}
+
+.offer-item-text{
+    font-size: 0.7rem;
+    height: 90%;
+    float: left;
+}
+
+.footer-container{
+    width: 100vw;
+    height: 40vh;
+    background-color: #64AD56;
+    opacity: 80%;
+    box-shadow: 0 8px 5px 10px #64AD56;
+    float: left;
+}
+
+.footer-content{
+    width: 80%;
+    height: 100%;
+    margin: 0 10%;
+    position: relative;
+}
+
+.footer-content > img{
+    width: 250px;
+    height: 250px;
+    margin-top: 4%;
+    margin-right: 20%;
+    float: left;
+    border-radius: 50%;
+}
+
+.footer-column{
+    width: 22%;
+    height: 90%;
+    float: left;
+}
+
+.footer-column-header{
+    width: 100%;
+    height: 10%;
+    margin-top: 15%;
+    margin-bottom: 10%;
+    float: left;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 3.5rem;
+    color: #232323;
+}
+
+.column-paragraph{
+    width: 100%;
+    height: 10%;
+    float: left;
+    padding-left: 5%;
+    font-weight: bold;
+    line-height: 2rem;
+    color: #232323;
+}
+
+.footer-copyrights{
+    width: 100%;
+    height: 10%;
+    float: left;
+    display: flex;
+}
+
+.footer-copyrights-text{
+    text-align: center;
+    font-size: 0.6rem;
+    align-content: center;
+    align-items: center;
 }

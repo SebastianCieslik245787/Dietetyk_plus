@@ -117,7 +117,7 @@
     float: left;
     box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.4s;
 }
 
 .login-button-text{
@@ -127,14 +127,14 @@
     font-weight: bold;
     color: #343232;
     animation: linear infinite alternate;
+    transition: 0.4s;
 }
 
 .login-button:hover{
     box-shadow: 0 8px 20px -2px rgb(137, 137, 149);
-    background-color: #4b913c;
 }
 
 .login-button:hover > .login-button-text{
-    color: #252525;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
