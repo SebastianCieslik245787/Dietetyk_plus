@@ -3,7 +3,7 @@
     background-color: #efefef;
 }
 
-.why-diet-container {
+.section-container {
     width: 100%;
     height: 110vh;
     display: flex;
@@ -11,9 +11,10 @@
     justify-content: center;
     background-position: center;
     background-color: white;
+    position: relative;
 }
 
-.why-diet-container > img{
+.section-container > img{
     opacity: 80%;
     filter: blur(1px);
 }
@@ -44,7 +45,7 @@
 }
 
 .contact-bar{
-    width: 60vh;
+    width: 55vh;
     height: 10vh;
     margin: 10vh 22vh;
     float: left;
@@ -74,14 +75,49 @@
     left: 1vw;
 }
 
-
 .why-diet-content{
     width: 70%;
-    height: 80%;
-    top:15%;
+    height: 70%;
+    top: 13%;
     background-color: #EFECEC;
     position: absolute;
     opacity: 95%;
-    border-radius: 10px;
+    border-radius: 2px;
     box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+    color: #484848;
+}
+
+.why-diet-header{
+    width: 100%;
+    height: 10%;
+    font-size: 2rem;
+    padding-left: 70px;
+    padding-top: 20px;
+    line-height: 3rem;
+    margin-bottom: 20px;
+}
+
+.why-diet-paragraph{
+    width: 100%;
+    padding-left: 50px;
+    height: 3.5%;
+    color: #3f3f3f;
+    font-weight: bold;
+    font-size: 0.9rem;
+    line-height: 1.4rem;
+}
+
+.why-diet-text{
+    padding-left: 50px;
+    padding-right: 50px;
+    width: 100%;
+    height: 8.5%;
+    font-size: 0.7rem;
+    line-height: 1.1rem;
+}
+
+.why-diet-keywords{
+    color: #A67F01;
+    font-size: 0.7rem;
+    line-height: 1.1rem;
 }
