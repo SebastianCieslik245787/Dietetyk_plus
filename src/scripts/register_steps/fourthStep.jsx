@@ -96,7 +96,7 @@ function fourthStep() {
                         <div className="register-step-fourth-step-item-text-field-label">
                             Inne?
                         </div>
-                        <textarea id="otherDiseases" className="register-step-fourth-step-item-text-field-input" type="text" placeholder="Wpisz..."/>
+                        <textarea id="otherDiseases" className="register-step-fourth-step-item-text-field-input" placeholder="Wpisz..."/>
                     </div>
                 </div>
             </div>
