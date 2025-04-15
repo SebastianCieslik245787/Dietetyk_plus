@@ -1,0 +1,56 @@
+.account-created-container{
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../images/backgrounds/login_background.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.account-created-content{
+    width: 30%;
+    height: 30%;
+    background-color: #EFECEC;
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+    opacity: 95%;
+    position: relative;
+}
+
+.account-created-icon{
+    width: 100%;
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+
+.account-created-text{
+    width: 100%;
+    height: 50%;
+    text-align: center;
+    font-size: 2rem;
+    line-height: 5rem;
+    color: #343232;
+}
+
+.account-created-bottom{
+    width: 100%;
+    height: 10%;
+    text-align: center;
+}
+
+.account-created-link{
+    text-decoration: underline;
+    color: #64AD56;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.7rem;
+}
+
+.account-created-icon > img{
+    width: 70px;
+    height: 70px;
+}

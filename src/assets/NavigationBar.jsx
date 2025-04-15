@@ -16,7 +16,7 @@ function NavigationBar() {
     };
 
     const handleHomePageClick = () => {
-        navigate("*");
+        navigate("/home");
     };
 
     const handleContactPageClick = () => {

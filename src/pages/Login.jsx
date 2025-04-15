@@ -1,6 +1,12 @@
 import "../style/Login.css"
+import {useNavigate} from "react-router-dom";
 
 function LoginPage(){
+    const navigate = useNavigate();
+
+    const handleRegisterClick = () => {
+        navigate("/register");
+    };
     return (
         <>
             <div className="login-container">
@@ -24,7 +30,7 @@ function LoginPage(){
                     </div>
                     <div className="login-register">
                         <p className="login-register-text">
-                            Nie masz jeszcze konta? <a href="" className="register-link">Zajerestruj się</a>
+                            Nie masz jeszcze konta? <a href="" onClick={handleRegisterClick} className="register-link">Zajerestruj się</a>
                         </p>
                     </div>
                     <div className="login-button">
