@@ -1,4 +1,4 @@
-import NavBar from "../assets/NavigationBar.jsx";
+import NavBar from "../assets/elements/NavigationBar.jsx";
 import logo from "../images/logo.webp";
 import phoneIcon from "../images/icons/phone_number_icon.png";
 import emailIcon from "../images/icons/email_icon.png";

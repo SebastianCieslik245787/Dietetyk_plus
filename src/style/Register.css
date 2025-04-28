@@ -13,7 +13,7 @@
 .register-content{
     width: 50%;
     height: 80%;
-    background-color: #EFECEC;
+    background-color: #fafafa;
     float: left;
     box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
     opacity: 95%;
@@ -133,7 +133,7 @@
     border: 0;
     padding-left: 4%;
     font-size: 0.8rem;
-    background-color: #e3e3e3;
+    background-color: #efefef;;
     color: #343232;
     box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
 }
@@ -456,7 +456,7 @@ input[type="date"]{
     border: 0;
     padding: 2% 4%;
     font-size: 0.8rem;
-    background-color: #e3e3e3;
+    background-color: #efefef;
     color: #343232;
     resize: none;
     box-shadow: 0 8px 10px -6px rgb(137, 137, 149);

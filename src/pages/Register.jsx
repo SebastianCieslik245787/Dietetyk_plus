@@ -1,10 +1,10 @@
 import "../style/Register.css"
 
-import firstStep from "../scripts/register_steps/firstStep.jsx"
-import secondStep from "../scripts/register_steps/secondStep.jsx"
-import thirdStep from "../scripts/register_steps/thirdStep.jsx"
-import fourthStep from "../scripts/register_steps/fourthStep.jsx"
-import fifthStep from "../scripts/register_steps/fifthStep.jsx"
+import firstStep from "../assets/elements/register_steps/firstStep.jsx"
+import secondStep from "../assets/elements/register_steps/secondStep.jsx"
+import thirdStep from "../assets/elements/register_steps/thirdStep.jsx"
+import fourthStep from "../assets/elements/register_steps/fourthStep.jsx"
+import fifthStep from "../assets/elements/register_steps/fifthStep.jsx"
 
 import arrows from '../images/icons/arrows_right.png'
 import {useState} from "react";

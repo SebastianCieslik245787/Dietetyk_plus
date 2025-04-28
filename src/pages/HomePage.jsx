@@ -1,6 +1,6 @@
 import '../style/HomePage.css'
 
-import navBar from '../assets/NavigationBar.jsx'
+import navBar from '../assets/elements/NavigationBar.jsx'
 
 import whyDietBackGround from "../images/backgrounds/why_diet_background.jpeg"
 import ourOfferBackGround from "../images/backgrounds/our_offer_background.webp"

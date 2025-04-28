@@ -1,7 +1,8 @@
 import "../style/Login.css"
 import {useNavigate} from "react-router-dom";
+import {Login} from "../scripts/login.js"
 
-function LoginPage(){
+function LoginPage() {
     const navigate = useNavigate();
 
     const handleRegisterClick = () => {
@@ -17,23 +18,26 @@ function LoginPage(){
                         </p>
                     </div>
                     <div className="login-fields">
-                        <form action="">
-                            <div className="login-field-label">
-                                E-mail:
-                            </div>
-                            <input id="email" className="login-field" type="text" placeholder="Wprowadz e-mail" />
-                            <div className="login-field-label">
-                                Hasło:
-                            </div>
-                            <input id="password" className="login-field login-field-last" type="password" placeholder="Wprowadz hasło" />
-                        </form>
+                        <div className="login-field-label">
+                            E-mail:
+                        </div>
+                        <input id="email" className="login-field" type="text" placeholder="Wprowadz e-mail"/>
+                        <div className="login-field-label">
+                            Hasło:
+                        </div>
+                        <input id="password" className="login-field login-field-last" type="password"
+                               placeholder="Wprowadz hasło"/>
+                        <div className="login-error-label">
+                            Błędny login lub hasło!
+                        </div>
+                        <div className="login-register">
+                            <p className="login-register-text">
+                                Nie masz jeszcze konta? <a href="" onClick={handleRegisterClick} className="register-link">Zajerestruj
+                                się</a>
+                            </p>
+                        </div>
                     </div>
-                    <div className="login-register">
-                        <p className="login-register-text">
-                            Nie masz jeszcze konta? <a href="" onClick={handleRegisterClick} className="register-link">Zajerestruj się</a>
-                        </p>
-                    </div>
-                    <div className="login-button">
+                    <div className="login-button" onClick={() => Login()}>
                         <p className="login-button-text">
                             Zaloguj
                         </p>
@@ -42,4 +46,6 @@ function LoginPage(){
             </div>
         </>
     )
-} export default LoginPage;
+}
+
+export default LoginPage;

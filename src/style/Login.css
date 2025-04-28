@@ -37,6 +37,19 @@
     height: 50%;
     margin: 10% 20% 0 20%;
     float: left;
+    position: relative;
+}
+
+.login-error-label{
+    float: left;
+    height: 5%;
+    margin-top: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: #d50404;
+    visibility: hidden;
 }
 
 .login-field{
@@ -45,7 +58,7 @@
     border-radius: 15px;
     border: 0;
     height: 15%;
-    margin: 5% 0 20% 0;
+    margin: 5% 0 10% 0;
     float: left;
     font-size: 0.8rem;
     background-color: #efefef;
@@ -84,21 +97,22 @@
 .login-register{
     width: 100%;
     height: 5%;
-    margin-top: -10%;
+    margin-top: 5%;
+    z-index: 999;
     float: left;
 }
 
 .login-register-text{
     text-align: center;
-    line-height: 0.8rem;
-    font-size: 0.8rem;
+    line-height: 0.7rem;
+    font-size: 0.7rem;
     color: #343232;
 }
 
 .register-link{
     text-decoration: underline;
-    line-height: 0.8rem;
-    font-size: 0.8rem;
+    line-height: 0.7rem;
+    font-size: 0.7rem;
     color: #64AD56;
     font-weight: bold;
     transition: 0.3s;

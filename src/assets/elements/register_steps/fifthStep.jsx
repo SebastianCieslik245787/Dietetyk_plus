@@ -1,4 +1,4 @@
-import checkIcon from "../../images/icons/check_icon.png"
+import checkIcon from "../../../images/icons/check_icon.png"
 
 function fifthStep(){
     return (
