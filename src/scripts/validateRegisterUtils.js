@@ -26,6 +26,26 @@ export function validateSecondStep(data) {
     return isValid(validators);
 }
 
+export function validateThirdStep(data) {
+    errorMessage = ""
+    const validators = [
+        {valid: validateJobType(data.registerJobType)},
+        {valid: validatePurpose(data.registerPurpose)},
+    ]
+
+    return isValid(validators);
+}
+
+export function validateFifthStep(data) {
+    errorMessage = ""
+    const validators = [
+        {valid: validateDataProcessingConsent(data.dataProcessingConsent)},
+        {valid: validateStatute(data.statute)},
+    ]
+
+    return isValid(validators);
+}
+
 function isValid(validators) {
     const firstError = validators.find(v => !v.valid);
 
@@ -132,6 +152,38 @@ function validateWeight(weight) {
     const WEIGHT_REGEX = /^(\d\d)|(1\d\d)$/;
     if (weight === "" || !WEIGHT_REGEX.test(weight)) {
         errorMessage += ("Weight error\n")
+        return false;
+    }
+    return true;
+}
+
+function validateJobType(jobType) {
+    if(jobType === "") {
+        errorMessage += ("Job Type error\n")
+        return false;
+    }
+    return true;
+}
+
+function validatePurpose(purpose) {
+    if (purpose === "") {
+        errorMessage += ("Purpose error\n")
+        return false;
+    }
+    return true;
+}
+
+function validateDataProcessingConsent(dataProcessingConsent) {
+    if (!dataProcessingConsent) {
+        errorMessage += ("DataProcessing consent failed\n")
+        return false;
+    }
+    return true;
+}
+
+function validateStatute(statute) {
+    if (!statute) {
+        errorMessage += ("Statute error\n")
         return false;
     }
     return true;

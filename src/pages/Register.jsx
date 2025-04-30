@@ -9,7 +9,12 @@ import FifthStep from "../assets/elements/register_steps/FifthStep.jsx"
 import arrows from '../images/icons/arrows_right.png'
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {validateFirstStep, validateSecondStep} from "../scripts/validateRegisterUtils.js";
+import {
+    validateFifthStep,
+    validateFirstStep,
+    validateSecondStep,
+    validateThirdStep
+} from "../scripts/validateRegisterUtils.js";
 
 function Register() {
     const navigate = useNavigate();
@@ -37,7 +42,7 @@ function Register() {
         otherDiseases: '',
         otherAllergies: '',
         dataProcessingConsent: false,
-        termsConsent: false,
+        statute: false,
     });
 
     const handleAccountCreatedClick = () => {
@@ -62,14 +67,19 @@ function Register() {
 
     const handleNext = () => {
         switch (step) {
-            /*case 1:
-                if(!validateFirstStep(formData)) return;
-                break*/
+            case 1:
+                if (!validateFirstStep(formData)) return;
+                break
             case 2:
-                if(!validateSecondStep(formData)) return;
-        }
-        if (step === 5) {
-            handleAccountCreatedClick();
+                if (!validateSecondStep(formData)) return;
+                break;
+            case 3:
+                if (!validateThirdStep(formData)) return;
+                break;
+            case 5:
+                if (!validateFifthStep(formData)) return;
+                handleAccountCreatedClick();
+                break;
         }
 
         setAnimationClass('fade-out');
