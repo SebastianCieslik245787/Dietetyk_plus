@@ -15,6 +15,7 @@ import {
     validateSecondStep,
     validateThirdStep
 } from "../scripts/validateRegisterUtils.js";
+import {sendRegisterData} from "../scripts/sendRegisterData.js";
 
 function Register() {
     const navigate = useNavigate();
@@ -46,7 +47,7 @@ function Register() {
     });
 
     const handleAccountCreatedClick = () => {
-        console.log(formData);
+        sendRegisterData(formData);
         navigate("/account-created");
     };
 
