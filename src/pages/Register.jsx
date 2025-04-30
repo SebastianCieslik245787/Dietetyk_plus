@@ -1,44 +1,77 @@
 import "../style/Register.css"
 
-import firstStep from "../assets/elements/register_steps/firstStep.jsx"
-import secondStep from "../assets/elements/register_steps/secondStep.jsx"
-import thirdStep from "../assets/elements/register_steps/thirdStep.jsx"
-import fourthStep from "../assets/elements/register_steps/fourthStep.jsx"
-import fifthStep from "../assets/elements/register_steps/fifthStep.jsx"
+import FirstStep from "../assets/elements/register_steps/FirstStep.jsx"
+import SecondStep from "../assets/elements/register_steps/SecondStep.jsx"
+import ThirdStep from "../assets/elements/register_steps/ThirdStep.jsx"
+import FourthStep from "../assets/elements/register_steps/FourthStep.jsx"
+import FifthStep from "../assets/elements/register_steps/FifthStep.jsx"
 
 import arrows from '../images/icons/arrows_right.png'
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {validateFirstStep, validateSecondStep} from "../scripts/validateRegisterUtils.js";
 
 function Register() {
     const navigate = useNavigate();
 
     const [step, setStep] = useState(1);
     const [animationClass, setAnimationClass] = useState('fade-in');
+    const [formData, setFormData] = useState({
+        registerEmail: '',
+        registerName: '',
+        registerPassword: '',
+        registerSurname: '',
+        registerConfirmpassword: '',
+        registerPhoneNumber: '',
+        registerBirthDate: '',
+        registerHeight: '',
+        registerGender: '',
+        registerWeight: '',
+        activityLevel: null,
+        dietRating: null,
+        registerMealsCount: '',
+        registerJobType: '',
+        registerPurpose: '',
+        diseases: [],
+        allergies: [],
+        otherDiseases: '',
+        otherAllergies: '',
+        dataProcessingConsent: false,
+        termsConsent: false,
+    });
 
     const handleAccountCreatedClick = () => {
+        console.log(formData);
         navigate("/account-created");
     };
 
     const renderStepContent = () => {
         switch (step) {
             case 1:
-                return firstStep();
+                return <FirstStep formData={formData} setFormData={setFormData}/>;
             case 2:
-                return secondStep();
+                return <SecondStep formData={formData} setFormData={setFormData}/>;
             case 3:
-                return thirdStep();
+                return <ThirdStep formData={formData} setFormData={setFormData}/>;
             case 4:
-                return fourthStep();
+                return <FourthStep formData={formData} setFormData={setFormData}/>;
             case 5:
-                return fifthStep();
+                return <FifthStep formData={formData} setFormData={setFormData}/>;
         }
     }
 
     const handleNext = () => {
+        switch (step) {
+            /*case 1:
+                if(!validateFirstStep(formData)) return;
+                break*/
+            case 2:
+                if(!validateSecondStep(formData)) return;
+        }
         if (step === 5) {
             handleAccountCreatedClick();
         }
+
         setAnimationClass('fade-out');
         setTimeout(() => {
             setStep(prev => prev + 1);

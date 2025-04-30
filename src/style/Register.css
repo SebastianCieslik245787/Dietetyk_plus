@@ -136,6 +136,7 @@
     background-color: #efefef;;
     color: #343232;
     box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    cursor: pointer;
 }
 
 input[type="date"]{
@@ -350,6 +351,7 @@ input[type="date"]{
     border-radius: 50%;
     background-color: #9D9999;
     box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    cursor: pointer;
 }
 
 .register-step-level-choice-item-circle:hover{
@@ -413,6 +415,7 @@ input[type="date"]{
     margin-top: 3px;
     float: left;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .register-step-fourth-step-choice-menu-item-text{
@@ -425,6 +428,11 @@ input[type="date"]{
 }
 
 .register-step-fourth-step-choice-menu-item-choice-box:hover{
+    background-color: #e7e5e5;
+    border: 3px solid #9D9999;
+}
+
+.register-step-fourth-step-choice-menu-item-choice-box-active{
     background-color: #e7e5e5;
     border: 3px solid #9D9999;
 }
@@ -499,6 +507,7 @@ input[type="date"]{
     background-color: #9D9999;
     box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
     border: 1px solid #777777;
+    cursor: pointer;
 }
 
 .register-step-fifth-item-required{
@@ -515,10 +524,6 @@ input[type="date"]{
     margin: 2px;
     filter: brightness(0) saturate(100%) invert(12%) sepia(3%) saturate(14%) hue-rotate(342deg) brightness(101%) contrast(78%);
     visibility: hidden;
-}
-
-.register-step-fifth-item-check-box:hover > img{
-    visibility: visible;
 }
 
 .register-step-fifth-item-text{

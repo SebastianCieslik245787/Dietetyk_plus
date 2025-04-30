@@ -1,0 +1,28 @@
+const RegisterSelect = ({id, setFormData, options=[], value, label, placeHolder, required=false, labelTextType}) => {
+    const handleChange = (e) => {
+        const { id, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [id]: value,
+        }));
+    };
+
+    return(
+        <div className="register-step-item">
+            <div className={`register-step-item-label ${labelTextType === "small" ? "register-step-item-label-small-text" : ''}`}>
+                {required === true ?
+                    <span className={`register-step-item-requirement ${labelTextType === "small" ? "register-step-item-requirement-small-text" : ''}`}>*</span> : ''
+                }
+                {label}
+            </div>
+            <select id={id} className={`register-step-item-text-field ${labelTextType === "small" ? "register-step-item-label-small-text" : ''}`} value={value} onChange={handleChange}>
+                <option value="" disabled selected>{placeHolder}</option>
+                {options.map((option, index) => (
+                    <option key={index} value={option.value}>
+                        {option.label}
+                    </option>
+                ))}
+            </select>
+        </div>
+    )
+}; export default RegisterSelect;

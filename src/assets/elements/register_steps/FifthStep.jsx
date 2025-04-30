@@ -1,6 +1,13 @@
 import checkIcon from "../../../images/icons/check_icon.png"
 
-function fifthStep(){
+function FifthStep({formData, setFormData}) {
+    const handleCheckboxChange = (field) => {
+        setFormData(prev => ({
+            ...prev,
+            [field]: !prev[field],
+        }));
+    };
+
     return (
         <>
             <div className="register-step-title">
@@ -8,9 +15,9 @@ function fifthStep(){
             </div>
             <div className="register-step-items-fifth-step">
                 <div className="register-step-fifth-items">
-                    <div className="register-step-fifth-item">
+                    <div className="register-step-fifth-item" onClick={() => handleCheckboxChange('dataProcessingConsent')}>
                         <div className="register-step-fifth-item-check-box">
-                            <img src={checkIcon} alt=""/>
+                            {formData.dataProcessingConsent && <img src={checkIcon} alt="" style={{ visibility: formData.dataProcessingConsent ? "visible" : "hidden" }}/>}
                         </div>
                         <div className="register-step-fifth-item-required">
                             *
@@ -19,9 +26,9 @@ function fifthStep(){
                             Wyrażam zgode na przetwarzanie moich danych osobowych, w celu rejestracji  oraz świadczenia usług związanych z korzystaniem z naszej platformy.
                         </div>
                     </div>
-                    <div className="register-step-fifth-item">
+                    <div className="register-step-fifth-item" onClick={() => handleCheckboxChange('termsConsent')}>
                         <div className="register-step-fifth-item-check-box">
-                            <img src={checkIcon} alt=""/>
+                            {formData.termsConsent && <img src={checkIcon} alt="" style={{ visibility: formData.termsConsent ? "visible" : "hidden" }}/>}
                         </div>
                         <div className="register-step-fifth-item-required">
                             *
@@ -34,4 +41,4 @@ function fifthStep(){
             </div>
         </>
     );
-} export default fifthStep;
+} export default FifthStep;
