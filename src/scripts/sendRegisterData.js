@@ -16,31 +16,29 @@ export function sendRegisterData(data){
                 }
             })
         })
-    var medicalData = {
+    filteredData["medicalData"] = {
         height: height,
         weight: weight,
-        gender: gender==="female",
+        gender: gender === "female",
         diseases: diseases,
         allergies: allergies,
         journal: []
-    }
-    filteredData["medicalData"] = medicalData;
+    };
     filteredData["dieteticId"] = null;
     filteredData["currentDietId"] = null;
     filteredData["img_b64"] = null;
 
     const jsonRegisterData = JSON.stringify(filteredData, null, 2);
-    console.log(jsonRegisterData);
+    // console.log(jsonRegisterData);
 
    fetch(
-       "http://localhost:8081/api/register",
+       "/api/register",
        {
            method: "POST",
            headers: {
                "Content-Type": "application/json",
            },
-           body: jsonRegisterData,
-           mode: "no-cors"
+           body: jsonRegisterData
        }
-   )
+   ).then(r => {console.log(r.status)/*TODO powiadomienie o potencjalnym błędzie*/})
 }

@@ -1,10 +1,33 @@
-export function Login() {
+export function Login(setCookie, navigate) {
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
 
     if(validateEmail(email) && validatePassword(password)){
         document.querySelector(".login-error-label").style.visibility = "hidden";
-        //TODO send data to sever
+        //TODO send data to server
+        fetch(
+            "/api/login",
+            {
+                method: "POST",
+                headers : {
+                    "Content-Type": "application/json",
+                    "Accept": "*"
+                },
+                body: JSON.stringify({ email, password }),
+            }
+        ).then(r => {
+            switch(r.status){
+                case 200:
+                    setCookie("User-Key", r.headers.get("User-Key"), { path: '/' });
+                    navigate("/home");
+                    break;
+                case 401:
+                    document.querySelector(".login-error-label").style.visibility = "visible";
+                    break;
+                default:
+                    alert("Wystąpił nieznany błąd. Spróbuj ponownie później.");
+            }
+        })
     }
 }
 
