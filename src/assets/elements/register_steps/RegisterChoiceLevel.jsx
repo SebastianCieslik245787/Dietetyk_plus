@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 
-const RegisterChoiceLevel = ({label, value, setFormData, leftLabel, rightLabel}) => {
+const RegisterChoiceLevel = ({label, value, type, setFormData, leftLabel, rightLabel}) => {
     const [level, setLevel] = useState(value);
 
     const handleLevelClick = (lvl) => {
         setLevel(lvl);
         setFormData(prev => ({
             ...prev,
-            level: lvl,
+            [type] : lvl,
         }));
     };
 

@@ -10,38 +10,38 @@ function SecondStep({formData, setFormData}) {
             </div>
             <div className="register-step-items-second-step">
                 <RegisterInputText
-                    value={formData.registerBirthDate}
+                    value={formData.birthdate}
                     setFormData={setFormData}
                     type="date"
                     label="Data urodzenia:"
                     required={true}
-                    id="registerBirthDate"
+                    id="birthdate"
                 />
                 <RegisterInputText
-                    value={formData.registerHeight}
+                    value={formData.height}
                     setFormData={setFormData}
                     type="text"
                     label="Wzrost (cm):"
                     required={true}
-                    id="registerHeight"
+                    id="height"
                     placeHolder="Wprowadź swój wzrost.."
                 />
                 <RegisterSelect
-                    id="registerGender"
+                    id="gender"
                     setFormData={setFormData}
                     options={genders}
                     placeHolder="Wybierz płeć"
-                    value={formData.registerGender}
+                    value={formData.gender}
                     required={true}
                     label="Płeć:"
                 />
                 <RegisterInputText
-                    value={formData.registerWeight}
+                    value={formData.weight}
                     setFormData={setFormData}
                     type="text"
                     label="Waga (kg):"
                     required={true}
-                    id="registerWeight"
+                    id="weight"
                     placeHolder="Wprowadź swoją wage..."
                 />
             </div>
