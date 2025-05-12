@@ -1,36 +1,46 @@
 .user-settings-container{
     width: 100%;
     min-height: 100vh;
-    background-color: #EFECEC;
+    background-image: url("../images/background_with_logo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     position: relative;
+    overflow: hidden auto;
+    padding-bottom: 100px;
 }
 
 .user-settings-personal-data{
     float: left;
-    width: 100%;
+    width: 80%;
     height: auto;
-    margin-top: 150px;
+    margin: 150px 10% -50px 10%;
+    padding: 50px 0;
+    background-color: #fafafa;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+    opacity: 95%;
 }
 
 .user-settings-input-container{
     position: relative;
     padding: 15px 0 0;
-    width: 40%;
-    margin: 50px 52.5% 0 7.5%;
-    height: 100px;
+    width: 50%;
+    margin: 20px 47.5% 0 12.5%;
+    height: 50px;
     float: left;
 }
 
 .user-settings-input{
-    width: 70%;
+    width: 50%;
     height: 50px;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     border: 0;
     border-bottom: 2px solid #9b9b9b;
     background-color: transparent;
     color: #484848;
     float: left;
-    padding-left: 10px;
+    padding: 0 20px;
 }
 
 .user-settings-input:focus{
@@ -45,15 +55,15 @@
 }
 
 .user-settings-input-label{
-    width: 25%;
+    width: 30%;
     display: flex;
     justify-content: left;
     align-items: center;
     float: left;
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-right: 5%;
     color: #484848;
-    height: 70px;
+    height: 50px;
 }
 
 .user-settings-label{
@@ -71,4 +81,33 @@
     color: #414141;
     font-size: 2.5rem;
     float: left;
+}
+
+.user-settings-save-button{
+    width: 200px;
+    background-color: #64AD56;
+    border-radius: 30px;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    float: right;
+    margin: 30px 5% 0 auto;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    color: #343232;
+    font-size: 1.2rem;
+    font-weight: bold;
+    align-items: center;
+    transition: 0.3s;
+    opacity: 0;
+    cursor: default;
+}
+
+.user-settings-save-button-active:hover{
+    box-shadow: 0 8px 20px -2px rgb(137, 137, 149);
+    background-color: #49853c;
+    cursor: pointer;
+}
+
+.user-settings-save-button-active{
+    opacity: 100%;
 }

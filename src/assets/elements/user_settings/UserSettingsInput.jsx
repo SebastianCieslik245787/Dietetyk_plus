@@ -1,9 +1,18 @@
-const UserSettings = ({id, label, placeHolder}) => {
+const UserSettings = ({id, label, placeHolder, setFormData, value, type, readOnly = true}) => {
+    const handleChange = (e) => {
+        const { id, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [id]: value,
+        }));
+    };
+
     return (
         <div className="user-settings-input-container">
-            <label className="user-settings-input-label">{label}</label>
-            <input type="text" className="user-settings-input" placeholder={placeHolder} id={id}/>
+            <div className="user-settings-input-label">{label}</div>
+            <input className="user-settings-input" placeholder={placeHolder} value={value} type={type} id={id} onChange={handleChange} readOnly={readOnly}/>
         </div>
     );
 };
+
 export default UserSettings;
