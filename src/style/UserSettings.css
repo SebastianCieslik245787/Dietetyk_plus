@@ -1,0 +1,74 @@
+.user-settings-container{
+    width: 100%;
+    min-height: 100vh;
+    background-color: #EFECEC;
+    position: relative;
+}
+
+.user-settings-personal-data{
+    float: left;
+    width: 100%;
+    height: auto;
+    margin-top: 150px;
+}
+
+.user-settings-input-container{
+    position: relative;
+    padding: 15px 0 0;
+    width: 40%;
+    margin: 50px 52.5% 0 7.5%;
+    height: 100px;
+    float: left;
+}
+
+.user-settings-input{
+    width: 70%;
+    height: 50px;
+    font-size: 1.3rem;
+    border: 0;
+    border-bottom: 2px solid #9b9b9b;
+    background-color: transparent;
+    color: #484848;
+    float: left;
+    padding-left: 10px;
+}
+
+.user-settings-input:focus{
+    border-radius: 10px;
+    outline: none;
+    background-color: #c5c5c5;
+    transition: background-color 0.2s ease;
+}
+
+.user-settings-input:focus::placeholder {
+    color: transparent;
+}
+
+.user-settings-input-label{
+    width: 25%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    float: left;
+    font-size: 2rem;
+    margin-right: 5%;
+    color: #484848;
+    height: 70px;
+}
+
+.user-settings-label{
+    width: 90%;
+    height: 70px;
+    margin-left: 5%;
+    float: left;
+    border-bottom: 3px solid #414141;
+    border-radius: 2px;
+    margin-bottom: 30px;
+}
+
+.user-settings-label-text{
+    padding-left: 50px;
+    color: #414141;
+    font-size: 2.5rem;
+    float: left;
+}

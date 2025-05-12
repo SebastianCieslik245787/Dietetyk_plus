@@ -6,6 +6,7 @@ import Contact from "./pages/Contact.jsx";
 import Register from "./pages/Register.jsx";
 import AccountCreated from "./pages/AccountCreated.jsx";
 import DietPlanPage from "./pages/DietPlanPage.jsx";
+import UserSettings from "./pages/UserSettings.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "./style/style.css"
 
@@ -21,6 +22,7 @@ createRoot(document.getElementById('root')).render(
             <Route path={"/register"} element={<Register/>}/>
             <Route path={"/account-created"} element={<AccountCreated/>}/>
             <Route path={"/diet-plan"} element={<DietPlanPage/>}/>
+            <Route path={"/user-settings"} element={<UserSettings/>}/>
         </Routes>
     </BrowserRouter>
 )

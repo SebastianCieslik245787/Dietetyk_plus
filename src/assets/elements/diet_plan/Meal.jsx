@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import DropDownArrowIcon from "../../../images/icons/arrow_down.png";
 
-const Meal = ({label, mealImg}) => {
+const Meal = ({label, mealImg, data}) => {
     const [active, setActive] = useState(false)
 
     const handleClick = () => {
