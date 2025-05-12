@@ -3,12 +3,12 @@ let errorMessage = ""
 export function validateFirstStep(data) {
     errorMessage = ""
     const validators = [
-        { valid: validateEmail(data.registerEmail)},
-        { valid: validateName(data.registerName)},
-        { valid: validateSurname(data.registerSurname)},
-        { valid: validatePassword(data.registerPassword)},
-        { valid: validateConfirmPassword(data.registerConfirmpassword, data.registerPassword)},
-        { valid: validatePhoneNumber(data.registerPhoneNumber)}
+        { valid: validateEmail(data.email)},
+        { valid: validateName(data.name)},
+        { valid: validateSurname(data.surname)},
+        { valid: validatePassword(data.password)},
+        { valid: validateConfirmPassword(data.confirmPassword, data.password)},
+        { valid: validatePhoneNumber(data.phone)}
     ];
 
     return isValid(validators);
@@ -17,10 +17,10 @@ export function validateFirstStep(data) {
 export function validateSecondStep(data) {
     errorMessage = ""
     const validators = [
-        {valid: validateBirthDate(data.registerBirthDate)},
-        {valid: validateGender(data.registerGender)},
-        {valid: validateHeight(data.registerHeight)},
-        {valid: validateWeight(data.registerWeight)},
+        {valid: validateBirthDate(data.birthdate)},
+        {valid: validateGender(data.gender)},
+        {valid: validateHeight(data.height)},
+        {valid: validateWeight(data.weight)},
     ]
 
     return isValid(validators);
@@ -29,8 +29,8 @@ export function validateSecondStep(data) {
 export function validateThirdStep(data) {
     errorMessage = ""
     const validators = [
-        {valid: validateJobType(data.registerJobType)},
-        {valid: validatePurpose(data.registerPurpose)},
+        {valid: validateJobType(data.jobType)},
+        {valid: validateDietPurpose(data.dietPurpose)},
     ]
 
     return isValid(validators);
@@ -165,7 +165,7 @@ function validateJobType(jobType) {
     return true;
 }
 
-function validatePurpose(purpose) {
+function validateDietPurpose(purpose) {
     if (purpose === "") {
         errorMessage += ("Purpose error\n")
         return false;

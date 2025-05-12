@@ -13,13 +13,15 @@ function ThirdStep({formData, setFormData}) {
                 <RegisterChoiceLevel
                     label="Jak często uprawiasz aktywność fizyczną?"
                     value={formData.activityLevel}
+                    type="activityLevel"
                     setFormData={setFormData}
-                    leftLabel="Żadko"
+                    leftLabel="Rzadko"
                     rightLabel="Często"
                 />
                 <RegisterChoiceLevel
                     label="Jak oceniasz swoją dotychczasową dietę?"
                     value={formData.dietRating}
+                    type="dietRating"
                     setFormData={setFormData}
                     leftLabel="Niezdrowa"
                     rightLabel="Zdrowa"
@@ -27,29 +29,29 @@ function ThirdStep({formData, setFormData}) {
             </div>
             <div className="register-step-items-third-step-right-side">
                 <RegisterSelect
-                    id="registerMealsCount"
+                    id="mealsCount"
                     setFormData={setFormData}
                     options={mealsCount}
-                    value={formData.registerMealsCount}
+                    value={formData.mealsCount}
                     placeHolder="Wybierz opcję"
                     label="Jak często spożywasz posiłki w ciagu dnia?"
                     labelTextType={"small"}
                 />
                 <RegisterSelect
-                    id="registerJobType"
+                    id="jobType"
                     setFormData={setFormData}
                     options={jobTypes}
-                    value={formData.registerJobType}
+                    value={formData.jobType}
                     placeHolder="Wybierz opcję"
                     label="Jaką prace wykonujesz?"
                     required={true}
                     labelTextType={"small"}
                 />
                 <RegisterSelect
-                    id="registerPurpose"
+                    id="dietPurpose"
                     setFormData={setFormData}
                     options={purpose}
-                    value={formData.registerPurpose}
+                    value={formData.dietPurpose}
                     placeHolder="Wybierz opcję"
                     required={true}
                     label="Jaki jest twój cel nowej diety?"
