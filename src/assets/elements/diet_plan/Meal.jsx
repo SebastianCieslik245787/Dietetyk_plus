@@ -1,29 +1,37 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef} from "react";
 import DropDownArrowIcon from "../../../images/icons/arrow_down.png";
+import {changeDietPlanContainerSize} from "../../../scripts/changeDietPlanContainerSize.js";
 
-const Meal = ({label, mealImg, data}) => {
-    const [active, setActive] = useState(false)
+const Meal = ({label, mealImg, isActive, onToggle}) => {
+    const separatorRef = useRef(null);
+    const leftSideRef = useRef(null);
+    const rightSideRef = useRef(null);
 
-    const handleClick = () => {
-        setActive(!active);
-    }
+    useEffect(() => {
+        setTimeout(() => {
+            changeDietPlanContainerSize();
+            if (isActive && leftSideRef.current && rightSideRef.current && separatorRef.current) {
+                const leftHeight = leftSideRef.current.offsetHeight;
+                const rightHeight = rightSideRef.current.offsetHeight;
+                separatorRef.current.style.height = Math.max(leftHeight, rightHeight) + "px";
+            }
+        }, 0);
+    }, [isActive]);
 
     return (
-        <div className={`meal ${active ? "meal-active" : ""}`}
-
-        >
+        <div className={`meal ${isActive ? "meal-active" : ""}`}>
             <div className="meal-header">
                 <p className="meal-title">
                     {label}
                 </p>
-                <img src={DropDownArrowIcon} alt="" onClick={handleClick}
+                <img src={DropDownArrowIcon} alt="" onClick={onToggle}
                      style={{
-                         rotate: active ? "180deg" : "0deg",
+                         rotate: isActive ? "180deg" : "0deg",
                      }}
                 />
             </div>
-            <div className={`meal-body ${active ? "" : "meal-body-hidden"}`}>
-                <div className="meal-info-left-side">
+            <div className={`meal-body ${isActive ? "" : "meal-body-hidden"}`}>
+                <div className="meal-info-left-side" ref={leftSideRef}>
                     <img src={mealImg} alt=""/>
                     <p className="meal-info-meal-name">
                         Jajecznica z chlebem
@@ -63,8 +71,8 @@ const Meal = ({label, mealImg, data}) => {
                         </div>
                     </div>
                 </div>
-                <div className="meal-info-divider"></div>
-                <div className="meal-info-right-side">
+                <div className={"meal-info-divider"} ref={separatorRef}></div>
+                <div className="meal-info-right-side" ref={rightSideRef}>
                     <p className="meal-info-right-header">
                         Składniki:
                     </p>

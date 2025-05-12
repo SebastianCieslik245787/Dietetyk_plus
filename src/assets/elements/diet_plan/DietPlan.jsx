@@ -10,12 +10,18 @@ const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1;
 
 const DietPlan = ({options}) => {
     const [activeIndex, setActiveIndex] = useState(dayOfWeek);
+    const [activeMealIndex, setActiveMealIndex] = useState(null);
+
     const handleItemClick = (index) => {
         setActiveIndex(index);
     };
 
+    const handleMealToggle = (index) => {
+        setActiveMealIndex(prevIndex => (prevIndex === index ? null : index));
+    };
+
     return (
-        <div className="diet-plan-content">
+        <div className="diet-plan-content" id={"diet-plan-content"}>
             <div className="diet-plan-menu">
                 <div className="diet-plan-menu-header">
                     Plan żywienia
@@ -45,11 +51,15 @@ const DietPlan = ({options}) => {
                     </p>
                 </div>
             </div>
-            <div className="diet-plan-meals">
+            <div className="diet-plan-separator" id={"diet-plan-separator"}/>
+            <div className="diet-plan-meals" id={"diet-plan-meals"}>
                 {mealNames.map((meal, index) => (
                     <Meal key={index}
                           label={meal}
                           mealImg={MealImg}
+                          isActive={activeMealIndex === index}
+                          onToggle={() => handleMealToggle(index)}
+                          index={index}
                     />
                 ))}
             </div>

@@ -14,8 +14,8 @@ import {
     validateFirstStep,
     validateSecondStep,
     validateThirdStep
-} from "../scripts/validateRegisterUtils.js";
-import {sendRegisterData} from "../scripts/sendRegisterData.js";
+} from "../scripts/validateData/validateRegisterUtils.js";
+import {sendRegisterData} from "../scripts/sendData/sendRegisterData.js";
 
 function Register() {
     const navigate = useNavigate();
