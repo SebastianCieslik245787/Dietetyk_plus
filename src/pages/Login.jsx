@@ -1,9 +1,11 @@
 import "../style/Login.css"
 import {useNavigate} from "react-router-dom";
 import {Login} from "../scripts/login.js"
+import {useCookies} from "react-cookie";
 
 function LoginPage() {
     const navigate = useNavigate();
+    const [, setCookie, ] = useCookies([]);
 
     const handleRegisterClick = () => {
         navigate("/register");
@@ -37,7 +39,7 @@ function LoginPage() {
                             </p>
                         </div>
                     </div>
-                    <div className="login-button" onClick={() => Login()}>
+                    <div className="login-button" onClick={() => Login(setCookie, navigate)}>
                         <p className="login-button-text">
                             Zaloguj
                         </p>

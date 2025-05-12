@@ -9,20 +9,24 @@ import DietPlanPage from "./pages/DietPlanPage.jsx";
 import UserSettings from "./pages/UserSettings.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "./style/style.css"
+import {CookiesProvider} from "react-cookie";
 
 
 createRoot(document.getElementById('root')).render(
-    <BrowserRouter>
-        <Routes>
-            <Route path={"*"} element={<Homepage/>}/>
-            <Route path={"/home"} element={<Homepage/>}/>
-            <Route path={"/login"} element={<Login/>}/>
-            <Route path={"/about-us"} element={<AboutUs/>}/>
-            <Route path={"/contact"} element={<Contact/>}/>
-            <Route path={"/register"} element={<Register/>}/>
-            <Route path={"/account-created"} element={<AccountCreated/>}/>
-            <Route path={"/diet-plan"} element={<DietPlanPage/>}/>
-            <Route path={"/user-settings"} element={<UserSettings/>}/>
-        </Routes>
-    </BrowserRouter>
+    <CookiesProvider>
+        <BrowserRouter>
+            <Routes>
+                <Route path={"*"} element={<Homepage/>}/>
+                <Route path={"/home"} element={<Homepage/>}/>
+                <Route path={"/login"} element={<Login/>}/>
+                <Route path={"/about-us"} element={<AboutUs/>}/>
+                <Route path={"/contact"} element={<Contact/>}/>
+                <Route path={"/register"} element={<Register/>}/>
+                <Route path={"/account-created"} element={<AccountCreated/>}/>
+                <Route path={"/diet-plan"} element={<DietPlanPage/>}/>
+                <Route path={"/user-settings"} element={<UserSettings/>}/>
+            </Routes>
+        </BrowserRouter>
+    </CookiesProvider>
+
 )
