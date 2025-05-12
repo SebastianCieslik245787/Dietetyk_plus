@@ -63,6 +63,22 @@ function validateEmail(email) {
         errorMessage += ("Email error\n")
         return false;
     }
+    fetch(
+        "/api/checkEmail",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email })
+        }
+    ).then(r => {
+        if (r.status === 409) {
+            errorMessage += ("Email already exists\n")
+            return false;
+        }
+    }
+    )
     return true;
 }
 
