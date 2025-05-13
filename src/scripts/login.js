@@ -19,6 +19,10 @@ export function Login(setCookie, navigate) {
             switch(r.status){
                 case 200:
                     setCookie("User-Key", r.headers.get("User-Key"), { path: '/' });
+                    r.json().then(data => {
+                        console.log(data);
+                        setCookie("User-Data", data, {path: "/"});
+                    })
                     navigate("/home");
                     break;
                 case 401:
