@@ -2,21 +2,25 @@ import NavigationBar from "../assets/elements/NavigationBar.jsx";
 import "../style/UserSettings.css"
 import UserSettingsInput from "../assets/elements/user_settings/UserSettingsInput.jsx";
 import UserSettingsLabel from "../assets/elements/user_settings/UserSettingsLabel.jsx";
+import {changeUserData, changeUserPassword} from "../scripts/sendData/sendUserSettingsChangeData.js";
 import {useEffect, useState} from "react";
+import {useCookies} from "react-cookie"
 
-const initialData = {
-    userName: "Sebastian",
-    userSurname: "Cieślik",
-    userEmail: "scieslik111@gmail.com",
-    userPhone: "123-123-123"
-};
 
 export function UserSettings() {
+    const [cookies, setCookies] = useCookies(['User-Data']);
     const [userPasswordData, setUserPasswordData] = useState({
         userPassword: "",
         userConfirmPassword: "",
         userNewPassword: "",
     })
+
+    const initialData = {
+        userName: cookies['User-Data']?.name || "",
+        userSurname: cookies['User-Data']?.surname || "",
+        userEmail: cookies['User-Data']?.email || "",
+        userPhone: cookies['User-Data']?.phone || "",
+    };
 
     const [userPersonalData, setUserPersonalData] = useState(initialData);
     const [isModifiedPersonalData, setIsModifiedPersonalData] = useState(false);
@@ -32,7 +36,7 @@ export function UserSettings() {
             <div className="user-settings-container">
                 <div className="user-settings-personal-data">
                     <UserSettingsLabel
-                        label="Dane Peronalne"
+                        label="Dane Personalne"
                     />
                     <UserSettingsInput
                         id="userName"
@@ -67,7 +71,7 @@ export function UserSettings() {
                         type="text"
                         readOnly={false}
                     />
-                    <div className={`user-settings-save-button ${isModifiedPersonalData ? "user-settings-save-button-active" : ""}`}>
+                    <div className={`user-settings-save-button ${isModifiedPersonalData ? "user-settings-save-button-active" : ""}`} onClick={()=>{changeUserData(setCookies, cookies, userPersonalData)}}>
                         Zapisz
                     </div>
                 </div>
@@ -102,7 +106,7 @@ export function UserSettings() {
                         type="password"
                         readOnly={false}
                     />
-                    <div className={`user-settings-save-button user-settings-save-button-active`}>
+                    <div className={`user-settings-save-button user-settings-save-button-active`} onClick={()=>{changeUserPassword(setCookies,cookies,userPasswordData)}}>
                         Zapisz
                     </div>
                 </div>
