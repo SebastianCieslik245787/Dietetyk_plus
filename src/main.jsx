@@ -7,6 +7,7 @@ import Register from "./pages/Register.jsx";
 import AccountCreated from "./pages/AccountCreated.jsx";
 import DietPlanPage from "./pages/DietPlanPage.jsx";
 import UserSettings from "./pages/UserSettings.jsx";
+import DietitianPatientsPage from "./pages/DietitianPatientsPage.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "./style/style.css"
 import {CookiesProvider} from "react-cookie";
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')).render(
                 <Route path={"/account-created"} element={<AccountCreated/>}/>
                 <Route path={"/diet-plan"} element={<DietPlanPage/>}/>
                 <Route path={"/user-settings"} element={<UserSettings/>}/>
+                <Route path={"/patients"} element={<DietitianPatientsPage/>}/>
             </Routes>
         </BrowserRouter>
     </CookiesProvider>

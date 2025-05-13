@@ -1,0 +1,297 @@
+.dietitian-patients-container{
+    width: 80%;
+    padding: 0 10% 100px 10%;
+    min-height: 100vh;
+    background-image: url("../images/background_with_logo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    overflow: hidden auto;
+}
+
+.dietitian-patients-search-bar{
+    margin-top: 130px;
+    margin-left: 150px;
+    width: 400px;
+    height: 40px;
+    background-color: #F4F4F4;
+    float: left;
+    padding: 0 30px;
+    border: solid 1px #959292;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    color: #484848;
+}
+
+.dietitian-patients-search-bar:focus{
+    color: #484848;
+    outline: none;
+}
+
+.dietitian-patients-search-bar:focus::placeholder {
+    color: transparent;
+}
+
+.patient-items{
+    width: 90%;
+    padding-left: 5%;
+    padding-right: 5%;
+    float: left;
+    position: relative;
+}
+
+.patient-container{
+    width: 100%;
+    height: auto;
+    background-color: #F4F4F4;
+    margin-top: 50px;
+    float: left;
+    position: relative;
+    opacity: 0.95;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+}
+
+.patient-info{
+    width: 95%;
+    height: auto;
+    min-height: 150px;
+    margin: 20px 2.5%;
+    float: left;
+    position: relative;
+}
+
+.patient-info-image{
+    margin-top: 20px;
+    width: 11%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    border: solid 2px #959292;
+    border-radius: 100%;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+}
+
+.patient-info-name-and-surname{
+    width: 55%;
+    margin-left: 5%;
+    height: 65px;
+    margin-top: 10px;
+    float: left;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #484848;
+}
+
+.patient-info-diet-type{
+    height: 35px;
+    margin-top: -20px;
+    font-size: 1.4rem;
+    display: flex;
+    width: 65%;
+    margin-left: 5%;
+    float: left;
+    color: #484848;
+}
+
+.patient-info-last-edit-time{
+    width: 28%;
+    height: 140px;
+    margin-top: 10px;
+    float: left;
+    font-size: 1rem;
+    color: #484848;
+    text-align: right;
+}
+
+.patient-info-expand-icon{
+    width: 7%;
+    position: relative;
+    float: right;
+    height: 75px;
+}
+
+.patient-info-expand-icon > img{
+    width: 50px;
+    height: 50px;
+    float: right;
+}
+
+.patient-info-button{
+    width: 20%;
+    margin-left: 5px;
+    float: right;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.patient-info-button > img{
+    width: 25px;
+    height: 25px;
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+}
+
+.patient-info-button > img:hover{
+    cursor: pointer;
+}
+
+.patient-info-buttons{
+    width: 20%;
+    height: 50px;
+    margin-left: 80%;
+    position: relative;
+    float: left;
+    margin-top: -30px;
+}
+
+.patient-info-button-delete > img{
+    background-color: #e53535;
+    transition: 0.2s;
+}
+
+.patient-info-button-delete > img:hover{
+    background-color: #c50a0a;
+    box-shadow: 0 8px 15px -6px rgb(137, 137, 149);
+}
+
+.patient-info-button-edit > img{
+    background-color: #6a98da;
+    transition: 0.2s;
+}
+
+.patient-info-button-edit > img:hover{
+    background-color: #3c6fb2;
+    box-shadow: 0 8px 15px -6px rgb(137, 137, 149);
+}
+
+.patient-info-button-more-info > img{
+    background-color: rgba(183, 183, 183, 0.9);
+    transition: 0.2s;
+}
+
+.patient-info-button-more-info > img:hover{
+    background-color: rgba(141, 141, 141, 0.9);;
+    box-shadow: 0 8px 15px -6px rgb(137, 137, 149);
+}
+
+.patient-info-more-data{
+    margin-top: 50px;
+    height: 400px;
+    float: left;
+    margin-bottom: 50px;
+}
+
+.patient-info-more-data-header{
+    width: 95%;
+    height: 40px;
+    padding-left: 5%;
+    font-size: 1.7rem;
+    padding-bottom: 10px;
+    color: #484848;
+    border-bottom: 1px #959292 solid;
+}
+
+.patient-informations-container{
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    background-color: rgba(63, 63, 63, 0.5);
+}
+
+.patient-informations-window{
+    width: 50%;
+    margin: 8% 25%;
+    height: 70%;
+    background-color: #F4F4F4;
+    border-radius: 20px;
+    position: relative;
+    box-shadow: 0 8px 15px -6px rgb(137, 137, 149);
+}
+
+.patient-informations-window-image{
+    width: 20%;
+    height: 30%;
+    margin-left: 30px;
+    margin-top: 20px;
+    float: left;
+    border: solid 2px #959292;
+    border-radius: 100%;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+}
+
+.patient-informations-window-name-and-surname{
+    width: 60%;
+    margin-top: 50px;
+    height: 10%;
+    float: left;
+    margin-left: 50px;
+    font-size: 2.4rem;
+    text-align: center;
+    color: #484848;
+}
+
+.patient-informations-window-diet-type{
+    width: 60%;
+    height: 20%;
+    float: left;
+    margin-left: 50px;
+    font-size: 1rem;
+    text-align: center;
+    color: #484848;
+}
+
+.patient-informations-window-patient-data{
+    width: 40%;
+    margin: 0 5%;
+    height: 57%;
+    float: left;
+    font-size: 1.1rem;
+    color: #484848;
+    line-height: 3rem;
+}
+
+.patient-informations-window-patient-medical-data{
+    width: 39.8%;
+    padding: 0 5%;
+    height: 57%;
+    float: left;
+    font-size: 0.8rem;
+    color: #484848;
+    border-left: 1px #959292 solid;
+}
+
+.patient-informations-window-patient-medical-data-header{
+    font-size: 1.3rem;
+    line-height: 2rem;
+}
+
+.close-patient-informations-window{
+    width: 3.5%;
+    height: 5.5%;
+    margin-right: 2%;
+    margin-top: 20px;
+    float: right;
+}
+
+.close-patient-informations-window > img{
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    border-radius: 100%;
+    transition: 0.2s;
+}
+
+.close-patient-informations-window > :hover{
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+    cursor: pointer;
+}
+
+.patient-info-last-edit-time-late{
+    color: #c93939;
+}
