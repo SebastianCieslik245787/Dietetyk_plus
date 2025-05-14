@@ -2,9 +2,10 @@ import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 import "../style/UserSettings.css"
 import UserSettingsInput from "../assets/elements/user_settings/UserSettingsInput.jsx";
 import UserSettingsLabel from "../assets/elements/user_settings/UserSettingsLabel.jsx";
-import {changeUserData, changeUserPassword} from "../scripts/sendData/sendUserSettingsChangeData.js";
+import {changeUserData, changeUserPassword, changeUserDescription} from "../scripts/sendData/sendUserSettingsChangeData.js";
 import {useEffect, useState} from "react";
 import {useCookies} from "react-cookie"
+import UserSettingsTextArea from "../assets/elements/user_settings/UserSettingsTextArea.jsx";
 
 
 export function UserSettings() {
@@ -24,14 +25,17 @@ export function UserSettings() {
         userPhone: cookies['User-Data']?.phone || "",
     };
 
+    const initialDescription = cookies['User-Data']?.description || ""
+
+    const [userDescription, setUserDescription] = useState(initialDescription);
     const [userPersonalData, setUserPersonalData] = useState(initialData);
     const [isModifiedPersonalData, setIsModifiedPersonalData] = useState(false);
     const [isModifiedDescription, setIsModifiedDescription] = useState(false);
 
     useEffect(() => {
-        const dataChanged = JSON.stringify(userPersonalData) !== JSON.stringify(initialData);
-        setIsModifiedPersonalData(dataChanged);
-    }, [userPersonalData]);
+        setIsModifiedPersonalData(JSON.stringify(userPersonalData) !== JSON.stringify(initialData));
+        setIsModifiedDescription(userDescription !== initialDescription);
+    }, [userPersonalData, userDescription]);
 
     return (
         <>
@@ -39,7 +43,10 @@ export function UserSettings() {
             <div className="user-settings-container">
                 <div className="user-settings-personal-data">
                     <UserSettingsLabel
-                        labels={[
+                        labels={cookies["User-Data"].role === "user" ? [
+                            "Dane Personalne",
+                            "Zmiana hasła",
+                        ] : [
                             "Dane Personalne",
                             "Zmiana hasła",
                             "Opis"
@@ -133,11 +140,15 @@ export function UserSettings() {
                     {
                         actualSettings === 2 && (
                             <>
-                                <textarea className={"user-settings-textarea"} placeholder="Opisz siebie..."/>
+                                <UserSettingsTextArea
+                                    placeHolder = "Opisz siebie..."
+                                    setFormData = {setUserDescription}
+                                    value = {userDescription}
+                                />
                                 <div
-                                    className={`user-settings-save-button user-settings-save-button-active`}
+                                    className={`user-settings-save-button ${isModifiedDescription ? "user-settings-save-button-active" : ""}`}
                                     onClick={() => {
-                                        changeUserData(setCookies, cookies, userPersonalData)
+                                        changeUserDescription(setCookies, cookies, userDescription)
                                     }}>
                                     Zapisz
                                 </div>
@@ -148,7 +159,6 @@ export function UserSettings() {
             </div>
         </>
     )
-        ;
 }
 
 export default UserSettings;
