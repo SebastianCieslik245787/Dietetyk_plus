@@ -7,6 +7,15 @@
     z-index: 1000;
     opacity: 95%;
     box-shadow: 0 4px 5px -4px rgb(137, 137, 149);
+    transition: transform 0.3s ease-in-out;
+}
+
+.navbar-container.hide {
+    transform: translateY(-100%);
+}
+
+.navbar-container.show {
+    transform: translateY(0);
 }
 
 .logo{

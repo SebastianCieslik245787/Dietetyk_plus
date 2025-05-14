@@ -27,6 +27,7 @@ import planAdjustmentIcon from "../images/icons/plan_adjustment_icon.png"
 import regularRaportsIcon from "../images/icons/regular_raports_icon.png"
 import logo from "../images/logo.webp"
 import {useNavigate} from "react-router-dom";
+import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 
 function HomePage() {
     const navigate = useNavigate();
@@ -36,8 +37,8 @@ function HomePage() {
     };
 
     return (<>
+        <NavigationBar/>
         <div className="main-container">
-            {navBar()}
             <div className="section-container">
                 <img src={whyDietBackGround} alt="Why Diet"/>
                 <div className="why-diet-content">
