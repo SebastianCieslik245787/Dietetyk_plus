@@ -1,0 +1,80 @@
+.other-diets-container{
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../images/backgrounds/types_of_diet_background_2.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    overflow: hidden auto;
+}
+
+.other-diet-items{
+    width: 80%;
+    min-height: 80%;
+    margin-top: 100px;
+    margin-left: 10%;
+    height: auto;
+    float: left;
+}
+
+.other-diet-item{
+    width: 100%;
+    height: auto;
+    min-height: 200px;
+    background-color: #EFECEC;
+    border-radius: 10px;
+    margin-top: 50px;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    position: relative;
+    overflow: auto;
+    opacity: 0.95;
+}
+
+.other-diet-foother{
+    width: 100%;
+    height: 100px;
+    float: left;
+}
+
+.other-diet-image{
+    width: auto;
+    height: 100%;
+    float: left;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin-left: 3%;
+}
+
+.other-diet-image > img{
+    width: 120px;
+    height: 120px;
+    margin-top: 40px;
+    float: left;
+    border-radius: 100%;
+    border: 5px solid #F8F8F8;
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+}
+
+.other-diet-title{
+    width: 70%;
+    margin-left: 7%;
+    margin-top: 30px;
+    float: left;
+    color: #484848;
+    font-weight: bold;
+    font-size: 1.8rem;
+}
+
+.other-diet-description{
+    width: 80%;
+    height: auto;
+    margin-left: 4%;
+    margin-top: 30px;
+    float: left;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    color: #484848;
+}

@@ -7,8 +7,8 @@ import ourOfferBackGround from "../images/backgrounds/our_offer_background.webp"
 import typesOfDietBackGround from "../images/backgrounds/types_of_diet_background.jpg"
 import phoneIcon from "../images/icons/phone_number_icon.png"
 import emailIcon from "../images/icons/email_icon.png"
-import sportDietIcon from "../images/icons/sport_diet_icon.png"
-import veganDietIcon from "../images/icons/vegan_diet_icon.jpg"
+import sportDietIcon from "../images/other_diets/sport_diet_icon.png"
+import veganDietIcon from "../images/other_diets/vegan_diet_icon.jpg"
 import linkIcon from "../images/icons/link_icon.png"
 import professionalSupportIcon from "../images/icons/professional_support_icon.png"
 import arrangeAConsultation from "../images/icons/arrange_a_consultation_icon.png"
@@ -26,8 +26,15 @@ import summaryIcon from "../images/icons/summary_icon.png"
 import planAdjustmentIcon from "../images/icons/plan_adjustment_icon.png"
 import regularRaportsIcon from "../images/icons/regular_raports_icon.png"
 import logo from "../images/logo.webp"
+import {useNavigate} from "react-router-dom";
 
 function HomePage() {
+    const navigate = useNavigate();
+
+    const handleOtherDietsClick = () => {
+        navigate("/diets");
+    };
+
     return (<>
         <div className="main-container">
             {navBar()}
@@ -169,7 +176,7 @@ function HomePage() {
                             </div>
                         </div>
                     </div>
-                    <div className="other-diets-button">
+                    <div className="other-diets-button" onClick={handleOtherDietsClick}>
                         <p className="other-diets-button-text">
                             Inne diety
                         </p>

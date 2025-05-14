@@ -13,7 +13,7 @@ const RegisterInputText = ({value, setFormData, label, id, placeHolder, type, re
                 {required === true ? <span className="register-step-item-requirement">*</span> : ''}
                 {label}
             </div>
-            <input id={id} className="register-step-item-text-field" placeholder={placeHolder} type={type} value={value} onChange={handleChange}/>
+            <input id={id} className="register-step-item-text-field" placeholder={placeHolder} type={type} value={value} onChange={handleChange} max={type === 'date' ? new Date().toISOString().split("T")[0] : undefined}/>
         </div>
     );
 
