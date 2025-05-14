@@ -27,6 +27,8 @@ export function sendRegisterData(data){
     filteredData["dieteticId"] = null;
     filteredData["currentDietId"] = null;
     filteredData["img_b64"] = null;
+    filteredData["description"] = null;
+    filteredData["role"] = "user"
 
     const jsonRegisterData = JSON.stringify(filteredData, null, 2);
     // console.log(jsonRegisterData);
