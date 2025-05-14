@@ -1,4 +1,4 @@
-import NavBar from "../assets/elements/NavigationBar.jsx";
+import NavBar from "../assets/elements/navigation/NavigationBar.jsx";
 import logo from "../images/logo.webp";
 
 import "../style/AboutUs.css"

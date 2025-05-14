@@ -9,6 +9,8 @@ import DietPlanPage from "./pages/DietPlanPage.jsx";
 import UserSettings from "./pages/UserSettings.jsx";
 import OtherDiets from "./pages/OtherDiets.jsx";
 import Dietitians from "./pages/Dietitians.jsx";
+import LogOutPage from "./pages/LogOutPage.jsx";
+import ShoppingList from "./pages/ShoppingList.jsx";
 import DietitianPatientsPage from "./pages/DietitianPatientsPage.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "./style/style.css"
@@ -31,6 +33,8 @@ createRoot(document.getElementById('root')).render(
                 <Route path={"/patients"} element={<DietitianPatientsPage/>}/>
                 <Route path={"/diets"} element={<OtherDiets/>}/>
                 <Route path={"/dietitians"} element={<Dietitians/>}/>
+                <Route path={"/logout"} element={<LogOutPage/>}/>
+                <Route path={"/shopping-list"} element={<ShoppingList/>}/>
             </Routes>
         </BrowserRouter>
     </CookiesProvider>

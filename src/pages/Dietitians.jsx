@@ -1,5 +1,5 @@
 import "../style/Dietitians.css"
-import NavigationBar from "../assets/elements/NavigationBar.jsx";
+import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 import {dietitiansData} from "../data/DietitiansData.js";
 import Dietitian from "../assets/elements/our_offer/Dietitian.jsx";
 

@@ -1,5 +1,5 @@
 import "../style/OtherDiets.css"
-import NavigationBar from "../assets/elements/NavigationBar.jsx";
+import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 import Diet from "../assets/elements/other_diets/Diet.jsx";
 import {otherDietsData} from "../data/OtherDietsData.js";
 

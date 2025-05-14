@@ -1,4 +1,4 @@
-import NavigationBar from "../assets/elements/NavigationBar.jsx";
+import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 import "../style/UserSettings.css"
 import UserSettingsInput from "../assets/elements/user_settings/UserSettingsInput.jsx";
 import UserSettingsLabel from "../assets/elements/user_settings/UserSettingsLabel.jsx";

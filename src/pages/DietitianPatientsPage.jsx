@@ -1,5 +1,5 @@
 import "../style/DieteticanPatientsPage.css"
-import NavigationBar from "../assets/elements/NavigationBar.jsx";
+import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 import SearchBar from "../assets/elements/dietitian_patients/SearchBar.jsx";
 import Patient from "../assets/elements/dietitian_patients/Patient.jsx";
 import {patientsData} from "../data/PatientData.js";
