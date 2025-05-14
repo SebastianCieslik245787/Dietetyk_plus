@@ -8,7 +8,13 @@ export function changeUserData(setCookies, cookies, data){
 export function changeUserPassword(setCookies, cookies, data){
     const currentUserData = cookies['User-Data'];
     currentUserData.password = data.userNewPassword
-    postNewData(setCookies, cookies['User-Key'], currentUserData)
+    postNewData(setCookies, cookies['User-Key'], currentUserData);
+}
+
+export function changeUserDescription(setCookies, cookies, data){
+    const currentUserData = cookies['User-Data'];
+    currentUserData.description = data.userDescription
+    postNewData(setCookies, cookies['User-Key'], currentUserData);
 }
 
 function postNewData(setCookies, userKey, data){
