@@ -295,3 +295,9 @@
 .patient-info-last-edit-time-late{
     color: #c93939;
 }
+
+.dietitian-patients-footer{
+    height: 100px;
+    width: 100%;
+    float: left;
+}

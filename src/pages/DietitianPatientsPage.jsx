@@ -54,6 +54,7 @@ function DietitianPatientsPage() {
                                 }}/>
                         </>
                     ))}
+                    <div className="dietitian-patients-footer"/>
                 </div>
             </div>
             {isPatientClicked && (
