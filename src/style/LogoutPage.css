@@ -1,0 +1,48 @@
+.logout-coinatiner{
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../images/backgrounds/login_background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.logout-panel{
+    width: 30%;
+    height: 30%;
+    background-color: #fafafa;
+    margin: 15% 35%;
+    float: left;
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+}
+
+.logout-information{
+    width: 100%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: #484848;
+}
+
+.logout-back-to-homepage{
+    width: 100%;
+    height: 20%;
+}
+
+.logout-back-to-homepage > p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    text-decoration: underline;
+    color: #64AD56;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.logout-back-to-homepage > p:hover{
+    color: #3d7c2f;
+}
