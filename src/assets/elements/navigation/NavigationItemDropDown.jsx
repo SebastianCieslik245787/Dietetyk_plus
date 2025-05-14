@@ -8,13 +8,17 @@ const NavigationItemDropDown = ({name, optionPaths, isLast = false, options}) =>
     };
 
     return (
-        <div className={`item ${isLast ? "item-last" : ""}`} onClick={handleClick}>
+        <div className={`item ${isLast ? "item-last" : ""}`}>
             <p className="item-text">
                 {name}
             </p>
             <div className="item-dropdown-options">
                 {options.map((option, index) => (
-                    <div className="item-dropdown-option" onClick={() => handleClick(index)}>
+                    <div
+                        key={option + index}
+                        className="item-dropdown-option"
+                        onClick={() => handleClick(index)}
+                    >
                         {option}
                     </div>
                 ))}

@@ -39,8 +39,14 @@ function NavigationBar() {
                     isUser ? (
                         <NavigationItemDropDown
                             name="Dieta"
-                            optionPaths={["/diet-plan", "/shopping-list"]}
-                            options={["Plan diety", "Lista zakupów"]}
+                            optionPaths={[
+                                "/diet-plan",
+                                "/shopping-list"
+                            ]}
+                            options={[
+                                "Plan diety",
+                                "Lista zakupów"
+                            ]}
                             isLast={isLoggedIn}
                         />
                     ) : (
