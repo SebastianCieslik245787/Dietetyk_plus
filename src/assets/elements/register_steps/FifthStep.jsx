@@ -26,6 +26,7 @@ function FifthStep({formData, setFormData}) {
                             Wyrażam zgode na przetwarzanie moich danych osobowych, w celu rejestracji  oraz świadczenia usług związanych z korzystaniem z naszej platformy.
                         </div>
                     </div>
+                    <div className="register-step-item-error-label" id={"dataProcessingConsentError"}/>
                     <div className="register-step-fifth-item" onClick={() => handleCheckboxChange('statute')}>
                         <div className="register-step-fifth-item-check-box">
                             {formData.statute && <img src={checkIcon} alt="" style={{ visibility: formData.statute ? "visible" : "hidden" }}/>}
@@ -36,6 +37,7 @@ function FifthStep({formData, setFormData}) {
                         <div className="register-step-fifth-item-text">
                             Oświadczam że zapoznałem się z treścią <span className="statute-link">regulaminu</span> naszej platformy.
                         </div>
+                        <div className="register-step-item-error-label" id={"statuteError"}/>
                     </div>
                 </div>
             </div>

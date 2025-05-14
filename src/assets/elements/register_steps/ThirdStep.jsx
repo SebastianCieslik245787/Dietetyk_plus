@@ -46,6 +46,7 @@ function ThirdStep({formData, setFormData}) {
                     label="Jaką prace wykonujesz?"
                     required={true}
                     labelTextType={"small"}
+                    error="jobError"
                 />
                 <RegisterSelect
                     id="dietPurpose"
@@ -56,6 +57,7 @@ function ThirdStep({formData, setFormData}) {
                     required={true}
                     label="Jaki jest twój cel nowej diety?"
                     labelTextType={"small"}
+                    error="dietPurposeError"
                 />
             </div>
         </>

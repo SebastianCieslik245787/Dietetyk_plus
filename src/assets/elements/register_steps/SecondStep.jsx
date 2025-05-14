@@ -16,6 +16,7 @@ function SecondStep({formData, setFormData}) {
                     label="Data urodzenia:"
                     required={true}
                     id="birthdate"
+                    error="birthDateError"
                 />
                 <RegisterInputText
                     value={formData.height}
@@ -25,6 +26,7 @@ function SecondStep({formData, setFormData}) {
                     required={true}
                     id="height"
                     placeHolder="Wprowadź swój wzrost.."
+                    error="heightError"
                 />
                 <RegisterSelect
                     id="gender"
@@ -34,6 +36,7 @@ function SecondStep({formData, setFormData}) {
                     value={formData.gender}
                     required={true}
                     label="Płeć:"
+                    error="genderError"
                 />
                 <RegisterInputText
                     value={formData.weight}
@@ -43,6 +46,7 @@ function SecondStep({formData, setFormData}) {
                     required={true}
                     id="weight"
                     placeHolder="Wprowadź swoją wage..."
+                    error="weightError"
                 />
             </div>
         </>

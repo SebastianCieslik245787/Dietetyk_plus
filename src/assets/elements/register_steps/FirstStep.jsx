@@ -16,6 +16,7 @@ function FirstStep({ formData, setFormData }) {
                     required={true}
                     id="email"
                     placeHolder="Wprowadź e-mail..."
+                    error="emailError"
                 />
                 <RegisterInputText
                     value={formData.name}
@@ -25,6 +26,7 @@ function FirstStep({ formData, setFormData }) {
                     required={true}
                     id="name"
                     placeHolder="Wprowadź imię..."
+                    error="nameError"
                 />
                 <RegisterInputText
                     value={formData.password}
@@ -34,6 +36,7 @@ function FirstStep({ formData, setFormData }) {
                     required={true}
                     id="password"
                     placeHolder="Wprowadź hasło..."
+                    error="passwordError"
                 />
                 <RegisterInputText
                     value={formData.surname}
@@ -43,6 +46,7 @@ function FirstStep({ formData, setFormData }) {
                     required={true}
                     id="surname"
                     placeHolder="Wprowadź nazwisko..."
+                    error="surnameError"
                 />
                 <RegisterInputText
                     value={formData.confirmPassword}
@@ -52,6 +56,7 @@ function FirstStep({ formData, setFormData }) {
                     required={true}
                     id="confirmPassword"
                     placeHolder="Powtórz hasło:"
+                    error="confirmPasswordError"
                 />
                 <RegisterInputText
                     value={formData.phone}
@@ -61,6 +66,7 @@ function FirstStep({ formData, setFormData }) {
                     required={true}
                     id="phone"
                     placeHolder="Wprowadź numer telefonu..."
+                    error="phoneNumberError"
                 />
             </div>
         </>

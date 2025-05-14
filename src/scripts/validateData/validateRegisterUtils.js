@@ -1,7 +1,4 @@
-let errorMessage = ""
-
 export function validateFirstStep(data) {
-    errorMessage = ""
     const validators = [
         { valid: validateEmail(data.email)},
         { valid: validateName(data.name)},
@@ -15,7 +12,6 @@ export function validateFirstStep(data) {
 }
 
 export function validateSecondStep(data) {
-    errorMessage = ""
     const validators = [
         {valid: validateBirthDate(data.birthdate)},
         {valid: validateGender(data.gender)},
@@ -27,7 +23,6 @@ export function validateSecondStep(data) {
 }
 
 export function validateThirdStep(data) {
-    errorMessage = ""
     const validators = [
         {valid: validateJobType(data.jobType)},
         {valid: validateDietPurpose(data.dietPurpose)},
@@ -37,7 +32,6 @@ export function validateThirdStep(data) {
 }
 
 export function validateFifthStep(data) {
-    errorMessage = ""
     const validators = [
         {valid: validateDataProcessingConsent(data.dataProcessingConsent)},
         {valid: validateStatute(data.statute)},
@@ -49,18 +43,19 @@ export function validateFifthStep(data) {
 function isValid(validators) {
     const firstError = validators.find(v => !v.valid);
 
-    if (firstError) {
-        alert(errorMessage);
-        return false;
-    }
+    return !firstError;
+}
 
-    return true;
+function setErrorField(field, value) {
+    field.innerHTML = value;
+    field.style.visibility = "visible";
 }
 
 function validateEmail(email) {
+    const errorField = document.getElementById("emailError");
     const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (email === "" || !EMAIL_REGEX.test(email)) {
-        errorMessage += ("Email error\n")
+        setErrorField(errorField, "Email address is invalid! (abc@abc.abc)");
         return false;
     }
     fetch(
@@ -74,59 +69,71 @@ function validateEmail(email) {
         }
     ).then(r => {
         if (r.status === 409) {
-            errorMessage += ("Email already exists\n")
+            setErrorField(errorField, "Email already exists!");
             return false;
         }
     }
     )
+    errorField.style.visibility = "hidden";
     return true;
 }
 
 function validateName(name) {
+    const errorField = document.getElementById("nameError");
     if (name === "") {
-        errorMessage += ("Name error\n")
+        setErrorField(errorField, "Name is required!");
         return false;
     }
+    errorField.style.visibility = "hidden";
     return true;
 }
 
 function validateSurname(surname) {
+    const errorField = document.getElementById("surnameError");
     if (surname === "") {
-        errorMessage += ("Surname error\n")
+        setErrorField(errorField, "Surname is required!");
         return false;
     }
+    errorField.style.visibility = "hidden";
     return true;
 }
 
 function validatePassword(password) {
+    const errorField = document.getElementById("passwordError");
     const PASSWORD_REGEX = /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
     if (password === "" && !PASSWORD_REGEX.test(password)) {
-        errorMessage += ("Password error\n")
+        setErrorField(errorField, "Password is invalid! (Use minimum 1 Capital letter, 1 digit, 1 special sign, and minimum 8 sings)");
         return false;
     }
+    errorField.style.visibility = "hidden";
     return true;
 }
 
 function validateConfirmPassword(confirmPassword, password) {
+    const errorField = document.getElementById("confirmPasswordError");
     if (confirmPassword !== password || confirmPassword === "") {
-        errorMessage += ("confirmPassword error\n")
+        setErrorField(errorField, "Password are not the same!");
         return false;
     }
+    errorField.style.visibility = "hidden";
     return true;
 }
 
 function validatePhoneNumber(phoneNumber) {
+    const errorField = document.getElementById("phoneNumberError");
     const PHONE_NUMBER_REGEX = /^(?:\+48\s?\d{9}|\+48\s?\d{3}\s\d{3}\s\d{3}|\+48\s?\d{3}-\d{3}-\d{3}|\d{9}|\d{3}\s\d{3}\s\d{3}|\d{3}-\d{3}-\d{3})$/;
     if (phoneNumber === "" && !PHONE_NUMBER_REGEX.test(phoneNumber)) {
-        errorMessage += ("Phone number error\n")
+        setErrorField(errorField, "Phone number is invalid!");
         return false;
     }
+    errorField.style.visibility = "hidden";
     return true;
 }
 
 function validateBirthDate(birthDate) {
+    const errorField = document.getElementById("birthDateError");
     if (birthDate === "") {
-        errorMessage += "Date error\n"
+        setErrorField(errorField, "Birth date is required!");
         return false;
     }
     let today = new Date();
@@ -141,66 +148,81 @@ function validateBirthDate(birthDate) {
     }
 
     if (age < 0 || age < 18) {
-        errorMessage += ("Date error\n")
+        setErrorField(errorField, "You are to young!");
         return false;
     }
+    errorField.style.visibility = "hidden";
     return true;
 }
 
 function validateGender(gender){
+    const errorField = document.getElementById("genderError");
     if(gender === ""){
-        errorMessage += ("Gender error\n")
+        setErrorField(errorField, "Gender is required!");
         return false;
     }
+    errorField.style.visibility = "hidden";
     return true;
 }
 
 function validateHeight(height) {
+    const errorField = document.getElementById("heightError");
     const HEIGHT_REGEX = /^(1\d\d)|(2[0-5]\d)$/;
     if (height === "" || !HEIGHT_REGEX.test(height)) {
-        errorMessage += ("Height error\n")
+        setErrorField(errorField, "Height is invalid!");
         return false;
     }
+    errorField.style.visibility = "hidden";
     return true;
 }
 
 function validateWeight(weight) {
-    const WEIGHT_REGEX = /^(\d\d)|(1\d\d)$/;
+    const errorField = document.getElementById("weightError");
+    const WEIGHT_REGEX = /^(\d\d)|(\d\d\d)$/;
     if (weight === "" || !WEIGHT_REGEX.test(weight)) {
-        errorMessage += ("Weight error\n")
+        setErrorField(errorField, "Weight is invalid!");
         return false;
     }
+    errorField.style.visibility = "hidden";
     return true;
 }
 
 function validateJobType(jobType) {
+    const errorField = document.getElementById("jobError");
     if(jobType === "") {
-        errorMessage += ("Job Type error\n")
+        setErrorField(errorField, "Job type is required!");
         return false;
     }
+    errorField.style.visibility = "hidden";
     return true;
 }
 
 function validateDietPurpose(purpose) {
+    const errorField = document.getElementById("dietPurposeError");
     if (purpose === "") {
-        errorMessage += ("Purpose error\n")
+        setErrorField(errorField, "Diet purpose is required!");
         return false;
     }
+    errorField.style.visibility = "hidden";
     return true;
 }
 
 function validateDataProcessingConsent(dataProcessingConsent) {
+    const errorField = document.getElementById("dataProcessingConsentError");
     if (!dataProcessingConsent) {
-        errorMessage += ("DataProcessing consent failed\n")
+        setErrorField(errorField, "Data processing consent is required!");
         return false;
     }
+    errorField.style.visibility = "hidden";
     return true;
 }
 
 function validateStatute(statute) {
+    const errorField = document.getElementById("statuteError");
     if (!statute) {
-        errorMessage += ("Statute error\n")
+        setErrorField(errorField, "Accepting Statute is required!");
         return false;
     }
+    errorField.style.visibility = "hidden";
     return true;
 }

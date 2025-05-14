@@ -1,4 +1,4 @@
-const RegisterSelect = ({id, setFormData, options=[], value, label, placeHolder, required=false, labelTextType}) => {
+const RegisterSelect = ({id, setFormData, options=[], value, label, placeHolder, required=false, labelTextType, error=null}) => {
     const handleChange = (e) => {
         const { id, value } = e.target;
         setFormData(prev => ({
@@ -23,6 +23,11 @@ const RegisterSelect = ({id, setFormData, options=[], value, label, placeHolder,
                     </option>
                 ))}
             </select>
+            {
+                error !== null && (
+                    <div className="register-step-item-error-label" id={error}/>
+                )
+            }
         </div>
     )
 }; export default RegisterSelect;

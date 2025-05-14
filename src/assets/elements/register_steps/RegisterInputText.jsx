@@ -1,4 +1,4 @@
-const RegisterInputText = ({value, setFormData, label, id, placeHolder, type, required}) => {
+const RegisterInputText = ({value, setFormData, label, id, placeHolder, type, required, error=null}) => {
     const handleChange = (e) => {
         const { id, value } = e.target;
         setFormData(prev => ({
@@ -14,6 +14,11 @@ const RegisterInputText = ({value, setFormData, label, id, placeHolder, type, re
                 {label}
             </div>
             <input id={id} className="register-step-item-text-field" placeholder={placeHolder} type={type} value={value} onChange={handleChange} max={type === 'date' ? new Date().toISOString().split("T")[0] : undefined}/>
+            {
+                error !== null && (
+                    <div className="register-step-item-error-label" id={error}/>
+                )
+            }
         </div>
     );
 
