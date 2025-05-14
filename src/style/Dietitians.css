@@ -1,0 +1,151 @@
+.offer-container{
+    width: 100%;
+    min-height: 100vh;
+    background-image: url("../images/background_with_logo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    overflow: hidden auto;
+}
+
+.offer-dietitian-container{
+    width: 80%;
+    height: auto;
+    min-height: 80%;
+    margin: 120px 10% 0 10%;
+    float: left;
+}
+
+.dietitian-container{
+    width: 70%;
+    height: auto;
+    min-height: 300px;
+    float: left;
+    background-color: #fafafa;
+    opacity: 0.95;
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+    border-radius: 5px;
+    position: relative;
+    margin: 50px;
+}
+
+.dietitian-container-right{
+    margin-left: 30%;
+}
+
+.dietitian-image{
+    width: 20%;
+    height: auto;
+    margin-left: 3%;
+    min-height: 100%;
+    margin-top: 50px;
+    float: left;
+}
+
+.dietitian-image > img{
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    border: 5px solid #F8F8F8;
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+}
+
+.dietitian-info-name-and-surname{
+    width: 70%;
+    height: auto;
+    text-align: center;
+    font-size: 2rem;
+    color: #484848;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    float: left;
+}
+
+.dietitian-info-contact{
+    width: 70%;
+    margin-left: 5%;
+    height: 80px;
+    float: left;
+    position: relative;
+}
+
+.dietitian-info-contact-item{
+    height: 30px;
+    margin: 5px 0;
+    float: left;
+    position: relative;
+}
+
+.dietitian-info-contact-item-icon{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+}
+
+.dietitian-info-contact-item-icon > img{
+    width: 30px;
+    height: 30px;
+}
+
+.dietitian-info-contact-item-text{
+    width: auto;
+    float: left;
+    margin-left: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    color: #484848;
+    font-size: 1.2rem;
+}
+
+.dietitian-info-description{
+    width: 60%;
+    float: left;
+    color: #808080;
+    font-size: 1rem;
+    margin: 20px 0 30px 7%;
+}
+
+.dietitian-info-description-separator{
+    width: 63%;
+    margin-left: 5%;
+    height: 1px;
+    float: left;
+    margin-top: 20px;
+    background-color: #9b9b9b;
+}
+
+.dietitian-image-right{
+    float: right;
+    margin-right: 3%;
+    margin-left: 0;
+}
+
+.dietitian-info-name-and-surname-right, .dietitian-info-contact-item-right, .dietitian-info-contact-icon-right{
+    float: right;
+}
+
+.dietitian-info-contact-right{
+    float: right;
+    margin: 0 5% 0 0;
+}
+
+.dietitian-info-contact-item-text-right{
+    float: right;
+    text-align: right;
+    margin: 0 30px 0 0;
+}
+
+.dietitian-info-contact-description-separator-right{
+    float: right;
+    margin: 20px 5% 0 0;
+}
+
+.dietitian-info-contact-description-right{
+    float: right;
+    margin: 20px 6% 30px 0;
+}

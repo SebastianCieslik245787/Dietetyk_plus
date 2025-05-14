@@ -23,15 +23,19 @@ function NavigationBar() {
         navigate("/contact");
     };
 
+    const handleDietitiansPageClick = () => {
+        navigate("/dietitians");
+    };
+
     return (
         <>
             <div className="navbar-container">
                 <div className="logo" onClick={handleHomePageClick}>
                     <img src={logo} alt="logo"/>
                 </div>
-                <div className="item">
+                <div className="item" onClick={handleDietitiansPageClick}>
                     <p className="item-text">
-                        Oferta
+                        Dietetycy
                     </p>
                 </div>
                 <div className="item" onClick={handleAboutUsClick}>

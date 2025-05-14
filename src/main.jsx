@@ -8,6 +8,7 @@ import AccountCreated from "./pages/AccountCreated.jsx";
 import DietPlanPage from "./pages/DietPlanPage.jsx";
 import UserSettings from "./pages/UserSettings.jsx";
 import OtherDiets from "./pages/OtherDiets.jsx";
+import Dietitians from "./pages/Dietitians.jsx";
 import DietitianPatientsPage from "./pages/DietitianPatientsPage.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "./style/style.css"
@@ -29,6 +30,7 @@ createRoot(document.getElementById('root')).render(
                 <Route path={"/user-settings"} element={<UserSettings/>}/>
                 <Route path={"/patients"} element={<DietitianPatientsPage/>}/>
                 <Route path={"/diets"} element={<OtherDiets/>}/>
+                <Route path={"/dietitians"} element={<Dietitians/>}/>
             </Routes>
         </BrowserRouter>
     </CookiesProvider>
