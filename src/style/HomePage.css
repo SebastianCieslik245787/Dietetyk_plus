@@ -14,11 +14,6 @@
     position: relative;
 }
 
-.section-container > img{
-    opacity: 80%;
-    filter: blur(1px);
-}
-
 .header{
     width: 100%;
     height: 20vh;
@@ -376,4 +371,88 @@
     font-size: 0.6rem;
     align-content: center;
     align-items: center;
+}
+
+.slides {
+    position: relative;
+    overflow: hidden;
+    height: 95vh;
+    margin-top: 60px;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: all 1s ease;
+}
+
+.slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: transform 1s ease, opacity 2s ease 0.3s;
+}
+
+.slide:not(.active) {
+    transform: translateX(100%);
+    transition: transform 1s ease, opacity 2s ease;
+}
+
+.slide.out {
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: transform 1s ease, opacity 2s ease;
+}
+
+.slide-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.why-diet-step-text {
+    background-color: rgba(245, 245, 245, 0.8);
+    width: 45%;
+    padding: 20px;
+    color: #484848;
+    box-shadow: 0 8px 20px -6px rgb(63, 63, 63);
+    position: absolute;
+    top: 25%;
+    height: 20%;
+    margin-top: 15%;
+    opacity: 0;
+}
+
+.why-diet-step-text.text-active {
+    opacity: 1;
+}
+
+.why-diet-step-text.text-active-right {
+    right: 0;
+    opacity: 1;
+}
+
+.why-diet-step-text.text-active-left {
+    left: 0;
+    opacity: 1;
+}
+
+
+.why-diet-step-text.text-out {
+    opacity: 0;
+}
+
+.why-diet-step-title {
+    font-size: 2rem;
+    height: 30%;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.why-diet-step-description {
+    font-size: 0.9rem;
+    line-height: 1.4;
 }
