@@ -1,0 +1,85 @@
+.diet-shopping-list{
+    width: 70%;
+    height: auto;
+    min-height: 650px;
+    margin: 3% 0 0 2.5%;
+    opacity: 100%;
+    float: left;
+    background-color: #FAFAFA;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    border-radius: 10px;
+    position: relative;
+}
+
+.diet-shopping-list-label{
+    width: 90%;
+    margin: 20px 5% 0 5%;
+    position: relative;
+    color: #484848;
+    float: left;
+}
+
+.diet-shopping-list-items{
+    height: 580px;
+    padding-bottom: 20px;
+    overflow: hidden auto;
+}
+
+.diet-shopping-list-product-name, .diet-shopping-list-product-count, .diet-shopping-list-product-category{
+    font-size: 1.5rem;
+    color: #484848;
+    border-bottom: 1px solid #9D9999;
+    display: flex;
+    padding-bottom: 5px;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    border-right: 1px solid #9D9999;
+    float: left;
+}
+
+.diet-shopping-list-product-count{
+    width: 20%;
+}
+
+.diet-shopping-list-product-category{
+    border-right: 0;
+    width: 29.5%;
+}
+
+.diet-shopping-list-item{
+    width: 90%;
+    margin: 0 5%;
+    height: auto;
+    min-height: 30px;
+    position: relative;
+    color: #484848;
+    float: left;
+}
+
+.diet-shopping-list-item-product-name, .diet-shopping-list-item-product-category, .diet-shopping-list-item-product-count{
+    font-size: 1rem;
+    color: #484848;
+    display: flex;
+    height: 100%;
+    padding-top: 10px;
+    padding-left: 3%;
+    justify-content: left;
+    align-items: center;
+    width: 47%;
+    border-right: 1px solid #9D9999;
+    float: left;
+}
+
+.diet-shopping-list-item-product-count{
+    padding-left: 0;
+    width: 20%;
+    justify-content: center;
+}
+
+.diet-shopping-list-item-product-category{
+    border-right: 0;
+    padding-left: 0;
+    width: 29%;
+    justify-content: center;
+}

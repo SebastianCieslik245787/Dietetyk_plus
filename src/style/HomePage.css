@@ -433,11 +433,13 @@
 .why-diet-step-text.text-active-right {
     right: 0;
     opacity: 1;
+    border-radius: 10px 0 0 10px;
 }
 
 .why-diet-step-text.text-active-left {
     left: 0;
     opacity: 1;
+    border-radius: 0 10px 10px 0;
 }
 
 
