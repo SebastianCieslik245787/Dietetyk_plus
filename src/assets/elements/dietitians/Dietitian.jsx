@@ -1,7 +1,8 @@
 import EmailIcon from "../../../images/icons/email_icon.png"
 import PhoneNumberIcon from "../../../images/icons/phone_number_icon.png"
 
-const Dietitian = ({data, position}) => {
+const Dietitian = ({data, position, isAssigned, onClick}) => {
+
     return (
         <>
             <div className={`dietitian-container ${position === 'right' ? 'dietitian-container-right' : ''}`}>
@@ -33,6 +34,15 @@ const Dietitian = ({data, position}) => {
                 <div className={`dietitian-info-description ${position === 'right' ? 'dietitian-info-contact-description-right' : ''}`}>
                     {data.description}
                 </div>
+                {
+                    !isAssigned && (
+                        <>
+                            <div className={`dietitian-info-assign-button ${position === 'right' ? 'right' : 'left'}`} onClick={onClick}>
+                                Zapisz się
+                            </div>
+                        </>
+                    )
+                }
             </div>
         </>
     );

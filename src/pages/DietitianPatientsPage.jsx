@@ -50,7 +50,6 @@ function DietitianPatientsPage() {
         };
     }, [isPatientClicked]);
 
-
     return (
         <>
             <NavigationBar/>
