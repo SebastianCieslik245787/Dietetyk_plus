@@ -1,0 +1,323 @@
+.add-meal-window-container{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    background-color: rgba(72, 72, 72, 0.5);
+    z-index: 120;
+}
+
+.add-meal-window{
+    position: relative;
+    width: 60%;
+    height: 72%;
+    margin: 8% 20%;
+    background-color: #fafafa;
+    border-radius: 20px;
+    border: 1px solid #959292;
+    float: left;
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+}
+
+.add-meal-window-header{
+    width: 50%;
+    margin-top: 20px;
+    height: auto;
+    padding-left: 4%;
+    font-size: 2rem;
+    color: #484848;
+}
+
+.add-meal-window-cancel{
+    width: 30px;
+    height: 30px;
+    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -4%;
+    margin-right: 2%;
+}
+
+.add-meal-window-cancel > img{
+    border-radius: 100%;
+    box-shadow: 0 4px 5px -2px rgb(137, 137, 149);
+    transition: 0.2s ease-in-out;
+}
+
+.add-meal-window-cancel:hover > img {
+    cursor: pointer;
+    box-shadow: 0 6px 10px -2px rgb(137, 137, 149);
+}
+
+.add-meal-window-menu{
+    width: 80%;
+    margin-top: 40px;
+    height: 50px;
+    float: left;
+    margin-left: 5%;
+}
+
+.add-meal-window-menu-item{
+    width: 20%;
+    float: left;
+    cursor: pointer;
+    margin-right: 2px;
+}
+
+.add-meal-window-menu-bar{
+    width: 100%;
+    height: 5px;
+    background-color: #919191;
+    float: left;
+    transition: 0.3s ease;
+    border-radius: 10px;
+}
+
+.add-meal-window-menu-item-text{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    float: left;
+    color: #919191;
+    transition: 0.3s ease;
+}
+.add-meal-window-menu-item-text.active {
+    color: #E24F4F;
+}
+
+.add-meal-window-menu-bar.active{
+    background-color: #E24F4F;
+}
+
+.add-meal-window-menu-item:hover > .add-meal-window-menu-bar{
+    background-color: #E24F4F;
+}
+
+.add-meal-window-menu-item:hover > .add-meal-window-menu-item-text{
+    color: #E24F4F;
+}
+
+.add-meal-window-description{
+    width: 90%;
+    height: 60%;
+    float: left;
+    margin: 20px 5%;
+}
+
+.add-meal-window-name{
+    width: 50%;
+    height: 50%;
+    float: left;
+    display: flex;
+    align-items: center;
+}
+
+.add-meal-window-name-input{
+    width: 70%;
+    height: 40px;
+    border-radius: 20px;
+    background-color: white;
+    padding: 0 30px;
+    border: none;
+    font-size: 0.8rem;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    color: #484848;
+}
+
+.add-meal-window-name-input:focus{
+    color: #484848;
+    outline: none;
+}
+
+.add-meal-window-name-input:focus::placeholder {
+    color: transparent;
+}
+
+.add-meal-window-name-add-image{
+    width: 150px;
+    margin-top: -50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    height: 150px;
+    border-radius: 100%;
+    margin-left: 200px;
+    border: 5px dashed #919191;
+    padding: 25px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.add-meal-window-name-add-image:hover > img{
+    filter: brightness(0) saturate(100%) invert(48%) sepia(18%) saturate(5886%) hue-rotate(329deg) brightness(91%) contrast(93%);
+}
+
+.add-meal-window-name-add-image:hover{
+    border-color: #E24F4F;
+}
+
+.add-meal-window-name-add-image.changed{
+    padding: 0;
+    width: 200px;
+    height: 200px;
+    border: 5px solid #fafafa;
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+}
+
+.add-meal-window-name-add-image.changed:hover{
+    border-color: #E24F4F
+}
+
+.add-meal-window-name-add-image.changed:hover > img{
+    filter: none;
+}
+
+.add-meal-window-recipe{
+    width: calc(95% - 40px);
+    height: 110px;
+    float: left;
+    margin: 30px 10% 0 0;
+}
+
+.add-meal-window-recipe > textarea{
+    padding: 20px;
+    border: none;
+    outline: none;
+    resize: none;
+    width: 100%;
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+    border-radius: 10px;
+    background-color: white;
+    color: #484848;
+    font-size: 0.8rem;
+}
+
+.add-meal-window-recipe:focus{
+    color: #484848;
+    outline: none;
+}
+
+.add-meal-window-add-button{
+    width: 150px;
+    height: 50px;
+    background-color: #64AD56;
+    float: right;
+    margin-right: 40px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #484848;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 8px 10px -2px rgb(137, 137, 149);
+}
+
+.add-meal-window-add-button:hover{
+    box-shadow: 0 8px 20px -2px rgb(137, 137, 149);
+    background-color: #49853c;
+}
+
+.add-meal-window-ingredients{
+    width: 90%;
+    height: 60%;
+    float: left;
+    margin: 20px 5%;
+    position: relative;
+}
+
+.add-meal-window-name.ingredients{
+    width: 100%;
+    margin-top: 20px;
+    float: left;
+    height: 40px;
+}
+
+.creator-menu-select.ingredients{
+    height: 40px;
+    width: 200px;
+    float: left;
+    margin-left: 20px;
+    align-items: center;
+    justify-content: center;
+    border: none;
+}
+
+.add-meal-window-name-input.ingredients{
+    margin-right: 3%;
+}
+
+.add-meal-window-name-input.ingredients-count{
+    width: 20%;
+}
+
+.creator-menu-select-placeholder.ingredients{
+    margin-top: 4%;
+}
+
+.add-meal-window-add-ingredient{
+    width: 20%;
+    background-color: #64AD56;
+    margin-left: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    color: #484848;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 8px 10px -2px rgb(137, 137, 149);
+}
+
+.add-meal-window-add-ingredient:hover{
+    box-shadow: 0 8px 20px -2px rgb(137, 137, 149);
+    background-color: #49853c;
+}
+
+.add-meal-window-ingredients-items{
+    width: 100%;
+    height: 70%;
+    margin-top: 30px;
+    background-color: #fafafa;
+    box-shadow: 0 2px 6px 0 rgb(137, 137, 149);
+    border-radius: 10px;
+    float: left;
+    overflow: hidden auto;
+    padding: 5px;
+}
+
+
+.add-meal-window-ingredients-item{
+    height: 30px;
+    width: auto;
+    background-color: #d0cfcf;
+    float: left;
+    padding: 2px 20px;
+    margin: 5px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: #484848;
+}
+
+.add-meal-window-ingredients-item > img{
+    width: 15px;
+    height: 15px;
+    float: right;
+    padding-left: 20px;
+    cursor: pointer;
+}
+
+.add-meal-window-ingredients-item > img:hover{
+    filter: brightness(0) saturate(100%) invert(48%) sepia(18%) saturate(5886%) hue-rotate(329deg) brightness(91%) contrast(93%);
+
+}

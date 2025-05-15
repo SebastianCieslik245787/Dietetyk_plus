@@ -1,0 +1,187 @@
+.creator-container{
+    width: 100%;
+    min-height: 100vh;
+    background-image: url("../images/backgrounds/why_diet_background.jpeg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    position: relative;
+    overflow: hidden auto;
+    padding-bottom: 100px;
+}
+
+.creator-menu{
+    width: 70%;
+    height: 40px;
+    margin: 100px 15% 50px 15%;
+    float: left;
+    position: relative;
+}
+
+.creator-menu-select{
+    width: 15%;
+    height: 100%;
+    float: left;
+    background-color: white;
+    border: solid 1px #959292;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    border-radius: 30px;
+    position: relative;
+    cursor: pointer;
+}
+
+.creator-menu-select-placeholder{
+    width: 80%;
+    height: 80%;
+    color: #818181;
+    font-size: 0.8rem;
+    margin-top: 2%;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.creator-menu-select-icon{
+    width: 19%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+}
+
+.creator-menu-select-icon > img {
+    width: 20px;
+    height: 20px;
+    transition: 0.3s ease;
+}
+
+.creator-menu-select-drop-down{
+    width: 80%;
+    margin-left: 15%;
+    height: auto;
+    position: absolute;
+    float: left;
+    top: 100%;
+    background-color: white;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    border-radius: 10px;
+    margin-top: 3px;
+    overflow: hidden;
+    visibility: hidden;
+    z-index: 100;
+}
+
+.creator-menu-select-drop-down.active{
+    visibility: visible;
+}
+
+.creator-menu-select-drop-down-item{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+    font-size: 0.8rem;
+    color: #484848;
+    transition: background-color, color 0.2s ease;
+    cursor: pointer;
+}
+
+.creator-menu-select-drop-down-item:hover{
+    background-color: #cbc9c9;
+    color: #E24F4F;
+}
+
+.creator-menu-select-icon-active{
+    rotate: 180deg;
+}
+
+.creator-menu-search-bar{
+    width: 30%;
+    height: 100%;
+    float: right;
+    background-color: #fafafa;
+    padding: 0 30px;
+    border: solid 1px #959292;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    color: #484848;
+}
+
+.creator-menu-search-bar:focus{
+    color: #484848;
+    outline: none;
+}
+
+.creator-menu-search-bar:focus::placeholder {
+    color: transparent;
+}
+
+.creator-menu-items{
+    width: 80%;
+    height: auto;
+    float: left;
+    margin-left: 10%;
+    background-color: #EFECEC;
+    border: solid 1px #959292;
+    border-radius: 15px;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    position: relative;
+}
+
+.creator-menu-add-item{
+    width: 37%;
+    height: 50px;
+    padding-left: 3%;
+    float: left;
+    margin: 50px 45% 50px 5%;
+    background-color: #fafafa;
+    border-radius: 20px;
+    border: 1px solid #959292;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.creator-menu-add-item:hover{
+    border-color: #E24F4F;
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+}
+
+.creator-menu-add-item-icon{
+    width: 5%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+}
+
+.creator-menu-add-item-icon > img {
+    width: 30px;
+    height: 30px;
+    transition: 0.1s ease;
+}
+
+.creator-menu-add-item-content{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #484848;
+    padding-left: 2%;
+    transition: 0.3s ease;
+}
+
+.creator-menu-add-item:hover > .creator-menu-add-item-content{
+    color: #E24F4F;
+}
+
+.creator-menu-add-item:hover > .creator-menu-add-item-icon > img{
+    filter: brightness(0) saturate(100%) invert(48%) sepia(18%) saturate(5886%) hue-rotate(329deg) brightness(91%) contrast(93%);}
