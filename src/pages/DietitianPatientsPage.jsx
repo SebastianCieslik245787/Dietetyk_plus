@@ -1,24 +1,42 @@
 import "../style/DieteticanPatientsPage.css"
 import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 import SearchBar from "../assets/elements/dietitian_patients/SearchBar.jsx";
-import Patient from "../assets/elements/dietitian_patients/Patient.jsx";
-import {patientsData} from "../data/PatientData.js";
+import {getPatientsData} from "../scripts/getData/getPatientsData.js"
 import {useEffect, useState} from "react";
 import PatientInformations from "../assets/elements/dietitian_patients/PatientInformations.jsx";
+import {useCookies} from "react-cookie";
+import Patient from "../assets/elements/dietitian_patients/Patient.jsx";
+
 
 function DietitianPatientsPage() {
     const [searchTerm, setSearchTerm] = useState("");
-    const [patients] = useState(patientsData);
     const [expandedPatientIndex, setExpandedPatientIndex] = useState(null);
     const [isPatientClicked, setIsPatientClicked] = useState(false);
+
+    const [cookies] = useCookies(["User-Key"]);
+    const [patients, setPatients] = useState([]);
+    const [filteredPatients, setFilteredPatients] = useState([]);
 
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
     };
 
-    const filteredPatients = patients.filter((patient) =>
-        `${patient.name} ${patient.surname}`.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    useEffect(() => {
+        /*TODO Abominacja*/
+        (async () => {
+            const data = await getPatientsData(cookies);
+            setPatients(data || []);
+        })();
+    }, [cookies]);
+
+    useEffect(() => {
+        setFilteredPatients(
+            patients.filter((patient) =>
+                `${patient.name || ''} ${patient.surname || ''}`.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+        );
+
+    }, [patients, searchTerm]);
 
     useEffect(() => {
         if (isPatientClicked) {
@@ -59,7 +77,7 @@ function DietitianPatientsPage() {
             </div>
             {isPatientClicked && (
                 <PatientInformations
-                    data = {filteredPatients[expandedPatientIndex]}
+                    data={filteredPatients[expandedPatientIndex]}
                     onClose={() => setIsPatientClicked(false)}
                 />
             )}

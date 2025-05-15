@@ -33,22 +33,23 @@ const PatientInformation = ({data, onClose}) => {
                         <img src={closeWindowIcon} alt=""/>
                     </div>
                     <div className="patient-informations-window-diet-type">
-                        Rodzaj diety: {data.dietType}
+                        Rodzaj diety: {data.dietPurpose}
                     </div>
                     <div className="patient-informations-window-patient-data">
-                        Nr tel: {data.nrTel}
+                        Nr tel: {data.phone}
                         <br/>
                         E-mail: {data.email}
                         <br/>
-                        Wiek: {data.age}
+                        {/*TODO: Zmienić birthdate na wiek*/}
+                        Wiek: {data.birthdate}
                         <br/>
-                        Waga: {data.weight}kg
+                        Waga: {data.medicalData.weight}kg
                         <br/>
-                        Wzrost: {data.height}cm
+                        Wzrost: {data.medicalData.height}cm
                     </div>
                     <div className="patient-informations-window-patient-medical-data">
                         <span className="patient-informations-window-patient-medical-data-header">Choroby:</span>
-                        {data.diseases.map((item) => (
+                        {data.medicalData.diseases.map((item) => (
                             <>
                                 <br/>
                                 • {item}
@@ -57,7 +58,7 @@ const PatientInformation = ({data, onClose}) => {
                         <br/>
                         <br/>
                         <span className="patient-informations-window-patient-medical-data-header">Alergie:</span>
-                        {data.alergies.map((item) => (
+                        {data.medicalData.allergies.map((item) => (
                             <>
                                 <br/>
                                 • {item}
