@@ -9,6 +9,7 @@ import Meal from "../assets/elements/diet/Meal.jsx";
 import {mealNames} from "../data/DietPlanData.js";
 import MealImg from "../images/icons/jajecznica.webp";
 import {changeDietPlanContainerSize} from "../scripts/changeDietPlanContainerSize.js";
+import {mealsData} from "../data/MealsData.js";
 
 function Creator() {
     const [activeCreator, setActiveCreator] = useState(0);
@@ -64,7 +65,7 @@ function Creator() {
                         <>
                             {mealNames.map((meal, index) => (
                                 <Meal key={index}
-                                      label={meal}
+                                      data={mealsData[0]}
                                       mealImg={MealImg}
                                       isActive={activeMealIndex === index}
                                       onToggle={() => handleMealToggle(index)}
