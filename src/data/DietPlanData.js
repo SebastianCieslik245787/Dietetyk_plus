@@ -13,5 +13,5 @@ export const mealNames = [
     "Drugie śniadanie",
     "Obiad",
     "Podwieczorek",
-    "Kolacja"
+    "Kolacja",
 ]

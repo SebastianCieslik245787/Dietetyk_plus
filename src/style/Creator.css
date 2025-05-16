@@ -12,11 +12,16 @@
 }
 
 .creator-menu{
-    width: 70%;
+    width: calc(80% - 80px);
     height: 40px;
-    margin: 100px 15% 50px 15%;
+    margin: 100px 10% 50px 10%;
     float: left;
     position: relative;
+    background-color: #EFECEC;
+    border: solid 1px #959292;
+    border-radius: 15px;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    padding: 10px 40px;
 }
 
 .creator-menu-select{
@@ -24,7 +29,6 @@
     height: 100%;
     float: left;
     background-color: white;
-    border: solid 1px #959292;
     box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
     border-radius: 30px;
     position: relative;
@@ -106,7 +110,7 @@
     float: right;
     background-color: #fafafa;
     padding: 0 30px;
-    border: solid 1px #959292;
+    border: none;
     border-radius: 20px;
     font-size: 0.8rem;
     box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
