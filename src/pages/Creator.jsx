@@ -57,7 +57,7 @@ function Creator() {
                 </div>
                 <div className="creator-menu-items">
                     <CreatorAddItem
-                        placeHolder={activeCreator === 0 ? 'Dodaj posiłek' : 'Dodaj diete'}
+                        placeHolder={activeCreator === 0 ? 'Dodaj danie' : 'Dodaj diete'}
                         onClick={() => setOpenAddItemWindow(true)}
                     />
                     {activeCreator === 0 && (
