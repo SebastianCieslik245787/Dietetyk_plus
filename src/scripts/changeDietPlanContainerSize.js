@@ -3,7 +3,7 @@ let startedHeight = -1
 export function changeDietPlanContainerSize() {
     const mealsEl = document.querySelector(".diet-plan-meals");
     const contentEl = document.querySelector(".diet-plan-content");
-    const separatortEl = document.querySelector(".diet-plan-separator");
+    const separatorEl = document.querySelector(".diet-plan-separator");
 
     if (!mealsEl || !contentEl) return
 
@@ -15,11 +15,11 @@ export function changeDietPlanContainerSize() {
     console.log(mealsHeight);
 
     if (startedHeight < mealsHeight) {
-        contentEl.style.height = mealsHeight + 40 + "px";
-        separatortEl.style.height = mealsHeight - 10 + "px";
+        contentEl.style.height = mealsHeight + "px";
+        separatorEl.style.height = mealsHeight - 10 + "px";
     }
     else {
-        contentEl.style.height = startedHeight + "px";
-        separatortEl.style.height = startedHeight - 60 + "px";
+        contentEl.style.height = startedHeight - 10 + "px";
+        separatorEl.style.height = startedHeight + "px";
     }
 }

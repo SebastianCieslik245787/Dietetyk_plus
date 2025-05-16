@@ -319,5 +319,4 @@
 
 .add-meal-window-ingredients-item > img:hover{
     filter: brightness(0) saturate(100%) invert(48%) sepia(18%) saturate(5886%) hue-rotate(329deg) brightness(91%) contrast(93%);
-
 }
