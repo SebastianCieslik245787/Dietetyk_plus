@@ -60,16 +60,20 @@ function Creator() {
                         placeHolder={activeCreator === 0 ? 'Dodaj posiłek' : 'Dodaj diete'}
                         onClick={() => setOpenAddItemWindow(true)}
                     />
-                    {mealNames.map((meal, index) => (
-                        <Meal key={index}
-                              label={meal}
-                              mealImg={MealImg}
-                              isActive={activeMealIndex === index}
-                              onToggle={() => handleMealToggle(index)}
-                              index={index}
-                              isCreator={true}
-                        />
-                    ))}
+                    {activeCreator === 0 && (
+                        <>
+                            {mealNames.map((meal, index) => (
+                                <Meal key={index}
+                                      label={meal}
+                                      mealImg={MealImg}
+                                      isActive={activeMealIndex === index}
+                                      onToggle={() => handleMealToggle(index)}
+                                      index={index}
+                                      isCreator={true}
+                                />
+                            ))}
+                        </>
+                    )}
                     <div className="creator-menu-clear"/>
                 </div>
             </div>
