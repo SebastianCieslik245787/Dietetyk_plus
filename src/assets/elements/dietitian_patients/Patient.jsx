@@ -8,6 +8,7 @@ import {parseDateToDaysSince} from "../../../scripts/dateFunctions.js";
 
 
 const Patient = ({ data, onMoreInfo }) => {
+    const lastEdit = parseDateToDaysSince(data.lastUpdated);
     return(
         <>
             <div className="patient-container">
@@ -19,7 +20,9 @@ const Patient = ({ data, onMoreInfo }) => {
                         {data.name} {data.surname}
                     </div>
                     <div className="patient-info-last-edit-time">
-                        Ostatnio edytowane: <span className={data.lastEdit > 7 ? "patient-info-last-edit-time-late" : ""}> {data.lastEdit} dni temu</span>
+                        Ostatnio edytowane:
+                        <span className={lastEdit > 7 ? "patient-info-last-edit-time-late" : ""}>
+                            {lastEdit} dni temu</span>
                     </div>
                     <div className="patient-info-diet-type">
                         Rodzaj Diety: {

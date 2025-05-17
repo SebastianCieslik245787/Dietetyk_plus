@@ -4,7 +4,9 @@ import closeWindowIcon from "../../../images/icons/close_window_icon.png"
 import {useEffect, useRef} from "react";
 import {dietPurposes} from "../../../data/RegisterConsts.js";
 
-const PatientInformation = ({data, onClose}) => {
+import {parseDateToYearSince} from "../../../scripts/dateFunctions.js";
+
+const PatientInformation = ({patientData, onClose}) => {
     const windowRef = useRef(null);
 
     useEffect(() => {
@@ -19,6 +21,16 @@ const PatientInformation = ({data, onClose}) => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [onClose]);
+    
+    const age = parseDateToYearSince(data.birthdate);
+    const latVariant = (age) =>{
+        switch (age%10) {
+            case 0,1,5,6,7,8,9:
+                return "lat";
+            case 2,3,4:
+                return "lata";
+        }
+    }
 
     return (
         <>
@@ -41,9 +53,12 @@ const PatientInformation = ({data, onClose}) => {
                         <br/>
                         E-mail: {data.email}
                         <br/>
-                        {/*TODO: Zmienić birthdate na wiek*/}
-                        Wiek: {data.birthdate}
+                        Wiek: {age} {latVariant(age)}
                         <br/>
+                        {/*TODO: Dodać gdzieś podgląd daty urodzenia*/}
+                        {/*<br/>*/}
+                        {/*Data urodzenia: {data.birthdate}*/}
+                        {/*<br/>*/}
                         Waga: {data.medicalData.weight}kg
                         <br/>
                         Wzrost: {data.medicalData.height}cm
