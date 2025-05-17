@@ -2,6 +2,7 @@ import DefaultPatientIcon from "../../../images/icons/deafult_user_icon.png"
 import closeWindowIcon from "../../../images/icons/close_window_icon.png"
 
 import {useEffect, useRef} from "react";
+import {dietPurposes} from "../../../data/RegisterConsts.js";
 
 const PatientInformation = ({data, onClose}) => {
     const windowRef = useRef(null);
@@ -33,7 +34,7 @@ const PatientInformation = ({data, onClose}) => {
                         <img src={closeWindowIcon} alt=""/>
                     </div>
                     <div className="patient-informations-window-diet-type">
-                        Rodzaj diety: {data.dietPurpose}
+                        Rodzaj diety: {(dietPurposes.find(purpose => purpose.value === data.dietPurpose)?.label || "")}
                     </div>
                     <div className="patient-informations-window-patient-data">
                         Nr tel: {data.phone}
