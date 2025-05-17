@@ -1,6 +1,6 @@
 import "../../../style/NavigationBar.css"
-import { useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import {useNavigate} from "react-router-dom";
+import {useEffect, useRef, useState} from "react";
 
 import logo from "../../../images/logo.webp"
 import NavigationItem from "./NavigationItem.jsx";
@@ -56,27 +56,33 @@ function NavigationBar() {
     return (
         <div className={`navbar-container ${showNavbar ? "show" : "hide"}`}>
             <div className="logo" onClick={handleHomePageClick}>
-                <img src={logo} alt="logo" />
+                <img src={logo} alt="logo"/>
             </div>
-            <NavigationItem name="Dietetycy" path={"/dietitians"} />
-            <NavigationItem name="O nas" path={"/about-us"} />
-            <NavigationItem name="Kontakt" path={"/contact"} isLast={!isLoggedIn} />
+            <NavigationItem name="Dietetycy" path={"/dietitians"}/>
+            <NavigationItem name="O nas" path={"/about-us"}/>
+            <NavigationItem name="Kontakt" path={"/contact"} isLast={!isLoggedIn}/>
             {isLoggedIn && (
                 isUser ? (
-                    <NavigationItemDropDown
-                        name="Dieta"
-                        optionPaths={["/diet-plan", "/shopping-list"]}
-                        options={["Plan diety", "Lista zakupów"]}
-                        isLast={isLoggedIn}
-                    />
+                    <>
+                        <NavigationItemDropDown
+                            name="Dieta"
+                            optionPaths={["/diet-plan", "/shopping-list"]}
+                            options={["Plan diety", "Lista zakupów"]}
+                        />
+                        <NavigationItem
+                            name="Dziennik"
+                            path={"/progress-journal"}
+                            isLast={isLoggedIn}
+                        />
+                    </>
                 ) : (
                     <>
-                        <NavigationItem name="Kreator" path="/schema-creator" />
-                        <NavigationItem name="Klienci" path="/patients" isLast={isLoggedIn} />
+                        <NavigationItem name="Kreator" path="/schema-creator"/>
+                        <NavigationItem name="Klienci" path="/patients" isLast={isLoggedIn}/>
                     </>
                 )
             )}
-            {!isLoggedIn ? <Login /> : <UserItem />}
+            {!isLoggedIn ? <Login/> : <UserItem/>}
         </div>
     );
 }

@@ -12,6 +12,7 @@ import Dietitians from "./pages/Dietitians.jsx";
 import LogOutPage from "./pages/LogOutPage.jsx";
 import ShoppingList from "./pages/ShoppingList.jsx";
 import Creator from "./pages/Creator.jsx";
+import ProgressJournal from "./pages/ProgressJournal.jsx";
 import DietitianPatientsPage from "./pages/DietitianPatientsPage.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "./style/style.css"
@@ -37,6 +38,7 @@ createRoot(document.getElementById('root')).render(
                 <Route path={"/logout"} element={<LogOutPage/>}/>
                 <Route path={"/shopping-list"} element={<ShoppingList/>}/>
                 <Route path={"/creator"} element={<Creator/>}/>
+                <Route path={"/progress-journal"} element={<ProgressJournal/>}/>
             </Routes>
         </BrowserRouter>
     </CookiesProvider>
