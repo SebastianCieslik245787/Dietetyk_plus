@@ -21,6 +21,7 @@
     justify-content: center;
     align-items: center;
     background-color: #efefef;
+    box-shadow: 0 0 50px 20px rgba(239, 239, 239);
 }
 
 .header-text{
@@ -28,6 +29,9 @@
     font-size: 60px;
     font-weight: bold;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     line-height: 20vh;
 }
@@ -131,7 +135,9 @@
     background-color: #EFECEC;
     position: relative;
     box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
-    opacity: 90%;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 1s ease-in-out;
 }
 
 .diet-type > img{
@@ -457,4 +463,9 @@
 .why-diet-step-description {
     font-size: 0.9rem;
     line-height: 1.4;
+}
+
+.diet-type.visible{
+    transform: translateY(0);
+    opacity: 0.9;
 }
