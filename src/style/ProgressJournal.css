@@ -85,6 +85,14 @@
     margin-top: 20px;
 }
 
+.progress-journal-menu-input:focus{
+    outline: none;
+}
+
+.progress-journal-menu-input:focus::placeholder{
+    color: transparent;
+}
+
 .progress-journal-menu-update-button{
     width: 10%;
     height: 50px;
@@ -120,5 +128,6 @@
     text-align: center;
     background-color: #3c6fb2;
     color: white;
+    opacity: 0.9;
     box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
 }

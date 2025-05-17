@@ -1,6 +1,6 @@
 import "../style/ProgressJournal.css"
 import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
-import {CartesianGrid, Label, Legend, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
+import {CartesianGrid, Label, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
 import {weightChartData} from "../data/WeightChartData.js";
 import {useState} from "react";
 
@@ -9,7 +9,7 @@ const CustomTooltip = ({ active, payload, label }) => {
         return (
             <div className="custom-tooltip">
                 <p className="label">{`Dzień: ${label}`}</p>
-                <p className="label">{`Waga: ${payload[0].value}`}</p>
+                <p className="label">{`Wartość: ${payload[0].value}`}</p>
             </div>
         );
     }
