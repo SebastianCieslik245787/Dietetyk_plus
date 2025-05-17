@@ -2,8 +2,15 @@ import DefaultUserIcon from "../../../images/icons/deafult_user_icon.png"
 import DietPlanIcon from "../../../images/icons/diet_plan_icon.png"
 import DeleteIcon from "../../../images/icons/delete_icon.png"
 import MoreInfoIcon from "../../../images/icons/more_info_icon.png"
+import {dietPurposes} from "../../../data/RegisterConsts.js";
+import {parseDateToDaysSince} from "../../../scripts/dateFunctions.js";
 
-const Patient = ({ data, onMoreInfo }) => {
+
+
+const Patient = ({data, onMoreInfo}) => {
+    const key = Object.keys(data)[0];
+    data = data[key];
+    const lastEdit = parseDateToDaysSince(data.lastUpdated);
     return(
         <>
             <div className="patient-container">
@@ -15,14 +22,18 @@ const Patient = ({ data, onMoreInfo }) => {
                         {data.name} {data.surname}
                     </div>
                     <div className="patient-info-last-edit-time">
-                        Ostatnio edytowane: <span className={data.lastEdit > 7 ? "patient-info-last-edit-time-late" : ""}> {data.lastEdit} dni temu</span>
+                        Ostatnio edytowane:
+                        <span className={lastEdit > 7 ? "patient-info-last-edit-time-late" : ""}>
+                            {lastEdit} dni temu</span>
                     </div>
                     <div className="patient-info-diet-type">
-                        Rodzaj Diety: {data.dietType}
+                        Rodzaj Diety: {
+                        (dietPurposes.find(purpose => purpose.value === data.dietPurpose)?.label || "")
+                    }
                     </div>
                     <div className="patient-info-buttons">
                         <div className="patient-info-button patient-info-button-delete">
-                            <img src={DeleteIcon} alt=""/>
+                            <img src={DeleteIcon} alt="" onClick={()=>{console.log("Usuwanie dietetyka użytkownikowi: " + key)}/*TODO Delete function*/}/>
                         </div>
                         <div className="patient-info-button patient-info-button-edit">
                             <img src={DietPlanIcon} alt=""/>

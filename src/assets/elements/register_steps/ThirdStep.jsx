@@ -1,6 +1,6 @@
 import React from "react";
 import RegisterSelect from "./RegisterSelect.jsx";
-import {jobTypes, mealsCount, purpose} from "../../../data/RegisterConsts.js";
+import {jobTypes, mealsCount, dietPurposes} from "../../../data/RegisterConsts.js";
 import RegisterChoiceLevel from "./RegisterChoiceLevel.jsx";
 
 function ThirdStep({formData, setFormData}) {
@@ -51,7 +51,7 @@ function ThirdStep({formData, setFormData}) {
                 <RegisterSelect
                     id="dietPurpose"
                     setFormData={setFormData}
-                    options={purpose}
+                    options={dietPurposes}
                     value={formData.dietPurpose}
                     placeHolder="Wybierz opcję"
                     required={true}

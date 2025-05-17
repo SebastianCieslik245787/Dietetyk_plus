@@ -17,6 +17,11 @@ export function changeUserDescription(setCookies, cookies, data){
     postNewData(setCookies, cookies['User-Key'], currentUserData);
 }
 
+export function changeUserDietetic(userData, cookies){
+    /*TODO*/
+    console.log(userData, cookies)
+}
+
 function postNewData(setCookies, userKey, data){
     fetch("/api/update", {
         method: "POST",
@@ -31,7 +36,7 @@ function postNewData(setCookies, userKey, data){
             case 200:
                 r.text().then(resp => {
                     console.log(resp);
-                    setCookies("User-Data", data, {path: "/"});
+                    if (setCookies) setCookies("User-Data", data, {path: "/"});
                 })
                 break;
             case 401:

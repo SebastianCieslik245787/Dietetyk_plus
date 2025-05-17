@@ -2,9 +2,14 @@ import DefaultPatientIcon from "../../../images/icons/deafult_user_icon.png"
 import closeWindowIcon from "../../../images/icons/close_window_icon.png"
 
 import {useEffect, useRef} from "react";
+import {dietPurposes} from "../../../data/RegisterConsts.js";
 
-const PatientInformation = ({data, onClose}) => {
+import {parseDateToYearSince} from "../../../scripts/dateFunctions.js";
+
+const PatientInformation = ({patientData, onClose}) => {
     const windowRef = useRef(null);
+    const key = Object.keys(patientData)[0];
+    const data = patientData[key];
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -18,6 +23,16 @@ const PatientInformation = ({data, onClose}) => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [onClose]);
+    
+    const age = parseDateToYearSince(data.birthdate);
+    const latVariant = (age) =>{
+        switch (age%10) {
+            case 0,1,5,6,7,8,9:
+                return "lat";
+            case 2,3,4:
+                return "lata";
+        }
+    }
 
     return (
         <>
@@ -33,16 +48,19 @@ const PatientInformation = ({data, onClose}) => {
                         <img src={closeWindowIcon} alt=""/>
                     </div>
                     <div className="patient-informations-window-diet-type">
-                        Rodzaj diety: {data.dietPurpose}
+                        Rodzaj diety: {(dietPurposes.find(purpose => purpose.value === data.dietPurpose)?.label || "")}
                     </div>
                     <div className="patient-informations-window-patient-data">
                         Nr tel: {data.phone}
                         <br/>
                         E-mail: {data.email}
                         <br/>
-                        {/*TODO: Zmienić birthdate na wiek*/}
-                        Wiek: {data.birthdate}
+                        Wiek: {age} {latVariant(age)}
                         <br/>
+                        {/*TODO: Dodać gdzieś podgląd daty urodzenia*/}
+                        {/*<br/>*/}
+                        {/*Data urodzenia: {data.birthdate}*/}
+                        {/*<br/>*/}
                         Waga: {data.medicalData.weight}kg
                         <br/>
                         Wzrost: {data.medicalData.height}cm

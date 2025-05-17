@@ -63,7 +63,7 @@ export const jobTypes = [
     }
 ]
 
-export const purpose = [
+export const dietPurposes = [
     {
         value: "weightLoss",
         label: "Redukcja masy ciała"

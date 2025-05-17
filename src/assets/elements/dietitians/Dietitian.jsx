@@ -1,13 +1,15 @@
 import EmailIcon from "../../../images/icons/email_icon.png"
 import PhoneNumberIcon from "../../../images/icons/phone_number_icon.png"
+import DefaultUserIcon from "../../../images/icons/deafult_user_icon.png"
 
 const Dietitian = ({data, position, isAssigned, onClick}) => {
-
+    const key = Object.keys(data)[0];
+    data = data[key];
     return (
         <>
             <div className={`dietitian-container ${position === 'right' ? 'dietitian-container-right' : ''}`}>
                 <div className={`dietitian-image ${position === 'right' ? 'dietitian-image-right' : ''}`}>
-                    <img src={data.image} alt=""/>
+                    <img src={data.img_b64 !== null ? data.img_b64 : DefaultUserIcon} alt=""/>
                 </div>
                 <div className={`dietitian-info-name-and-surname ${position === 'right' ? 'dietitian-info-name-and-surname-right' : ''}`}>
                     {data.name} {data.surname}
@@ -18,7 +20,7 @@ const Dietitian = ({data, position, isAssigned, onClick}) => {
                             <img src={PhoneNumberIcon} alt=""/>
                         </div>
                         <div className={`dietitian-info-contact-item-text ${position === 'right' ? 'dietitian-info-contact-item-text-right' : ''}`}>
-                            {data.phoneNumber}
+                            {data.phone}
                         </div>
                     </div>
                     <div className="dietitian-info-contact-item">
@@ -37,7 +39,7 @@ const Dietitian = ({data, position, isAssigned, onClick}) => {
                 {
                     !isAssigned && (
                         <>
-                            <div className={`dietitian-info-assign-button ${position === 'right' ? 'right' : 'left'}`} onClick={onClick}>
+                            <div className={`dietitian-info-assign-button ${position === 'right' ? 'right' : 'left'}`} onClick={()=>onClick(key)}>
                                 Zapisz się
                             </div>
                         </>

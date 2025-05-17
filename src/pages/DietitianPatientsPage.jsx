@@ -1,7 +1,7 @@
 import "../style/DieteticanPatientsPage.css"
 import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 import SearchBar from "../assets/elements/dietitian_patients/SearchBar.jsx";
-import {getPatientsData} from "../scripts/getData/getPatientsData.js"
+import {getPatientsData} from "../scripts/getData/getUsersData.js"
 import {useEffect, useState} from "react";
 import PatientInformations from "../assets/elements/dietitian_patients/PatientInformations.jsx";
 import {useCookies} from "react-cookie";
@@ -31,8 +31,10 @@ function DietitianPatientsPage() {
 
     useEffect(() => {
         setFilteredPatients(
-            patients.filter((patient) =>
-                `${patient.name || ''} ${patient.surname || ''}`.toLowerCase().includes(searchTerm.toLowerCase())
+            patients.filter((patient) =>{
+                const key = Object.keys(patient)[0];
+                return `${patient[key].name || ''} ${patient[key].surname || ''}`.toLowerCase().includes(searchTerm.toLowerCase()
+            )}
             )
         );
 
@@ -76,7 +78,7 @@ function DietitianPatientsPage() {
             </div>
             {isPatientClicked && (
                 <PatientInformations
-                    data={filteredPatients[expandedPatientIndex]}
+                    patientData={filteredPatients[expandedPatientIndex]}
                     onClose={() => setIsPatientClicked(false)}
                 />
             )}
