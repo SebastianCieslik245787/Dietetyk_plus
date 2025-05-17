@@ -36,7 +36,7 @@ const DietShoppingList = ({options, data}) => {
                     ))}
                 </div>
                 <div className="diet-plan-menu-button">
-                    <img src={DownloadIcon} alt=""/>
+                    <img src={`${DownloadIcon}`} alt=""/>
                     <p className="diet-plan-menu-button-text">
                         Pobierz
                     </p>
