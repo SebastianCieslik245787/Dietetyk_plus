@@ -31,8 +31,10 @@ function DietitianPatientsPage() {
 
     useEffect(() => {
         setFilteredPatients(
-            patients.filter((patient) =>
-                `${patient.name || ''} ${patient.surname || ''}`.toLowerCase().includes(searchTerm.toLowerCase())
+            patients.filter((patient) =>{
+                const key = Object.keys(patient)[0];
+                return `${patient[key].name || ''} ${patient[key].surname || ''}`.toLowerCase().includes(searchTerm.toLowerCase()
+            )}
             )
         );
 

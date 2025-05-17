@@ -2,7 +2,8 @@ import EmailIcon from "../../../images/icons/email_icon.png"
 import PhoneNumberIcon from "../../../images/icons/phone_number_icon.png"
 
 const Dietitian = ({data, position, isAssigned, onClick}) => {
-
+    const key = Object.keys(data)[0];
+    data = data[key];
     return (
         <>
             <div className={`dietitian-container ${position === 'right' ? 'dietitian-container-right' : ''}`}>

@@ -8,6 +8,8 @@ import {parseDateToYearSince} from "../../../scripts/dateFunctions.js";
 
 const PatientInformation = ({patientData, onClose}) => {
     const windowRef = useRef(null);
+    const key = Object.keys(patientData)[0];
+    const data = patientData[key];
 
     useEffect(() => {
         const handleClickOutside = (event) => {
