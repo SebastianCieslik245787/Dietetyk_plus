@@ -1,10 +1,10 @@
-import HealthImage from "../images/home_page_images/sprawnosc.webp"
-import DexterityImage from "../images/home_page_images/sprawnosc.webp"
-import ClearMindImage from "../images/home_page_images/jasny_umysł2.jpg"
-import LookImage from "../images/home_page_images/wygląd2.webp"
-import EnergyImage from "../images/home_page_images/energia2.jpg"
-import StressResistanceImage from "../images/home_page_images/odportosć na stress2.webp"
-import ConfidenceImage from "../images/home_page_images/pewnosc-siebie2.jpg"
+import HealthImage from "../images/home_page_images/7.png"
+import DexterityImage from "../images/home_page_images/4.png"
+import ClearMindImage from "../images/home_page_images/5.png"
+import LookImage from "../images/home_page_images/6.png"
+import EnergyImage from "../images/home_page_images/1.png"
+import StressResistanceImage from "../images/home_page_images/2.png"
+import ConfidenceImage from "../images/home_page_images/3.png"
 
 export const slides = [
     {
