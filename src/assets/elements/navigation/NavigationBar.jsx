@@ -18,7 +18,7 @@ function NavigationBar() {
     const scrollTimeout = useRef(null);
 
     const isLoggedIn = cookies["User-Key"] !== undefined;
-    const isUser = cookies["User-Data"].role === "user";
+    const isUser = cookies["User-Data"]?.role === "user";
 
     const handleHomePageClick = () => {
         navigate("/home");
