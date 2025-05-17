@@ -1,8 +1,9 @@
 import "../style/Dietitians.css"
 import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
-import {dietitiansData} from "../data/DietitiansData.js";
 import Dietitian from "../assets/elements/dietitians/Dietitian.jsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useCookies} from "react-cookie";
+import {getDietitiansData} from "../scripts/getData/getUsersData.js";
 
 function Dietitians(){
     const [isAssigned, setIsAssigned] = useState(false);
@@ -10,12 +11,21 @@ function Dietitians(){
         setIsAssigned(!isAssigned);
     }
 
+    const [cookies] = useCookies(["User-Key"]);
+    const [dietitians, setDietitians] = useState([]);
+    useEffect(() => {
+        (async () => {
+            const data = await getDietitiansData(cookies);
+            setDietitians(data || []);
+        })();
+    }, [cookies]);
+
     return (
         <>
             <NavigationBar/>
             <div className="offer-container">
                 <div className="offer-dietitian-container">
-                    {dietitiansData.map((item, index) => (
+                    {dietitians.map((item, index) => (
                         <Dietitian
                             data={item}
                             key={index}

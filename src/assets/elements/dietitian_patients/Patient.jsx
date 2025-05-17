@@ -7,7 +7,7 @@ import {parseDateToDaysSince} from "../../../scripts/dateFunctions.js";
 
 
 
-const Patient = ({ data, onMoreInfo }) => {
+const Patient = ({data, onMoreInfo}) => {
     const key = Object.keys(data)[0];
     data = data[key];
     const lastEdit = parseDateToDaysSince(data.lastUpdated);
