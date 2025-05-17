@@ -1,7 +1,7 @@
-export async function getPatientsData(cookies){
+async function getUsersData(cookies, type){
     try {
         const response = await fetch(
-            "/api/patients",
+            `/api/${type}`,
             {
                 method: "GET",
                 headers: {
@@ -23,8 +23,16 @@ export async function getPatientsData(cookies){
                 return [];
         }
     } catch (error) {
-        console.error("Błąd podczas pobierania danych pacjentów:", error);
+        console.error(`Błąd podczas pobierania "${type}":`, error);
         alert("Wystąpił błąd sieciowy. Spróbuj ponownie później.");
         return [];
     }
+}
+
+export async function getPatientsData(cookies){
+    return await getUsersData(cookies, "patients");
+}
+
+export async function getDietitiansData(cookies){
+    return await getUsersData(cookies, "dietitians");
 }
