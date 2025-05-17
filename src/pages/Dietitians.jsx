@@ -7,7 +7,9 @@ import {getDietitiansData} from "../scripts/getData/getUsersData.js";
 
 function Dietitians(){
     const [isAssigned, setIsAssigned] = useState(false);
-    const handleAssign = () => {
+    const handleAssign = (key) => {
+        /*TODO*/
+        console.log("Zapisanie się do dietetyka: " + key);
         setIsAssigned(!isAssigned);
     }
 

@@ -33,7 +33,7 @@ const Patient = ({data, onMoreInfo}) => {
                     </div>
                     <div className="patient-info-buttons">
                         <div className="patient-info-button patient-info-button-delete">
-                            <img src={DeleteIcon} alt=""/>
+                            <img src={DeleteIcon} alt="" onClick={()=>{console.log("Usuwanie dietetyka użytkownikowi: " + key)}/*TODO Delete function*/}/>
                         </div>
                         <div className="patient-info-button patient-info-button-edit">
                             <img src={DietPlanIcon} alt=""/>
