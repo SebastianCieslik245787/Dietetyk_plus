@@ -1,9 +1,9 @@
 import {useRef} from "react";
 import useClickOutside from "../../../hooks/OnClickOutsideWindow.jsx";
 
-const UnsavedChangesWindow = ({onClose, onSave}) => {
+const UnsavedChangesWindow = ({onCancel, onClose}) => {
     const windowRef = useRef(null);
-    useClickOutside(windowRef, onClose);
+    useClickOutside(windowRef, onCancel);
 
     return (
         <>
@@ -12,11 +12,11 @@ const UnsavedChangesWindow = ({onClose, onSave}) => {
                     <div className="unsaved-changes-window-message">
                         Czy chcesz porzucić niezapisane zmiany?
                     </div>
-                    <div className="unsaved-changes-window-button cancel" onClick={onClose}>
-                        Tak
+                    <div className="unsaved-changes-window-button cancel" onClick={onCancel}>
+                        Anuluj
                     </div>
-                    <div className="unsaved-changes-window-button save" onClick={onSave}>
-                        Zapisz
+                    <div className="unsaved-changes-window-button save" onClick={onClose}>
+                        Tak
                     </div>
                 </div>
             </div>
