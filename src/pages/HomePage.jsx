@@ -35,7 +35,7 @@ function HomePage() {
         }, 15000);
 
         return () => clearInterval(interval);
-    }, [actualSlide, slides.length]);
+    }, [actualSlide]);
 
     const randomIndices = useMemo(() => {
         const indices = [...Array(otherDietsData.length).keys()];

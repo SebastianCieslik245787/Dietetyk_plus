@@ -19,7 +19,7 @@ export const otherDietsData = [
     {
         image: LowEnergyDietIcon,
         name: "Dieta ubogoenergetyczna",
-        description: "Dieta zalecana jest w trakcie redukcji masy ciała, najczęściej przez osoby z otyłością lub z nadwagą. Podstawowym założeniem tej diety jest spożywanie częstych posiłków, ale w małych ilościach, które w przeliczeniu na dobę nie powinny przekraczać 000-1500 kcal."
+        description: "Dieta zalecana jest w trakcie redukcji masy ciała, najczęściej przez osoby z otyłością lub z nadwagą. Podstawowym założeniem tej diety jest spożywanie częstych posiłków, ale w małych ilościach, które w przeliczeniu na dobę nie powinny przekraczać 1000-1500 kcal."
     },
     {
         image: EasilyDigestibleDietIcon,
