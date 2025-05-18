@@ -9,7 +9,7 @@ import {useNavigate} from "react-router-dom";
 import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 import Slide from "../assets/elements/home_page/Slide.jsx";
 import {slides} from "../data/SlidesData.js";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import DietType from "../assets/elements/home_page/DietType.jsx";
 import {otherDietsData} from "../data/OtherDietsData.js";
 import {
@@ -37,10 +37,13 @@ function HomePage() {
         return () => clearInterval(interval);
     }, [actualSlide, slides.length]);
 
-    const indices = [...Array(otherDietsData.length).keys()];
-    indices.sort(() => Math.random() - 0.5);
+    const randomIndices = useMemo(() => {
+        const indices = [...Array(otherDietsData.length).keys()];
+        indices.sort(() => Math.random() - 0.5);
+        return [indices[0], indices[1]];
+    }, []);
 
-    const [first, second] = indices;
+    const [first, second] = randomIndices;
 
     return (<>
             <NavigationBar/>
