@@ -1,5 +1,4 @@
 import '../style/HomePage.css'
-
 import ourOfferBackGround from "../images/backgrounds/our_offer_background.webp"
 import typesOfDietBackGround from "../images/backgrounds/types_of_diet_background.jpg"
 import phoneIcon from "../images/icons/phone_number_icon.png"
@@ -38,6 +37,11 @@ function HomePage() {
         return () => clearInterval(interval);
     }, [actualSlide, slides.length]);
 
+    const indices = [...Array(otherDietsData.length).keys()];
+    indices.sort(() => Math.random() - 0.5);
+
+    const [first, second] = indices;
+
     return (<>
             <NavigationBar/>
             <div className="main-container">
@@ -61,11 +65,11 @@ function HomePage() {
                     <img src={`${typesOfDietBackGround}`} alt="Why Diet"/>
                     <div className="type-of-diets-content">
                         <DietType
-                            data={otherDietsData[0]}
+                            data={otherDietsData[first]}
                             direction={'left'}
                         />
                         <DietType
-                            data={otherDietsData[1]}
+                            data={otherDietsData[second]}
                             direction={'right'}
                         />
                         <div className="other-diets-button" onClick={handleOtherDietsClick}>
