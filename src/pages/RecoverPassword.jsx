@@ -1,50 +1,34 @@
 import "../style/RecoverPassword.css"
-import {useRef, useState} from "react";
+import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import RecoverPasswordInput from "../assets/elements/recover_password/RecoverPasswordInput.jsx";
+import VerificationCode from "../assets/elements/recover_password/VerificationCode.jsx";
 
 function RecoverPassword() {
     const navigate = useNavigate();
-    const [email, setEmail] = useState("");
+    const [data, setData] = useState({
+        email: "",
+        password: "",
+        passwordConfirmation: "",
+    });
+
+    const [errors, setErrors] = useState({
+        email: "",
+        password: "",
+        passwordConfirmation: "",
+    });
+
     const [activeStep, setActiveStep] = useState(0);
 
     const navigateToStep = () => {
         navigate("/home")
     };
 
-    const handleChange = (e) => {
-        setEmail(e.target.value);
-    }
-
     const [code, setCode] = useState(new Array(6).fill(""));
-    const inputsRef = useRef([]);
-
-    const handleChangeCode = (value, index) => {
-        if (!/^\d?$/.test(value)) return;
-
-        const newCode = [...code];
-        newCode[index] = value;
-        setCode(newCode);
-
-        if (value && index < 5) {
-            inputsRef.current[index + 1]?.focus();
-        }
-
-        if (newCode.every(char => char !== "")) {
-            handleSubmit(newCode.join(""));
-        }
-    };
-
-    const handleKeyDown = (e, index) => {
-        if (e.key === "Backspace" && code[index] === "" && index > 0) {
-            inputsRef.current[index - 1]?.focus();
-        }
-    };
-
     const handleSubmit = (fullCode) => {
         console.log("Wprowadzony kod:", fullCode);
         setActiveStep(2)
     };
-
 
     return (
         <div className="recover-password-container">
@@ -53,9 +37,14 @@ function RecoverPassword() {
                     {activeStep !== 3 ? "Odzyskiwanie hasła" : ""}
                 </div>
                 <div className={`step ${activeStep === 0 ? "visible" : ''}`}>
-                    <input value={email} onChange={handleChange} type="text" className={"recover-password-input"}
-                           placeholder="Wprowadz e-mail..."/>
-                    <div className={`recover-password-next-button ${email !== '' ? "visible" : ""}`}
+                    <RecoverPasswordInput
+                        data={data.email}
+                        setData={setData}
+                        placeHolder={"Wpisz e-mail..."}
+                        name={'email'}
+                        error={errors.email}
+                    />
+                    <div className={`recover-password-next-button ${data.email !== '' ? "visible" : ""}`}
                          onClick={() => setActiveStep(1)}>
                         Dalej
                     </div>
@@ -64,27 +53,28 @@ function RecoverPassword() {
                     <div className="recover-password-label">
                         Kod weryfikacjyny:
                     </div>
-                    <div className={"recover-password-code"}>
-                        {code.map((value, index) => (
-                            <input
-                                key={index}
-                                type="text"
-                                className="recover-password-input-code"
-                                maxLength={1}
-                                value={value}
-                                onChange={(e) => handleChangeCode(e.target.value, index)}
-                                onKeyDown={(e) => handleKeyDown(e, index)}
-                                ref={(el) => inputsRef.current[index] = el}
-                            />
-                        ))}
-                    </div>
+                    <VerificationCode
+                        data={code}
+                        setData={setCode}
+                        handleSubmit={handleSubmit}
+                    />
                 </div>
                 <div className={`step ${activeStep === 2 ? "visible" : ''}`} style={{marginTop: "-10%"}}>
-                    <input value={email} onChange={handleChange} type="text" className={"recover-password-input"}
-                           placeholder="Wprowadz nowe hasło"/>
-                    <input value={email} onChange={handleChange} type="text" className={"recover-password-input"}
-                           placeholder="Potwierdz hasło..."/>
-                    <div className={`recover-password-next-button visible`} style={{marginTop: "0"}}
+                    <RecoverPasswordInput
+                        data={data.password}
+                        setData={setData}
+                        placeHolder={"Wpisz nowe hasło..."}
+                        name={'password'}
+                        error={errors.password}
+                    />
+                    <RecoverPasswordInput
+                        data={data.passwordConfirmation}
+                        setData={setData}
+                        placeHolder={"Potwierdz hasło..."}
+                        name={'passwordConfirmation'}
+                        error={errors.passwordConfirmation}
+                    />
+                    <div className={`recover-password-next-button visible`} style={{marginTop: "1%"}}
                          onClick={() => setActiveStep(3)}>
                         Dalej
                     </div>
