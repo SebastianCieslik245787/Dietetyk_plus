@@ -131,3 +131,21 @@
     opacity: 0.9;
     box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
 }
+
+.progress-journal-menu-error{
+    width: 30%;
+    height: 30px;
+    position: absolute;
+    top: 110%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    right: 4%;
+    visibility: hidden;
+    color: #c50a0a;
+}
+
+.progress-journal-menu-error.visible{
+    visibility: visible;
+}
