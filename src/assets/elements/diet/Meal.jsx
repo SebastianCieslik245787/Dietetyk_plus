@@ -26,7 +26,7 @@ const Meal = ({data, mealImg, isActive, onToggle, isCreator = false, onEdit}) =>
             <div className={`meal-header ${isCreator ? "creator" : ""}`}>
                 <p className={`meal-title ${isCreator ? "creator" : ""}`}>
                     {
-                        isCreator ? (!isActive ? data.meal.name : '') : data.label
+                        isCreator ? (!isActive ? data.meal.name : '') : data.name
                     }
                 </p>
                 {isCreator && !isActive && (
@@ -60,7 +60,7 @@ const Meal = ({data, mealImg, isActive, onToggle, isCreator = false, onEdit}) =>
                             data.meal.ingredients.map((ingredient, key) => (
                                 <>
                                     <p key={key} className="meal-info-right-element">
-                                        • {ingredient.name} {ingredient.count} {ingredient.units}
+                                        • {ingredient.name} {ingredient.count} {ingredient.unit}
                                     </p>
                                 </>
                             ))

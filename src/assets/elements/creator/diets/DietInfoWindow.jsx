@@ -1,7 +1,15 @@
 import DietPlanIcon from '../../../../images/icons/diet_plan_icon.png'
 import CloseWindowIcon from '../../../../images/icons/close_window_icon.png'
 
-const DietInfoWindow = ({onClick, data}) => {
+const DietInfoWindow = ({onClick, data, setData}) => {
+    const handleChange = (e) => {
+        const { id, value } = e.target;
+        setData(prev => ({
+            ...prev,
+            [id]: value,
+        }));
+    };
+
     return (
         <>
             <div className={"diet-info-container"}>
@@ -13,7 +21,7 @@ const DietInfoWindow = ({onClick, data}) => {
                 </div>
                 <div className={"diet-info-body"}>
                     <div className={"diet-info-name"}>
-                        <input type="text" placeholder={"Wpisz nazwę..."} className="diet-info-input"/>
+                        <input id={"name"} onChange={handleChange} value={data.name} type="text" placeholder={"Wpisz nazwę..."} className="diet-info-input"/>
                         <div className={`diet-info-error`}>
                             XDD
                         </div>
@@ -27,13 +35,13 @@ const DietInfoWindow = ({onClick, data}) => {
                         </div>
                     </div>
                     <div className={"diet-info-description"}>
-                        <textarea placeholder={'Opisz...'}/>
+                        <textarea value={data.description} placeholder={'Opisz...'} id={"description"} onChange={handleChange}/>
                         <div className={`diet-info-error description`}>
                             XDD
                         </div>
                     </div>
                 </div>
-                <div className={"diet-info-save-button"}>
+                <div className={"diet-info-save-button"} onClick={() => console.log(data)}>
                     Zapisz
                 </div>
             </div>

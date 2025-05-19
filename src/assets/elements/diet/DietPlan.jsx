@@ -1,16 +1,24 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import DownloadIcon from "../../../images/icons/download_icon.png"
 import Meal from "./Meal.jsx";
 import MealImg from "../../../images/icons/jajecznica.webp";
-import {mealsData, mealsData2} from "../../../data/MealsData.js";
+import AddMealToDay from "../creator/diets/AddMealToDay.jsx";
+import CreatorAddItem from "../creator/CreatorAddItem.jsx";
 
 const today = new Date();
 const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1;
 
-const DietPlan = ({options}) => {
-    const [activeIndex, setActiveIndex] = useState(dayOfWeek);
-    const [activeMealIndex, setActiveMealIndex] = useState(null);
+const DietPlan = ({options, data, setData, isEdit = false, onClick}) => {
+    const [activeIndex, setActiveIndex] = useState(dayOfWeek)
+    const [activeMealIndex, setActiveMealIndex] = useState(null)
+    const [addMealToDay, setAddMealToDay] = useState(false)
 
+    useEffect(() => {
+        if(isEdit){
+            setActiveIndex(0)
+        }
+    }, [isEdit])
+    
     const handleItemClick = (index) => {
         setActiveIndex(index);
     };
@@ -43,37 +51,44 @@ const DietPlan = ({options}) => {
                         </div>
                     ))}
                 </div>
-                <div className="diet-plan-menu-button">
-                    <img src={DownloadIcon} alt=""/>
+                <div className="diet-plan-menu-button" onClick={onClick}>
+                    {
+                        isEdit ? '' :
+                            <img src={`${DownloadIcon}`} alt=""/>
+                    }
                     <p className="diet-plan-menu-button-text">
-                        Pobierz
+                        {isEdit ? 'Zapisz' : 'Pobierz'}
                     </p>
                 </div>
             </div>
             <div className="diet-plan-separator" id={"diet-plan-separator"}/>
             <div className="diet-plan-meals" id={"diet-plan-meals"}>
                 {
-                    activeIndex === 0 ?
-                        mealsData.map((meal, index) => (
-                            <Meal key={index}
+                    data.days[activeIndex].meals.map((meal, index) => (
+                            <Meal key={index + 1 * activeIndex}
                                   data={meal}
                                   mealImg={MealImg}
                                   isActive={activeMealIndex === index}
                                   onToggle={() => handleMealToggle(index)}
                                   index={index}
                             />
-                        )) :
-                        mealsData2.map((meal, index) => (
-                            <Meal key={index}
-                                  data={meal}
-                                  mealImg={MealImg}
-                                  isActive={activeMealIndex === index}
-                                  onToggle={() => handleMealToggle(index)}
-                                  index={index}
-                            />
-                        ))
+                    ))
+                }
+                {
+                    isEdit ? <CreatorAddItem
+                        placeHolder={"Dodaj posiłek"}
+                        onClick={() => setAddMealToDay(true)}
+                    /> : ''
                 }
             </div>
+            {
+                addMealToDay ? <AddMealToDay
+                    data={data}
+                    setData={setData}
+                    activeIndex={activeIndex}
+                    onClose={() => setAddMealToDay(false)}
+                /> : ''
+            }
         </div>
     );
 };

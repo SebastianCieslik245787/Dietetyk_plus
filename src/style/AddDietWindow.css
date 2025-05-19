@@ -174,7 +174,7 @@
     justify-content: center;
 }
 
-.diet-info-close-window > img{
+.diet-info-close-window > img, .add-meal-to-date-close-window > img{
     width: 25px;
     height: 25px;
     border-radius: 100%;
@@ -183,6 +183,127 @@
     cursor: pointer;
 }
 
-.diet-info-close-window > img:hover{
+.diet-info-close-window > img:hover, .add-meal-to-date-close-window > img:hover{
     box-shadow: 0 6px 10px -2px rgb(137, 137, 149);
+}
+
+.add-meal-to-date-container{
+    position: absolute;
+    background-color: rgba(72, 72, 72, 0.5);
+    z-index: 120;
+    border-radius: 10px;
+}
+
+.add-meal-to-date-container.hidden{
+    visibility: hidden;
+}
+
+.add-meal-to-date-window{
+    width: 60%;
+    height: 50%;
+    background-color: #fafafa;
+    border-radius: 10px;
+    margin: 13% 20%;
+    box-shadow: 0 6px 10px -2px rgb(137, 137, 149);
+    position: relative;
+}
+
+.add-meal-to-date-window-header{
+    width: 30%;
+    padding-left: 4%;
+    margin-top: 20px;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    float: left;
+    color: #484848;
+}
+
+.add-meal-to-date-window-input{
+    width: 90%;
+    margin: 40px calc(10% - 10px) 0;
+    height: 40px;
+    float: left;
+    position: relative;
+}
+
+.add-meal-to-date-window-input > input{
+    width: 50%;
+    border: none;
+    outline: none;
+    float: left;
+    margin-right: 10%;
+    border-radius: 30px;
+    padding: 0 20px;
+    box-shadow: 0 4px 5px -2px rgb(137, 137, 149);
+}
+
+.add-new-meal-button{
+    width: 25%;
+    height: 40px;
+    border-radius: 30px;
+    float: left;
+    box-shadow: 0 4px 5px -2px rgb(137, 137, 149);
+    position: relative;
+    background-color: white;
+    cursor: pointer;
+}
+
+.add-new-meal-icon{
+    float: left;
+    width: 25px;
+    height: 25px;
+    margin-top: 7px;
+    margin-left: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-new-meal-icon > img{
+    width: 25px;
+    height: 25px;
+}
+
+.add-new-meal-text{
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    color: #484848;
+}
+
+.add-meal-to-date-add-button{
+    width: 20%;
+    height: 40px;
+    border-radius: 30px;
+    float: left;
+    box-shadow: 0 4px 5px -2px rgb(137, 137, 149);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #64AD56;
+    margin-top: 60px;
+    margin-left: 75%;
+    color: #fafafa;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.add-meal-to-date-add-button:hover{
+    background-color: #3d7c2f;
+}
+
+.add-meal-to-date-close-window{
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin-left: calc(100% - 34% - 50px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

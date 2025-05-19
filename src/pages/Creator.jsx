@@ -26,10 +26,9 @@ function Creator() {
 
     const handleCreatorTypeClick = (index) => {
         setActiveCreator(index);
-        if(index === 0){
+        if (index === 0) {
             setData(mealsData);
-        }
-        else{
+        } else {
             setData(dietData);
         }
     }
@@ -93,7 +92,7 @@ function Creator() {
                             <>
                                 {
                                     data.map((diet, index) => (
-                                        <DietItem key={index} data={diet} />
+                                        <DietItem key={index} data={diet}/>
                                     ))
                                 }
                             </>
@@ -102,12 +101,14 @@ function Creator() {
                     <div className="creator-menu-clear"/>
                 </div>
             </div>
-            {(openAddItemWindow && activeCreator === 0) ?
-                <AddMealWindow
-                    onClose={() => setOpenAddItemWindow(false)}
-                    data={activeMealIndex !== null ? data[activeMealIndex].meal : null}
-                /> :
-                <AddDietWindow/>
+            {openAddItemWindow ? activeCreator === 0 ?
+                    (<AddMealWindow
+                        onClose={() => setOpenAddItemWindow(false)}
+                        data={activeMealIndex !== null ? data[activeMealIndex].meal : null}
+                    />)
+                    :
+                    <AddDietWindow/>
+                : ''
             }
         </>
     );
