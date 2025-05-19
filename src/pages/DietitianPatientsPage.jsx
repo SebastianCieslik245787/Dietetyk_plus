@@ -22,7 +22,6 @@ function DietitianPatientsPage() {
     };
 
     useEffect(() => {
-        /*TODO Abominacja*/
         (async () => {
             const data = await getPatientsData(cookies);
             setPatients(data || []);
@@ -67,10 +66,12 @@ function DietitianPatientsPage() {
                             <Patient
                                 data={item}
                                 key={index}
+                                cookies={cookies}
                                 onMoreInfo={() => {
                                     setExpandedPatientIndex(index)
                                     setIsPatientClicked(true);
-                                }}/>
+                                }
+                            }/>
                         </>
                     ))}
                     <div className="dietitian-patients-footer"/>
