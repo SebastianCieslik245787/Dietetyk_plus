@@ -60,29 +60,45 @@
     height: 50px;
 }
 
+.user-settings-input-error{
+    width: 55%;
+    position: absolute;
+    height: 30px;
+    top: 100%;
+    right: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #C02222;
+    font-size: 0.7rem;
+    visibility: hidden;
+    transition: visibility 0.3s ease;
+}
+
+.user-settings-input-error.visible{
+    visibility: visible;
+}
+
 .user-settings-label{
     width: 90%;
     height: 70px;
     margin-left: 5%;
     float: left;
-    border-bottom: 3px solid #414141;
     border-radius: 2px;
     margin-bottom: 30px;
     position: relative;
 }
 
 .user-settings-label-text{
-    padding-left: 3%;
-    margin-right: 3%;
-    width: auto;
-    color: #414141;
+    margin-left: 1%;
+    width: 25%;
+    color: #919191;
     font-size: 1.8rem;
     height: 80%;
     float: left;
     display: flex;
     align-items: center;
-    justify-content: left;
-    border-left: 1px solid #c4c4c4;
+    justify-content: center;
     transition: 0.3s;
 }
 
@@ -91,12 +107,30 @@
     cursor: pointer;
 }
 
+.user-settings-label-text:hover > .user-settings-label-item-bottom-bar{
+    background-color: #E24F4F;
+}
+
 .user-settings-label-text-active{
     color: #E24F4F;
 }
 
 .user-settings-label-text-first{
     border-left: 0;
+}
+
+.user-settings-label-item-bottom-bar{
+    width: 25%;
+    top: 90%;
+    height: 5px;
+    background-color: #919191;
+    position: absolute;
+    transition: 0.3s ease;
+    border-radius: 10px;
+}
+
+.user-settings-label-item-bottom-bar.active{
+    background-color: #E24F4F;
 }
 
 .user-settings-save-button{

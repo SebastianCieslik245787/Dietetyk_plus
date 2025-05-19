@@ -6,6 +6,7 @@ import {changeUserData, changeUserPassword, changeUserDescription} from "../scri
 import {useEffect, useState} from "react";
 import {useCookies} from "react-cookie"
 import UserSettingsTextArea from "../assets/elements/user_settings/UserSettingsTextArea.jsx";
+import {validateChangePassword, validatePersonalData} from "../scripts/validateData/validateUserSettingsUtils.js";
 
 
 export function UserSettings() {
@@ -17,6 +18,28 @@ export function UserSettings() {
         userConfirmPassword: "",
         userNewPassword: "",
     })
+
+    const [errors, setErrors] = useState({
+        userPassword: '',
+        userConfirmPassword: '',
+        userNewPassword: '',
+        userEmail: '',
+        userPhone: ''
+    });
+
+    const handleSubmit = () => {
+        if(actualSettings === 0){
+            if(!validatePersonalData(userPersonalData, setErrors)) return
+            changeUserData(setCookies, cookies, userPersonalData)
+        }
+        else if(actualSettings === 1){
+            if(!validateChangePassword(initialData, setErrors)) return
+            changeUserPassword(setCookies, cookies, userPasswordData)
+        }
+        else{
+            changeUserDescription(setCookies, cookies, userDescription)
+        }
+    }
 
     const initialData = {
         userName: cookies['User-Data']?.name || "",
@@ -80,6 +103,8 @@ export function UserSettings() {
                                     setFormData={setUserPersonalData}
                                     type="text"
                                     readOnly={false}
+                                    setError={setErrors}
+                                    error={errors.userEmail}
                                 />
                                 <UserSettingsInput
                                     id="userPhone"
@@ -89,12 +114,12 @@ export function UserSettings() {
                                     setFormData={setUserPersonalData}
                                     type="text"
                                     readOnly={false}
+                                    setError={setErrors}
+                                    error={errors.userPhone}
                                 />
                                 <div
                                     className={`user-settings-save-button ${isModifiedPersonalData ? "user-settings-save-button-active" : ""}`}
-                                    onClick={() => {
-                                        changeUserData(setCookies, cookies, userPersonalData)
-                                    }}>
+                                    onClick={handleSubmit}>
                                     Zapisz
                                 </div>
                             </>
@@ -104,21 +129,13 @@ export function UserSettings() {
                         <>
                             <UserSettingsInput
                                 id="userPassword"
-                                label="Hasło:"
+                                label="Aktualne Hasło:"
                                 placeHolder="Wpisz aktualne hasło..."
                                 value={userPasswordData.userPassword}
                                 setFormData={setUserPasswordData}
                                 type="password"
                                 readOnly={false}
-                            />
-                            <UserSettingsInput
-                                id="userConfirmPassword"
-                                placeHolder="Potwierdź hasło..."
-                                label="Potwierdz hasło:"
-                                value={userPasswordData.userConfirmPassword}
-                                setFormData={setUserPasswordData}
-                                type="password"
-                                readOnly={false}
+                                error={errors.userPassword}
                             />
                             <UserSettingsInput
                                 id="userNewPassword"
@@ -128,11 +145,20 @@ export function UserSettings() {
                                 setFormData={setUserPasswordData}
                                 type="password"
                                 readOnly={false}
+                                error={errors.userNewPassword}
+                            />
+                            <UserSettingsInput
+                                id="userConfirmPassword"
+                                placeHolder="Potwierdz hasło..."
+                                label="Potwierdz hasło:"
+                                value={userPasswordData.userConfirmPassword}
+                                setFormData={setUserPasswordData}
+                                type="password"
+                                readOnly={false}
+                                error={errors.userConfirmPassword}
                             />
                             <div className={`user-settings-save-button user-settings-save-button-active`}
-                                 onClick={() => {
-                                     changeUserPassword(setCookies, cookies, userPasswordData)
-                                 }}>
+                                 onClick={handleSubmit}>
                                 Zapisz
                             </div>
                         </>
@@ -147,9 +173,7 @@ export function UserSettings() {
                                 />
                                 <div
                                     className={`user-settings-save-button ${isModifiedDescription ? "user-settings-save-button-active" : ""}`}
-                                    onClick={() => {
-                                        changeUserDescription(setCookies, cookies, userDescription)
-                                    }}>
+                                    onClick={handleSubmit}>
                                     Zapisz
                                 </div>
                             </>
