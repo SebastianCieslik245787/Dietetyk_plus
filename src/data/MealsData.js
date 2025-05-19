@@ -4,7 +4,7 @@ export const mealsData = [
     {
         label: "Śniadanie",
         meal: {
-            mealName: "Jajecznica z chlebem",
+            name: "Jajecznica z chlebem",
             image: MealImage,
             macros: {
                 proteins: 46.7,
@@ -14,19 +14,19 @@ export const mealsData = [
             },
             ingredients: [
                 {
-                    ingredientName: "Jajko",
+                    name: "Jajko",
                     count: 5,
-                    units: "szt."
+                    unit: "szt."
                 },
                 {
-                    ingredientName: "Masło roślinne",
+                    name: "Masło roślinne",
                     count: 100,
-                    units: "g"
+                    unit: "g"
                 },
                 {
-                    ingredientName: "",
+                    name: "",
                     count: 100,
-                    units: "g"
+                    unit: "g"
                 },
             ],
             recipe: "Podgrzewaj na patelni masło aż się roztopi, następnie wbij na patelnie 5 jajek, smarz aż źółtko i białko się zetnie."
@@ -35,7 +35,7 @@ export const mealsData = [
     {
         label: "Obiad",
         meal: {
-            mealName: "Jajecznica z chlebem",
+            name: "Jajecznica z chlebem",
             image: MealImage,
             macros: {
                 proteins: 46.7,
@@ -45,19 +45,19 @@ export const mealsData = [
             },
             ingredients: [
                 {
-                    ingredientName: "Jajko",
+                    name: "Jajko",
                     count: 5,
-                    units: "szt."
+                    unit: "szt."
                 },
                 {
-                    ingredientName: "Masło roślinne",
+                    name: "Masło roślinne",
                     count: 100,
-                    units: "g"
+                    unit: "g"
                 },
                 {
-                    ingredientName: "",
+                    name: "",
                     count: 200,
-                    units: "g"
+                    unit: "g"
                 },
             ],
             recipe: "Podgrzewaj na patelni masło aż się roztopi, następnie wbij na patelnie 5 jajek, smarz aż źółtko i białko się zetnie."
@@ -66,7 +66,7 @@ export const mealsData = [
     {
         label: "Kolacja",
         meal: {
-            mealName: "Jajecznica z chlebem",
+            name: "Jajecznica z chlebem",
             image: MealImage,
             macros: {
                 proteins: 46.7,
@@ -76,19 +76,19 @@ export const mealsData = [
             },
             ingredients: [
                 {
-                    ingredientName: "Jajko",
+                    name: "Jajko",
                     count: 5,
-                    units: "szt."
+                    unit: "szt."
                 },
                 {
-                    ingredientName: "Masło roślinne",
+                    name: "Masło roślinne",
                     count: 300,
-                    units: "g"
+                    unit: "g"
                 },
                 {
-                    ingredientName: "",
+                    name: "",
                     count: 100,
-                    units: "g"
+                    unit: "g"
                 },
             ],
             recipe: "Podgrzewaj na patelni masło aż się roztopi, następnie wbij na patelnie 5 jajek, smarz aż źółtko i białko się zetnie."
@@ -100,7 +100,7 @@ export const mealsData2 = [
     {
         label: "Śniadanie",
         meal: {
-            mealName: "Jajecznica z chlebem",
+            name: "Jajecznica z chlebem",
             image: MealImage,
             macros: {
                 proteins: 46.7,
@@ -110,19 +110,19 @@ export const mealsData2 = [
             },
             ingredients: [
                 {
-                    ingredientName: "Jajko",
+                    name: "Jajko",
                     count: 5,
-                    units: "szt."
+                    unit: "szt."
                 },
                 {
-                    ingredientName: "Masło roślinne",
+                    name: "Masło roślinne",
                     count: 100,
-                    units: "g"
+                    unit: "g"
                 },
                 {
-                    ingredientName: "",
+                    name: "",
                     count: 100,
-                    units: "g"
+                    unit: "g"
                 },
             ],
             recipe: "Podgrzewaj na patelni masło aż się roztopi, następnie wbij na patelnie 5 jajek, smarz aż źółtko i białko się zetnie."
@@ -131,7 +131,7 @@ export const mealsData2 = [
     {
         label: "Obiad",
         meal: {
-            mealName: "Jajecznica z chlebem",
+            name: "Jajecznica z chlebem",
             image: MealImage,
             macros: {
                 proteins: 46.7,
@@ -141,19 +141,19 @@ export const mealsData2 = [
             },
             ingredients: [
                 {
-                    ingredientName: "Jajko",
+                    name: "Jajko",
                     count: 5,
-                    units: "szt."
+                    unit: "szt."
                 },
                 {
-                    ingredientName: "Masło roślinne",
+                    name: "Masło roślinne",
                     count: 100,
-                    units: "g"
+                    unit: "g"
                 },
                 {
-                    ingredientName: "",
+                    name: "",
                     count: 200,
-                    units: "g"
+                    unit: "g"
                 },
             ],
             recipe: "Podgrzewaj na patelni masło aż się roztopi, następnie wbij na patelnie 5 jajek, smarz aż źółtko i białko się zetnie."

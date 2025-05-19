@@ -16,7 +16,7 @@ const CreatorSelect = ({options, setActive, active, AddWindow = false, placeHold
                 <div className={`creator-menu-select-drop-down ${isClicked ? 'active' : ''}`}>
                     {
                         options.map((option, index) => (
-                            <div onClick={() => setActive(index)} className="creator-menu-select-drop-down-item">
+                            <div key={index} onClick={() => setActive(index)} className="creator-menu-select-drop-down-item">
                                 {option}
                             </div>
                         ))

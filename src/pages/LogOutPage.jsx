@@ -4,7 +4,7 @@ import {useCookies} from "react-cookie";
 
 function LogOutPage(){
     const navigate = useNavigate();
-    const [, , removeCookie] = useCookies(["User-Key"]);
+    const [, , removeCookie] = useCookies(["User-Key", "User-Data"]);
     const handleBackToHomePageClick = () => {
         removeCookie("User-Key");
         removeCookie("User-Data");

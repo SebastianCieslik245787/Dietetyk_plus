@@ -11,10 +11,10 @@ import {useCookies} from "react-cookie";
 
 function NavigationBar() {
     const navigate = useNavigate();
-    const [cookies] = useCookies(["User-Key"]);
+    const [cookies] = useCookies(["User-Key", "User-Data"]);
 
     const [showNavbar, setShowNavbar] = useState(true);
-    const lastScrollY = useRef(0);  // <- UŻYWAMY useRef
+    const lastScrollY = useRef(0);
     const scrollTimeout = useRef(null);
 
     const isLoggedIn = cookies["User-Key"] !== undefined;
@@ -79,7 +79,7 @@ function NavigationBar() {
                     </>
                 ) : (
                     <>
-                        <NavigationItem name="Kreator" path="/schema-creator"/>
+                        <NavigationItem name="Kreator" path="/creator"/>
                         <NavigationItem name="Klienci" path="/patients" isLast={isLoggedIn}/>
                     </>
                 )

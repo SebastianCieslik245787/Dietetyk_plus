@@ -63,13 +63,15 @@ function Creator() {
                     />
                     {activeCreator === 0 && (
                         <>
-                            {mealNames.map((meal, index) => (
+                            {/*TODO jak bedzie zmienna trzymajaca dania danego dietetyka*/
+                                mealNames.map((meal, index) => (
                                 <Meal key={index}
                                       data={mealsData[0]}
                                       mealImg={MealImg}
                                       isActive={activeMealIndex === index}
                                       onToggle={() => handleMealToggle(index)}
                                       index={index}
+                                      onEdit={() => setOpenAddItemWindow(true)}
                                       isCreator={true}
                                 />
                             ))}
@@ -81,6 +83,8 @@ function Creator() {
             {(openAddItemWindow && activeCreator === 0) ?
                 <AddMealWindow
                     onClose={() => setOpenAddItemWindow(false)}
+                    /*TODO jak bedzie zmienna trzymajaca dania danego dietetyka*/
+                    data={activeMealIndex !== null ?  mealsData[activeMealIndex].meal : null}
                 /> : ''
             }
         </>

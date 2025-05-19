@@ -1,12 +1,12 @@
 import "../../../../style/AddMealWindow.css"
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import AddMealWindowDescription from "./AddMealWindowDescription.jsx";
 import AddMealWindowIngredients from "./AddMealWindowIngredients.jsx";
 import CloseWindowIcon from '../../../../images/icons/close_window_icon.png'
 import UnsavedChangesWindow from "./UnsavedChangesWindow.jsx";
 import {isEditedMeal, validateAddMeal} from "../../../../scripts/validateData/validateAddMealUtils.js";
 
-const AddMealWindow = ({onClose}) => {
+const AddMealWindow = ({onClose, data}) => {
     const [activeOption, setActiveOption] = useState(0);
     const [isEdited, setIsEdited] = useState(false);
 
@@ -27,6 +27,17 @@ const AddMealWindow = ({onClose}) => {
         if (!validateAddMeal(mealData, setErrors)) return
         onClose()
     }
+
+    useEffect(() => {
+        if(data !== null){
+            setMealData({
+                name: data.name,
+                image: data.image,
+                recipe: data.recipe,
+                ingredients: data.ingredients,
+            })
+        }
+    }, [data]);
 
     return (
         <>

@@ -5,7 +5,7 @@ import EditIcon from "../../../images/icons/edit_icon.png";
 import {changeDietPlanContainerSize} from "../../../scripts/changeDietPlanContainerSize.js";
 import MacrosTable from "./MacrosTable.jsx";
 
-const Meal = ({data, mealImg, isActive, onToggle, isCreator = false}) => {
+const Meal = ({data, mealImg, isActive, onToggle, isCreator = false, onEdit}) => {
     const separatorRef = useRef(null);
     const leftSideRef = useRef(null);
     const rightSideRef = useRef(null);
@@ -26,7 +26,7 @@ const Meal = ({data, mealImg, isActive, onToggle, isCreator = false}) => {
             <div className={`meal-header ${isCreator ? "creator" : ""}`}>
                 <p className={`meal-title ${isCreator ? "creator" : ""}`}>
                     {
-                        isCreator ? (!isActive ? data.meal.mealName : '') : data.label
+                        isCreator ? (!isActive ? data.meal.name : '') : data.label
                     }
                 </p>
                 {isCreator && !isActive && (
@@ -60,7 +60,7 @@ const Meal = ({data, mealImg, isActive, onToggle, isCreator = false}) => {
                             data.meal.ingredients.map((ingredient, key) => (
                                 <>
                                     <p key={key} className="meal-info-right-element">
-                                        • {ingredient.ingredientName} {ingredient.count} {ingredient.units}
+                                        • {ingredient.name} {ingredient.count} {ingredient.units}
                                     </p>
                                 </>
                             ))
@@ -81,7 +81,7 @@ const Meal = ({data, mealImg, isActive, onToggle, isCreator = false}) => {
                                     <img src={DeleteIcon} alt=""/>
                                 </div>
                                 <div className="meal-info-button edit">
-                                    <img src={EditIcon} alt=""/>
+                                    <img onClick={onEdit} src={EditIcon} alt=""/>
                                 </div>
                             </div>
                         </>
