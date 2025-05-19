@@ -11,6 +11,7 @@ import {changeDietPlanContainerSize} from "../scripts/changeDietPlanContainerSiz
 import {mealsData} from "../data/MealsData.js";
 import DietItem from "../assets/elements/creator/diets/DietItem.jsx";
 import {dietData} from "../data/DIetData.js";
+import AddDietWindow from "../assets/elements/creator/diets/AddDietWindow.jsx";
 
 function Creator() {
     const [activeCreator, setActiveCreator] = useState(0);
@@ -105,7 +106,8 @@ function Creator() {
                 <AddMealWindow
                     onClose={() => setOpenAddItemWindow(false)}
                     data={activeMealIndex !== null ? data[activeMealIndex].meal : null}
-                /> : ''
+                /> :
+                <AddDietWindow/>
             }
         </>
     );

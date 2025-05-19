@@ -1,0 +1,188 @@
+.add-diet-window-container{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    background-color: rgba(72, 72, 72, 0.5);
+    z-index: 120;
+}
+
+.diet-info-container{
+    width: 50%;
+    height: 50%;
+    background-color: #fafafa;
+    margin-top: 13%;
+    margin-left: 25%;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+    position: relative;
+}
+
+.diet-info-header{
+    width: 70%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    padding-left: 4%;
+    font-size: 2rem;
+    color: #484848;
+    float: left;
+}
+
+.diet-info-body{
+    width: 90%;
+    height: 60%;
+    float: left;
+    margin-left: 5%;
+    position: relative;
+}
+
+.diet-info-name{
+    width: 50%;
+    height: 40px;
+    float: left;
+}
+
+.diet-info-input{
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    background-color: white;
+    padding: 0 30px;
+    border: none;
+    font-size: 0.8rem;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    color: #484848;
+}
+
+.diet-info-input:focus{
+    color: #484848;
+    outline: none;
+}
+
+.diet-info-input:focus::placeholder {
+    color: transparent;
+}
+
+.diet-info-error{
+    width: 50%;
+    height: 20px;
+    font-size: 0.7rem;
+    color: #C02222;
+    text-align: center;
+    position: absolute;
+    top: 50px;
+    left: 5%;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+}
+
+.diet-info-edit-plan-button{
+    width: 20%;
+    height: 40px;
+    border-radius: 20px;
+    background-color: white;
+    float: left;
+    margin-left: 30%;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    cursor: pointer;
+    transition: .3s ease;
+}
+
+.diet-info-edit-plan-button:hover{
+    background-color: #eaeaea;
+    box-shadow: 0 8px 15px -6px rgb(137, 137, 149);
+}
+
+.diet-info-description{
+    float: left;
+    width: 95%;
+    height: 50%;
+    margin-top: 6%;
+}
+
+.diet-info-description > textarea {
+    padding: 20px;
+    border: none;
+    outline: none;
+    resize: none;
+    width: 100%;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    border-radius: 10px;
+    background-color: white;
+    color: #484848;
+    font-size: 0.8rem;
+}
+
+.diet-info-error.description{
+    width: 90%;
+    top: 103%;
+}
+
+.diet-info-save-button{
+    width: 15%;
+    height: 40px;
+    float: right;
+    margin-top: 2%;
+    margin-right: 5%;
+    background-color: #64AD56;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #484848;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 8px 10px -2px rgb(137, 137, 149);
+}
+
+.diet-info-edit-plan-button-icon{
+    width: 15%;
+    height: 100%;
+    margin-left: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    float: left;
+}
+
+.diet-info-edit-plan-button-icon > img{
+    width: 20px;
+    height: 20px;
+}
+
+.diet-info-edit-plan-button-text{
+    float: left;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #484848;
+}
+
+.diet-info-close-window{
+    width: 50px;
+    height: 50px;
+    margin-left: calc(100% - 74% - 60px);
+    margin-top: 10px;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.diet-info-close-window > img{
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    box-shadow: 0 4px 5px -2px rgb(137, 137, 149);
+    transition: .3s ease;
+    cursor: pointer;
+}
+
+.diet-info-close-window > img:hover{
+    box-shadow: 0 6px 10px -2px rgb(137, 137, 149);
+}
