@@ -4,10 +4,10 @@ import DeleteIcon from "../../../images/icons/delete_icon.png"
 import MoreInfoIcon from "../../../images/icons/more_info_icon.png"
 import {dietPurposes} from "../../../data/RegisterConsts.js";
 import {parseDateToDaysSince} from "../../../scripts/dateFunctions.js";
+import {changeUserDietetic} from "../../../scripts/sendData/sendUserDieteticChange.js";
 
 
-
-const Patient = ({data, onMoreInfo}) => {
+const Patient = ({data, cookies, onMoreInfo}) => {
     const key = Object.keys(data)[0];
     data = data[key];
     const lastEdit = parseDateToDaysSince(data.lastUpdated);
@@ -33,7 +33,11 @@ const Patient = ({data, onMoreInfo}) => {
                     </div>
                     <div className="patient-info-buttons">
                         <div className="patient-info-button patient-info-button-delete">
-                            <img src={DeleteIcon} alt="" onClick={()=>{console.log("Usuwanie dietetyka użytkownikowi: " + key)}/*TODO Delete function*/}/>
+                            <img src={DeleteIcon} alt="" onClick={()=>{
+                                changeUserDietetic("remove", key, cookies, null)
+                                console.log("Usuwanie dietetyka użytkownikowi: " + key)}
+
+                            }/>
                         </div>
                         <div className="patient-info-button patient-info-button-edit">
                             <img src={DietPlanIcon} alt=""/>

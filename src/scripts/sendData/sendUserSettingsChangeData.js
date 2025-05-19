@@ -17,11 +17,6 @@ export function changeUserDescription(setCookies, cookies, data){
     postNewData(setCookies, cookies['User-Key'], currentUserData);
 }
 
-export function changeUserDietetic(userData, cookies){
-    /*TODO*/
-    console.log(userData, cookies)
-}
-
 function postNewData(setCookies, userKey, data){
     fetch("/api/update", {
         method: "POST",

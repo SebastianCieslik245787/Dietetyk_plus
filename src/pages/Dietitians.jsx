@@ -4,17 +4,19 @@ import Dietitian from "../assets/elements/dietitians/Dietitian.jsx";
 import {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import {getDietitiansData} from "../scripts/getData/getUsersData.js";
+import {changeUserDietetic} from "../scripts/sendData/sendUserDieteticChange.js";
 
 function Dietitians(){
-    const [isAssigned, setIsAssigned] = useState(false);
+    const [cookies, setCookies] = useCookies(["User-Key", "User-Data"]);
+    const [dietitians, setDietitians] = useState([]);
+    const [isAssigned, setIsAssigned] = useState(cookies['User-Data'].dieteticId !== "");
     const handleAssign = (key) => {
         /*TODO*/
         console.log("Zapisanie się do dietetyka: " + key);
+        changeUserDietetic("add", key, cookies, setCookies)
         setIsAssigned(!isAssigned);
     }
 
-    const [cookies] = useCookies(["User-Key"]);
-    const [dietitians, setDietitians] = useState([]);
     useEffect(() => {
         (async () => {
             const data = await getDietitiansData(cookies);
