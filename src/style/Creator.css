@@ -273,6 +273,7 @@
 .meal-title.creator{
     float: left;
     justify-content: left;
+    font-size: 1.2rem;
 }
 
 .meal-info-macros.creator-inactive{
@@ -336,4 +337,53 @@
 .meal-info-button.edit > img:hover{
     background-color: #3c6fb2;
     box-shadow: 0 8px 15px -6px rgb(137, 137, 149);
+}
+
+.diet-item{
+    width: 96%;
+    margin-left: 2%;
+    height: auto;
+    position: relative;
+    float: left;
+    transition: height 0.3s ease;
+    background-color: #FAFAFA;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    border-radius: 30px;
+    opacity: 100%;
+    margin-bottom: 30px;
+}
+
+.diet-item-title{
+    font-size: 2rem;
+    float: left;
+    width: 90%;
+    padding: 20px 5%;
+    color: #484848;
+}
+
+.diet-item-description{
+    width: 80%;
+    padding: 10px 3% 0;
+    float: left;
+    color: #484848;
+    font-size: 0.9rem;
+}
+
+.diet-item-buttons{
+    width: 96%;
+    float: right;
+    margin-right: 2%;
+    margin-bottom: 20px;
+}
+
+.meal-info-button.diet-plan > img{
+    transition: background-color 0.2s;
+}
+
+.meal-info-button.diet-plan > img{
+    background-color: rgba(183, 183, 183, 0.9);
+}
+
+.meal-info-button.diet-plan:hover > img{
+    background-color: rgba(131, 130, 130, 0.9);
 }

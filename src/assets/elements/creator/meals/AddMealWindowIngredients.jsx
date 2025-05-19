@@ -1,4 +1,4 @@
-import CreatorSelect from "./CreatorSelect.jsx";
+import CreatorSelect from "../CreatorSelect.jsx";
 import IngredientItem from "./IngredientItem.jsx";
 import {useState} from "react";
 import {validateIngredient} from "../../../../scripts/validateData/validateAddMealUtils.js";

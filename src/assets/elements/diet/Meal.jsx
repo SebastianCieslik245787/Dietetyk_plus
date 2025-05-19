@@ -44,7 +44,7 @@ const Meal = ({data, mealImg, isActive, onToggle, isCreator = false, onEdit}) =>
                 <div className={`meal-info-left-side ${isCreator ? 'creator' : ''}`} ref={leftSideRef}>
                     <img src={mealImg} alt=""/>
                     <p className="meal-info-meal-name">
-                        {data.meal.mealName}
+                        {data.meal.name}
                     </p>
                     <MacrosTable
                         data={data.meal.macros}
@@ -78,10 +78,10 @@ const Meal = ({data, mealImg, isActive, onToggle, isCreator = false, onEdit}) =>
                         <>
                             <div className="meal-info-buttons">
                                 <div className="meal-info-button delete">
-                                    <img src={DeleteIcon} alt=""/>
+                                    <img src={`${DeleteIcon}`} alt=""/>
                                 </div>
                                 <div className="meal-info-button edit">
-                                    <img onClick={onEdit} src={EditIcon} alt=""/>
+                                    <img onClick={onEdit} src={`${EditIcon}`} alt=""/>
                                 </div>
                             </div>
                         </>

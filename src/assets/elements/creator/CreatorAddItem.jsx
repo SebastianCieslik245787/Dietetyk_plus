@@ -1,4 +1,4 @@
-import AddItemIcon from '../../../../images/icons/add_icon.png';
+import AddItemIcon from '../../../images/icons/add_icon.png';
 
 const CreatorAddItem = ({placeHolder, onClick}) => {
 

@@ -1,4 +1,4 @@
-import Arrow from "../../../../images/icons/arrow_down.png";
+import Arrow from "../../../images/icons/arrow_down.png";
 import {useState} from "react";
 
 const CreatorSelect = ({options, setActive, active, AddWindow = false, placeHolder}) => {

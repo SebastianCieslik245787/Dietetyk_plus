@@ -1,20 +1,22 @@
 import "../style/Creator.css"
 import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
-import CreatorSelect from "../assets/elements/creator/meals/CreatorSelect.jsx";
+import CreatorSelect from "../assets/elements/creator/CreatorSelect.jsx";
 import React, {useEffect, useRef, useState} from "react";
-import CreatorSearchBar from "../assets/elements/creator/meals/CreatorSearchBar.jsx";
-import CreatorAddItem from "../assets/elements/creator/meals/CreatorAddItem.jsx";
+import CreatorSearchBar from "../assets/elements/creator/CreatorSearchBar.jsx";
+import CreatorAddItem from "../assets/elements/creator/CreatorAddItem.jsx";
 import AddMealWindow from "../assets/elements/creator/meals/AddMealWindow.jsx";
 import Meal from "../assets/elements/diet/Meal.jsx";
-import {mealNames} from "../data/DietPlanData.js";
 import MealImg from "../images/icons/jajecznica.webp";
 import {changeDietPlanContainerSize} from "../scripts/changeDietPlanContainerSize.js";
 import {mealsData} from "../data/MealsData.js";
+import DietItem from "../assets/elements/creator/diets/DietItem.jsx";
+import {dietData} from "../data/DIetData.js";
 
 function Creator() {
     const [activeCreator, setActiveCreator] = useState(0);
     const [openAddItemWindow, setOpenAddItemWindow] = useState(false);
     const [activeMealIndex, setActiveMealIndex] = useState(null);
+    const [data, setData] = useState(mealsData);
 
     const handleMealToggle = (index) => {
         setActiveMealIndex(prevIndex => (prevIndex === index ? null : index));
@@ -23,6 +25,12 @@ function Creator() {
 
     const handleCreatorTypeClick = (index) => {
         setActiveCreator(index);
+        if(index === 0){
+            setData(mealsData);
+        }
+        else{
+            setData(dietData);
+        }
     }
 
     const creatorContainer = useRef(null);
@@ -59,32 +67,44 @@ function Creator() {
                 <div className="creator-menu-items">
                     <CreatorAddItem
                         placeHolder={activeCreator === 0 ? 'Dodaj danie' : 'Dodaj diete'}
-                        onClick={() => setOpenAddItemWindow(true)}
+                        onClick={() => {
+                            setOpenAddItemWindow(true)
+                            setActiveMealIndex(null)
+                        }}
                     />
-                    {activeCreator === 0 && (
-                        <>
-                            {/*TODO jak bedzie zmienna trzymajaca dania danego dietetyka*/
-                                mealNames.map((meal, index) => (
-                                <Meal key={index}
-                                      data={mealsData[0]}
-                                      mealImg={MealImg}
-                                      isActive={activeMealIndex === index}
-                                      onToggle={() => handleMealToggle(index)}
-                                      index={index}
-                                      onEdit={() => setOpenAddItemWindow(true)}
-                                      isCreator={true}
-                                />
-                            ))}
-                        </>
-                    )}
+                    {activeCreator === 0 ? (
+                            <>
+                                {
+                                    data.map((meal, index) => (
+                                        <Meal key={index}
+                                              data={data[0]}
+                                              mealImg={MealImg}
+                                              isActive={activeMealIndex === index}
+                                              onToggle={() => handleMealToggle(index)}
+                                              index={index}
+                                              onEdit={() => setOpenAddItemWindow(true)}
+                                              isCreator={true}
+                                        />
+                                    ))}
+                            </>
+                        ) :
+                        (
+                            <>
+                                {
+                                    data.map((diet, index) => (
+                                        <DietItem key={index} data={diet} />
+                                    ))
+                                }
+                            </>
+                        )
+                    }
                     <div className="creator-menu-clear"/>
                 </div>
             </div>
             {(openAddItemWindow && activeCreator === 0) ?
                 <AddMealWindow
                     onClose={() => setOpenAddItemWindow(false)}
-                    /*TODO jak bedzie zmienna trzymajaca dania danego dietetyka*/
-                    data={activeMealIndex !== null ?  mealsData[activeMealIndex].meal : null}
+                    data={activeMealIndex !== null ? data[activeMealIndex].meal : null}
                 /> : ''
             }
         </>
