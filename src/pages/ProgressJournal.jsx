@@ -1,9 +1,10 @@
 import "../style/ProgressJournal.css"
 import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 import {CartesianGrid, Label, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
-import {weightChartData} from "../data/WeightChartData.js";
 import {useState} from "react";
+import {useCookies} from "react-cookie";
 import {validateProgressJournal} from "../scripts/validateData/validateProgressJournal.js";
+import {convertJournalData, getEdgeValue} from "../scripts/convertJournalData.js";
 
 const CustomTooltip = ({active, payload, label}) => {
     if (active && payload && payload.length) {
@@ -23,6 +24,11 @@ function ProgressJournal() {
     const [isWeightEdited, setIsWeightEdited] = useState(false);
     const [isBloodSugarEdited, setIsBloodSugarEdited] = useState(false);
     const [error, setError] = useState("");
+    const [cookies, setCookies] = useCookies(["User-Data"]);
+
+    const data = convertJournalData(cookies["User-Data"].medicalData.journal);
+    const dataTypes = ["weight", "glucose", "pressure"];
+    const dataTypesLabels = ["Waga", "Poziom cukru", "Ciśnienie"];
 
     const [inputValue, setInputValue] = useState("");
 
@@ -47,7 +53,6 @@ function ProgressJournal() {
         setError("")
         setInputValue("")
     }
-
     return (
         <>
             <NavigationBar/>
@@ -78,8 +83,11 @@ function ProgressJournal() {
                         </div>
                     </div>
                     <div className={"progress-journal-chart"}>
-                        <LineChart width={1350} height={520} data={weightChartData}
-                                   margin={{top: 20, right: 50, bottom: 40, left: 40}}>
+                        <LineChart
+                            width={1350}
+                            height={520}
+                            data={data[active]}
+                            margin={{top: 20, right: 50, bottom: 40, left: 40}}>
                             <CartesianGrid stroke="#ccc" strokeDasharray="10 10"/>
                             <XAxis
                                 dataKey="date"
@@ -94,14 +102,17 @@ function ProgressJournal() {
                                 interval={5}
                                 tickMargin={10}
                                 dot={true}
-                                dataKey="weight"
-                                domain={[115, 125]}
+                                dataKey={dataTypes[active]}
+                                domain={[
+                                    getEdgeValue(data[active], dataTypes[active], "min"),
+                                    getEdgeValue(data[active], dataTypes[active], "max")
+                                ]}
                             >
-                                <Label value={active === 0 ? "Waga" : "Poziom cukru"} position="insideLeft" angle={-90}
+                                <Label value={dataTypesLabels[active]} position="insideLeft" angle={-90}
                                        offset={-25}/>
                             </YAxis>
                             <Tooltip content={CustomTooltip}/>
-                            <Line type={"natural"} dataKey="weight" stroke="#3c6fb2"/>
+                            <Line type={"natural"} dataKey={dataTypes[active]} stroke="#3c6fb2"/>
                         </LineChart>
                     </div>
                 </div>
