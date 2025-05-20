@@ -24,10 +24,10 @@ export function sendRegisterData(data){
         allergies: allergies,
         journal: []
     };
-    filteredData["dieteticId"] = null;
-    filteredData["currentDietId"] = null;
-    filteredData["img_b64"] = null;
-    filteredData["description"] = null;
+    filteredData["dieteticId"] = "";
+    filteredData["currentDietId"] = "";
+    filteredData["img_b64"] = "";
+    filteredData["description"] = "";
     filteredData["role"] = "user"
 
     const jsonRegisterData = JSON.stringify(filteredData, null, 2);

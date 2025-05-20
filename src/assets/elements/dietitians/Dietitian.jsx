@@ -9,7 +9,7 @@ const Dietitian = ({data, position, isAssigned, onClick}) => {
         <>
             <div className={`dietitian-container ${position === 'right' ? 'dietitian-container-right' : ''}`}>
                 <div className={`dietitian-image ${position === 'right' ? 'dietitian-image-right' : ''}`}>
-                    <img src={data.img_b64 !== null ? data.img_b64 : DefaultUserIcon} alt=""/>
+                    <img src={data.img_b64 !== "" ? data.img_b64 : DefaultUserIcon} alt=""/>
                 </div>
                 <div className={`dietitian-info-name-and-surname ${position === 'right' ? 'dietitian-info-name-and-surname-right' : ''}`}>
                     {data.name} {data.surname}

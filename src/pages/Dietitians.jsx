@@ -9,7 +9,9 @@ import {changeUserDietetic} from "../scripts/sendData/sendUserDieteticChange.js"
 function Dietitians(){
     const [cookies, setCookies] = useCookies(["User-Key", "User-Data"]);
     const [dietitians, setDietitians] = useState([]);
-    const [isAssigned, setIsAssigned] = useState(cookies['User-Data'].dieteticId !== "");
+    const [isAssigned, setIsAssigned] = useState(
+        cookies["User-Data"].role==="user" ? cookies['User-Data'].dieteticId !== "": true //Dietetyk nie ma przycisku więc ma "tak jakby był przypisany"
+    );
     const handleAssign = (key) => {
         /*TODO*/
         console.log("Zapisanie się do dietetyka: " + key);
