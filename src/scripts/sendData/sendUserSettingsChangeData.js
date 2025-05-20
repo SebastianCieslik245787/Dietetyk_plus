@@ -22,7 +22,7 @@ function postNewData(setCookies, userKey, data){
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "User-Key": userKey,
+            "Authorization": userKey,
         },
         body: JSON.stringify(data)
     }).then(r => {

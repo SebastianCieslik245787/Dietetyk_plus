@@ -18,7 +18,7 @@ export function Login(setCookie, navigate) {
         ).then(r => {
             switch(r.status){
                 case 200:
-                    setCookie("User-Key", r.headers.get("User-Key"), { path: '/' });
+                    setCookie("User-Key", r.headers.get("Authorization"), { path: '/' });
                     r.json().then(data => {
                         console.log(data);
                         setCookie("User-Data", data, {path: "/"});

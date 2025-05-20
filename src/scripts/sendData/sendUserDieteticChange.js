@@ -5,7 +5,7 @@ export function changeUserDietetic(type, userOrDietitianId, cookies, setCookies)
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "User-Key": cookies['User-Key'],
+                "Authorization": cookies['User-Key'],
             },
 
         }

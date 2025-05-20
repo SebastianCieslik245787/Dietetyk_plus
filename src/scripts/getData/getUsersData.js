@@ -6,7 +6,7 @@ async function getUsersData(cookies, type){
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "User-Key": cookies['User-Key'],
+                    "Authorization": cookies['User-Key'],
                 },
             }
         );
