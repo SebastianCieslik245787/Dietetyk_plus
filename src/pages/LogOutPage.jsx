@@ -4,12 +4,29 @@ import {useCookies} from "react-cookie";
 
 function LogOutPage(){
     const navigate = useNavigate();
-    const [, , removeCookie] = useCookies(["User-Key", "User-Data"]);
+    const [, cookies, removeCookie] = useCookies(["User-Key", "User-Data"]);
     const handleBackToHomePageClick = () => {
-        removeCookie("User-Key");
-        removeCookie("User-Data");
         navigate("/home");
     }
+    removeCookie("User-Data");
+    fetch(
+        "/api/logout",
+        {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": cookies["User-Key"]
+            }
+        }
+    ).then(r => {
+        if (r.status === 200) {
+            console.log("Wylogowano pomyślnie");
+        } else {
+            console.log("Błąd podczas wylogowywania");
+        }
+    })
+    /*Nie ma znaczenia czy wylogowanie się faktycznie powiodło bo użytkownik i tak nie ma dostępu do aplikacji*/
+    removeCookie("User-Key");
 
     return (
         <>
