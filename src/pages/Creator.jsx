@@ -14,6 +14,7 @@ import {dietData} from "../data/DIetData.js";
 import AddDietWindow from "../assets/elements/creator/diets/AddDietWindow.jsx";
 import DeleteWindow from "../assets/DeleteWindow.jsx";
 import {useDeleteFromArray} from "../assets/hooks/useDeleteFromArray.jsx";
+import {emptyDiet} from "../data/EmptyDiet.js";
 
 function Creator() {
     const [activeCreator, setActiveCreator] = useState(0);
@@ -25,6 +26,8 @@ function Creator() {
     const [data, setData, removeDataAtIndex] = useDeleteFromArray(mealsData);
 
     const [openDeleteWindow, setOpenDeleteWindow] = useState(false);
+
+    const [showDietPlan, setShowDietPlan] = useState(false);
 
     const handleMealToggle = (index) => {
         setActiveDataIndex(prevIndex => (prevIndex === index ? null : index));
@@ -43,7 +46,7 @@ function Creator() {
     const creatorContainer = useRef(null);
 
     useEffect(() => {
-        if (openAddItemWindow) {
+        if (openAddItemWindow || openDeleteWindow) {
             document.body.style.overflowY = 'hidden';
         } else {
             document.body.style.overflowY = 'auto';
@@ -52,7 +55,7 @@ function Creator() {
         return () => {
             document.body.style.overflowY = 'auto';
         };
-    }, [openAddItemWindow]);
+    }, [openAddItemWindow, openDeleteWindow]);
 
     return (
         <>
@@ -84,7 +87,7 @@ function Creator() {
                                 {
                                     data.map((meal, index) => (
                                         <Meal key={index}
-                                              data={data[0]}
+                                              data={meal}
                                               mealImg={MealImg}
                                               isActive={activeDataIndex === index}
                                               onToggle={() => handleMealToggle(index)}
@@ -110,6 +113,15 @@ function Creator() {
                                                 setActiveDataIndex(index)
                                                 setOpenDeleteWindow(true)
                                             }}
+                                            onEdit={() => {
+                                                setActiveDataIndex(index)
+                                                setOpenAddItemWindow(true)
+                                            }}
+                                            onShowDiet={() => {
+                                                setActiveDataIndex(index)
+                                                setShowDietPlan(true)
+                                                setOpenAddItemWindow(true)
+                                            }}
                                         />
                                     ))
                                 }
@@ -125,7 +137,14 @@ function Creator() {
                         data={activeDataIndex !== null ? data[activeDataIndex].meal : null}
                     />
                     :
-                    <AddDietWindow/>)
+                    <AddDietWindow
+                        data={(activeDataIndex !== null && data[activeDataIndex].days !== undefined) ? data[activeDataIndex] : emptyDiet}
+                        showDietPlan={showDietPlan}
+                        onClose={() => {
+                            setOpenAddItemWindow(false)
+                            setShowDietPlan(false)
+                        }}
+                    />)
                 : ''
             }
             {

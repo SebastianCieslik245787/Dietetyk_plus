@@ -1,7 +1,7 @@
 import DietPlanIcon from '../../../../images/icons/diet_plan_icon.png'
 import CloseWindowIcon from '../../../../images/icons/close_window_icon.png'
 
-const DietInfoWindow = ({onClick, data, setData}) => {
+const DietInfoWindow = ({onClick, data, setData, onClose}) => {
     const handleChange = (e) => {
         const { id, value } = e.target;
         setData(prev => ({
@@ -17,7 +17,7 @@ const DietInfoWindow = ({onClick, data, setData}) => {
                     Dodaj Diete
                 </div>
                 <div className={"diet-info-close-window"}>
-                    <img src={`${CloseWindowIcon}`} alt=""/>
+                    <img src={`${CloseWindowIcon}`} alt="" onClick={onClose} />
                 </div>
                 <div className={"diet-info-body"}>
                     <div className={"diet-info-name"}>
@@ -41,7 +41,7 @@ const DietInfoWindow = ({onClick, data, setData}) => {
                         </div>
                     </div>
                 </div>
-                <div className={"diet-info-save-button"} onClick={() => console.log(data)}>
+                <div className={"diet-info-save-button"} onClick={onClose}>
                     Zapisz
                 </div>
             </div>

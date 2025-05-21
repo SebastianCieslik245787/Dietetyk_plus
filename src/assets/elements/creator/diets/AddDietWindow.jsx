@@ -1,28 +1,37 @@
 import "../../../../style/AddDietWindow.css"
 import DietPlan from "../../diet/DietPlan.jsx";
 import {dietDayNames} from "../../../../data/DietPlanData.js";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import DietInfoWindow from "./DietInfoWindow.jsx";
-import {emptyDiet} from "../../../../data/EmptyDiet.js";
 
-const AddDietWindow = () => {
+const AddDietWindow = ({data, showDietPlan=false, onClose}) => {
     const [editDietPlan, setEditDietPlan] = useState(false);
-    const [data, setData] = useState(emptyDiet);
+    const [dietData, setDietData] = useState(data);
+
+    useEffect(() => {
+        setEditDietPlan(showDietPlan)
+    }, [showDietPlan])
 
     return (<>
             <div className={"add-diet-window-container"}>
-                {!editDietPlan ? <DietInfoWindow
+                {(!editDietPlan && showDietPlan === false) ? <DietInfoWindow
                     onClick={() => {
                         setEditDietPlan(true)
                     }}
-                    data={data}
-                    setData={setData}
+                    data={dietData}
+                    setData={setDietData}
+                    onClose={onClose}
                 /> : <DietPlan
                     options={dietDayNames}
                     isEdit={true}
-                    data={data}
-                    setData={setData}
-                    onClick={() => setEditDietPlan(false)}
+                    data={dietData}
+                    setData={setDietData}
+                    onClick={() => {
+                        if (!showDietPlan || onClose) {
+                            setEditDietPlan(false);
+                            if (onClose) onClose();
+                        }
+                    }}
                 />}
             </div>
         </>)
