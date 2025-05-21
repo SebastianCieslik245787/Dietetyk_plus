@@ -23,6 +23,7 @@ function ProgressJournal() {
     const [active, setActive] = useState(0);
     const [isWeightEdited, setIsWeightEdited] = useState(false);
     const [isBloodSugarEdited, setIsBloodSugarEdited] = useState(false);
+    const [isBloodPressureEdited, setIsBloodPressureEdited] = useState(false);
     const [error, setError] = useState("");
     const [cookies, setCookies] = useCookies(["User-Data"]);
 
@@ -41,10 +42,22 @@ function ProgressJournal() {
             if (validateProgressJournal(inputValue, setError)) {
                 setIsWeightEdited(true);
             }
-        } else {
+        }
+        else if( active === 1) {
             if (validateProgressJournal(inputValue, setError)) {
                 setIsBloodSugarEdited(true);
             }
+        }
+        else{
+            if (validateProgressJournal(inputValue, setError)) {
+                setIsBloodPressureEdited(true);
+            }
+        }
+    }
+
+    const setHidden = () => {
+        if(active === 0 && isWeightEdited) {
+
         }
     }
 
@@ -69,14 +82,19 @@ function ProgressJournal() {
                             Poziom cukru
                             <div className={"progress-journal-menu-option-bottom-bar"}/>
                         </div>
+                        <div className={`progress-journal-menu-option  ${active === 2 ? 'active' : ''}`}
+                             onClick={() => handleClick(2)}>
+                            Ciśnienie
+                            <div className={"progress-journal-menu-option-bottom-bar"}/>
+                        </div>
                         <div
-                            style={active === 0 ? (isWeightEdited ? {visibility: "hidden"} : {}) : (isBloodSugarEdited ? {visibility: "hidden"} : {})}>
+                            style={(active === 0 && isWeightEdited) || (active === 1 && isBloodSugarEdited) || (active === 2 && isBloodPressureEdited) ? {visibility: 'hidden'} : {}}>
                             <div className={"progress-journal-menu-update-button"} onClick={handleUpdate}>
                                 Aktualizuj
                             </div>
                             <input value={inputValue} onChange={handleChange} type="text"
                                    className={"progress-journal-menu-input"}
-                                   placeholder={active === 0 ? "Wpisz aktualną wage..." : "Wpisz aktualny poziom cukru..."}/>
+                                   placeholder={"Wpisz aktualną wartość..."}/>
                             <div className={`progress-journal-menu-error ${error !== '' ? 'visible' : ''}`}>
                                 {error}
                             </div>
