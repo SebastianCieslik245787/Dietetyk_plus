@@ -61,7 +61,7 @@ function Creator() {
                 <div className="creator-menu">
                     <CreatorSelect
                         options={[
-                            'Kreator posiłkow',
+                            'Kreator dań',
                             'Kreator diet'
                         ]}
                         setActive={handleCreatorTypeClick}
