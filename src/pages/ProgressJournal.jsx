@@ -2,9 +2,10 @@ import "../style/ProgressJournal.css"
 import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 import {CartesianGrid, Label, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
 import {useState} from "react";
-import {useCookies} from "react-cookie";
 import {validateProgressJournal} from "../scripts/validateData/validateProgressJournal.js";
-import {convertJournalData, getEdgeValue} from "../scripts/convertJournalData.js";
+import {journalDataOperations, getEdgeValue} from "../scripts/journalDataOperations.js";
+import {getCurrentDate} from "../scripts/dateFunctions.js";
+import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
 
 const CustomTooltip = ({active, payload, label}) => {
     if (active && payload && payload.length) {
@@ -25,9 +26,24 @@ function ProgressJournal() {
     const [isBloodSugarEdited, setIsBloodSugarEdited] = useState(false);
     const [isBloodPressureEdited, setIsBloodPressureEdited] = useState(false);
     const [error, setError] = useState("");
-    const [cookies, setCookies] = useCookies(["User-Data"]);
+    const userData = getDataFromLocalStorage("")
 
-    const data = convertJournalData(cookies["User-Data"].medicalData.journal);
+    const doesTodaysDataExist = userData.medicalData.journal[userData.medicalData.journal.length-1].date === getCurrentDate()
+    const [todaysData, setTodaysData] = useState(doesTodaysDataExist ? userData.medicalData.journal[userData.medicalData.journal.length-1] : {
+        "date": getCurrentDate(),
+        "weight": -1,
+        "glucose": -1,
+        "pressure": -1
+    })
+
+    const updatesetTodaysData = (value) => {
+        setTodaysData(prev => ({
+            ...prev,
+            [dataTypes[active]]: Number(value)
+        }));
+    };
+
+    const data = journalDataOperations(userData.medicalData.journal);
     const dataTypes = ["weight", "glucose", "pressure"];
     const dataTypesLabels = ["Waga", "Poziom cukru", "Ciśnienie"];
 
@@ -41,16 +57,19 @@ function ProgressJournal() {
         if (active === 0) {
             if (validateProgressJournal(inputValue, setError)) {
                 setIsWeightEdited(true);
+                updatesetTodaysData(inputValue);
             }
         }
         else if( active === 1) {
             if (validateProgressJournal(inputValue, setError)) {
                 setIsBloodSugarEdited(true);
+                updatesetTodaysData(inputValue);
             }
         }
         else{
             if (validateProgressJournal(inputValue, setError)) {
                 setIsBloodPressureEdited(true);
+                updatesetTodaysData(inputValue);
             }
         }
     }
@@ -104,7 +123,7 @@ function ProgressJournal() {
                         <LineChart
                             width={1350}
                             height={520}
-                            data={data[active]}
+                            data={[...data[active], ...(todaysData[dataTypes[active]] === -1 ? [] : [{"date": todaysData.date, [dataTypes[active]]: todaysData[dataTypes[active]]}])]}
                             margin={{top: 20, right: 50, bottom: 40, left: 60}}>
                             <CartesianGrid stroke="#ccc" strokeDasharray="10 10"/>
                             <XAxis
@@ -122,8 +141,8 @@ function ProgressJournal() {
                                 dot={true}
                                 dataKey={dataTypes[active]}
                                 domain={[
-                                    getEdgeValue(data[active], dataTypes[active], "min"),
-                                    getEdgeValue(data[active], dataTypes[active], "max")
+                                    getEdgeValue([...data[active], ...(todaysData[dataTypes[active]] === -1 ? [] : [{"date": todaysData.date, [dataTypes[active]]: todaysData[dataTypes[active]]}])], dataTypes[active], "min"),
+                                    getEdgeValue([...data[active], ...(todaysData[dataTypes[active]] === -1 ? [] : [{"date": todaysData.date, [dataTypes[active]]: todaysData[dataTypes[active]]}])], dataTypes[active], "max")
                                 ]}
                             >
                                 <Label value={dataTypesLabels[active]} position="insideLeft" angle={-90}

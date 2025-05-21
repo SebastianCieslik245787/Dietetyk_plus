@@ -4,11 +4,11 @@ import {useCookies} from "react-cookie";
 
 function LogOutPage(){
     const navigate = useNavigate();
-    const [, cookies, removeCookie] = useCookies(["User-Key", "User-Data"]);
+    const [, cookies, removeCookie] = useCookies(["User-Key"]);
     const handleBackToHomePageClick = () => {
         navigate("/home");
     }
-    removeCookie("User-Data");
+    localStorage.removeItem("User-Data");
     fetch(
         "/api/logout",
         {
@@ -24,6 +24,8 @@ function LogOutPage(){
         } else {
             console.log("Błąd podczas wylogowywania");
         }
+    }).catch(()=> {
+        console.log("Błąd sieciowy podczas wylogowywania");
     })
     /*Nie ma znaczenia czy wylogowanie się faktycznie powiodło bo użytkownik i tak nie ma dostępu do aplikacji*/
     removeCookie("User-Key");

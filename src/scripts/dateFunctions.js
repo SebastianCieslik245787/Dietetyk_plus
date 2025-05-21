@@ -26,3 +26,8 @@ export function parseDateToDaysSince(dateString) {
 export function parseDateToYearSince(dateString) {
     return parseDateSince(dateString, 'years');
 }
+
+export function getCurrentDate() {
+    const date = new Date();
+    return `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
+}

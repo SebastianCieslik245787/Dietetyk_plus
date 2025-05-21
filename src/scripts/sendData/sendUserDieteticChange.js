@@ -1,4 +1,6 @@
-export function changeUserDietetic(type, userOrDietitianId, cookies, setCookies) {
+import {getDataFromLocalStorage} from "../getDataFromLocalStorage.js";
+
+export function changeUserDietetic(type, userOrDietitianId, cookies) {
     fetch(
         `/api/update/dietetic/${type}/${userOrDietitianId}`,
         {
@@ -16,9 +18,10 @@ export function changeUserDietetic(type, userOrDietitianId, cookies, setCookies)
                     console.log(resp);
                 })
                 if (type === "add"){
-                    const userData = cookies['User-Data'];
+                    const userData = getDataFromLocalStorage("");
                     userData.dieteticId = userOrDietitianId;
-                    setCookies("User-Data", userData);
+                    localStorage.removeItem("User-Data");
+                    localStorage.setItem("User-Data", JSON.stringify(userData));
                 }
                 break;
             case 401:
