@@ -10,6 +10,11 @@ function LoginPage() {
     const handleRegisterClick = () => {
         navigate("/register");
     };
+
+    const handleRecoverPasswordClick = () => {
+        navigate("/recover-password");
+    };
+
     return (
         <>
             <div className="login-container">
@@ -36,6 +41,9 @@ function LoginPage() {
                             <p className="login-register-text">
                                 Nie masz jeszcze konta? <a href="" onClick={handleRegisterClick} className="register-link">Zajerestruj
                                 się</a>
+                                <br/>
+                                <br/>
+                                Nie pamiętasz hasła? <a href="" onClick={handleRecoverPasswordClick} className="register-link">Odzyskaj hasło</a>
                             </p>
                         </div>
                     </div>
