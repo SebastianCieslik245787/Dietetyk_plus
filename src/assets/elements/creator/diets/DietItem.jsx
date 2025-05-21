@@ -2,7 +2,7 @@ import DeleteIcon from "../../../../images/icons/delete_icon.png"
 import EditIcon from "../../../../images/icons/edit_icon.png"
 import DietPlanIcon from "../../../../images/icons/diet_plan_icon.png"
 
-const DietItem = ({data}) => {
+const DietItem = ({data, onDelete}) => {
     return (
         <>
             <div className="diet-item">
@@ -13,7 +13,7 @@ const DietItem = ({data}) => {
                     {data.description}
                 </div>
                 <div className={"diet-item-buttons"}>
-                    <div className="meal-info-button delete">
+                    <div className="meal-info-button delete" onClick={onDelete}>
                         <img src={`${DeleteIcon}`} alt=""/>
                     </div>
                     <div className="meal-info-button edit">

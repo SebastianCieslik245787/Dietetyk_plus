@@ -5,7 +5,7 @@ import EditIcon from "../../../images/icons/edit_icon.png";
 import {changeDietPlanContainerSize} from "../../../scripts/changeDietPlanContainerSize.js";
 import MacrosTable from "./MacrosTable.jsx";
 
-const Meal = ({data, mealImg, isActive, onToggle, isCreator = false, onEdit}) => {
+const Meal = ({data, mealImg, isActive, onToggle, isCreator = false, onEdit, onClick}) => {
     const separatorRef = useRef(null);
     const leftSideRef = useRef(null);
     const rightSideRef = useRef(null);
@@ -78,7 +78,7 @@ const Meal = ({data, mealImg, isActive, onToggle, isCreator = false, onEdit}) =>
                         <>
                             <div className="meal-info-buttons">
                                 <div className="meal-info-button delete">
-                                    <img src={`${DeleteIcon}`} alt=""/>
+                                    <img onClick={onClick} src={`${DeleteIcon}`} alt=""/>
                                 </div>
                                 <div className="meal-info-button edit">
                                     <img onClick={onEdit} src={`${EditIcon}`} alt=""/>

@@ -1,0 +1,66 @@
+.delete-window-container{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(72, 72, 72, 0.5);
+    z-index: 1000;
+}
+
+.delete-window{
+    float: left;
+    width: 30%;
+    margin: 15% 35%;
+    height: 30%;
+    background-color: #fafafa;
+    border-radius: 10px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.delete-window-error{
+    float: left;
+    width: 80%;
+    height: 50%;
+    text-align: center;
+    margin: 40px 10% 0;
+    font-size: 2rem;
+    color: #484848;
+}
+
+.delete-window-button{
+    float: left;
+    margin: 2% 12.5%;
+    width: 25%;
+    height: 20%;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fafafa;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 8px 5px -6px rgb(137, 137, 149);
+}
+
+.delete-window-button:hover{
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+}
+
+.delete-window-button.cancel{
+    background-color: #f44336;
+}
+
+.delete-window-button.cancel:hover{
+    background-color: #C02222;
+}
+
+.delete-window-button.delete{
+    background-color: #64AD56;
+}
+
+.delete-window-button.delete:hover{
+    background-color: #3d7c2f;
+}

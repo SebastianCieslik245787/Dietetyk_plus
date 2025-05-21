@@ -19,7 +19,7 @@ export function UserSettings() {
         userSurname: cookies["User-Data"]?.surname || "",
         userEmail: cookies["User-Data"]?.email || "",
         userPhone: cookies["User-Data"]?.phone || "",
-        image: cookies["User-Data"]?.image || LoadImageIcon
+        image: cookies["User-Data"]?.img_b64 || LoadImageIcon
     }), [cookies]);
 
     const initialDescription = useMemo(() => cookies["User-Data"]?.description || "", [cookies]);

@@ -12,15 +12,22 @@ import {mealsData} from "../data/MealsData.js";
 import DietItem from "../assets/elements/creator/diets/DietItem.jsx";
 import {dietData} from "../data/DIetData.js";
 import AddDietWindow from "../assets/elements/creator/diets/AddDietWindow.jsx";
+import DeleteWindow from "../assets/DeleteWindow.jsx";
+import {useDeleteFromArray} from "../assets/hooks/useDeleteFromArray.jsx";
 
 function Creator() {
     const [activeCreator, setActiveCreator] = useState(0);
+
     const [openAddItemWindow, setOpenAddItemWindow] = useState(false);
-    const [activeMealIndex, setActiveMealIndex] = useState(null);
-    const [data, setData] = useState(mealsData);
+
+    const [activeDataIndex, setActiveDataIndex] = useState(null);
+
+    const [data, setData, removeDataAtIndex] = useDeleteFromArray(mealsData);
+
+    const [openDeleteWindow, setOpenDeleteWindow] = useState(false);
 
     const handleMealToggle = (index) => {
-        setActiveMealIndex(prevIndex => (prevIndex === index ? null : index));
+        setActiveDataIndex(prevIndex => (prevIndex === index ? null : index));
         changeDietPlanContainerSize()
     };
 
@@ -69,7 +76,7 @@ function Creator() {
                         placeHolder={activeCreator === 0 ? 'Dodaj danie' : 'Dodaj diete'}
                         onClick={() => {
                             setOpenAddItemWindow(true)
-                            setActiveMealIndex(null)
+                            setActiveDataIndex(null)
                         }}
                     />
                     {activeCreator === 0 ? (
@@ -79,11 +86,15 @@ function Creator() {
                                         <Meal key={index}
                                               data={data[0]}
                                               mealImg={MealImg}
-                                              isActive={activeMealIndex === index}
+                                              isActive={activeDataIndex === index}
                                               onToggle={() => handleMealToggle(index)}
                                               index={index}
                                               onEdit={() => setOpenAddItemWindow(true)}
                                               isCreator={true}
+                                              onClick={() => {
+                                                  setActiveDataIndex(index)
+                                                  setOpenDeleteWindow(true)
+                                              }}
                                         />
                                     ))}
                             </>
@@ -92,7 +103,14 @@ function Creator() {
                             <>
                                 {
                                     data.map((diet, index) => (
-                                        <DietItem key={index} data={diet}/>
+                                        <DietItem
+                                            key={index}
+                                            data={diet}
+                                            onDelete={() => {
+                                                setActiveDataIndex(index)
+                                                setOpenDeleteWindow(true)
+                                            }}
+                                        />
                                     ))
                                 }
                             </>
@@ -101,14 +119,26 @@ function Creator() {
                     <div className="creator-menu-clear"/>
                 </div>
             </div>
-            {openAddItemWindow ? activeCreator === 0 ?
-                    (<AddMealWindow
+            {openAddItemWindow ? (activeCreator === 0 ?
+                    <AddMealWindow
                         onClose={() => setOpenAddItemWindow(false)}
-                        data={activeMealIndex !== null ? data[activeMealIndex].meal : null}
-                    />)
+                        data={activeDataIndex !== null ? data[activeDataIndex].meal : null}
+                    />
                     :
-                    <AddDietWindow/>
+                    <AddDietWindow/>)
                 : ''
+            }
+            {
+                openDeleteWindow ?
+                    <DeleteWindow
+                        onClose={() => setOpenDeleteWindow(false)}
+                        onDelete={() => {
+                            removeDataAtIndex(activeDataIndex)
+                            setActiveDataIndex(null)
+                            setOpenDeleteWindow(false)
+                        }}
+                        error={activeCreator === 0 ? "Czy napewno chcesz usunąć danie?" : "Czy napewno chcesz usunąć diete?"}
+                    /> : ''
             }
         </>
     );
