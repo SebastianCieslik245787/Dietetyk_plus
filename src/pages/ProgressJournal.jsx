@@ -105,7 +105,7 @@ function ProgressJournal() {
                             width={1350}
                             height={520}
                             data={data[active]}
-                            margin={{top: 20, right: 50, bottom: 40, left: 40}}>
+                            margin={{top: 20, right: 50, bottom: 40, left: 60}}>
                             <CartesianGrid stroke="#ccc" strokeDasharray="10 10"/>
                             <XAxis
                                 dataKey="date"
@@ -116,7 +116,7 @@ function ProgressJournal() {
                                 <Label value="Dzień" offset={-25} position="insideBottom"/>
                             </XAxis>
                             <YAxis
-                                tickCount={20}
+                                tickCount={25}
                                 interval={5}
                                 tickMargin={10}
                                 dot={true}
@@ -127,7 +127,7 @@ function ProgressJournal() {
                                 ]}
                             >
                                 <Label value={dataTypesLabels[active]} position="insideLeft" angle={-90}
-                                       offset={-25}/>
+                                       offset={-45}/>
                             </YAxis>
                             <Tooltip content={CustomTooltip}/>
                             <Line type={"natural"} dataKey={dataTypes[active]} stroke="#3c6fb2"/>
