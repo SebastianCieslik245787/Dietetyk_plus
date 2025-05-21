@@ -1,23 +1,23 @@
-export function changeUserData(setCookies, cookies, data){
+export function changeUserData(cookies, data){
     const currentUserData = cookies['User-Data'];
     currentUserData.email = data.userEmail
     currentUserData.phone = data.userPhone
-    postNewData(setCookies, cookies['User-Key'], currentUserData);
+    postNewData(cookies['User-Key'], currentUserData);
 }
 
-export function changeUserPassword(setCookies, cookies, data){
+export function changeUserPassword(cookies, data){
     const currentUserData = cookies['User-Data'];
     currentUserData.password = data.userNewPassword
-    postNewData(setCookies, cookies['User-Key'], currentUserData);
+    postNewData(cookies['User-Key'], currentUserData);
 }
 
-export function changeUserDescription(setCookies, cookies, data){
+export function changeUserDescription(cookies, data){
     const currentUserData = cookies['User-Data'];
     currentUserData.description = data.userDescription
-    postNewData(setCookies, cookies['User-Key'], currentUserData);
+    postNewData(cookies['User-Key'], currentUserData);
 }
 
-function postNewData(setCookies, userKey, data){
+function postNewData(userKey, data){
     fetch("/api/update", {
         method: "POST",
         headers: {
@@ -31,7 +31,8 @@ function postNewData(setCookies, userKey, data){
             case 200:
                 r.text().then(resp => {
                     console.log(resp);
-                    if (setCookies) setCookies("User-Data", data, {path: "/"});
+                    localStorage.removeItem("User-Data");
+                    localStorage.setItem("User-Data", JSON.stringify(data));
                 })
                 break;
             case 401:

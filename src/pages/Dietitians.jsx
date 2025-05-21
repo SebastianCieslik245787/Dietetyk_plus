@@ -7,15 +7,16 @@ import {getDietitiansData} from "../scripts/getData/getUsersData.js";
 import {changeUserDietetic} from "../scripts/sendData/sendUserDieteticChange.js";
 
 function Dietitians(){
-    const [cookies, setCookies] = useCookies(["User-Key", "User-Data"]);
+    const [cookies] = useCookies(["User-Key"]);
+    const userData = getDietitiansData("");
     const [dietitians, setDietitians] = useState([]);
     const [isAssigned, setIsAssigned] = useState(
-        cookies["User-Data"].role==="user" ? cookies['User-Data'].dieteticId !== "": true //Dietetyk nie ma przycisku więc ma "tak jakby był przypisany"
+        userData.role==="user" ? userData.dieteticId !== "": true //Dietetyk nie ma przycisku więc ma "tak jakby był przypisany"
     );
     const handleAssign = (key) => {
         /*TODO*/
         console.log("Zapisanie się do dietetyka: " + key);
-        changeUserDietetic("add", key, cookies, setCookies)
+        changeUserDietetic("add", key, cookies)
         setIsAssigned(!isAssigned);
     }
 

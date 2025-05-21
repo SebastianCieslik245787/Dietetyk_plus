@@ -8,17 +8,19 @@ import NavigationItemDropDown from "./NavigationItemDropDown.jsx";
 import UserItem from "./UserItem.jsx";
 import Login from "./Login.jsx";
 import {useCookies} from "react-cookie";
+import {getDataFromLocalStorage} from "../../../scripts/getDataFromLocalStorage.js";
 
 function NavigationBar() {
     const navigate = useNavigate();
-    const [cookies] = useCookies(["User-Key", "User-Data"]);
+    const [cookies] = useCookies(["User-Key"]);
+    const userData = getDataFromLocalStorage("");
 
     const [showNavbar, setShowNavbar] = useState(true);
     const lastScrollY = useRef(0);
     const scrollTimeout = useRef(null);
 
     const isLoggedIn = cookies["User-Key"] !== undefined;
-    const isUser = cookies["User-Data"]?.role === "user";
+    const isUser = userData?.role === "user";
 
     const handleHomePageClick = () => {
         navigate("/home");

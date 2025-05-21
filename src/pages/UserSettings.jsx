@@ -6,23 +6,25 @@ import UserSettingsTextArea from "../assets/elements/user_settings/UserSettingsT
 import { changeUserData, changeUserPassword, changeUserDescription } from "../scripts/sendData/sendUserSettingsChangeData.js";
 import { validateChangePassword, validatePersonalData } from "../scripts/validateData/validateUserSettingsUtils.js";
 import { useEffect, useMemo, useState } from "react";
-import { useCookies } from "react-cookie";
 import { useImageUploader } from "../assets/hooks/useImageUploader.jsx";
 import LoadImageIcon from "../images/icons/add_image_icon.png";
+import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
+import {useCookies} from "react-cookie";
 
 export function UserSettings() {
-    const [cookies, setCookies] = useCookies(["User-Data"]);
+    const userData = getDataFromLocalStorage("");
+    const [cookies] = useCookies(["User-Key"]);
     const [actualSettings, setActualSettings] = useState(0);
 
     const initialData = useMemo(() => ({
-        userName: cookies["User-Data"]?.name || "",
-        userSurname: cookies["User-Data"]?.surname || "",
-        userEmail: cookies["User-Data"]?.email || "",
-        userPhone: cookies["User-Data"]?.phone || "",
-        image: cookies["User-Data"]?.img_b64 || LoadImageIcon
-    }), [cookies]);
+        userName: userData?.name || "",
+        userSurname: userData?.surname || "",
+        userEmail: userData?.email || "",
+        userPhone: userData?.phone || "",
+        image: userData?.img_b64 || LoadImageIcon
+    }), [userData]);
 
-    const initialDescription = useMemo(() => cookies["User-Data"]?.description || "", [cookies]);
+    const initialDescription = useMemo(() => userData?.description || "", [userData]);
 
     const [userPersonalData, setUserPersonalData] = useState(initialData);
     const [userDescription, setUserDescription] = useState(initialDescription);
@@ -71,12 +73,12 @@ export function UserSettings() {
     const handleSubmit = () => {
         if (actualSettings === 0) {
             if (!validatePersonalData(userPersonalData, setErrors)) return;
-            changeUserData(setCookies, cookies, userPersonalData);
+            changeUserData(cookies, userPersonalData);
         } else if (actualSettings === 1) {
             if (!validateChangePassword(userPasswordData, setErrors)) return;
-            changeUserPassword(setCookies, cookies, userPasswordData);
+            changeUserPassword(cookies, userPasswordData);
         } else {
-            changeUserDescription(setCookies, cookies, userDescription);
+            changeUserDescription(cookies, userDescription);
         }
         console.log(userPersonalData);
     };
@@ -88,7 +90,7 @@ export function UserSettings() {
                 <div className="user-settings-personal-data">
                     <UserSettingsLabel
                         labels={
-                            cookies["User-Data"].role === "user"
+                            userData.role === "user"
                                 ? ["Dane Personalne", "Zmiana hasła"]
                                 : ["Dane Personalne", "Zmiana hasła", "Opis"]
                         }

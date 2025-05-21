@@ -20,10 +20,10 @@ export function Login(setCookie, navigate) {
                 case 200:
                     setCookie("User-Key", r.headers.get("Authorization"), { path: '/' });
                     r.json().then(data => {
+                        localStorage.setItem("User-Data", JSON.stringify(data));
                         console.log(data);
-                        setCookie("User-Data", data, {path: "/"});
+                        navigate("/home");
                     })
-                    navigate("/home");
                     break;
                 case 401:
                     document.querySelector(".login-error-label").style.visibility = "visible";
