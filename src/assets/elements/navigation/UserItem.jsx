@@ -32,7 +32,7 @@ const UserItem = () => {
 
     return (
         <div className="user-item" ref={containerRef}>
-            <img src={cookies["User-Data"].img_b64 !== "" ? cookies["User-Data"].img_b64 : UserIcon} alt="" onClick={() => setClicked(!isClicked)} />
+            <img src={(cookies["UserData"] !== undefined && cookies["User-Data"].img_b64 !== "") ? cookies["User-Data"].img_b64 : UserIcon} alt="" onClick={() => setClicked(!isClicked)} />
             <div className={`user-options ${isClicked ? "user-options-active" : ""}`}>
                 <div className="user-option" onClick={onSettingsClick}>
                     Ustawienia
