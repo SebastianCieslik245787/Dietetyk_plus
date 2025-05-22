@@ -60,6 +60,7 @@ function DietitianPatientsPage() {
                     value={searchTerm}
                     onChange={handleSearchChange}
                 />
+               
                 <div className={"patient-items"}>
                     {filteredPatients.map((item, index) => (
                         <>
