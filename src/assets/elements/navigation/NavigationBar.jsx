@@ -22,10 +22,6 @@ function NavigationBar() {
     const isLoggedIn = cookies["User-Key"] !== undefined;
     const isUser = userData?.role === "user";
 
-    const handleHomePageClick = () => {
-        navigate("/home");
-    };
-
     useEffect(() => {
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
@@ -59,8 +55,8 @@ function NavigationBar() {
 
     return (
         <div className={`navbar-container ${showNavbar ? "show" : "hide"}`}>
-            <div className="logo" onClick={handleHomePageClick}>
-                <img src={logo} alt="logo"/>
+            <div className="logo" onClick={() => navigate("/home")}>
+                <img src={`${logo}`} alt="logo"/>
             </div>
             <NavigationItem name="Dietetycy" path={"/dietitians"}/>
             <NavigationItem name="O nas" path={"/about-us"}/>

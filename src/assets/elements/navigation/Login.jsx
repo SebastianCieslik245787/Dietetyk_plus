@@ -4,16 +4,12 @@ import loginIcon from "../../../images/icons/login_icon.png";
 const Login = () => {
     const navigate = useNavigate();
 
-    const handleClick = () => {
-        navigate("/login");
-    };
-
     return (
-        <div className="login" onClick={handleClick}>
+        <div className="login" onClick={() => navigate("/login")}>
             <p className="login-text">
                 Zaloguj się
             </p>
-            <img src={loginIcon} alt="login-icon"/>
+            <img src={`${loginIcon}`} alt="login-icon"/>
         </div>
     );
 }; export default Login;

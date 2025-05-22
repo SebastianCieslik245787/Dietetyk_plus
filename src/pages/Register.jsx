@@ -16,35 +16,16 @@ import {
     validateThirdStep
 } from "../scripts/validateData/validateRegisterUtils.js";
 import {sendRegisterData} from "../scripts/sendData/sendRegisterData.js";
+import {emptyRegister} from "../data/EmptyListsData.js";
 
 function Register() {
     const navigate = useNavigate();
 
     const [step, setStep] = useState(1);
+
     const [animationClass, setAnimationClass] = useState('fade-in');
-    const [formData, setFormData] = useState({
-        email: '',
-        name: '',
-        password: '',
-        surname: '',
-        confirmPassword: '',
-        phone: '',
-        birthdate: '',
-        height: '',
-        gender: '',
-        weight: '',
-        activityLevel: null,
-        dietRating: null,
-        mealsCount: '',
-        jobType: '',
-        dietPurpose: '',
-        diseases: [],
-        allergies: [],
-        otherDiseases: '',
-        otherAllergies: '',
-        dataProcessingConsent: false,
-        statute: false,
-    });
+
+    const [formData, setFormData] = useState(emptyRegister);
 
     const handleAccountCreatedClick = () => {
         sendRegisterData(formData);

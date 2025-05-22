@@ -19,15 +19,10 @@ const DietPlan = ({ options, data, setData, isEdit = false, onClick }) => {
         }
     }, [isEdit]);
 
-    const handleItemClick = (index) => {
-        setActiveIndex(index);
-    };
+    const handleItemClick = (index) => setActiveIndex(index);
 
-    const handleMealToggle = (index) => {
-        setActiveMealIndex(prevIndex => (prevIndex === index ? null : index));
-    };
+    const handleMealToggle = (index) => setActiveMealIndex(prevIndex => (prevIndex === index ? null : index));
 
-    // Bezpieczne pobieranie posiłków na dany dzień
     const meals =
         data &&
         Array.isArray(data.days) &&

@@ -6,6 +6,7 @@ import DietInfoWindow from "./DietInfoWindow.jsx";
 
 const AddDietWindow = ({data, showDietPlan=false, onClose}) => {
     const [editDietPlan, setEditDietPlan] = useState(false);
+
     const [dietData, setDietData] = useState(data);
 
     useEffect(() => {

@@ -9,29 +9,19 @@ import {
     sendPasswordRecoveryEmail,
     sendVerificationCode
 } from "../scripts/sendData/sendPasswordRecoveryData.js";
+import {emptyRecoverPassword} from "../data/EmptyListsData.js";
 
 function RecoverPassword() {
     const navigate = useNavigate();
     const [cookies, setCookie] = useCookies(['User-Key']);
-    const [data, setData] = useState({
-        email: "",
-        password: "",
-        passwordConfirmation: "",
-    });
+    const [data, setData] = useState(emptyRecoverPassword);
 
-    const [errors, setErrors] = useState({
-        email: "",
-        password: "",
-        passwordConfirmation: "",
-    });
+    const [errors, setErrors] = useState(emptyRecoverPassword);
 
     const [activeStep, setActiveStep] = useState(0);
 
-    const navigateToStep = () => {
-        navigate("/home")
-    };
-
     const [code, setCode] = useState(new Array(6).fill(""));
+
     const handleSubmit = (fullCode) => {
         console.log("Wprowadzony kod:", fullCode);
         sendVerificationCode(fullCode, data.email).then(
@@ -184,7 +174,7 @@ function RecoverPassword() {
                     <div className="recover-password-message">
                         Pomyślnie zmieniono hasło
                     </div>
-                    <div className={'recover-password-home-page'} onClick={navigateToStep}>
+                    <div className={'recover-password-home-page'} onClick={() => navigate("/home")}>
                         Powrót do strony głównej
                     </div>
                 </div>

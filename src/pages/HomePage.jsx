@@ -24,10 +24,6 @@ function HomePage() {
     const [actualSlide, setActualSlide] = useState(0);
     const [prevSlide, setPrevSlide] = useState(null);
 
-    const handleOtherDietsClick = () => {
-        navigate("/diets");
-    };
-
     useEffect(() => {
         const interval = setInterval(() => {
             setPrevSlide(actualSlide);
@@ -75,7 +71,7 @@ function HomePage() {
                             data={otherDietsData[second]}
                             direction={'right'}
                         />
-                        <div className="other-diets-button" onClick={handleOtherDietsClick}>
+                        <div className="other-diets-button" onClick={() => navigate("/diets")}>
                             <p className="other-diets-button-text">
                                 Inne diety
                             </p>

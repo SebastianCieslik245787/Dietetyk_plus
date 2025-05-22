@@ -3,12 +3,8 @@ import {useNavigate} from "react-router-dom";
 const NavigationItem = ({name, path, isLast}) => {
     const navigate = useNavigate();
 
-    const handleClick = () => {
-        navigate(path);
-    };
-
     return (
-        <div className={`item ${isLast ? "item-last" : ""}`} onClick={handleClick}>
+        <div className={`item ${isLast ? "item-last" : ""}`} onClick={() => navigate(path)}>
             <p className="item-text">
                 {name}
             </p>

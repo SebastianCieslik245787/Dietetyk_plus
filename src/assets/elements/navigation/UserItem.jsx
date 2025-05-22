@@ -1,42 +1,28 @@
 import UserIcon from "../../../images/icons/deafult_user_icon.png"
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {getDataFromLocalStorage} from "../../../scripts/getDataFromLocalStorage.js";
+import onClickOutsideWindow from "../../hooks/OnClickOutsideWindow.jsx";
 
 const UserItem = () => {
     const navigate = useNavigate();
-    const onLogoutClick = () => {
-        navigate("/logout");
-    }
-
-    const onSettingsClick = () => {
-        navigate("/user-settings");
-    }
 
     const [isClicked, setClicked] = useState(false);
+
     const containerRef = useRef(null);
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (containerRef.current && !containerRef.current.contains(event.target)) {
-                setClicked(false);
-            }
-        };
+    onClickOutsideWindow(containerRef, () => setClicked(false))
 
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, []);
     const UserImage = getDataFromLocalStorage("img_b64");
+
     return (
         <div className="user-item" ref={containerRef}>
-            <img src={(UserImage !== undefined && UserImage !== "") ? UserImage: UserIcon} alt="" onClick={() => setClicked(!isClicked)} />
+            <img src={(UserImage !== undefined && UserImage !== "") ? UserImage : UserIcon} alt="" onClick={() => setClicked(!isClicked)} />
             <div className={`user-options ${isClicked ? "user-options-active" : ""}`}>
-                <div className="user-option" onClick={onSettingsClick}>
+                <div className="user-option" onClick={() => navigate("/user-settings")}>
                     Ustawienia
                 </div>
-                <div className="user-option" onClick={onLogoutClick}>
+                <div className="user-option" onClick={() => navigate("/logout")}>
                     Wyloguj
                 </div>
             </div>

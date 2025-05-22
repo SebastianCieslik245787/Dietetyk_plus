@@ -28,16 +28,16 @@ function ProgressJournal() {
     const [error, setError] = useState("");
     const userData = getDataFromLocalStorage("")
 
-    const doesTodaysDataExist = userData.medicalData.journal[userData.medicalData.journal.length-1].date === getCurrentDate()
-    const [todaysData, setTodaysData] = useState(doesTodaysDataExist ? userData.medicalData.journal[userData.medicalData.journal.length-1] : {
+    const doesTodayDataExist = userData.medicalData.journal[userData.medicalData.journal.length-1].date === getCurrentDate()
+    const [todayData, setTodayData] = useState(doesTodayDataExist ? userData.medicalData.journal[userData.medicalData.journal.length-1] : {
         "date": getCurrentDate(),
         "weight": -1,
         "glucose": -1,
         "pressure": -1
     })
 
-    const updatesetTodaysData = (value) => {
-        setTodaysData(prev => ({
+    const updateSetTodayData = (value) => {
+        setTodayData(prev => ({
             ...prev,
             [dataTypes[active]]: Number(value)
         }));
@@ -49,34 +49,26 @@ function ProgressJournal() {
 
     const [inputValue, setInputValue] = useState("");
 
-    const handleChange = (e) => {
-        setInputValue(e.target.value);
-    }
+    const handleChange = (e) =>  setInputValue(e.target.value);
 
     const handleUpdate = () => {
         if (active === 0) {
             if (validateProgressJournal(inputValue, setError)) {
                 setIsWeightEdited(true);
-                updatesetTodaysData(inputValue);
+                updateSetTodayData(inputValue);
             }
         }
         else if( active === 1) {
             if (validateProgressJournal(inputValue, setError)) {
                 setIsBloodSugarEdited(true);
-                updatesetTodaysData(inputValue);
+                updateSetTodayData(inputValue);
             }
         }
         else{
             if (validateProgressJournal(inputValue, setError)) {
                 setIsBloodPressureEdited(true);
-                updatesetTodaysData(inputValue);
+                updateSetTodayData(inputValue);
             }
-        }
-    }
-
-    const setHidden = () => {
-        if(active === 0 && isWeightEdited) {
-
         }
     }
 
@@ -85,6 +77,7 @@ function ProgressJournal() {
         setError("")
         setInputValue("")
     }
+
     return (
         <>
             <NavigationBar/>
@@ -123,7 +116,7 @@ function ProgressJournal() {
                         <LineChart
                             width={1350}
                             height={520}
-                            data={[...data[active], ...(todaysData[dataTypes[active]] === -1 ? [] : [{"date": todaysData.date, [dataTypes[active]]: todaysData[dataTypes[active]]}])]}
+                            data={[...data[active], ...(todayData[dataTypes[active]] === -1 ? [] : [{"date": todayData.date, [dataTypes[active]]: todayData[dataTypes[active]]}])]}
                             margin={{top: 20, right: 50, bottom: 40, left: 60}}>
                             <CartesianGrid stroke="#ccc" strokeDasharray="10 10"/>
                             <XAxis
@@ -141,8 +134,8 @@ function ProgressJournal() {
                                 dot={true}
                                 dataKey={dataTypes[active]}
                                 domain={[
-                                    getEdgeValue([...data[active], ...(todaysData[dataTypes[active]] === -1 ? [] : [{"date": todaysData.date, [dataTypes[active]]: todaysData[dataTypes[active]]}])], dataTypes[active], "min"),
-                                    getEdgeValue([...data[active], ...(todaysData[dataTypes[active]] === -1 ? [] : [{"date": todaysData.date, [dataTypes[active]]: todaysData[dataTypes[active]]}])], dataTypes[active], "max")
+                                    getEdgeValue([...data[active], ...(todayData[dataTypes[active]] === -1 ? [] : [{"date": todayData.date, [dataTypes[active]]: todayData[dataTypes[active]]}])], dataTypes[active], "min"),
+                                    getEdgeValue([...data[active], ...(todayData[dataTypes[active]] === -1 ? [] : [{"date": todayData.date, [dataTypes[active]]: todayData[dataTypes[active]]}])], dataTypes[active], "max")
                                 ]}
                             >
                                 <Label value={dataTypesLabels[active]} position="insideLeft" angle={-90}

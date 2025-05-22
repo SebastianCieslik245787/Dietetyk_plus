@@ -5,24 +5,13 @@ import AddMealWindowIngredients from "./AddMealWindowIngredients.jsx";
 import CloseWindowIcon from '../../../../images/icons/close_window_icon.png'
 import UnsavedChangesWindow from "./UnsavedChangesWindow.jsx";
 import {isEditedMeal, validateAddMeal} from "../../../../scripts/validateData/validateAddMealUtils.js";
+import {emptyMeal} from "../../../../data/EmptyListsData.js";
 
 const AddMealWindow = ({onClose, data, onSave}) => {
     const [activeOption, setActiveOption] = useState(0);
     const [isEdited, setIsEdited] = useState(false);
 
-    const [mealData, setMealData] = useState({
-        name: '',
-        image: null,
-        recipe: '',
-        ingredients: [],
-        macros:{
-            proteins: 1,
-            kcal: 2,
-            fats: 3,
-            carbohydrates: 4,
-        }
-
-    });
+    const [mealData, setMealData] = useState(emptyMeal);
 
     const [errors, setErrors] = useState({
         name: '',

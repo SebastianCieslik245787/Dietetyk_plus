@@ -1,11 +1,7 @@
+import {onChangeInput} from "../../hooks/handleChangeInput.jsx";
+
 const RegisterInputText = ({value, setFormData, label, id, placeHolder, type, required, error=null}) => {
-    const handleChange = (e) => {
-        const { id, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [id]: value,
-        }));
-    };
+    const handleChange = onChangeInput(setFormData)
 
     return (
         <div className="register-step-item">

@@ -4,10 +4,9 @@ import {useCookies} from "react-cookie";
 
 function LogOutPage(){
     const navigate = useNavigate();
+
     const [, cookies, removeCookie] = useCookies(["User-Key"]);
-    const handleBackToHomePageClick = () => {
-        navigate("/home");
-    }
+
     localStorage.removeItem("User-Data");
     fetch(
         "/api/logout",
@@ -38,7 +37,7 @@ function LogOutPage(){
                         Pomyślnie Wylogowano...
                     </div>
                     <div className="logout-back-to-homepage">
-                        <p onClick={handleBackToHomePageClick}>Powrót do strony głównej</p>
+                        <p onClick={() => navigate("/home")}>Powrót do strony głównej</p>
                     </div>
                 </div>
             </div>

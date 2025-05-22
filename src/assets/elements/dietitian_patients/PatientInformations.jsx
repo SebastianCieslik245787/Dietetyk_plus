@@ -1,35 +1,25 @@
 import DefaultPatientIcon from "../../../images/icons/deafult_user_icon.png"
 import closeWindowIcon from "../../../images/icons/close_window_icon.png"
 
-import {useEffect, useRef} from "react";
+import {useRef} from "react";
 import {dietPurposes} from "../../../data/RegisterConsts.js";
 
 import {parseDateToYearSince} from "../../../scripts/dateFunctions.js";
+import useClickOutside from "../../hooks/OnClickOutsideWindow.jsx";
 
 const PatientInformation = ({patientData, onClose}) => {
     const windowRef = useRef(null);
     const key = Object.keys(patientData)[0];
     const data = patientData[key];
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (windowRef.current && !windowRef.current.contains(event.target)) {
-                onClose();
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [onClose]);
+    useClickOutside(windowRef, onClose);
     
     const age = parseDateToYearSince(data.birthdate);
     const latVariant = (age) =>{
         switch (age%10) {
-            case 0,1,5,6,7,8,9:
+            case 0, 1, 5, 6, 7, 8, 9:
                 return "lat";
-            case 2,3,4:
+            case 2, 3, 4:
                 return "lata";
         }
     }

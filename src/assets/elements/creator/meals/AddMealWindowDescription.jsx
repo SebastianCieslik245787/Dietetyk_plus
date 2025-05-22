@@ -1,6 +1,7 @@
 import LoadImageIcon from "../../../../images/icons/add_image_icon.png"
 import {useState} from "react";
 import {useImageUploader} from "../../../hooks/useImageUploader.jsx";
+import {onChangeInput} from "../../../hooks/handleChangeInput.jsx";
 
 const AddMealWindowDescription = ({data, setData, errors}) => {
     const [isChanged, setIsChanged] = useState(false);
@@ -15,13 +16,7 @@ const AddMealWindowDescription = ({data, setData, errors}) => {
         setIsChanged(true);
     });
 
-    const handleChange = (e) => {
-        const { id, value } = e.target;
-        setData(prev => ({
-            ...prev,
-            [id]: value,
-        }));
-    };
+    const handleChange = onChangeInput(setData);
 
     return(
         <>
@@ -38,7 +33,7 @@ const AddMealWindowDescription = ({data, setData, errors}) => {
                     onDragOver={handleDragOver}
                     onClick={() => fileInputRef.current.click()}
                 >
-                    <img src={image} className="preview"  alt=""/>
+                    <img src={`${image}`} className="preview"  alt=""/>
                     <input
                         type="file"
                         accept="image/*"

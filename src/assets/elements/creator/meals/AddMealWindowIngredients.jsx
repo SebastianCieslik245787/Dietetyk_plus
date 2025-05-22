@@ -2,43 +2,16 @@ import CreatorSelect from "../CreatorSelect.jsx";
 import IngredientItem from "./IngredientItem.jsx";
 import {useState} from "react";
 import {validateIngredient} from "../../../../scripts/validateData/validateAddMealUtils.js";
+import {onChangeInput} from "../../../hooks/handleChangeInput.jsx";
+import {mealCategoryData, mealUnitData} from "../../../../data/SelectOptionsData.js";
+import {emptyIngredient} from "../../../../data/EmptyListsData.js";
 
 const AddMealWindowIngredients = ({data, setData, errors}) => {
-    const categories = [
-        'Nabiał',
-        'Warzywo',
-        'Owoc',
-        'Napój',
-        'Przyprawa',
-        'Masło'
-    ]
-
-    const units = [
-        'kg',
-        'dg',
-        "g",
-        'l',
-        'ml',
-        'opak.',
-        'szt.'
-    ]
-
     const [addIngredientError, setAddIngredientError] = useState("");
 
-    const [ingredient, setIngredient] = useState({
-        name: "",
-        category: "",
-        count: "",
-        unit: ""
-    });
+    const [ingredient, setIngredient] = useState(emptyIngredient);
 
-    const handleChange = (e) => {
-        const { id, value } = e.target;
-        setIngredient(prev => ({
-            ...prev,
-            [id]: value,
-        }));
-    };
+    const handleChange = onChangeInput(setIngredient)
 
     const [activeUnit, setActiveUnit] = useState(-1)
     const [activeCategory, setActiveCategory] = useState(-1)
@@ -50,8 +23,8 @@ const AddMealWindowIngredients = ({data, setData, errors}) => {
 
         const newIngredient = {
             ...ingredient,
-            unit: units[activeUnit],
-            category: categories[activeCategory]
+            unit: mealUnitData[activeUnit],
+            category: mealCategoryData[activeCategory]
         };
 
         if(!validateIngredient(newIngredient, setAddIngredientError)) return
@@ -61,12 +34,7 @@ const AddMealWindowIngredients = ({data, setData, errors}) => {
             ingredients: [...prev.ingredients, newIngredient],
         }));
 
-        setIngredient({
-            name: "",
-            category: "",
-            count: "",
-            unit: ""
-        });
+        setIngredient(emptyIngredient);
 
         setAddIngredientError("")
     }
@@ -85,14 +53,14 @@ const AddMealWindowIngredients = ({data, setData, errors}) => {
                     <input value={ingredient.name} id={"name"} onChange={handleChange} className="add-meal-window-name-input ingredients" type="text" placeholder="Wpisz nazwę..." />
                     <input value={ingredient.count} id={"count"} onChange={handleChange} className="add-meal-window-name-input ingredients-count" type="text" placeholder="Wpisz ilość..." />
                     <CreatorSelect
-                        options={categories}
+                        options={mealCategoryData}
                         active={activeCategory}
                         setActive={setActiveCategory}
                         AddWindow={true}
                         placeHolder={"Kategoria"}
                     />
                     <CreatorSelect
-                        options={units}
+                        options={mealUnitData}
                         active={activeUnit}
                         setActive={setActiveUnit}
                         AddWindow={true}

@@ -1,12 +1,12 @@
-import NavBar from "../assets/elements/navigation/NavigationBar.jsx";
 import logo from "../images/logo.webp";
 
 import "../style/AboutUs.css"
+import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 
 function AboutUs() {
     return (
         <>
-            {NavBar()}
+            <NavigationBar/>
             <div className="about-us-container">
                 <div className="about-us-content">
                     <p className="about-us-header">

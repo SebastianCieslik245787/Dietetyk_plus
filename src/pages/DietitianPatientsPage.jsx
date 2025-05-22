@@ -22,9 +22,7 @@ function DietitianPatientsPage() {
 
     const [actualKey, setActualKey] = useState(null);
 
-    const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
-    };
+    const handleSearchChange = (e) => setSearchTerm(e.target.value);
 
     const handleDelete = (key) => {
         changeUserDietetic("remove", key, cookies)
@@ -48,7 +46,6 @@ function DietitianPatientsPage() {
             )}
             )
         );
-
     }, [patients, searchTerm]);
 
     useEffect(() => {

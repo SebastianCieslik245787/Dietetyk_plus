@@ -1,11 +1,7 @@
+import {onChangeInput} from "../../hooks/handleChangeInput.jsx";
+
 const RegisterTextArea = ({id, label="Inne?", setFormData, value, placeHolder="Wpisz..."}) => {
-    const handleTextChange = (e) => {
-        const { id, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [id]: value
-        }));
-    };
+    const handleChange = onChangeInput(setFormData)
 
     return (
         <div className="register-step-fourth-step-item-text-field">
@@ -17,7 +13,7 @@ const RegisterTextArea = ({id, label="Inne?", setFormData, value, placeHolder="W
                 className="register-step-fourth-step-item-text-field-input"
                 placeholder={placeHolder}
                 value={value}
-                onChange={handleTextChange}
+                onChange={handleChange}
             />
         </div>
     );

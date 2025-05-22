@@ -14,7 +14,7 @@ import {dietData} from "../data/DIetData.js";
 import AddDietWindow from "../assets/elements/creator/diets/AddDietWindow.jsx";
 import DeleteWindow from "../assets/DeleteWindow.jsx";
 import {useDeleteFromArray} from "../assets/hooks/useDeleteFromArray.jsx";
-import {emptyDiet} from "../data/EmptyDiet.js";
+import {emptyDiet} from "../data/EmptyListsData.js";
 
 function Creator() {
     const [activeCreator, setActiveCreator] = useState(0);

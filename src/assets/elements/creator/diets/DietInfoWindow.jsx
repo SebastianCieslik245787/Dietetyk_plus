@@ -1,14 +1,9 @@
 import DietPlanIcon from '../../../../images/icons/diet_plan_icon.png'
 import CloseWindowIcon from '../../../../images/icons/close_window_icon.png'
+import {onChangeInput} from "../../../hooks/handleChangeInput.jsx";
 
 const DietInfoWindow = ({onClick, data, setData, onClose}) => {
-    const handleChange = (e) => {
-        const { id, value } = e.target;
-        setData(prev => ({
-            ...prev,
-            [id]: value,
-        }));
-    };
+    const handleChange = onChangeInput(setData)
 
     return (
         <>

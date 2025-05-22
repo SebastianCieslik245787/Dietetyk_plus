@@ -7,9 +7,7 @@ const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1;
 const DietShoppingList = ({options, data}) => {
     const [activeIndex, setActiveIndex] = useState(dayOfWeek);
 
-    const handleItemClick = (index) => {
-        setActiveIndex(index);
-    };
+    const handleItemClick = (index) => setActiveIndex(index);
 
     return (
         <div className="diet-plan-content" id={"diet-plan-content"}>
