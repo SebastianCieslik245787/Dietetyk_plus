@@ -6,20 +6,32 @@ import {useEffect, useState} from "react";
 import PatientInformations from "../assets/elements/dietitian_patients/PatientInformations.jsx";
 import {useCookies} from "react-cookie";
 import Patient from "../assets/elements/dietitian_patients/Patient.jsx";
+import DeleteWindow from "../assets/DeleteWindow.jsx";
+import {changeUserDietetic} from "../scripts/sendData/sendUserDieteticChange.js";
 
 
 function DietitianPatientsPage() {
     const [searchTerm, setSearchTerm] = useState("");
     const [expandedPatientIndex, setExpandedPatientIndex] = useState(null);
     const [isPatientClicked, setIsPatientClicked] = useState(false);
+    const [isDeleteWindowOpen, setIsDeleteWindowOpen] = useState(false);
 
     const [cookies] = useCookies(["User-Key"]);
     const [patients, setPatients] = useState([]);
     const [filteredPatients, setFilteredPatients] = useState([]);
 
+    const [actualKey, setActualKey] = useState(null);
+
     const handleSearchChange = (e) => {
         setSearchTerm(e.target.value);
     };
+
+    const handleDelete = (key) => {
+        changeUserDietetic("remove", key, cookies)
+        setIsDeleteWindowOpen(false);
+        console.log("usunieto pacjeta");
+    }
+
 
     useEffect(() => {
         (async () => {
@@ -71,8 +83,12 @@ function DietitianPatientsPage() {
                                 onMoreInfo={() => {
                                     setExpandedPatientIndex(index)
                                     setIsPatientClicked(true);
-                                }
-                            }/>
+                                }}
+                                onDelete={(key) => {
+                                    setIsDeleteWindowOpen(true)
+                                    setActualKey(key)
+                                }}
+                            />
                         </>
                     ))}
                     <div className="dietitian-patients-footer"/>
@@ -84,6 +100,15 @@ function DietitianPatientsPage() {
                     onClose={() => setIsPatientClicked(false)}
                 />
             )}
+            {
+                isDeleteWindowOpen && (
+                    <DeleteWindow
+                        error={"Czy napewno chcesz usunąć pacjenta?"}
+                        onClose={() => setIsDeleteWindowOpen(false)}
+                        onDelete={() => handleDelete(actualKey)}
+                    />
+                )
+            }
         </>
     )
 }

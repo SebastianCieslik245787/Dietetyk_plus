@@ -4,10 +4,9 @@ import DeleteIcon from "../../../images/icons/delete_icon.png"
 import MoreInfoIcon from "../../../images/icons/more_info_icon.png"
 import {dietPurposes} from "../../../data/RegisterConsts.js";
 import {parseDateToDaysSince} from "../../../scripts/dateFunctions.js";
-import {changeUserDietetic} from "../../../scripts/sendData/sendUserDieteticChange.js";
 
 
-const Patient = ({data, cookies, onMoreInfo}) => {
+const Patient = ({data, onMoreInfo, onDelete}) => {
     const key = Object.keys(data)[0];
     data = data[key];
     const lastEdit = parseDateToDaysSince(data.lastUpdated);
@@ -16,7 +15,7 @@ const Patient = ({data, cookies, onMoreInfo}) => {
             <div className="patient-container">
                 <div className="patient-info">
                     <div className="patient-info-image">
-                        <img src={DefaultUserIcon} alt=""/>
+                        <img src={`${DefaultUserIcon}`} alt=""/>
                     </div>
                     <div className="patient-info-name-and-surname">
                         {data.name} {data.surname}
@@ -24,7 +23,7 @@ const Patient = ({data, cookies, onMoreInfo}) => {
                     <div className="patient-info-last-edit-time">
                         Ostatnio edytowane:
                         <span className={lastEdit > 7 ? "patient-info-last-edit-time-late" : ""}>
-                            {lastEdit} dni temu</span>
+                             {" " + lastEdit} dni temu</span>
                     </div>
                     <div className="patient-info-diet-type">
                         Rodzaj Diety: {
@@ -33,17 +32,13 @@ const Patient = ({data, cookies, onMoreInfo}) => {
                     </div>
                     <div className="patient-info-buttons">
                         <div className="patient-info-button patient-info-button-delete">
-                            <img src={DeleteIcon} alt="" onClick={()=>{
-                                changeUserDietetic("remove", key, cookies)
-                                console.log("Usuwanie dietetyka użytkownikowi: " + key)}
-
-                            }/>
+                            <img src={`${DeleteIcon}`} alt="" onClick={() => onDelete(key)}/>
                         </div>
                         <div className="patient-info-button patient-info-button-edit">
-                            <img src={DietPlanIcon} alt=""/>
+                            <img src={`${DietPlanIcon}`} alt=""/>
                         </div>
                         <div className="patient-info-button patient-info-button-more-info">
-                            <img src={MoreInfoIcon} alt="" onClick={onMoreInfo} />
+                            <img src={`${MoreInfoIcon}`} alt="" onClick={onMoreInfo} />
                         </div>
                     </div>
                 </div>
