@@ -18,13 +18,14 @@
     border-radius: 10px;
     box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
     opacity: 95%;
+    position: relative;
 }
 
 .user-settings-input-container{
     position: relative;
     padding: 15px 0 0;
     width: 50%;
-    margin: 20px 47.5% 0 12.5%;
+    margin: 20px 0 0 12.5%;
     height: 50px;
     float: left;
 }
@@ -139,7 +140,7 @@
     border-radius: 30px;
     box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
     float: right;
-    margin: 30px 5% 0 auto;
+    margin: 60px 5% 0 50%;
     height: 50px;
     display: flex;
     justify-content: center;
@@ -151,6 +152,7 @@
     opacity: 0;
     cursor: default;
 }
+
 
 .user-settings-save-button-active:hover{
     box-shadow: 0 8px 20px -2px rgb(137, 137, 149);
@@ -179,4 +181,48 @@
 
 .user-settings-textarea:focus::placeholder {
     color: transparent;
+}
+
+.user-settings-input-img{
+    width: 250px;
+    height: 250px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px 10% 0 -10%;
+    transition: 0.2s ease;
+    border-radius: 100%;
+    border: 5px dashed #919191;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.user-settings-input-img:hover{
+    border-color: #E24F4F;
+}
+
+.user-settings-input-img:hover > img{
+    filter: brightness(0) saturate(100%) invert(48%) sepia(18%) saturate(5886%) hue-rotate(329deg) brightness(91%) contrast(93%);
+}
+
+.user-settings-input-img.changed:hover{
+    border-color: #E24F4F;
+}
+
+.user-settings-input-img.changed{
+    padding: 0;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    border: 5px solid #fafafa;
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+}
+
+.user-settings-input-img.changed:hover > img{
+    filter: none}
+
+.preview{
+    width: 150px;
+    height: 150px;
 }

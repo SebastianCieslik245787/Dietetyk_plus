@@ -1,61 +1,19 @@
 import LoadImageIcon from "../../../../images/icons/add_image_icon.png"
-import {useRef, useState} from "react";
+import {useState} from "react";
+import {useImageUploader} from "../../../hooks/useImageUploader.jsx";
 
 const AddMealWindowDescription = ({data, setData, errors}) => {
-    const [image, setImage] = useState(LoadImageIcon);
     const [isChanged, setIsChanged] = useState(false);
-    const fileInputRef = useRef(null);
-
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-
-        if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-
-            reader.onloadend = () => {
-                const base64data = reader.result;
-
-                setImage(base64data);
-
-                setData(prev => ({
-                    ...prev,
-                    ['image']: base64data
-                }));
-
-                setIsChanged(true);
-            };
-
-            reader.readAsDataURL(file);
-        }
-    };
-
-    const handleDrop = (e) => {
-        e.preventDefault();
-        const file = e.dataTransfer.files[0];
-
-        if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-
-            reader.onloadend = () => {
-                const base64data = reader.result;
-
-                setImage(base64data);
-
-                setData(prev => ({
-                    ...prev,
-                    image: base64data
-                }));
-
-                setIsChanged(true);
-            };
-
-            reader.readAsDataURL(file);
-        }
-    };
-
-    const handleDragOver = (e) => {
-        e.preventDefault();
-    };
+    const {
+        image,
+        fileInputRef,
+        handleFileChange,
+        handleDrop,
+        handleDragOver,
+    } = useImageUploader(LoadImageIcon, (base64data) => {
+        setData(prev => ({ ...prev, image: base64data }));
+        setIsChanged(true);
+    });
 
     const handleChange = (e) => {
         const { id, value } = e.target;

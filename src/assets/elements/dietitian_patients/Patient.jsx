@@ -34,7 +34,7 @@ const Patient = ({data, cookies, onMoreInfo}) => {
                     <div className="patient-info-buttons">
                         <div className="patient-info-button patient-info-button-delete">
                             <img src={DeleteIcon} alt="" onClick={()=>{
-                                changeUserDietetic("remove", key, cookies, null)
+                                changeUserDietetic("remove", key, cookies)
                                 console.log("Usuwanie dietetyka użytkownikowi: " + key)}
 
                             }/>

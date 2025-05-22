@@ -17,7 +17,7 @@ const Dietitian = ({data, position, isAssigned, onClick}) => {
                 <div className={`dietitian-info-contact ${position === 'right' ? 'dietitian-info-contact-right' : ''}`}>
                     <div className={`dietitian-info-contact-item ${position === 'right' ? 'dietitian-info-contact-item-right' : ''}`}>
                         <div className={`dietitian-info-contact-item-icon ${position === 'right' ? 'dietitian-info-contact-icon-right' : ''}`}>
-                            <img src={PhoneNumberIcon} alt=""/>
+                            <img src={`${PhoneNumberIcon}`} alt=""/>
                         </div>
                         <div className={`dietitian-info-contact-item-text ${position === 'right' ? 'dietitian-info-contact-item-text-right' : ''}`}>
                             {data.phone}
@@ -25,7 +25,7 @@ const Dietitian = ({data, position, isAssigned, onClick}) => {
                     </div>
                     <div className="dietitian-info-contact-item">
                         <div className={`dietitian-info-contact-item-icon ${position === 'right' ? 'dietitian-info-contact-icon-right' : ''}`}>
-                            <img src={EmailIcon} alt=""/>
+                            <img src={`${EmailIcon}`} alt=""/>
                         </div>
                         <div className={`dietitian-info-contact-item-text ${position === 'right' ? 'dietitian-info-contact-item-text-right' : ''}`}>
                             {data.email}
