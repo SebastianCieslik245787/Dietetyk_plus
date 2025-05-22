@@ -23,31 +23,19 @@ export const dietPlanData = {
                 {
                     name: "Śniadanie",
                     meal: {
-                        name: "Jajecznica",
+                        name: "Owsianka z owocami",
                         macros: {
-                            kcal: 675,
-                            proteins: 46.7,
-                            carbohydrates: 47.9,
-                            fats: 36.6
+                            kcal: 500,
+                            proteins: 15,
+                            carbohydrates: 60,
+                            fats: 20
                         },
                         ingredients: [
-                            {
-                                name: "Jajko",
-                                count: 3,
-                                unit: "szt."
-                            },
-                            {
-                                name: "Kromki chleba pszennego",
-                                count: 4,
-                                unit: "szt."
-                            },
-                            {
-                                name: "masło roślinne",
-                                count: 200,
-                                unit: "g"
-                            },
+                            { name: "Płatki owsiane", count: 50, unit: "g" },
+                            { name: "Mleko", count: 200, unit: "ml" },
+                            { name: "Banan", count: 1, unit: "szt." }
                         ],
-                        recipe: "Podgrzewaj na patelni 50g masła aż się roztopi, następnie wbij na patelnie 3 jajka, smarz aż źółtko i białko się zetnie. Posmaruj kromki chleba masłem."
+                        recipe: "Gotuj płatki owsiane z mlekiem, pokrój banana i dodaj na wierzch."
                     }
                 }
             ]
@@ -55,34 +43,21 @@ export const dietPlanData = {
         {
             meals: [
                 {
-                    name: "Śniadanie",
+                    name: "Drugie śniadanie",
                     meal: {
-                        name: "Jajecznica",
+                        name: "Kanapki z awokado",
                         macros: {
-                            kcal: 675,
-                            proteins: 46.7,
-                            carbohydrates: 47.9,
-                            fats: 36.6
+                            kcal: 450,
+                            proteins: 10,
+                            carbohydrates: 40,
+                            fats: 25
                         },
                         ingredients: [
-                            {
-                                name: "Jajko",
-                                count: 3,
-                                unit: "szt."
-                            },
-                            {
-                                name: "Kromki chleba pszennego",
-                                count: 4,
-                                unit: "szt."
-                            },
-                            {
-                                name: "masło roślinne",
-                                count: 200,
-                                unit: "g"
-                            },
+                            { name: "Chleb żytni", count: 2, unit: "szt." },
+                            { name: "Awokado", count: 1, unit: "szt." },
+                            { name: "Pomidor", count: 0.5, unit: "szt." }
                         ],
-                        recipe:
-                            "Podgrzewaj na patelni 50g masła aż się roztopi, następnie wbij na patelnie 3 jajka, smarz aż źółtko i białko się zetnie. Posmaruj kromki chleba masłem."
+                        recipe: "Rozgnieć awokado, posmaruj kromki i dodaj plasterki pomidora."
                     }
                 }
             ]
@@ -90,34 +65,21 @@ export const dietPlanData = {
         {
             meals: [
                 {
-                    name: "Śniadanie",
+                    name: "Lunch",
                     meal: {
-                        name: "Jajecznica",
+                        name: "Sałatka z kurczakiem",
                         macros: {
-                            kcal: 675,
-                            proteins: 46.7,
-                            carbohydrates: 47.9,
-                            fats: 36.6
+                            kcal: 600,
+                            proteins: 40,
+                            carbohydrates: 20,
+                            fats: 35
                         },
                         ingredients: [
-                            {
-                                name: "Jajko",
-                                count: 3,
-                                unit: "szt."
-                            },
-                            {
-                                name: "Kromki chleba pszennego",
-                                count: 4,
-                                unit: "szt."
-                            },
-                            {
-                                name: "masło roślinne",
-                                count: 200,
-                                unit: "g"
-                            },
+                            { name: "Filet z kurczaka", count: 150, unit: "g" },
+                            { name: "Mix sałat", count: 50, unit: "g" },
+                            { name: "Oliwa z oliwek", count: 10, unit: "ml" }
                         ],
-                        recipe:
-                            "Podgrzewaj na patelni 50g masła aż się roztopi, następnie wbij na patelnie 3 jajka, smarz aż źółtko i białko się zetnie. Posmaruj kromki chleba masłem."
+                        recipe: "Usmaż kurczaka, połącz z sałatą i polej oliwą."
                     }
                 }
             ]
@@ -125,96 +87,57 @@ export const dietPlanData = {
         {
             meals: [
                 {
-                    name: "Śniadanie",
+                    name: "Kolacja",
                     meal: {
-                        name: "Jajecznica",
+                        name: "Tortilla z warzywami",
                         macros: {
-                            kcal: 675,
-                            proteins: 46.7,
-                            carbohydrates: 47.9,
-                            fats: 36.6
+                            kcal: 550,
+                            proteins: 20,
+                            carbohydrates: 50,
+                            fats: 25
                         },
                         ingredients: [
-                            {
-                                name: "Jajko",
-                                count: 3,
-                                unit: "szt."
-                            },
-                            {
-                                name: "Kromki chleba pszennego",
-                                count: 4,
-                                unit: "szt."
-                            },
-                            {
-                                name: "masło roślinne",
-                                count: 200,
-                                unit: "g"
-                            },
+                            { name: "Tortilla pszenna", count: 1, unit: "szt." },
+                            { name: "Papryka", count: 0.5, unit: "szt." },
+                            { name: "Ser feta", count: 50, unit: "g" }
                         ],
-                        recipe:
-                            "Podgrzewaj na patelni 50g masła aż się roztopi, następnie wbij na patelnie 3 jajka, smarz aż źółtko i białko się zetnie. Posmaruj kromki chleba masłem."
+                        recipe: "Pokrój warzywa, zawiń z serem w tortillę i podgrzej na patelni."
                     }
                 },
                 {
                     name: "Śniadanie",
                     meal: {
-                        name: "Jajecznica",
+                        name: "Omlet z warzywami",
                         macros: {
-                            kcal: 675,
-                            proteins: 46.7,
-                            carbohydrates: 47.9,
-                            fats: 36.6
+                            kcal: 520,
+                            proteins: 30,
+                            carbohydrates: 20,
+                            fats: 30
                         },
                         ingredients: [
-                            {
-                                name: "Jajko",
-                                count: 3,
-                                unit: "szt."
-                            },
-                            {
-                                name: "Kromki chleba pszennego",
-                                count: 4,
-                                unit: "szt."
-                            },
-                            {
-                                name: "masło roślinne",
-                                count: 200,
-                                unit: "g"
-                            },
+                            { name: "Jajko", count: 2, unit: "szt." },
+                            { name: "Papryka", count: 0.5, unit: "szt." },
+                            { name: "Szpinak", count: 50, unit: "g" }
                         ],
-                        recipe:
-                            "Podgrzewaj na patelni 50g masła aż się roztopi, następnie wbij na patelnie 3 jajka, smarz aż źółtko i białko się zetnie. Posmaruj kromki chleba masłem."
+                        recipe: "Roztrzep jajka, dodaj warzywa i usmaż na patelni."
                     }
                 },
                 {
-                    name: "Śniadanie",
+                    name: "Drugie śniadanie",
                     meal: {
-                        name: "Jajecznica",
+                        name: "Jogurt z granolą",
                         macros: {
-                            kcal: 675,
-                            proteins: 46.7,
-                            carbohydrates: 47.9,
-                            fats: 36.6
+                            kcal: 400,
+                            proteins: 18,
+                            carbohydrates: 35,
+                            fats: 20
                         },
                         ingredients: [
-                            {
-                                name: "Jajko",
-                                count: 3,
-                                unit: "szt."
-                            },
-                            {
-                                name: "Kromki chleba pszennego",
-                                count: 4,
-                                unit: "szt."
-                            },
-                            {
-                                name: "masło roślinne",
-                                count: 200,
-                                unit: "g"
-                            },
+                            { name: "Jogurt naturalny", count: 200, unit: "g" },
+                            { name: "Granola", count: 40, unit: "g" },
+                            { name: "Truskawki", count: 3, unit: "szt." }
                         ],
-                        recipe:
-                            "Podgrzewaj na patelni 50g masła aż się roztopi, następnie wbij na patelnie 3 jajka, smarz aż źółtko i białko się zetnie. Posmaruj kromki chleba masłem."
+                        recipe: "Wymieszaj jogurt z granolą i pokrojonymi truskawkami."
                     }
                 }
             ]
@@ -222,65 +145,39 @@ export const dietPlanData = {
         {
             meals: [
                 {
-                    name: "Śniadanie",
+                    name: "Lunch",
                     meal: {
-                        name: "Jajecznica",
+                        name: "Makaron z pesto",
                         macros: {
-                            kcal: 675,
-                            proteins: 46.7,
-                            carbohydrates: 47.9,
-                            fats: 36.6
+                            kcal: 620,
+                            proteins: 15,
+                            carbohydrates: 70,
+                            fats: 25
                         },
                         ingredients: [
-                            {
-                                name: "Jajko",
-                                count: 3,
-                                unit: "szt."
-                            },
-                            {
-                                name: "Kromki chleba pszennego",
-                                count: 4,
-                                unit: "szt."
-                            },
-                            {
-                                name: "masło roślinne",
-                                count: 200,
-                                unit: "g"
-                            },
+                            { name: "Makaron pełnoziarnisty", count: 100, unit: "g" },
+                            { name: "Pesto", count: 30, unit: "g" },
+                            { name: "Parmezan", count: 10, unit: "g" }
                         ],
-                        recipe:
-                            "Podgrzewaj na patelni 50g masła aż się roztopi, następnie wbij na patelnie 3 jajka, smarz aż źółtko i białko się zetnie. Posmaruj kromki chleba masłem."
+                        recipe: "Ugotuj makaron, wymieszaj z pesto i posyp parmezanem."
                     }
                 },
                 {
-                    name: "Śniadanie",
+                    name: "Kolacja",
                     meal: {
-                        name: "Jajecznica",
+                        name: "Zupa krem z dyni",
                         macros: {
-                            kcal: 675,
-                            proteins: 46.7,
-                            carbohydrates: 47.9,
-                            fats: 36.6
+                            kcal: 300,
+                            proteins: 8,
+                            carbohydrates: 35,
+                            fats: 12
                         },
                         ingredients: [
-                            {
-                                name: "Jajko",
-                                count: 3,
-                                unit: "szt."
-                            },
-                            {
-                                name: "Kromki chleba pszennego",
-                                count: 4,
-                                unit: "szt."
-                            },
-                            {
-                                name: "masło roślinne",
-                                count: 200,
-                                unit: "g"
-                            },
+                            { name: "Dynia", count: 200, unit: "g" },
+                            { name: "Bulion warzywny", count: 250, unit: "ml" },
+                            { name: "Śmietanka", count: 20, unit: "ml" }
                         ],
-                        recipe:
-                            "Podgrzewaj na patelni 50g masła aż się roztopi, następnie wbij na patelnie 3 jajka, smarz aż źółtko i białko się zetnie. Posmaruj kromki chleba masłem."
+                        recipe: "Gotuj dynię w bulionie, zmiksuj i dodaj śmietankę."
                     }
                 }
             ]
@@ -290,74 +187,44 @@ export const dietPlanData = {
                 {
                     name: "Śniadanie",
                     meal: {
-                        name:
-                            "Jajecznica",
+                        name: "Placki bananowe",
                         macros: {
-                            kcal: 675,
-                            proteins: 46.7,
-                            carbohydrates: 47.9,
-                            fats: 36.6
+                            kcal: 480,
+                            proteins: 12,
+                            carbohydrates: 55,
+                            fats: 20
                         },
                         ingredients: [
-                            {
-                                name: "Jajko",
-                                count: 3,
-                                unit: "szt."
-                            },
-                            {
-                                name: "Kromki chleba pszennego",
-                                count: 4,
-                                unit: "szt."
-                            },
-                            {
-                                name: "masło roślinne",
-                                count: 200,
-                                unit: "g"
-                            },
+                            { name: "Banan", count: 1, unit: "szt." },
+                            { name: "Jajko", count: 1, unit: "szt." },
+                            { name: "Płatki owsiane", count: 30, unit: "g" }
                         ],
-                        recipe:
-                            "Podgrzewaj na patelni 50g masła aż się roztopi, następnie wbij na patelnie 3 jajka, smarz aż źółtko i białko się zetnie. Posmaruj kromki chleba masłem."
+                        recipe: "Zmiksuj składniki i smaż placki na patelni."
                     }
-
                 }
             ]
         },
         {
             meals: [
                 {
-                    name: "Śniadanie",
+                    name: "Kolacja",
                     meal: {
-                        name:
-                            "Jajecznica",
+                        name: "Tosty z serem i szynką",
                         macros: {
-                            kcal: 675,
-                            proteins: 46.7,
-                            carbohydrates: 47.9,
-                            fats: 36.6
+                            kcal: 520,
+                            proteins: 25,
+                            carbohydrates: 45,
+                            fats: 28
                         },
                         ingredients: [
-                            {
-                                name: "Jajko",
-                                count: 3,
-                                unit: "szt."
-                            },
-                            {
-                                name: "Kromki chleba pszennego",
-                                count: 4,
-                                unit: "szt."
-                            },
-                            {
-                                name: "masło roślinne",
-                                count: 200,
-                                unit: "g"
-                            },
+                            { name: "Chleb tostowy", count: 2, unit: "szt." },
+                            { name: "Ser żółty", count: 30, unit: "g" },
+                            { name: "Szynka", count: 30, unit: "g" }
                         ],
-                        recipe:
-                            "Podgrzewaj na patelni 50g masła aż się roztopi, następnie wbij na patelnie 3 jajka, smarz aż źółtko i białko się zetnie. Posmaruj kromki chleba masłem."
+                        recipe: "Nałóż ser i szynkę na chleb, podpiecz w tosterze."
                     }
-
                 }
             ]
-        },
+        }
     ]
 }
