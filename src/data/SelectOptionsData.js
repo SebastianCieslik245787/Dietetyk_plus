@@ -16,3 +16,13 @@ export const mealUnitData = [
     'opak.',
     'szt.'
 ]
+
+export const dietDayNames =[
+    'Poniedziałek',
+    'Wtorek',
+    'Środa',
+    'Czwartek',
+    'Piątek',
+    'Sobota',
+    'Niedziela'
+]

@@ -1,6 +1,6 @@
 import "../../../../style/AddDietWindow.css"
 import DietPlan from "../../diet/DietPlan.jsx";
-import {dietDayNames} from "../../../../data/DietPlanData.js";
+import {dietDayNames} from "../../../../data/SelectOptionsData.js";
 import {useEffect, useState} from "react";
 import DietInfoWindow from "./DietInfoWindow.jsx";
 

@@ -2,7 +2,8 @@ import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 import DietPlan from "../assets/elements/diet/DietPlan.jsx";
 
 import "../style/DietPlan.css";
-import {dietDayNames, dietPlanData} from "../data/DietPlanData.js";
+import {dietPlanData} from "../data/DietPlanData.js";
+import {dietDayNames} from "../data/SelectOptionsData.js";
 import {generateDietPDF} from "../scripts/generatePDF.js";
 import {useCookies} from "react-cookie";
 import {useState} from "react";
