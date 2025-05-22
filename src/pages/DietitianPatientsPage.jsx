@@ -100,7 +100,7 @@ function DietitianPatientsPage() {
             {
                 isDeleteWindowOpen && (
                     <DeleteWindow
-                        error={"Czy napewno chcesz usunąć pacjenta?"}
+                        message={"Czy napewno chcesz usunąć pacjenta?"}
                         onClose={() => setIsDeleteWindowOpen(false)}
                         onDelete={() => handleDelete(actualKey)}
                     />

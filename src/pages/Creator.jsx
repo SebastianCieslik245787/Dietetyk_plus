@@ -156,7 +156,7 @@ function Creator() {
                             setActiveDataIndex(null)
                             setOpenDeleteWindow(false)
                         }}
-                        error={activeCreator === 0 ? "Czy napewno chcesz usunąć danie?" : "Czy napewno chcesz usunąć diete?"}
+                        message={activeCreator === 0 ? "Czy napewno chcesz usunąć danie?" : "Czy napewno chcesz usunąć diete?"}
                     /> : ''
             }
         </>
