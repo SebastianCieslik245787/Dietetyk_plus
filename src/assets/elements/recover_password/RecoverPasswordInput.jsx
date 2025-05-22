@@ -1,4 +1,4 @@
-import {onChangeInput} from "../../hooks/handleChangeInput.jsx";
+import {onChangeInput} from "../../hooks/onChangeInput.jsx";
 
 const RecoverPasswordInput = ({placeHolder, data, setData, name, error}) => {
     const handleChange = onChangeInput(setData)

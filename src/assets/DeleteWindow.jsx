@@ -1,14 +1,16 @@
 import "../style/DeleteWindow.css"
 
 /**
- * Okno usuwania elementu
+ * Okno potwierdzające usunięcie elementu
  * @see Creator
  * @see DietitianPatientsPage
  * @component
+ * @member Usuwanie
+ * @name DeleteWindow
+ * @description Okno potwierdające usunięcie elementu.
  *
- * @param {object} props
- * @param {function} props.onDelete - Funkcja potwierdzająca usunięcie elementu.
- * @param {function} props.onClose - Funckja zamykająca onko.
+ * @param {function} Delete - Funkcja potwierdzająca usunięcie elementu.
+ * @param {function} onClose - Funckja zamykająca onko.
  * @param {string} message - Treść wiadomości, która ma się wyświetlić w oknie.
  *
  * @returns {JSX.Element} - Okno potwierdzające usunięcie elementu interfejsu użytkownika

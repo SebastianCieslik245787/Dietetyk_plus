@@ -1,8 +1,35 @@
 import DietPlanIcon from '../../../../images/icons/diet_plan_icon.png'
 import CloseWindowIcon from '../../../../images/icons/close_window_icon.png'
-import {onChangeInput} from "../../../hooks/handleChangeInput.jsx";
+import {onChangeInput} from "../../../hooks/onChangeInput.jsx";
 
+/**
+ * Okno dodawania, bądz edycji danych diety (nazwy, opisu) w kreatorze diet {@link Creator}.
+ *
+ * @name DietInfoWindow
+ * @description Okno zmiany nazwy i opisu diety
+ * @component
+ *
+ * @member Dodawanie/Edycja diety
+ *
+ * @see Creator
+ * @see onChangeInput
+ *
+ * @param {function} onClick
+ * @param {Object} data - Dane nowej lub edytowanej diety.
+ * @property {string} data.name - Nazwa diety.
+ * @property {string} data.description - Opis diety.
+ * @property {Array<Object>} data.days - Plan diety (nieużywany).
+ * @param {function} setData - Funkcja zmieniająca dane.
+ * @param {function} onClose - Funkcja zamykająca okno.
+ *
+ * @returns {JSX.Element} Okno dodawania lub edycji nazwy i opisu diety.
+ */
 const DietInfoWindow = ({onClick, data, setData, onClose}) => {
+    /**
+     * Funkcja obserwująca zmiany w polu edycji i zamieniająca je w danych diety.
+     *
+     * @type {function}
+     */
     const handleChange = onChangeInput(setData)
 
     return (

@@ -1,3 +1,8 @@
+/**
+ * @callback VoidCallBack
+ * @returns {void}
+ */
+
 export const emptyIngredient = {
     name: "",
     category: "",

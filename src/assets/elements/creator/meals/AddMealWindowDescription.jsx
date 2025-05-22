@@ -1,7 +1,7 @@
 import LoadImageIcon from "../../../../images/icons/add_image_icon.png"
 import {useState} from "react";
 import {useImageUploader} from "../../../hooks/useImageUploader.jsx";
-import {onChangeInput} from "../../../hooks/handleChangeInput.jsx";
+import {onChangeInput} from "../../../hooks/onChangeInput.jsx";
 
 const AddMealWindowDescription = ({data, setData, errors}) => {
     const [isChanged, setIsChanged] = useState(false);

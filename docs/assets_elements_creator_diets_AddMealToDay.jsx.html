@@ -1,4 +1,32 @@
-import AddIcon from "../../../../images/icons/add_icon.png"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: assets/elements/creator/diets/AddMealToDay.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: assets/elements/creator/diets/AddMealToDay.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import AddIcon from "../../../../images/icons/add_icon.png"
 import CloseWindowIcon from '../../../../images/icons/close_window_icon.png'
 import EditIcon from '../../../../images/icons/edit_icon.png'
 import {useState} from "react";
@@ -17,9 +45,9 @@ import AddMealWindow from "../meals/AddMealWindow.jsx";
  * @see Creator
  * @see AddDietWindow
  *
- * @param {Array<Object>} data - Dane zawierające dane dla danego dnia diety.
- * @property {Array<Object>} data.days - Dane z posiłkami na każdy dzień tygodnia.
- * @property {Array<Object>} data.days.meals - Dane posiłków danego dnia.
+ * @param {Array&lt;Object>} data - Dane zawierające dane dla danego dnia diety.
+ * @property {Array&lt;Object>} data.days - Dane z posiłkami na każdy dzień tygodnia.
+ * @property {Array&lt;Object>} data.days.meals - Dane posiłków danego dnia.
  * @property {string} data.days.meals.name - Nazwa posiłku (np. Śniadanie).
  * @property {Object} data.days.meals.meal - Dane posiłku.
  * @property {string} data.days.meals.meal.name - Nazwa dania (np. Jajecznica).
@@ -28,7 +56,7 @@ import AddMealWindow from "../meals/AddMealWindow.jsx";
  * @property {number} data.days.meals.meal.macros.proteins - Białko zawarte w daniu.
  * @property {number} data.days.meals.meal.macros.carbohydrates - Węglowodany zawarte w daniu.
  * @property {number} data.days.meals.meal.macros.fats - Tłuszcze zawarte w daniu.
- * @property {Array<Object>} data.days.meals.meal.ingredients - Składniki dania.
+ * @property {Array&lt;Object>} data.days.meals.meal.ingredients - Składniki dania.
  * @property {string} data.days.meals.meal.ingredients.name - Nazwa składnika.
  * @property {number} data.days.meals.meal.ingredients.count - Ilość składnika w daniu.
  * @property {string} data.days.meals.meal.ingredients.count - Jednostka w jakiej podawany jest skłądnik (np. ml, g, szt.).
@@ -60,7 +88,7 @@ const AddMealToDay = ({ data, setData, activeIndex, onClose }) => {
      * @property {number} Meal.meal.macros.proteins - Białko zawarte w daniu.
      * @property {number} Meal.meal.macros.carbohydrates - Węglowodany zawarte w daniu.
      * @property {number} Meal.meal.macros.fats - Tłuszcze zawarte w daniu.
-     * @property {Array<Object>} Meal.meal.ingredients - Składniki dania.
+     * @property {Array&lt;Object>} Meal.meal.ingredients - Składniki dania.
      * @property {string} Meal.meal.ingredients.name - Nazwa składnika.
      * @property {number} Meal.meal.ingredients.count - Ilość składnika w daniu.
      * @property {string} Meal.meal.ingredients.count - Jednostka w jakiej podawany jest skłądnik (np. ml, g, szt.).
@@ -87,7 +115,7 @@ const AddMealToDay = ({ data, setData, activeIndex, onClose }) => {
      * @type {function}
      */
     const handleAddMeal = () => {
-        if (!mealName && !newMeal) return;
+        if (!mealName &amp;&amp; !newMeal) return;
 
         const newMealObj = {
             name: mealName,
@@ -102,45 +130,67 @@ const AddMealToDay = ({ data, setData, activeIndex, onClose }) => {
     };
 
     return (
-        <>
-            <div className={`add-meal-to-date-container ${addNewMealWindow ? 'hidden' : ''}`}>
-                <div className="add-meal-to-date-window">
-                    <div className={"add-meal-to-date-window-header"}>
+        &lt;>
+            &lt;div className={`add-meal-to-date-container ${addNewMealWindow ? 'hidden' : ''}`}>
+                &lt;div className="add-meal-to-date-window">
+                    &lt;div className={"add-meal-to-date-window-header"}>
                         Dodaj posiłek
-                    </div>
-                    <div className={"add-meal-to-date-close-window"}>
-                        <img src={`${CloseWindowIcon}`} alt=""/>
-                    </div>
-                    <div className={"add-meal-to-date-window-input"}>
-                        <input value={mealName} onChange={(e) => setMealName(e.target.value)} type="text" placeholder={"Wpisz nazwę posiłku..."}/>
-                    </div>
-                    <div className={"add-meal-to-date-window-input search-meal"}>
-                        <input type="text" placeholder={"Wyszukaj danie..."}/>
-                        <div className={'add-new-meal-button'} onClick={() => setAddNewMealWindow(true)}>
-                            <div className={"add-new-meal-icon"}>
-                                <img src={`${newMeal !== null ? EditIcon : AddIcon}`} alt=""/>
-                            </div>
-                            <div className={"add-new-meal-text"}>
+                    &lt;/div>
+                    &lt;div className={"add-meal-to-date-close-window"}>
+                        &lt;img src={`${CloseWindowIcon}`} alt=""/>
+                    &lt;/div>
+                    &lt;div className={"add-meal-to-date-window-input"}>
+                        &lt;input value={mealName} onChange={(e) => setMealName(e.target.value)} type="text" placeholder={"Wpisz nazwę posiłku..."}/>
+                    &lt;/div>
+                    &lt;div className={"add-meal-to-date-window-input search-meal"}>
+                        &lt;input type="text" placeholder={"Wyszukaj danie..."}/>
+                        &lt;div className={'add-new-meal-button'} onClick={() => setAddNewMealWindow(true)}>
+                            &lt;div className={"add-new-meal-icon"}>
+                                &lt;img src={`${newMeal !== null ? EditIcon : AddIcon}`} alt=""/>
+                            &lt;/div>
+                            &lt;div className={"add-new-meal-text"}>
                                 {
                                     newMeal !== null ? "Edytuj danie" : "Nowe danie"
                                 }
-                            </div>
-                        </div>
-                    </div>
-                    <div className={"add-meal-to-date-add-button"} onClick={handleAddMeal}>
+                            &lt;/div>
+                        &lt;/div>
+                    &lt;/div>
+                    &lt;div className={"add-meal-to-date-add-button"} onClick={handleAddMeal}>
                         Dodaj
-                    </div>
-                </div>
-            </div>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
             {
-                addNewMealWindow ? <AddMealWindow
+                addNewMealWindow ? &lt;AddMealWindow
                     onClose={() => setAddNewMealWindow(false)}
                     isEdit={true}
                     data={newMeal}
                     onSave={setNewMeal}
                 /> : ''
             }
-        </>
+        &lt;/>
     )
 };
-export default AddMealToDay
+export default AddMealToDay</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#DeleteWindow">DeleteWindow</a></li><li><a href="global.html#Dodawanie/Edycja">Dodawanie/Edycja</a></li><li><a href="global.html#generateDietPDF">generateDietPDF</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Thu May 22 2025 23:16:59 GMT+0200 (czas środkowoeuropejski letni)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

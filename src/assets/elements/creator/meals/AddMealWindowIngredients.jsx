@@ -2,7 +2,7 @@ import CreatorSelect from "../CreatorSelect.jsx";
 import IngredientItem from "./IngredientItem.jsx";
 import {useState} from "react";
 import {validateIngredient} from "../../../../scripts/validateData/validateAddMealUtils.js";
-import {onChangeInput} from "../../../hooks/handleChangeInput.jsx";
+import {onChangeInput} from "../../../hooks/onChangeInput.jsx";
 import {mealCategoryData, mealUnitData} from "../../../../data/SelectOptionsData.js";
 import {emptyIngredient} from "../../../../data/EmptyListsData.js";
 

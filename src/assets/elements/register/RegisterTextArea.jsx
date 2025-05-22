@@ -1,4 +1,4 @@
-import {onChangeInput} from "../../hooks/handleChangeInput.jsx";
+import {onChangeInput} from "../../hooks/onChangeInput.jsx";
 
 const RegisterTextArea = ({id, label="Inne?", setFormData, value, placeHolder="Wpisz..."}) => {
     const handleChange = onChangeInput(setFormData)

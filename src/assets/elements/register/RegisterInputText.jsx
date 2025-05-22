@@ -1,4 +1,4 @@
-import {onChangeInput} from "../../hooks/handleChangeInput.jsx";
+import {onChangeInput} from "../../hooks/onChangeInput.jsx";
 
 const RegisterInputText = ({value, setFormData, label, id, placeHolder, type, required, error=null}) => {
     const handleChange = onChangeInput(setFormData)
