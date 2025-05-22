@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import PatientInformations from "../assets/elements/dietitian_patients/PatientInformations.jsx";
 import {useCookies} from "react-cookie";
 import Patient from "../assets/elements/dietitian_patients/Patient.jsx";
-import { generatePDF } from "../scripts/generatePDF.js";
+
 
 function DietitianPatientsPage() {
     const [searchTerm, setSearchTerm] = useState("");
@@ -60,12 +60,7 @@ function DietitianPatientsPage() {
                     value={searchTerm}
                     onChange={handleSearchChange}
                 />
-                <button
-                    onClick={() => generatePDF(filteredPatients)}
-                    className="download-pdf-button"
-                >
-                    Download Patients List as PDF
-                </button>
+               
                 <div className={"patient-items"}>
                     {filteredPatients.map((item, index) => (
                         <>

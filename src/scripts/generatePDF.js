@@ -1,62 +1,65 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 
-export function generatePDF(patients) {
+/**
+ * Tworzy PDF z planem diety dla pacjenta.
+ * @param {Array} days - Tablica dni (każdy dzień ma np. { meals: [...] })
+ * @param {string} name - Imię pacjenta
+ * @param {string} surname - Nazwisko pacjenta
+ */
+export function generateDietPDF(days, name, surname) {
     const doc = new jsPDF();
-
-    // Add a title
     doc.setFontSize(18);
-    doc.text("Patients List", 14, 20);
+    doc.text(`Plan diety dla: ${name} ${surname}`, 14, 20);
 
-    // Add a table with patient data
-    const tableData = patients.map((patient, index) => {
-        const key = Object.keys(patient)[0];
-        return [
-            index + 1,
-            patient[key]?.name || "N/A",
-            patient[key]?.surname || "N/A",
-            patient[key]?.email || "N/A",
-        ];
-    });
+    if (!Array.isArray(days) || days.length === 0) {
+        doc.setFontSize(12);
+        doc.text("Brak danych do wyswietlenia.", 14, 30);
+    } else {
+        let y = 30;
+        days.forEach((day, dayIdx) => {
+            if (y > 260) { doc.addPage(); y = 20; }
+            doc.setFontSize(14);
+            doc.text(`Dzień ${dayIdx + 1}`, 14, y);
+            y += 8;
 
-    autoTable(doc, {
-        head: [["#", "Name", "Surname", "Email"]],
-        body: tableData,
-        startY: 30,
-    });
+            if (Array.isArray(day.meals) && day.meals.length > 0) {
+                day.meals.forEach((mealObj, mealIdx) => {
+                    if (y > 260) { doc.addPage(); y = 20; }
+                    doc.setFontSize(12);
+                    doc.text(`${mealObj.label || ""}: ${mealObj.meal?.name || ""}`, 14, y);
+                    y += 6;
+                    if (mealObj.meal?.macros) {
+                        doc.setFontSize(10);
+                        doc.text(
+                            `Białko: ${mealObj.meal.macros.proteins}g, Węglowodany: ${mealObj.meal.macros.carbohydrates}g, Tłuszcze: ${mealObj.meal.macros.fats}g, kcal: ${mealObj.meal.macros.kcal}`,
+                            14,
+                            y
+                        );
+                        y += 5;
+                    }
+                    if (Array.isArray(mealObj.meal?.ingredients)) {
+                        const ingredients = mealObj.meal.ingredients
+                            .filter(i => i.name)
+                            .map(i => `${i.name} - ${i.count} ${i.unit}`)
+                            .join(", ");
+                        doc.text(`Składniki: ${ingredients}`, 14, y);
+                        y += 5;
+                    }
+                    if (mealObj.meal?.recipe) {
+                        doc.text(`Przepis: ${mealObj.meal.recipe}`, 14, y, { maxWidth: 180 });
+                        y += 8;
+                    }
+                    y += 2;
+                });
+            } else {
+                doc.setFontSize(10);
+                doc.text("Brak posiłków w tym dniu.", 14, y);
+                y += 6;
+            }
+            y += 4;
+        });
+    }
 
-    // Save the PDF
-    doc.save("Patients_List.pdf");
-}
-
-export function generateDietPDF(patient) {
-    const doc = new jsPDF();
-
-    // Add a title
-    doc.setFontSize(18);
-    doc.text(`Diet Plan for ${patient.name} ${patient.surname}`, 14, 20);
-
-    // Add patient details
-    doc.setFontSize(12);
-    doc.text(`Name: ${patient.name || "N/A"}`, 14, 40);
-    doc.text(`Surname: ${patient.surname || "N/A"}`, 14, 50);
-    doc.text(`Email: ${patient.email || "N/A"}`, 14, 60);
-
-    // Add diet details (example structure)
-    const dietData = patient.diet || [];
-    const tableData = dietData.map((item, index) => [
-        index + 1,
-        item.meal || "N/A",
-        item.calories || "N/A",
-        item.time || "N/A",
-    ]);
-
-    autoTable(doc, {
-        head: [["#", "Meal", "Calories", "Time"]],
-        body: tableData,
-        startY: 80,
-    });
-
-    // Save the PDF
-    doc.save(`Diet_Plan_${patient.name}_${patient.surname}.pdf`);
+    doc.save(`Dieta_${name}_${surname}.pdf`);
 }
