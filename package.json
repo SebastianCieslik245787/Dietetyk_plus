@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "docs": "jsdoc -c jsdoc.json"
+    "docs": "babel src --out-dir transpiled --extensions '.js,.jsx' && jsdoc -c jsdoc.json"
   },
   "dependencies": {
     "jspdf": "^3.0.1",
@@ -21,6 +21,9 @@
     "recharts": "^2.15.3"
   },
   "devDependencies": {
+    "@babel/cli": "^7.27.2",
+    "@babel/core": "^7.27.1",
+    "@babel/preset-react": "^7.27.1",
     "@eslint/js": "^9.21.0",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
@@ -29,6 +32,7 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
+    "jsdoc": "^4.0.4",
     "vite": "^6.3.5"
   }
 }

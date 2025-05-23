@@ -3,7 +3,17 @@ import "../style/AccountCreated.css"
 import accountCreatedIcon from "../images/icons/sucessfull_register_icon.png"
 import {useNavigate} from "react-router-dom";
 
+/**
+ * Strona informująca o pomyślej rejestraci, po pomyślnym przejściu wszystkich kroków rejestracji {@link Register}.
+ *
+ * @see Register
+ *
+ * @returns {JSX.Element} - Strona informująca o pomyślej rejestraci.
+ */
 function AccountCreated(){
+    /**
+     * Hook do nawigacji między stronami aplikacji. W tym wypadku do strony głównej serwisu.
+     */
     const navigate = useNavigate();
 
     return (

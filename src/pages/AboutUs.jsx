@@ -3,6 +3,12 @@ import logo from "../images/logo.webp";
 import "../style/AboutUs.css"
 import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 
+/**
+ * Strona zawierająca informacje o ofercie serwisu.
+ * @see NavigationBar
+ *
+ * @returns {JSX.Element} - Strona zawierająca informacje o ofercie serwisu.
+ */
 function AboutUs() {
     return (
         <>

@@ -19,7 +19,47 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "./style/style.css"
 import {CookiesProvider} from "react-cookie";
 
-
+/**
+ * Punkt wejściowy aplikacji React.
+ *
+ * Aplikacja opakowana jest w `CookiesProvider` (do obsługi ciasteczek) i `BrowserRouter` (do obsługi routingu po stronie klienta).
+ *
+ * Ścieżki routingu:
+ * - `*` oraz `/home` – Strona główna (komponent: {@link HomePage})
+ * - `/login` – Logowanie (komponent: {@link Login})
+ * - `/about-us` – Informacje o nas (komponent: {@link AboutUs})
+ * - `/contact` – Kontakt (komponent: {@link Contact})
+ * - `/register` – Rejestracja (komponent: {@link Register})
+ * - `/account-created` – Potwierdzenie utworzenia konta (komponent: {@link AccountCreated})
+ * - `/diet-plan` – Plan diety (komponent: {@link DietPlanPage})
+ * - `/user-settings` – Ustawienia użytkownika (komponent: {@link UserSettings})
+ * - `/patients` – Lista pacjentów dietetyka (komponent: {@link DietitianPatientsPage})
+ * - `/diets` – Inne diety (komponent: {@link OtherDiets})
+ * - `/dietitians` – Lista dietetyków (komponent: {@link Dietitians})
+ * - `/logout` – Wylogowanie (komponent: {@link LogOutPage})
+ * - `/shopping-list` – Lista zakupów (komponent: {@link ShoppingList})
+ * - `/creator` – Kreator diet i dań (komponent: {@link Creator})
+ * - `/progress-journal` – Dziennik postępów (komponent: {@link ProgressJournal})
+ * - `/recover-password` – Odzyskiwanie hasła (komponent: {@link RecoverPassword})
+ *
+ * @see HomePage
+ * @see Login
+ * @see AboutUs
+ * @see Contact
+ * @see Register
+ * @see Register
+ * @see AccountCreated
+ * @see DietPlanPage
+ * @see UserSettings
+ * @see DietitianPatientsPage
+ * @see OtherDiets
+ * @see Dietitians
+ * @see LogOutPage
+ * @see ShoppingList
+ * @see Creator
+ * @see ProgressJournal
+ * @see RecoverPassword
+ */
 createRoot(document.getElementById('root')).render(
     <CookiesProvider>
         <BrowserRouter>
@@ -44,5 +84,4 @@ createRoot(document.getElementById('root')).render(
             </Routes>
         </BrowserRouter>
     </CookiesProvider>
-
 )

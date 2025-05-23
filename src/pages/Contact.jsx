@@ -5,7 +5,13 @@ import emailIcon from "../images/icons/email_icon.png";
 import "../style/Contact.css"
 import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 
-
+/**
+ * Strona z informacjami o kontakcie z właścicielami serwisu.
+ *
+ * @see NavigationBar
+ *
+ * @returns {JSX.Element} - Strona z informacjami o kontakcie z właścicielami serwisu
+ */
 function Contact() {
     return (
         <>
