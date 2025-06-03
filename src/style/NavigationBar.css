@@ -49,6 +49,11 @@
     position: relative;
 }
 
+.item-text.active {
+    color: #E24F4F;
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
 
 .item:hover > .item-text {
     color: #E24F4F;
@@ -146,6 +151,11 @@
     background-color: #cbc9c9;
 }
 
+.item-dropdown-option.active{
+    color: #E24F4F;
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
 .item:hover > .item-dropdown-options {
     visibility: visible;
 }
@@ -205,6 +215,11 @@
     font-weight: bold;
     transition: background-color 0.3s ease,
     color 0.3s ease;
+}
+
+.user-option.active{
+    color: #E24F4F;
+    text-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
 }
 
 .user-option:hover {
