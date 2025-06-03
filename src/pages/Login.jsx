@@ -37,8 +37,7 @@ function LoginPage() {
                             <div className="login-register">
                                 <p className="login-register-text">
                                     Nie masz jeszcze konta? <a href="" onClick={() => navigate("/register")}
-                                                               className="register-link">Zajerestruj
-                                    się</a>
+                                                               className="register-link">Zajerestruj się</a>
                                     <br/>
                                     <br/>
                                     Nie pamiętasz hasła? <a href="" onClick={() => navigate("/recover-password")}
