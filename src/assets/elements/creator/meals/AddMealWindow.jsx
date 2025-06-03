@@ -7,7 +7,7 @@ import UnsavedChangesWindow from "./UnsavedChangesWindow.jsx";
 import {isEditedMeal, validateAddMeal} from "../../../../scripts/validateData/validateAddMealUtils.js";
 import {emptyMeal} from "../../../../data/EmptyListsData.js";
 
-const AddMealWindow = ({onClose, data, onSave}) => {
+const AddMealWindow = ({onClose, data, onSave, ingredientsData, setIngredientsData}) => {
     const [activeOption, setActiveOption] = useState(0);
     const [isEdited, setIsEdited] = useState(false);
 
@@ -31,7 +31,7 @@ const AddMealWindow = ({onClose, data, onSave}) => {
         if(data !== null){
             setMealData({
                 name: data.name,
-                image: data.image,
+                image: data.img_b64,
                 recipe: data.recipe,
                 ingredients: data.ingredients,
             })
@@ -79,6 +79,8 @@ const AddMealWindow = ({onClose, data, onSave}) => {
                                 data={mealData}
                                 setData={setMealData}
                                 errors={errors}
+                                ingredientsData={ingredientsData}
+                                setIngredientsData={setIngredientsData}
                             />
                     }
                     <div className="add-meal-window-add-button" onClick={handleSave}>

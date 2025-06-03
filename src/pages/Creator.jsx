@@ -8,13 +8,14 @@ import AddMealWindow from "../assets/elements/creator/meals/AddMealWindow.jsx";
 import Meal from "../assets/elements/diet/Meal.jsx";
 import MealImg from "../images/icons/jajecznica.webp";
 import {changeDietPlanContainerSize} from "../scripts/changeDietPlanContainerSize.js";
-import {mealsData} from "../data/MealsData.js";
+import {mealsData, mealsData2} from "../data/MealsData.js";
 import DietItem from "../assets/elements/creator/diets/DietItem.jsx";
 import {dietData} from "../data/DIetData.js";
 import AddDietWindow from "../assets/elements/creator/diets/AddDietWindow.jsx";
 import DeleteWindow from "../assets/DeleteWindow.jsx";
 import {useDeleteFromArray} from "../assets/hooks/useDeleteFromArray.jsx";
 import {emptyDiet} from "../data/EmptyListsData.js";
+import {ingredientsData} from "../data/ingredients.js";
 
 function Creator() {
     const [activeCreator, setActiveCreator] = useState(0);
@@ -23,7 +24,7 @@ function Creator() {
 
     const [activeDataIndex, setActiveDataIndex] = useState(null);
 
-    const [data, setData, removeDataAtIndex] = useDeleteFromArray(mealsData);
+    const [data, setData, removeDataAtIndex] = useDeleteFromArray(mealsData2);
 
     const [openDeleteWindow, setOpenDeleteWindow] = useState(false);
 
@@ -33,6 +34,8 @@ function Creator() {
         setActiveDataIndex(prevIndex => (prevIndex === index ? null : index));
         changeDietPlanContainerSize()
     };
+    //TODO get from database
+    const [ingredients, setIngredients] = useState(ingredientsData);
 
     const handleCreatorTypeClick = (index) => {
         setActiveCreator(index);
@@ -98,6 +101,7 @@ function Creator() {
                                                   setActiveDataIndex(index)
                                                   setOpenDeleteWindow(true)
                                               }}
+                                              ingredientsData={ingredients}
                                         />
                                     ))}
                             </>
@@ -134,7 +138,10 @@ function Creator() {
             {openAddItemWindow ? (activeCreator === 0 ?
                     <AddMealWindow
                         onClose={() => setOpenAddItemWindow(false)}
-                        data={activeDataIndex !== null ? data[activeDataIndex].meal : null}
+                        data={activeDataIndex !== null ? data[activeDataIndex] : null}
+                        ingredientsData={ingredients}
+                        setIngredientsData={setIngredients}
+                        onSave={}
                     />
                     :
                     <AddDietWindow

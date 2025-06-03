@@ -1,11 +1,11 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DownloadIcon from "../../../images/icons/download_icon.png";
 import SaveIcon from "../../../images/icons/save_icon.png";
 import Meal from "./Meal.jsx";
 import MealImg from "../../../images/icons/jajecznica.webp";
 import AddMealToDay from "../creator/diets/AddMealToDay.jsx";
 import CreatorAddItem from "../creator/CreatorAddItem.jsx";
-import {changeDietPlanContainerSize} from "../../../scripts/changeDietPlanContainerSize.js";
+import { changeDietPlanContainerSize } from "../../../scripts/changeDietPlanContainerSize.js";
 
 const today = new Date();
 const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1;
@@ -33,37 +33,42 @@ const DietPlan = ({ options, data, setData, isEdit = false, onClick }) => {
     }, [isEdit]);
 
     const handleItemClick = (index) => {
-        setActiveIndex(index)
-        setActiveMealIndex(null)
+        setActiveIndex(index);
+        setActiveMealIndex(null);
     };
 
-    const handleMealToggle = (index) => setActiveMealIndex(prevIndex => (prevIndex === index ? null : index));
+    const handleMealToggle = (index) =>
+        setActiveMealIndex((prevIndex) => (prevIndex === index ? null : index));
 
     const meals =
-        data &&
-        Array.isArray(data.days) &&
-        data.days[activeIndex] &&
-        Array.isArray(data.days[activeIndex].meals)
-            ? data.days[activeIndex].meals
+        Array.isArray(data) &&
+        data[activeIndex] &&
+        Array.isArray(data[activeIndex])
+            ? data[activeIndex]
             : [];
 
     return (
         <div className="diet-plan-content" id="diet-plan-content">
             <div className="diet-plan-menu">
-                <div className="diet-plan-menu-header">
-                    Plan żywienia
-                </div>
+                <div className="diet-plan-menu-header">Plan żywienia</div>
                 <div className="diet-plan-menu-items">
                     {options.map((item, index) => (
                         <div
-                            className={`diet-plan-menu-item ${activeIndex === index ? 'diet-plan-menu-item-text-active' : ''}`}
+                            className={`diet-plan-menu-item ${
+                                activeIndex === index
+                                    ? "diet-plan-menu-item-text-active"
+                                    : ""
+                            }`}
                             key={index}
                             onClick={() => handleItemClick(index)}
                         >
                             <div
                                 className="diet-plan-menu-item-active"
                                 style={{
-                                    visibility: activeIndex === index ? 'visible' : 'hidden'
+                                    visibility:
+                                        activeIndex === index
+                                            ? "visible"
+                                            : "hidden",
                                 }}
                             />
                             <div className="diet-plan-menu-item-text">
@@ -73,27 +78,38 @@ const DietPlan = ({ options, data, setData, isEdit = false, onClick }) => {
                     ))}
                 </div>
                 <div className="diet-plan-menu-button" onClick={onClick}>
-                    <img src={isEdit ? `${SaveIcon}` : `${DownloadIcon}`} alt={""}/>
+                    <img
+                        src={isEdit ? `${SaveIcon}` : `${DownloadIcon}`}
+                        alt=""
+                    />
                     <p className="diet-plan-menu-button-text">
-                        {isEdit ? 'Zapisz' : 'Pobierz'}
+                        {isEdit ? "Zapisz" : "Pobierz"}
                     </p>
                 </div>
             </div>
-            <div className="diet-plan-separator" id="diet-plan-separator" />
-            <div className="diet-plan-meals" id="diet-plan-meals" ref={mealsRef}>
+            <div
+                className="diet-plan-separator"
+                id="diet-plan-separator"
+            />
+            <div
+                className="diet-plan-meals"
+                id="diet-plan-meals"
+                ref={mealsRef}
+            >
                 {meals.length > 0 ? (
                     meals.map((meal, index) => (
                         <Meal
                             key={`day-${activeIndex}-meal-${index}`}
                             data={meal}
-                            mealImg={MealImg}
                             isActive={activeMealIndex === index}
                             onToggle={() => handleMealToggle(index)}
                             index={index}
                         />
                     ))
                 ) : (
-                    <p style={{ padding: 16, color: "#888" }}>Brak posiłków do wyświetlenia.</p>
+                    <p style={{ padding: 16, color: "#888" }}>
+                        Brak posiłków do wyświetlenia.
+                    </p>
                 )}
                 {isEdit && (
                     <CreatorAddItem

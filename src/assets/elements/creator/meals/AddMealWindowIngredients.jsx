@@ -1,12 +1,12 @@
 import CreatorSelect from "../CreatorSelect.jsx";
 import IngredientItem from "./IngredientItem.jsx";
-import {useState} from "react";
+import React, {useState} from "react";
 import {validateIngredient} from "../../../../scripts/validateData/validateAddMealUtils.js";
 import {onChangeInput} from "../../../hooks/onChangeInput.jsx";
 import {mealCategoryData, mealUnitData} from "../../../../data/SelectOptionsData.js";
 import {emptyIngredient} from "../../../../data/EmptyListsData.js";
 
-const AddMealWindowIngredients = ({data, setData, errors}) => {
+const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIngredientsData}) => {
     const [addIngredientError, setAddIngredientError] = useState("");
 
     const [ingredient, setIngredient] = useState(emptyIngredient);
@@ -17,8 +17,8 @@ const AddMealWindowIngredients = ({data, setData, errors}) => {
     const [activeCategory, setActiveCategory] = useState(-1)
 
     const handleClick = (ingredient) => {
-        if(activeUnit === -1 || activeCategory === -1) {
-            return
+        if (activeUnit === -1 || activeCategory === -1) {
+            return;
         }
 
         const newIngredient = {
@@ -27,23 +27,83 @@ const AddMealWindowIngredients = ({data, setData, errors}) => {
             category: mealCategoryData[activeCategory]
         };
 
-        if(!validateIngredient(newIngredient, setAddIngredientError)) return
+        if (!validateIngredient(newIngredient, setAddIngredientError)) return;
 
-        setData(prev => ({
-            ...prev,
-            ingredients: [...prev.ingredients, newIngredient],
-        }));
+        let ingredientId = ingredientsData.findIndex(
+            ing => ing.name.toLowerCase() === newIngredient.name.toLowerCase()
+        );
+
+        if (ingredientId === -1) {
+            setIngredientsData(prevIngredients => {
+                const updatedIngredients = [...prevIngredients, newIngredient];
+                ingredientId = updatedIngredients.length - 1;
+
+                setData(prev => {
+                    if (Array.isArray(prev.ingredients)) {
+                        return {
+                            ...prev,
+                            ingredients: [...prev.ingredients, newIngredient],
+                        };
+                    } else {
+                        const newIngredientsObj = { ...prev.ingredients };
+                        const prevCount = newIngredientsObj[ingredientId] || 0;
+                        newIngredientsObj[ingredientId] = prevCount + Number(newIngredient.count);
+
+                        return {
+                            ...prev,
+                            ingredients: newIngredientsObj,
+                        };
+                    }
+                });
+
+                return updatedIngredients;
+            });
+        } else {
+            setData(prev => {
+                if (Array.isArray(prev.ingredients)) {
+                    return {
+                        ...prev,
+                        ingredients: [...prev.ingredients, newIngredient],
+                    };
+                } else {
+                    const newIngredientsObj = { ...prev.ingredients };
+                    const prevCount = newIngredientsObj[ingredientId] || 0;
+                    newIngredientsObj[ingredientId] = prevCount + Number(newIngredient.count);
+
+                    return {
+                        ...prev,
+                        ingredients: newIngredientsObj,
+                    };
+                }
+            });
+        }
 
         setIngredient(emptyIngredient);
-
-        setAddIngredientError("")
-    }
+        setAddIngredientError("");
+    };
 
     const handleRemove = (indexToRemove) => {
-        setData(prev => ({
-            ...prev,
-            ingredients: prev.ingredients.filter((_, index) => index !== indexToRemove)
-        }));
+        if (Array.isArray(data.ingredients)) {
+            setData(prev => ({
+                ...prev,
+                ingredients: prev.ingredients.filter((_, index) => index !== indexToRemove)
+            }));
+        } else {
+            setData(prev => {
+                const newIngredients = { ...prev.ingredients };
+                const keys = Object.keys(newIngredients);
+                const keyToRemove = keys[indexToRemove];
+
+                if (keyToRemove !== undefined) {
+                    delete newIngredients[keyToRemove];
+                }
+
+                return {
+                    ...prev,
+                    ingredients: newIngredients,
+                };
+            });
+        }
     };
 
     return (
@@ -75,13 +135,20 @@ const AddMealWindowIngredients = ({data, setData, errors}) => {
                 </div>
                 <div className="add-meal-window-ingredients-items">
                     {
-                        data.ingredients.map((ingredient, index) => (
-                            <IngredientItem
-                                key={index}
-                                data={ingredient}
-                                onRemove={() => handleRemove(index)}
-                            />
-                        ))
+                        Object.entries(data.ingredients).map(([id, quantity], index) => {
+                            const ingredient = ingredientsData[Number(id)];
+
+                            if (!ingredient) return null;
+
+                            return (
+                                <IngredientItem
+                                    key={index}
+                                    ingredient={ingredient}
+                                    quantity={quantity}
+                                    onRemove={() => handleRemove(index)}
+                                />
+                            );
+                        })
                     }
                     <div className={`add-meal-window-error ${errors.ingredients !== '' ? 'visible' : ''} ingredients-error`}>
                         {errors.ingredients}

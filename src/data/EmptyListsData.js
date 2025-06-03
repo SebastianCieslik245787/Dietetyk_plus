@@ -6,21 +6,14 @@
 export const emptyIngredient = {
     name: "",
     category: "",
-    count: "",
     unit: ""
 }
 
 export const emptyMeal = {
     name: '',
-    image: null,
+    image: '',
     recipe: '',
-    ingredients: [],
-    macros:{
-        proteins: 1,
-        kcal: 2,
-        fats: 3,
-        carbohydrates: 4,
-    }
+    ingredients: {},
 }
 
 export const emptyRecoverPassword = {

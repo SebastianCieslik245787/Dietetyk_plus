@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 const MacrosTable = ({data, isCreator=false}) => {
     return (
@@ -6,7 +6,7 @@ const MacrosTable = ({data, isCreator=false}) => {
             <div className={`meal-info-macros ${isCreator ? 'creator-inactive' : ''}`}>
                 <div className="meal-info-macros-item meal-info-macros-item-first">
                     <p className="meal-info-macros-item-value">
-                        {data.kcal}
+                        {data.kcal.toFixed(0)}
                     </p>
                     <p className="meal-info-macros-item-label">
                         Kcal
@@ -14,7 +14,7 @@ const MacrosTable = ({data, isCreator=false}) => {
                 </div>
                 <div className="meal-info-macros-item">
                     <p className="meal-info-macros-item-value">
-                        {data.proteins}g
+                        {data.proteins.toFixed(1)}g
                     </p>
                     <p className="meal-info-macros-item-label">
                         Białko
@@ -22,7 +22,7 @@ const MacrosTable = ({data, isCreator=false}) => {
                 </div>
                 <div className="meal-info-macros-item">
                     <p className="meal-info-macros-item-value">
-                        {data.carbohydrates}g
+                        {data.carbohydrates.toFixed(1)}g
                     </p>
                     <p className="meal-info-macros-item-label">
                         Węgl.
@@ -30,7 +30,7 @@ const MacrosTable = ({data, isCreator=false}) => {
                 </div>
                 <div className="meal-info-macros-item">
                     <p className="meal-info-macros-item-value">
-                        {data.fats}
+                        {data.fats.toFixed(1)}
                     </p>
                     <p className="meal-info-macros-item-label">
                         Tłusz.
