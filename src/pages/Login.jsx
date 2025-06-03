@@ -5,7 +5,11 @@ import {useCookies} from "react-cookie";
 
 function LoginPage() {
     const navigate = useNavigate();
-    const [, setCookie, ] = useCookies([]);
+    const [, setCookie,] = useCookies([]);
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        Login(setCookie, navigate);
+    };
 
     return (
         <>
@@ -16,34 +20,38 @@ function LoginPage() {
                             Logowanie
                         </p>
                     </div>
-                    <div className="login-fields">
-                        <div className="login-field-label">
-                            E-mail:
+                    <form onSubmit={handleSubmit}>
+                        <div className="login-fields">
+                            <div className="login-field-label">
+                                E-mail:
+                            </div>
+                            <input id="email" className="login-field" type="text" placeholder="Wprowadz e-mail"/>
+                            <div className="login-field-label">
+                                Hasło:
+                            </div>
+                            <input id="password" className="login-field login-field-last" type="password"
+                                   placeholder="Wprowadz hasło"/>
+                            <div className="login-error-label">
+                                Błędny login lub hasło!
+                            </div>
+                            <div className="login-register">
+                                <p className="login-register-text">
+                                    Nie masz jeszcze konta? <a href="" onClick={() => navigate("/register")}
+                                                               className="register-link">Zajerestruj
+                                    się</a>
+                                    <br/>
+                                    <br/>
+                                    Nie pamiętasz hasła? <a href="" onClick={() => navigate("/recover-password")}
+                                                            className="register-link">Odzyskaj hasło</a>
+                                </p>
+                            </div>
                         </div>
-                        <input id="email" className="login-field" type="text" placeholder="Wprowadz e-mail"/>
-                        <div className="login-field-label">
-                            Hasło:
-                        </div>
-                        <input id="password" className="login-field login-field-last" type="password"
-                               placeholder="Wprowadz hasło"/>
-                        <div className="login-error-label">
-                            Błędny login lub hasło!
-                        </div>
-                        <div className="login-register">
-                            <p className="login-register-text">
-                                Nie masz jeszcze konta? <a href="" onClick={() => navigate("/register")} className="register-link">Zajerestruj
-                                się</a>
-                                <br/>
-                                <br/>
-                                Nie pamiętasz hasła? <a href="" onClick={() => navigate("/recover-password")} className="register-link">Odzyskaj hasło</a>
+                        <button type="submit" className="login-button">
+                            <p className="login-button-text">
+                                Zaloguj
                             </p>
-                        </div>
-                    </div>
-                    <div className="login-button" onClick={() => Login(setCookie, navigate)}>
-                        <p className="login-button-text">
-                            Zaloguj
-                        </p>
-                    </div>
+                        </button>
+                    </form>
                 </div>
             </div>
         </>
