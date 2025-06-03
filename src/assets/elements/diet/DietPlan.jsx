@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import DownloadIcon from "../../../images/icons/download_icon.png";
 import Meal from "./Meal.jsx";
 import MealImg from "../../../images/icons/jajecznica.webp";
 import AddMealToDay from "../creator/diets/AddMealToDay.jsx";
 import CreatorAddItem from "../creator/CreatorAddItem.jsx";
+import {changeDietPlanContainerSize} from "../../../scripts/changeDietPlanContainerSize.js";
 
 const today = new Date();
 const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1;
@@ -12,6 +13,17 @@ const DietPlan = ({ options, data, setData, isEdit = false, onClick }) => {
     const [activeIndex, setActiveIndex] = useState(dayOfWeek);
     const [activeMealIndex, setActiveMealIndex] = useState(null);
     const [addMealToDay, setAddMealToDay] = useState(false);
+    const mealsRef = useRef(null);
+
+    useEffect(() => {
+        if (mealsRef.current) {
+            const timer = setTimeout(() => {
+                changeDietPlanContainerSize();
+            }, 0);
+
+            return () => clearTimeout(timer);
+        }
+    }, [activeMealIndex]);
 
     useEffect(() => {
         if (isEdit) {
@@ -19,7 +31,10 @@ const DietPlan = ({ options, data, setData, isEdit = false, onClick }) => {
         }
     }, [isEdit]);
 
-    const handleItemClick = (index) => setActiveIndex(index);
+    const handleItemClick = (index) => {
+        setActiveIndex(index)
+        setActiveMealIndex(null)
+    };
 
     const handleMealToggle = (index) => setActiveMealIndex(prevIndex => (prevIndex === index ? null : index));
 
@@ -57,18 +72,18 @@ const DietPlan = ({ options, data, setData, isEdit = false, onClick }) => {
                     ))}
                 </div>
                 <div className="diet-plan-menu-button" onClick={onClick}>
-                    {!isEdit && <img src={DownloadIcon} alt="Pobierz" />}
+                    {!isEdit && <img src={`${DownloadIcon}`} alt="Pobierz" />}
                     <p className="diet-plan-menu-button-text">
                         {isEdit ? 'Zapisz' : 'Pobierz'}
                     </p>
                 </div>
             </div>
             <div className="diet-plan-separator" id="diet-plan-separator" />
-            <div className="diet-plan-meals" id="diet-plan-meals">
+            <div className="diet-plan-meals" id="diet-plan-meals" ref={mealsRef}>
                 {meals.length > 0 ? (
                     meals.map((meal, index) => (
                         <Meal
-                            key={index + 1 * activeIndex}
+                            key={`day-${activeIndex}-meal-${index}`}
                             data={meal}
                             mealImg={MealImg}
                             isActive={activeMealIndex === index}

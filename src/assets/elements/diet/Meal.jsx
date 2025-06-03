@@ -10,7 +10,6 @@ const Meal = ({data, mealImg, isActive, onToggle, isCreator = false, onEdit, onC
     const leftSideRef = useRef(null);
     const rightSideRef = useRef(null);
 
-    //TODO naprawić to
     useEffect(() => {
         changeDietPlanContainerSize()
         setTimeout(() => {

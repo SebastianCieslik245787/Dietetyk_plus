@@ -15,11 +15,11 @@ export function changeDietPlanContainerSize() {
     console.log(mealsHeight);
 
     if (startedHeight < mealsHeight) {
-        contentEl.style.height = mealsHeight + "px";
-        separatorEl.style.height = mealsHeight - 10 + "px";
+        contentEl.style.height = mealsHeight + 30 + "px";
+        separatorEl.style.height = mealsHeight - 30 + "px";
     }
     else {
-        contentEl.style.height = startedHeight - 10 + "px";
-        separatorEl.style.height = startedHeight + "px";
+        contentEl.style.height = startedHeight - 30 + "px";
+        separatorEl.style.height = startedHeight - 60 + "px";
     }
 }

@@ -12,13 +12,14 @@
 
 .diet-plan-content{
     width: 70%;
-    margin: 6% 15%;
+    margin: 100px 15%;
     border-radius: 10px;
     min-height: 750px;
     height: auto;
     background-color: rgba(239, 236, 236, 0.95);
     box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
     position: relative;
+    padding-bottom: 30px;
 }
 
 .diet-plan-menu{
@@ -158,6 +159,7 @@
 .meal-active{
     height: auto;
     border-radius: 25px;
+    padding-bottom: 10px;
 }
 
 .meal-title{
@@ -204,13 +206,16 @@
 .meal-body{
     width: 100%;
     height: auto;
+    overflow: hidden;
+    opacity: 1;
     position: relative;
     float: left;
-    transition: height 0.3s ease;
 }
 
 .meal-body-hidden{
-    visibility: hidden;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
 }
 
 .meal-info-left-side{

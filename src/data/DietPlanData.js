@@ -87,6 +87,60 @@ export const dietPlanData = {
                     }
                 },
                 {
+                    name: "Kolacja",
+                    meal: {
+                        name: "Tortilla z warzywami",
+                        macros: {
+                            kcal: 550,
+                            proteins: 20,
+                            carbohydrates: 50,
+                            fats: 25
+                        },
+                        ingredients: [
+                            { name: "Tortilla pszenna", count: 1, unit: "szt." },
+                            { name: "Papryka", count: 0.5, unit: "szt." },
+                            { name: "Ser feta", count: 50, unit: "g" }
+                        ],
+                        recipe: "Pokrój warzywa, zawiń z serem w tortillę i podgrzej na patelni."
+                    }
+                },
+                {
+                    name: "Kolacja",
+                    meal: {
+                        name: "Tortilla z warzywami",
+                        macros: {
+                            kcal: 550,
+                            proteins: 20,
+                            carbohydrates: 50,
+                            fats: 25
+                        },
+                        ingredients: [
+                            { name: "Tortilla pszenna", count: 1, unit: "szt." },
+                            { name: "Papryka", count: 0.5, unit: "szt." },
+                            { name: "Ser feta", count: 50, unit: "g" }
+                        ],
+                        recipe: "Pokrój warzywa, zawiń z serem w tortillę i podgrzej na patelni."
+                    }
+                },
+                {
+                    name: "Kolacja",
+                    meal: {
+                        name: "Tortilla z warzywami",
+                        macros: {
+                            kcal: 550,
+                            proteins: 20,
+                            carbohydrates: 50,
+                            fats: 25
+                        },
+                        ingredients: [
+                            { name: "Tortilla pszenna", count: 1, unit: "szt." },
+                            { name: "Papryka", count: 0.5, unit: "szt." },
+                            { name: "Ser feta", count: 50, unit: "g" }
+                        ],
+                        recipe: "Pokrój warzywa, zawiń z serem w tortillę i podgrzej na patelni."
+                    }
+                },
+                {
                     name: "Śniadanie",
                     meal: {
                         name: "Omlet z warzywami",
