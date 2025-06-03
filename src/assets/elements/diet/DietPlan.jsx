@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import DownloadIcon from "../../../images/icons/download_icon.png";
+import SaveIcon from "../../../images/icons/save_icon.png";
 import Meal from "./Meal.jsx";
 import MealImg from "../../../images/icons/jajecznica.webp";
 import AddMealToDay from "../creator/diets/AddMealToDay.jsx";
@@ -72,7 +73,7 @@ const DietPlan = ({ options, data, setData, isEdit = false, onClick }) => {
                     ))}
                 </div>
                 <div className="diet-plan-menu-button" onClick={onClick}>
-                    {!isEdit && <img src={`${DownloadIcon}`} alt="Pobierz" />}
+                    <img src={isEdit ? `${SaveIcon}` : `${DownloadIcon}`} alt={""}/>
                     <p className="diet-plan-menu-button-text">
                         {isEdit ? 'Zapisz' : 'Pobierz'}
                     </p>
