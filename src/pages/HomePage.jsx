@@ -9,7 +9,7 @@ import {useNavigate} from "react-router-dom";
 import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 import Slide from "../assets/elements/home_page/Slide.jsx";
 import {slides} from "../data/SlidesData.js";
-import {useEffect, useMemo, useState} from "react";
+import {useEffect, useMemo, useRef, useState} from "react";
 import DietType from "../assets/elements/home_page/DietType.jsx";
 import {otherDietsData} from "../data/OtherDietsData.js";
 import {
@@ -40,6 +40,32 @@ function HomePage() {
     }, []);
 
     const [first, second] = randomIndices;
+
+    const offerRefs = useRef([]);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                        offerRefs.current.forEach((el, idx) => {
+                            setTimeout(() => {
+                                el?.classList.add("show");
+                            }, idx * 500);
+                        });
+                        observer.disconnect();
+                    }
+                });
+            },
+            {
+                threshold: 0.5,
+            }
+        );
+
+        offerRefs.current.forEach((el) => el && observer.observe(el));
+
+        return () => observer.disconnect();
+    }, []);
 
     return (<>
             <NavigationBar/>
@@ -87,54 +113,24 @@ function HomePage() {
                 <div className="section-container">
                     <img src={`${ourOfferBackGround}`} alt="Why Diet"/>
                     <div className="our-offer-content">
-                        <div className="offers">
-                            <div className="offer-content">
-                                <div className="offer-header">
-                                    <p className="offer-header-text">
-                                        {dietitianConsultationOfferData.label}
-                                    </p>
-                                </div>
-                                <div className="offer-items">
-                                    {
-                                        dietitianConsultationOfferData.items.map((item, index) => (
-                                            <OfferItem key={index} data={item}/>
-                                        ))
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                        <div className="offers">
-                            <div className="offer-content">
-                                <div className="offer-header">
-                                    <p className="offer-header-text">
-                                        {individualDietOfferData.label}
-                                    </p>
-                                </div>
-                                <div className="offer-items">
-                                    {
-                                        individualDietOfferData.items.map((item, index) => (
-                                            <OfferItem key={index} data={item}/>
-                                        ))
-                                    }
+                        {[dietitianConsultationOfferData, individualDietOfferData, reportsAndDataAnalysisOfferData].map((offer, index) => (
+                            <div
+                                className="offers"
+                                key={index}
+                                ref={(el) => offerRefs.current[index] = el}
+                            >
+                                <div className="offer-content">
+                                    <div className="offer-header">
+                                        <p className="offer-header-text">{offer.label}</p>
+                                    </div>
+                                    <div className="offer-items">
+                                        {offer.items.map((item, i) => (
+                                            <OfferItem key={i} data={item}/>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="offers">
-                            <div className="offer-content">
-                                <div className="offer-header">
-                                    <p className="offer-header-text">
-                                        {reportsAndDataAnalysisOfferData.label}
-                                    </p>
-                                </div>
-                                <div className="offer-items">
-                                    {
-                                        reportsAndDataAnalysisOfferData.items.map((item, index) => (
-                                            <OfferItem key={index} data={item}/>
-                                        ))
-                                    }
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
                 <div className="header">

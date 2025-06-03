@@ -193,7 +193,6 @@
     position: absolute;
     float: left;
     cursor: pointer;
-    transition: 0.3s ease;
     visibility: hidden;
     border-radius: 10px;
     overflow: hidden;

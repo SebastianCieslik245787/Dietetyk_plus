@@ -21,7 +21,7 @@ const UserItem = () => {
         <div className="user-item" ref={containerRef}>
             <img src={(UserImage !== undefined && UserImage !== "") ? UserImage : UserIcon} alt="" onClick={() => setClicked(!isClicked)} />
             <div className={`user-options ${isClicked ? "user-options-active" : ""}`}>
-                <div className={`user-option ${currentPath === '/user-settings' ? 'active' : ''}`} onClick={() => navigate("/user-settings")}>
+                <div className={`user-option ${currentPath === '/user-settings'}`} onClick={() => navigate("/user-settings")}>
                     Ustawienia
                 </div>
                 <div className="user-option" onClick={() => navigate("/logout")}>
