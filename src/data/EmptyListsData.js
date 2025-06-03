@@ -1,8 +1,3 @@
-/**
- * @callback VoidCallBack
- * @returns {void}
- */
-
 export const emptyIngredient = {
     name: "",
     category: "",
@@ -11,7 +6,7 @@ export const emptyIngredient = {
 
 export const emptyMeal = {
     name: '',
-    image: '',
+    img_b64: '',
     recipe: '',
     ingredients: {},
 }

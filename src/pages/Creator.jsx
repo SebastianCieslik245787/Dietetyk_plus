@@ -60,6 +60,19 @@ function Creator() {
         };
     }, [openAddItemWindow, openDeleteWindow]);
 
+    const handleSaveMeal = (newMeal) => {
+        if (activeDataIndex !== null) {
+            setData(prevData => {
+                const updated = [...prevData];
+                updated[activeDataIndex] = newMeal;
+                return updated;
+            });
+        } else {
+            setData(prevData => [...prevData, newMeal]);
+        }
+        setActiveDataIndex(null);
+    };
+
     return (
         <>
             <NavigationBar/>
@@ -141,7 +154,7 @@ function Creator() {
                         data={activeDataIndex !== null ? data[activeDataIndex] : null}
                         ingredientsData={ingredients}
                         setIngredientsData={setIngredients}
-                        onSave={}
+                        onSave={handleSaveMeal}
                     />
                     :
                     <AddDietWindow

@@ -12,7 +12,7 @@ const AddMealWindowDescription = ({data, setData, errors}) => {
         handleDrop,
         handleDragOver,
     } = useImageUploader(LoadImageIcon, (base64data) => {
-        setData(prev => ({ ...prev, image: base64data }));
+        setData(prev => ({ ...prev, img_b64: base64data }));
         setIsChanged(true);
     });
 

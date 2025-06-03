@@ -16,7 +16,7 @@ export function validateAddMeal(data, setErrors) {
         hasErrors = true;
     }
 
-    if (!Array.isArray(data.ingredients) || data.ingredients.length < 1) {
+    if (data.ingredients.size < 1) {
         errors.ingredients = "Musisz dodać przynajmniej jeden składnik!";
         hasErrors = true;
     }

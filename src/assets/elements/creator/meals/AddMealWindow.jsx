@@ -20,10 +20,16 @@ const AddMealWindow = ({onClose, data, onSave, ingredientsData, setIngredientsDa
     });
 
     const handleSave = () => {
-        if (!validateAddMeal(mealData, setErrors)) return
-        onSave(mealData);
-        onClose()
-    }
+        if (!validateAddMeal(mealData, setErrors)) return;
+
+        const finalMeal = {
+            ...mealData,
+            img_b64: mealData.img_b64
+        };
+
+        onSave(finalMeal);
+        onClose();
+    };
 
     useEffect(() => {
         if(data === undefined) return;
@@ -31,7 +37,7 @@ const AddMealWindow = ({onClose, data, onSave, ingredientsData, setIngredientsDa
         if(data !== null){
             setMealData({
                 name: data.name,
-                image: data.img_b64,
+                img_b64: data.img_b64,
                 recipe: data.recipe,
                 ingredients: data.ingredients,
             })
