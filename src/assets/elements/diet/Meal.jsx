@@ -5,8 +5,9 @@ import EditIcon from "../../../images/icons/edit_icon.png";
 import {changeDietPlanContainerSize} from "../../../scripts/changeDietPlanContainerSize.js";
 import MacrosTable from "./MacrosTable.jsx";
 import {countMacros, countMacrosCreator} from "../../../scripts/countMacros.js";
+import DefaultMealIcon from "../../../images/icons/default_meal_icon.jpg";
 
-const Meal = ({data, mealImg, isActive, onToggle, isCreator = false, onEdit, onClick, ingredientsData}) => {
+const Meal = ({data, isActive, onToggle, isCreator = false, onEdit, onClick, ingredientsData}) => {
     const separatorRef = useRef(null);
     const leftSideRef = useRef(null);
     const rightSideRef = useRef(null);
@@ -44,7 +45,7 @@ const Meal = ({data, mealImg, isActive, onToggle, isCreator = false, onEdit, onC
             </div>
             <div className={`meal-body ${isCreator ? 'creator' : ''} ${isActive ? "" : "meal-body-hidden"}`}>
                 <div className={`meal-info-left-side ${isCreator ? 'creator' : ''}`} ref={leftSideRef}>
-                    <img src={mealImg} alt=""/>
+                    <img src={isCreator ? (data.img_b64 !== '' ? URL.createObjectURL(data.img_b64) : DefaultMealIcon) : (data.meal.img_b64 !== '' ?  URL.createObjectURL(data.meal.img_b64) : DefaultMealIcon)} alt=""/>
                     <p className="meal-info-meal-name">
                         {isCreator ? data.name : data.meal.name}
                     </p>
