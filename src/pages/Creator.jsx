@@ -8,7 +8,7 @@ import AddMealWindow from "../assets/elements/creator/meals/AddMealWindow.jsx";
 import Meal from "../assets/elements/diet/Meal.jsx";
 import MealImg from "../images/icons/jajecznica.webp";
 import {changeDietPlanContainerSize} from "../scripts/changeDietPlanContainerSize.js";
-import {mealsData, mealsData2} from "../data/MealsData.js";
+import {mealsData2} from "../data/MealsData.js";
 import DietItem from "../assets/elements/creator/diets/DietItem.jsx";
 import {dietData} from "../data/DIetData.js";
 import AddDietWindow from "../assets/elements/creator/diets/AddDietWindow.jsx";
@@ -40,7 +40,7 @@ function Creator() {
     const handleCreatorTypeClick = (index) => {
         setActiveCreator(index);
         if (index === 0) {
-            setData(mealsData);
+            setData(mealsData2);
         } else {
             setData(dietData);
         }
@@ -73,6 +73,12 @@ function Creator() {
         setActiveDataIndex(null);
     };
 
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const filteredData = data.filter(item =>
+        item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
         <>
             <NavigationBar/>
@@ -88,6 +94,7 @@ function Creator() {
                     />
                     <CreatorSearchBar
                         placeHolder={activeCreator === 0 ? 'Wyszukaj danie...' : 'Wyszukaj diete...'}
+                        onChange={(e) => setSearchQuery(e.target.value)}
                     />
                 </div>
                 <div className="creator-menu-items">
@@ -101,7 +108,7 @@ function Creator() {
                     {activeCreator === 0 ? (
                             <>
                                 {
-                                    data.map((meal, index) => (
+                                    filteredData.map((meal, index) => (
                                         <Meal key={index}
                                               data={meal}
                                               mealImg={MealImg}
@@ -122,7 +129,7 @@ function Creator() {
                         (
                             <>
                                 {
-                                    data.map((diet, index) => (
+                                    filteredData .map((diet, index) => (
                                         <DietItem
                                             key={index}
                                             data={diet}
