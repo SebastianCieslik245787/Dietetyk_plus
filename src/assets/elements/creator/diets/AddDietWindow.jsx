@@ -39,7 +39,7 @@ import DietInfoWindow from "./DietInfoWindow.jsx";
  *
  * @returns {JSX.Element} Okno dodawania, bądz edytowania diety.
  */
-const AddDietWindow = ({data, showDietPlan=false, onClose}) => {
+const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, setIngredientsData, diets, setDiets, isEdit=false}) => {
     /**
      * Odpowiada za przełączanie okna z nazwą i opisem diety, na okno edycji planu diety.
      *
@@ -56,7 +56,6 @@ const AddDietWindow = ({data, showDietPlan=false, onClose}) => {
      */
     const [dietData, setDietData] = useState(data);
 
-
     /**
      * Ustawia okno w tryb tylko do edycji diety kiedy użytkownik wyłącznie edytować diete.
      */
@@ -64,28 +63,40 @@ const AddDietWindow = ({data, showDietPlan=false, onClose}) => {
         setEditDietPlan(showDietPlan)
     }, [showDietPlan])
 
+    const handleAddDiet = () => {
+        if(isEdit){
+            const updatedDiets = [...diets, dietData];
+            setDiets(updatedDiets);
+        }
+        onClose();
+    };
+
     return (<>
-            <div className={"add-diet-window-container"}>
-                {(!editDietPlan && showDietPlan === false) ? <DietInfoWindow
+        <div className={"add-diet-window-container"}>
+            {(!editDietPlan && showDietPlan === false) ?
+                <DietInfoWindow
                     onClick={() => {
                         setEditDietPlan(true)
                     }}
                     data={dietData}
                     setData={setDietData}
                     onClose={onClose}
-                /> : <DietPlan
+                    onSave={handleAddDiet}
+                />
+                :
+                <DietPlan
                     options={dietDayNames}
                     isEdit={true}
                     data={dietData}
                     setData={setDietData}
                     onClick={() => {
-                        if (!showDietPlan || onClose) {
-                            setEditDietPlan(false);
-                            if (onClose) onClose();
-                        }
+                        if (showDietPlan) onClose();
+                        setEditDietPlan(false);
                     }}
+                    ingredientsData={ingredientsData}
+                    setIngredientsData={setIngredientsData}
                 />}
-            </div>
-        </>)
+        </div>
+    </>)
 };
 export default AddDietWindow;

@@ -7,7 +7,7 @@ import MacrosTable from "./MacrosTable.jsx";
 import {countMacros, countMacrosCreator} from "../../../scripts/countMacros.js";
 import DefaultMealIcon from "../../../images/icons/default_meal_icon.jpg";
 
-const Meal = ({data, isActive, onToggle, isCreator = false, onEdit, onClick, ingredientsData}) => {
+const Meal = ({data, isActive, onToggle, isCreator = false, onEdit, onClick, ingredientsData, isEdit=false}) => {
     const separatorRef = useRef(null);
     const leftSideRef = useRef(null);
     const rightSideRef = useRef(null);
@@ -45,12 +45,13 @@ const Meal = ({data, isActive, onToggle, isCreator = false, onEdit, onClick, ing
             </div>
             <div className={`meal-body ${isCreator ? 'creator' : ''} ${isActive ? "" : "meal-body-hidden"}`}>
                 <div className={`meal-info-left-side ${isCreator ? 'creator' : ''}`} ref={leftSideRef}>
-                    <img src={isCreator ? (data.img_b64 !== '' ? URL.createObjectURL(data.img_b64) : DefaultMealIcon) : (data.meal.img_b64 !== '' ?  URL.createObjectURL(data.meal.img_b64) : DefaultMealIcon)} alt=""/>
+                    <img src={(isCreator || isEdit) ? (data.img_b64 !== '' ? DefaultMealIcon : DefaultMealIcon) :
+                        (data.meal.img_b64 !== '' ?  URL.createObjectURL(data.meal.img_b64) : DefaultMealIcon)} alt=""/>
                     <p className="meal-info-meal-name">
                         {isCreator ? data.name : data.meal.name}
                     </p>
                     <MacrosTable
-                        data={isCreator ? countMacrosCreator(data.ingredients, ingredientsData) : countMacros(data.meal.ingredients)}
+                        data={(isCreator && data.ingredients)  || (isEdit && data.meal.ingredients) !== undefined ? (isEdit ? countMacrosCreator(data.meal.ingredients, ingredientsData) : countMacrosCreator(data.ingredients, ingredientsData)) : countMacros(data.meal.ingredients)}
                     />
                 </div>
                 <div className={"meal-info-divider"} ref={separatorRef}></div>
@@ -59,8 +60,8 @@ const Meal = ({data, isActive, onToggle, isCreator = false, onEdit, onClick, ing
                         Składniki:
                     </p>
                     <div className="meal-info-right-elements">
-                        { isCreator ?
-                            Object.entries(data.ingredients).map(([id, quantity]) => {
+                        { (isCreator || isEdit) ? (isEdit ? data.meal.ingredients !== undefined : data.ingredients !== undefined) ?
+                            Object.entries(isEdit ? data.meal.ingredients : data.ingredients).map(([id, quantity]) => {
                                     const ingredient = ingredientsData[Number(id)];
 
                                     if (!ingredient) return null;
@@ -70,7 +71,7 @@ const Meal = ({data, isActive, onToggle, isCreator = false, onEdit, onClick, ing
                                             • {ingredient.name} {quantity} {ingredient.unit}
                                         </p>
                                     );
-                                })
+                                }) : ''
                             :
 
                             data.meal.ingredients.map((ingredient, key) => (
@@ -90,7 +91,7 @@ const Meal = ({data, isActive, onToggle, isCreator = false, onEdit, onClick, ing
                     </p>
                 </div>
                 {
-                    isCreator && (
+                    (isCreator || isEdit) && (
                         <>
                             <div className="meal-info-buttons">
                                 <div className="meal-info-button delete">

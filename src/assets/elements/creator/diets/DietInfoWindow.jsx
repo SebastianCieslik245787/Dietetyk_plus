@@ -24,7 +24,7 @@ import {onChangeInput} from "../../../hooks/onChangeInput.jsx";
  *
  * @returns {JSX.Element} Okno dodawania lub edycji nazwy i opisu diety.
  */
-const DietInfoWindow = ({onClick, data, setData, onClose}) => {
+const DietInfoWindow = ({onClick, data, setData, onClose, onSave}) => {
     /**
      * Funkcja obserwująca zmiany w polu edycji i zamieniająca je w danych diety.
      *
@@ -63,7 +63,7 @@ const DietInfoWindow = ({onClick, data, setData, onClose}) => {
                         </div>
                     </div>
                 </div>
-                <div className={"diet-info-save-button"} onClick={onClose}>
+                <div className={"diet-info-save-button"} onClick={onSave}>
                     Zapisz
                 </div>
             </div>

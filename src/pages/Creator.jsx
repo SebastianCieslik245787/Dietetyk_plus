@@ -19,6 +19,7 @@ import {ingredientsData} from "../data/ingredients.js";
 
 function Creator() {
     const [activeCreator, setActiveCreator] = useState(0);
+    const [edit,setEdit] = useState(false);
 
     const [openAddItemWindow, setOpenAddItemWindow] = useState(false);
 
@@ -115,7 +116,10 @@ function Creator() {
                                               isActive={activeDataIndex === index}
                                               onToggle={() => handleMealToggle(index)}
                                               index={index}
-                                              onEdit={() => setOpenAddItemWindow(true)}
+                                              onEdit={() => {
+                                                  setOpenAddItemWindow(true)
+                                                  setEdit(true)
+                                              }}
                                               isCreator={true}
                                               onClick={() => {
                                                   setActiveDataIndex(index)
@@ -165,12 +169,25 @@ function Creator() {
                     />
                     :
                     <AddDietWindow
-                        data={(activeDataIndex !== null && data[activeDataIndex].days !== undefined) ? data[activeDataIndex] : emptyDiet}
+                        data={
+                            activeDataIndex !== null &&
+                            data[activeDataIndex] &&
+                            typeof data[activeDataIndex] === "object" &&
+                            "dietPlan" in data[activeDataIndex]
+                                ? data[activeDataIndex]
+                                : emptyDiet
+                        }
                         showDietPlan={showDietPlan}
                         onClose={() => {
                             setOpenAddItemWindow(false)
                             setShowDietPlan(false)
+                            setEdit(false)
                         }}
+                        ingredientsData={ingredients}
+                        setIngredientsData={setIngredients}
+                        setDiets={setData}
+                        diets={data}
+                        isEdit={edit}
                     />)
                 : ''
             }

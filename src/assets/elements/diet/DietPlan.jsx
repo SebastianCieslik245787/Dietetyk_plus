@@ -1,20 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import DownloadIcon from "../../../images/icons/download_icon.png";
 import SaveIcon from "../../../images/icons/save_icon.png";
 import Meal from "./Meal.jsx";
 import MealImg from "../../../images/icons/jajecznica.webp";
 import AddMealToDay from "../creator/diets/AddMealToDay.jsx";
 import CreatorAddItem from "../creator/CreatorAddItem.jsx";
-import { changeDietPlanContainerSize } from "../../../scripts/changeDietPlanContainerSize.js";
+import {changeDietPlanContainerSize} from "../../../scripts/changeDietPlanContainerSize.js";
 
 const today = new Date();
 const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1;
 
-const DietPlan = ({ options, data, setData, isEdit = false, onClick }) => {
+const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsData, setIngredientsData}) => {
     const [activeIndex, setActiveIndex] = useState(dayOfWeek);
     const [activeMealIndex, setActiveMealIndex] = useState(null);
     const [addMealToDay, setAddMealToDay] = useState(false);
     const mealsRef = useRef(null);
+    const [editMealIndex, setEditMealIndex] = useState(null);
 
     useEffect(() => {
         if (mealsRef.current) {
@@ -25,6 +26,17 @@ const DietPlan = ({ options, data, setData, isEdit = false, onClick }) => {
             return () => clearTimeout(timer);
         }
     }, [activeMealIndex]);
+
+    const meals = isEdit ? Array.isArray(data?.dietPlan) &&
+        Array.isArray(data.dietPlan[activeIndex])
+            ? data.dietPlan[activeIndex]
+            : [] :
+
+        Array.isArray(data) &&
+        data[activeIndex] &&
+        Array.isArray(data[activeIndex])
+            ? data[activeIndex]
+            : [];
 
     useEffect(() => {
         if (isEdit) {
@@ -39,13 +51,6 @@ const DietPlan = ({ options, data, setData, isEdit = false, onClick }) => {
 
     const handleMealToggle = (index) =>
         setActiveMealIndex((prevIndex) => (prevIndex === index ? null : index));
-
-    const meals =
-        Array.isArray(data) &&
-        data[activeIndex] &&
-        Array.isArray(data[activeIndex])
-            ? data[activeIndex]
-            : [];
 
     return (
         <div className="diet-plan-content" id="diet-plan-content">
@@ -104,10 +109,16 @@ const DietPlan = ({ options, data, setData, isEdit = false, onClick }) => {
                             isActive={activeMealIndex === index}
                             onToggle={() => handleMealToggle(index)}
                             index={index}
+                            isEdit={true}
+                            ingredientsData={ingredientsData}
+                            onEdit={() => {
+                                setEditMealIndex(index);
+                                setAddMealToDay(true);
+                            }}
                         />
                     ))
                 ) : (
-                    <p style={{ padding: 16, color: "#888" }}>
+                    <p style={{padding: 16, color: "#888"}}>
                         Brak posiłków do wyświetlenia.
                     </p>
                 )}
@@ -124,6 +135,10 @@ const DietPlan = ({ options, data, setData, isEdit = false, onClick }) => {
                     setData={setData}
                     activeIndex={activeIndex}
                     onClose={() => setAddMealToDay(false)}
+                    ingredientsData={ingredientsData}
+                    setIngredientsData={setIngredientsData}
+                    editMealIndex={editMealIndex}
+                    setEditMealIndex={setEditMealIndex}
                 />
             )}
         </div>

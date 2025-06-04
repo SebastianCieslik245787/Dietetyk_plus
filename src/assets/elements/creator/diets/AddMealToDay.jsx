@@ -1,8 +1,9 @@
 import AddIcon from "../../../../images/icons/add_icon.png"
 import CloseWindowIcon from '../../../../images/icons/close_window_icon.png'
 import EditIcon from '../../../../images/icons/edit_icon.png'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import AddMealWindow from "../meals/AddMealWindow.jsx";
+import {emptyMeal} from "../../../../data/EmptyListsData.js";
 
 /**
  * Okno dodawania lub edycji posiłku w edycji diety na stronie kreatora {@link Creator}, w oknie {@link DietPlan}.
@@ -39,7 +40,7 @@ import AddMealWindow from "../meals/AddMealWindow.jsx";
  *
  * @returns {JSX.Element}
  */
-const AddMealToDay = ({ data, setData, activeIndex, onClose }) => {
+const AddMealToDay = ({ data, setData, activeIndex, onClose, ingredientsData, setIngredientsData, editMealIndex, setEditMealIndex }) => {
     /**
      * Odpowiada za otwieranie okna dodającego nowy posiłek do diety na konkretny dzień.
      *
@@ -70,7 +71,7 @@ const AddMealToDay = ({ data, setData, activeIndex, onClose }) => {
      *
      * @default null - Brak nowego dania.
      */
-    const [newMeal, setNewMeal] = useState(null);
+    const [newMeal, setNewMeal] = useState(emptyMeal);
 
     /**
      * Nazwa posiłku (np. Śniadanie).
@@ -87,19 +88,36 @@ const AddMealToDay = ({ data, setData, activeIndex, onClose }) => {
      * @type {function}
      */
     const handleAddMeal = () => {
-        if (!mealName && !newMeal) return;
+        if (!mealName || !newMeal) return;
 
         const newMealObj = {
             name: mealName,
             meal: newMeal
         };
 
-        const updatedDays = [...data.days];
-        updatedDays[activeIndex].meals.push(newMealObj);
+        const updatedDietPlan = [...data.dietPlan];
 
-        setData({ ...data, days: updatedDays });
+        if (editMealIndex !== null && updatedDietPlan[activeIndex][editMealIndex]) {
+            updatedDietPlan[activeIndex][editMealIndex] = newMealObj;
+        } else {
+            updatedDietPlan[activeIndex].push(newMealObj);
+        }
+
+        setData({
+            ...data,
+            dietPlan: updatedDietPlan
+        });
+
         onClose();
     };
+
+    useEffect(() => {
+        if (editMealIndex !== null && data.dietPlan[activeIndex]?.[editMealIndex]) {
+            const mealToEdit = data.dietPlan[activeIndex][editMealIndex];
+            setMealName(mealToEdit.name);
+            setNewMeal(mealToEdit);
+        }
+    }, [activeIndex, data.dietPlan, editMealIndex]);
 
     return (
         <>
@@ -136,8 +154,10 @@ const AddMealToDay = ({ data, setData, activeIndex, onClose }) => {
                 addNewMealWindow ? <AddMealWindow
                     onClose={() => setAddNewMealWindow(false)}
                     isEdit={true}
-                    data={newMeal}
+                    data={newMeal.meal}
                     onSave={setNewMeal}
+                    ingredientsData={ingredientsData}
+                    setIngredientsData={setIngredientsData}
                 /> : ''
             }
         </>
