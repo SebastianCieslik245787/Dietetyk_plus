@@ -96,10 +96,11 @@ const AddMealToDay = ({ data, setData, activeIndex, onClose, ingredientsData, se
         };
 
         const updatedDietPlan = [...data.dietPlan];
-
+        //TODO edytowanie meala
         if (editMealIndex !== null && updatedDietPlan[activeIndex][editMealIndex]) {
             updatedDietPlan[activeIndex][editMealIndex] = newMealObj;
         } else {
+            //TODO DOdawanie Meala do dnia w diecie
             updatedDietPlan[activeIndex].push(newMealObj);
         }
 
@@ -107,7 +108,7 @@ const AddMealToDay = ({ data, setData, activeIndex, onClose, ingredientsData, se
             ...data,
             dietPlan: updatedDietPlan
         });
-
+        setNewMeal(emptyMeal)
         onClose();
     };
 

@@ -63,12 +63,14 @@ function Creator() {
 
     const handleSaveMeal = (newMeal) => {
         if (activeDataIndex !== null) {
+            //TODO update meal
             setData(prevData => {
                 const updated = [...prevData];
                 updated[activeDataIndex] = newMeal;
                 return updated;
             });
         } else {
+            //TODO nowy meal
             setData(prevData => [...prevData, newMeal]);
         }
         setActiveDataIndex(null);

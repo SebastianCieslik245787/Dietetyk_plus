@@ -109,7 +109,7 @@ const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsD
                             isActive={activeMealIndex === index}
                             onToggle={() => handleMealToggle(index)}
                             index={index}
-                            isEdit={true}
+                            isEdit={isEdit}
                             ingredientsData={ingredientsData}
                             onEdit={() => {
                                 setEditMealIndex(index);

@@ -64,6 +64,7 @@ const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, se
     }, [showDietPlan])
 
     const handleAddDiet = () => {
+        //TODO Dodawanie nowej diety
         if(isEdit){
             const updatedDiets = [...diets, dietData];
             setDiets(updatedDiets);

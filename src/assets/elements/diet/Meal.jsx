@@ -23,7 +23,6 @@ const Meal = ({data, isActive, onToggle, isCreator = false, onEdit, onClick, ing
         }, 0);
     }, [isActive]);
 
-
     return (
         <div className={`meal ${isCreator ? 'creator' : ''} ${isActive ? "meal-active" : ""}`}>
             <div className={`meal-header ${isCreator ? "creator" : ""}`}>
@@ -51,7 +50,7 @@ const Meal = ({data, isActive, onToggle, isCreator = false, onEdit, onClick, ing
                         {isCreator ? data.name : data.meal.name}
                     </p>
                     <MacrosTable
-                        data={(isCreator && data.ingredients)  || (isEdit && data.meal.ingredients) !== undefined ? (isEdit ? countMacrosCreator(data.meal.ingredients, ingredientsData) : countMacrosCreator(data.ingredients, ingredientsData)) : countMacros(data.meal.ingredients)}
+                        data={(isCreator && data.ingredients !== undefined)  || (isEdit && data.meal.ingredients !== undefined)  ? (isEdit ? countMacrosCreator(data.meal.ingredients, ingredientsData) : countMacrosCreator(data.ingredients, ingredientsData)) : countMacros(data.meal.ingredients)}
                     />
                 </div>
                 <div className={"meal-info-divider"} ref={separatorRef}></div>

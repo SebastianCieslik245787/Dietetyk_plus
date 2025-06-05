@@ -35,6 +35,7 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
 
         if (ingredientId === -1) {
             setIngredientsData(prevIngredients => {
+                //TODO NOWY INGREDIENT
                 const updatedIngredients = [...prevIngredients, newIngredient];
                 ingredientId = updatedIngredients.length - 1;
 
@@ -59,6 +60,7 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
                 return updatedIngredients;
             });
         } else {
+            //TODO Update meal ingredienst
             setData(prev => {
                 if (Array.isArray(prev.ingredients)) {
                     return {
