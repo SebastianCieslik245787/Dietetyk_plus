@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from "react";
 import DownloadIcon from "../../../images/icons/download_icon.png";
 import SaveIcon from "../../../images/icons/save_icon.png";
 import Meal from "./Meal.jsx";
-import MealImg from "../../../images/icons/jajecznica.webp";
 import AddMealToDay from "../creator/diets/AddMealToDay.jsx";
 import CreatorAddItem from "../creator/CreatorAddItem.jsx";
 import {changeDietPlanContainerSize} from "../../../scripts/changeDietPlanContainerSize.js";
@@ -51,6 +50,22 @@ const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsD
 
     const handleMealToggle = (index) =>
         setActiveMealIndex((prevIndex) => (prevIndex === index ? null : index));
+
+    //TODO Usuwanie meala z aktualnej diety
+    const handleDeleteMeal = (mealIndex) => {
+        const updatedDietPlan = [...data.dietPlan];
+
+        if (!Array.isArray(updatedDietPlan[activeIndex])) return;
+
+        updatedDietPlan[activeIndex] = updatedDietPlan[activeIndex].filter(
+            (_, index) => index !== mealIndex
+        );
+
+        setData({
+            ...data,
+            dietPlan: updatedDietPlan
+        });
+    };
 
     return (
         <div className="diet-plan-content" id="diet-plan-content">
@@ -115,6 +130,7 @@ const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsD
                                 setEditMealIndex(index);
                                 setAddMealToDay(true);
                             }}
+                            onClick={() => handleDeleteMeal(index)}
                         />
                     ))
                 ) : (
@@ -138,7 +154,6 @@ const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsD
                     ingredientsData={ingredientsData}
                     setIngredientsData={setIngredientsData}
                     editMealIndex={editMealIndex}
-                    setEditMealIndex={setEditMealIndex}
                 />
             )}
         </div>

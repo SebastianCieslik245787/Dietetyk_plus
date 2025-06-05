@@ -3,6 +3,7 @@ import DietPlan from "../../diet/DietPlan.jsx";
 import {dietDayNames} from "../../../../data/SelectOptionsData.js";
 import {useEffect, useState} from "react";
 import DietInfoWindow from "./DietInfoWindow.jsx";
+import {mealsData2} from "../../../../data/MealsData.js";
 
 /**
  * Okno dodawania diety, bądz edycji istniejącej diety

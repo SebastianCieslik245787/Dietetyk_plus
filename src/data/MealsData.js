@@ -123,5 +123,32 @@ export const mealsData2 = [
             "1" : 4,
             "0": 129
         }
+    },
+    {
+        img_b64: "",
+        name: "Owsianka z owocami",
+        recipe: "Gotuj płatki owsiane z mlekiem, pokrój banana i dodaj na wierzch.",
+        ingredients: {
+            "1" : 1,
+            "0": 200
+        }
+    },
+    {
+        img_b64: "",
+        name: "Owsianka z owocami",
+        recipe: "Gotuj płatki owsiane z mlekiem, pokrój banana i dodaj na wierzch.",
+        ingredients: {
+            "1" : 1,
+            "0": 300
+        }
+    },
+    {
+        img_b64: "",
+        name: "Owsianka z owocami",
+        recipe: "Gotuj płatki owsiane z mlekiem, pokrój banana i dodaj na wierzch.",
+        ingredients: {
+            "1" : 4,
+            "0": 129
+        }
     }
 ]

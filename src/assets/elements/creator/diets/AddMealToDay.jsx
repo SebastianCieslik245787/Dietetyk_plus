@@ -4,6 +4,7 @@ import EditIcon from '../../../../images/icons/edit_icon.png'
 import {useEffect, useState} from "react";
 import AddMealWindow from "../meals/AddMealWindow.jsx";
 import {emptyMeal} from "../../../../data/EmptyListsData.js";
+import {mealsData2} from "../../../../data/MealsData.js";
 
 /**
  * Okno dodawania lub edycji posiłku w edycji diety na stronie kreatora {@link Creator}, w oknie {@link DietPlan}.
@@ -40,7 +41,7 @@ import {emptyMeal} from "../../../../data/EmptyListsData.js";
  *
  * @returns {JSX.Element}
  */
-const AddMealToDay = ({ data, setData, activeIndex, onClose, ingredientsData, setIngredientsData, editMealIndex, setEditMealIndex }) => {
+const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, setIngredientsData, editMealIndex,}) => {
     /**
      * Odpowiada za otwieranie okna dodającego nowy posiłek do diety na konkretny dzień.
      *
@@ -112,6 +113,8 @@ const AddMealToDay = ({ data, setData, activeIndex, onClose, ingredientsData, se
         onClose();
     };
 
+    const [showOwnMeals, setShowOwnMeals] = useState(false)
+
     useEffect(() => {
         if (editMealIndex !== null && data.dietPlan[activeIndex]?.[editMealIndex]) {
             const mealToEdit = data.dietPlan[activeIndex][editMealIndex];
@@ -119,6 +122,13 @@ const AddMealToDay = ({ data, setData, activeIndex, onClose, ingredientsData, se
             setNewMeal(mealToEdit);
         }
     }, [activeIndex, data.dietPlan, editMealIndex]);
+    //TODO Own meals do wyszukiwania i ustawiania
+    const [ownMeals, setOwnMeals] = useState(mealsData2);
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const filteredMeals = ownMeals.filter(meal =>
+        meal.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
         <>
@@ -131,10 +141,32 @@ const AddMealToDay = ({ data, setData, activeIndex, onClose, ingredientsData, se
                         <img src={`${CloseWindowIcon}`} alt=""/>
                     </div>
                     <div className={"add-meal-to-date-window-input"}>
-                        <input value={mealName} onChange={(e) => setMealName(e.target.value)} type="text" placeholder={"Wpisz nazwę posiłku..."}/>
+                        <input value={mealName} onChange={(e) => setMealName(e.target.value)} type="text"
+                               placeholder={"Wpisz nazwę posiłku..."}/>
                     </div>
                     <div className={"add-meal-to-date-window-input search-meal"}>
-                        <input type="text" placeholder={"Wyszukaj danie..."}/>
+                        <input type="text" placeholder={"Wyszukaj danie..."} value={searchQuery} onChange={(e) => {
+                            setSearchQuery(e.target.value)
+                            setShowOwnMeals(true)
+                        }}
+                        />
+                        <div className={`drop-down-own-meals ${showOwnMeals ? 'active' : ''}`}>
+                            {
+                                filteredMeals.map((meal, index) => (
+                                    <div
+                                        key={index}
+                                        className={`own-meal-item ${showOwnMeals ? 'active' : ''}`}
+                                        onClick={() => {
+                                            setNewMeal(meal);
+                                            setSearchQuery(meal.name);
+                                            setShowOwnMeals(false)
+                                        }}
+                                    >
+                                        {meal.name}
+                                    </div>
+                                ))
+                            }
+                        </div>
                         <div className={'add-new-meal-button'} onClick={() => setAddNewMealWindow(true)}>
                             <div className={"add-new-meal-icon"}>
                                 <img src={`${newMeal !== null ? EditIcon : AddIcon}`} alt=""/>
@@ -155,7 +187,7 @@ const AddMealToDay = ({ data, setData, activeIndex, onClose, ingredientsData, se
                 addNewMealWindow ? <AddMealWindow
                     onClose={() => setAddNewMealWindow(false)}
                     isEdit={true}
-                    data={newMeal.meal}
+                    data={!showOwnMeals && searchQuery !== '' ? newMeal : newMeal.meal}
                     onSave={setNewMeal}
                     ingredientsData={ingredientsData}
                     setIngredientsData={setIngredientsData}

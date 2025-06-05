@@ -307,3 +307,37 @@
     align-items: center;
     justify-content: center;
 }
+
+.drop-down-own-meals{
+    position: absolute;
+    width: 55%;
+    height: auto;
+    max-height: 200px;
+    overflow: hidden scroll;
+    background-color: white;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    border-radius: 10px;
+    top: 120%;
+    visibility: hidden;
+}
+
+.drop-down-own-meals.active, .own-meal-item.active{
+    visibility: visible;
+}
+
+.own-meal-item{
+    min-height: 30px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    cursor: pointer;
+    color: #484848;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    visibility: hidden;
+}
+
+.own-meal-item:hover{
+    background-color: #cbc9c9;
+    color: #E24F4F;
+}

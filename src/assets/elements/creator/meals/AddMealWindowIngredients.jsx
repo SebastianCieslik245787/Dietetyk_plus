@@ -80,6 +80,7 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
             });
         }
 
+        setShowIngredientsData(true)
         setIngredient(emptyIngredient);
         setAddIngredientError("");
     };
@@ -108,11 +109,41 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
         }
     };
 
+    const filteredIngredients = ingredientsData.filter((ing) =>
+        ing.name.toLowerCase().includes(ingredient.name.toLowerCase()) && ingredient.name !== ""
+    );
+
+    const handleSelectIngredient = (selectedIng) => {
+        setShowIngredientsData(false)
+        const unitIndex = mealUnitData.findIndex(u => u === selectedIng.unit);
+        const categoryIndex = mealCategoryData.findIndex(c => c === selectedIng.category);
+        setIngredient({
+            name: selectedIng.name,
+            count: selectedIng.count || "",
+            unit: selectedIng.unit,
+            category: selectedIng.category,
+        });
+
+        setActiveUnit(unitIndex);
+        setActiveCategory(categoryIndex);
+    };
+
+    const [showIngredientsData, setShowIngredientsData] = useState(true);
+
     return (
         <>
             <div className="add-meal-window-ingredients">
                 <div className="add-meal-window-name ingredients">
                     <input value={ingredient.name} id={"name"} onChange={handleChange} className="add-meal-window-name-input ingredients" type="text" placeholder="Wpisz nazwę..." />
+                    <div className={`drop-down-ingredients ${ingredient.name !== '' && showIngredientsData ? 'active' : ''}`}>
+                        {
+                            filteredIngredients.map((ing, index) => (
+                                <div key={index} className={`drop-down-ingredient-item ${ingredient.name !== '' && showIngredientsData ? 'active' : ''}`} onClick={() => handleSelectIngredient(ing)}>
+                                    {ing.name}
+                                </div>
+                            ))
+                        }
+                    </div>
                     <input value={ingredient.count} id={"count"} onChange={handleChange} className="add-meal-window-name-input ingredients-count" type="text" placeholder="Wpisz ilość..." />
                     <CreatorSelect
                         options={mealCategoryData}
