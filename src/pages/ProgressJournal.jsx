@@ -7,7 +7,7 @@ import {journalDataOperations, getEdgeValue} from "../scripts/journalDataOperati
 import {getCurrentDate} from "../scripts/dateFunctions.js";
 import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
 import CreatorSelect from "../assets/elements/creator/CreatorSelect.jsx";
-import {mealCategoryData, timePeriod} from "../data/SelectOptionsData.js";
+import {timePeriod} from "../data/SelectOptionsData.js";
 
 const CustomTooltip = ({active, payload, label}) => {
     if (active && payload && payload.length) {
