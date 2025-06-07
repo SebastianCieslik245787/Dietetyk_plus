@@ -66,7 +66,7 @@ const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, se
 
     const handleAddDiet = () => {
         //TODO Dodawanie nowej diety
-        if(isEdit){
+        if(!isEdit){
             const updatedDiets = [...diets, dietData];
             setDiets(updatedDiets);
         }
@@ -97,6 +97,10 @@ const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, se
                     }}
                     ingredientsData={ingredientsData}
                     setIngredientsData={setIngredientsData}
+                    onClose={() => {
+                        if (showDietPlan) onClose();
+                        setEditDietPlan(false);
+                    }}
                 />}
         </div>
     </>)

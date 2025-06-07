@@ -116,12 +116,12 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
     const handleSelectIngredient = (selectedIng) => {
         setShowIngredientsData(false)
         const unitIndex = mealUnitData.findIndex(u => u === selectedIng.unit);
-        const categoryIndex = mealCategoryData.findIndex(c => c === selectedIng.category);
+        const categoryIndex = mealCategoryData.findIndex(c => c === selectedIng.categoryId);
         setIngredient({
             name: selectedIng.name,
             count: selectedIng.count || "",
             unit: selectedIng.unit,
-            category: selectedIng.category,
+            category: selectedIng.categoryId,
         });
 
         setActiveUnit(unitIndex);

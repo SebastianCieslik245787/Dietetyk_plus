@@ -37,6 +37,7 @@ const AssignDietWindow = ({onClose}) => {
                             isEdit={true}
                             setData={setDietPlan}
                             onClick={() => setEditDietPlan(false)}
+                            onClose={() => setEditDietPlan(false)}
                         />
                         :
                         <div className="assign-diet-window">

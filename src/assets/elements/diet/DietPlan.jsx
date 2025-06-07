@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import DownloadIcon from "../../../images/icons/download_icon.png";
+import CloseIcon from "../../../images/icons/close_window_icon.png";
 import SaveIcon from "../../../images/icons/save_icon.png";
 import Meal from "./Meal.jsx";
 import AddMealToDay from "../creator/diets/AddMealToDay.jsx";
@@ -10,7 +11,7 @@ import DeleteWindow from "../../DeleteWindow.jsx";
 const today = new Date();
 const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1;
 
-const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsData, setIngredientsData}) => {
+const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsData, setIngredientsData, onClose}) => {
     const [activeIndex, setActiveIndex] = useState(dayOfWeek);
     const [activeMealIndex, setActiveMealIndex] = useState(null);
     const [addMealToDay, setAddMealToDay] = useState(false);
@@ -71,6 +72,12 @@ const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsD
 
     return (
         <div className="diet-plan-content" id="diet-plan-content">
+            {
+                isEdit && (
+                    <div className={"diet-plan-menu-close"}>
+                        <img src={`${CloseIcon}`} alt="" onClick={onClose} />
+                    </div>
+                )}
             <div className="diet-plan-menu">
                 <div className="diet-plan-menu-header">Plan żywienia</div>
                 <div className="diet-plan-menu-items">

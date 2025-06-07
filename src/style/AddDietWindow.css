@@ -4,6 +4,7 @@
     height: 100vh;
     top: 0;
     background-color: rgba(72, 72, 72, 0.5);
+    backdrop-filter: blur(6px);
     z-index: 120;
     overflow: hidden scroll;
 }
@@ -16,6 +17,7 @@
     margin-left: 25%;
     border-radius: 15px;
     box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+    backdrop-filter: blur(6px);
     position: relative;
 }
 
@@ -191,6 +193,7 @@
 .add-meal-to-date-container{
     position: absolute;
     background-color: rgba(72, 72, 72, 0.5);
+    backdrop-filter: blur(6px);
     z-index: 120;
     border-radius: 10px;
 }

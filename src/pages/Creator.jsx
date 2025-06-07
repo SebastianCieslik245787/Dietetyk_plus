@@ -82,6 +82,8 @@ function Creator() {
         item.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
+    const [isEditDiet, setIsEditDiet] = useState(false);
+
     return (
         <>
             <NavigationBar/>
@@ -146,11 +148,13 @@ function Creator() {
                                             onEdit={() => {
                                                 setActiveDataIndex(index)
                                                 setOpenAddItemWindow(true)
+                                                setEdit(true)
                                             }}
                                             onShowDiet={() => {
                                                 setActiveDataIndex(index)
                                                 setShowDietPlan(true)
                                                 setOpenAddItemWindow(true)
+                                                setEdit(true)
                                             }}
                                         />
                                     ))
