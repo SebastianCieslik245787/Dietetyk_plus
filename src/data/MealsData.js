@@ -5,7 +5,7 @@ export const mealsData = [
         label: "Śniadanie",
         meal: {
             name: "Jajecznica z chlebem",
-            image: MealImage,
+            img_b64: MealImage,
             macros: {
                 proteins: 46.7,
                 carbohydrates: 47.9,
@@ -36,7 +36,7 @@ export const mealsData = [
         label: "Obiad",
         meal: {
             name: "Jajecznica z chlebem",
-            image: MealImage,
+            img_b64: MealImage,
             macros: {
                 proteins: 46.7,
                 carbohydrates: 47.9,
@@ -67,7 +67,7 @@ export const mealsData = [
         label: "Kolacja",
         meal: {
             name: "Jajecznica z chlebem",
-            image: MealImage,
+            img_b64: MealImage,
             macros: {
                 proteins: 46.7,
                 carbohydrates: 47.9,

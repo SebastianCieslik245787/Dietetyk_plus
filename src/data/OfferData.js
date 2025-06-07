@@ -18,27 +18,27 @@ export const dietitianConsultationOfferData = {
     label: "Konsultacje z Dietetykiem",
     items: [
         {
-            image: professionalSupportIcon,
+            img_b64: professionalSupportIcon,
             label: "Profesjonalne wsparcie",
             description: "Na każdym spotkaniu uzyskasz fachową poradę, wraz ze specjalistą omówisz swoje trudności oraz osiągnięcia",
         },
         {
-            image: nutritionalTipsIcon,
+            img_b64: nutritionalTipsIcon,
             label: "Wskazówki żywieniowe",
             description: "Otrzymasz praktyczne informacje, które mogą pomóc w zmianie stylu życia i redukcji masy ciała",
         },
         {
-            image: expertHelpIcon,
+            img_b64: expertHelpIcon,
             label: "Pomoc ekspertów",
             description: "Nasi eksperci otoczą Cię opieką. Znajdź spokojne miejsce i połącz się z specjalistą",
         },
         {
-            image: supportInTreatmentIcon,
+            img_b64: supportInTreatmentIcon,
             label: "Wsparcie w leczeniu",
             description: "Nasze zalecenia mogą wspomóc leczenie, ponieważ to, co jesz ma wpływ na zdrowie",
         },
         {
-            image: arrangeAConsultation,
+            img_b64: arrangeAConsultation,
             label: "Umów konsultację oraz dogodny termin",
             description: "Możesz rozmawiać z domu lub umówić się w placówce",
         }
@@ -49,27 +49,27 @@ export const individualDietOfferData = {
     label: "Tworzenie diety według indywidualnych potrzeb",
     items: [
         {
-            image: individualDietIcon,
+            img_b64: individualDietIcon,
             label: "Indywidualnie dobrana dieta",
             description: "Jesz tylko takie posiłki, które Ci smakują, bez wyrzeczeń i głodu"
         },
         {
-            image: exercisesYouLikeIcon,
+            img_b64: exercisesYouLikeIcon,
             label: "Ćwiczenia takie jak lubisz",
             description: "Wybierasz aktywność, którą lubisz i ćwiczysz kiedy chcesz"
         },
         {
-            image: goodEatingHabitIcon,
+            img_b64: goodEatingHabitIcon,
             label: "Zdrowe nawyki na zawsze",
             description: "Twój osobisty dietetyk nauczy Cię jak utrzymać efekty na zawsze"
         },
         {
-            image: asYouLikeIcon,
+            img_b64: asYouLikeIcon,
             label: "Tak jak chcesz",
             description: "Określasz swój cel, a my przygotowujemy plan diety online dopasowany do Twoich potrzeb"
         },
         {
-            image: newWeekNewThingsIcon,
+            img_b64: newWeekNewThingsIcon,
             label: "Nowy tydzień coś nowego",
             description: "Co 7 dni otrzymujesz nowy jadłospis i listę zakupów, a przez cały czas możesz skontaktować się dietetykiem"
         },
@@ -80,27 +80,27 @@ export const reportsAndDataAnalysisOfferData = {
     label: "Tworzenie raportów i analiza uzyskanych wyników",
     items: [
         {
-            image: regularReportsIcon,
+            img_b64: regularReportsIcon,
             label: "Regularne raporty postępów",
             description: "Otrzymasz szczegółową analizę swoich wyników, aby zobaczyć, jakie efekty przynosi dieta i trening"
         },
         {
-            image: planAdjustmentIcon,
+            img_b64: planAdjustmentIcon,
             label: "Dostosowanie planu do Twoich potrzeb",
             description: "Na podstawie analizy wyników dietetyk wprowadzi ewentualne zmiany w Twoim jadłospisie i zaleceniach",
         },
         {
-            image: summaryIcon,
+            img_b64: summaryIcon,
             label: "Podsumowanie tygodniowe i miesięczne",
             description: "Co tydzień i co miesiąc otrzymasz podsumowanie swoich postępów, aby śledzić zmiany i motywować się do dalszych działań",
         },
         {
-            image: consultationsIcon,
+            img_b64: consultationsIcon,
             label: "Konsultacja wyników ze specjalistą",
             description: "Omówisz swoje osiągnięcia oraz ewentualne trudności z dietetykiem, który pomoże Ci wprowadzić dalsze ulepszenia",
         },
         {
-            image: tipsIcon,
+            img_b64: tipsIcon,
             label: "Zalecenia na przyszłość",
             description: "Na podstawie Twoich wyników otrzymasz wskazówki, jak utrzymać efekty na dłużej i uniknąć powrotu do wcześniejszych nawyków",
         },

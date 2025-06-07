@@ -4,7 +4,7 @@ const Slide = ({data, actual, prev, direction}) => {
             ${actual ? 'active' : ''} 
             ${prev ? 'out' : ''}
         `}>
-            <img src={data.image} alt={data.title} className="slide-image"/>
+            <img src={data.img_b64} alt={data.title} className="slide-image"/>
             <div className={`why-diet-step-text 
                 ${actual ? (direction === "left" ? 'text-active-left' : 'text-active-right') : ''}
                 ${prev ? 'text-out' : ''}

@@ -1,17 +1,17 @@
-export function changeUserData(cookies, data){
+export function sendChangeUserData(cookies, data){
     const currentUserData = cookies['User-Data'];
     currentUserData.email = data.userEmail
     currentUserData.phone = data.userPhone
     postNewData(cookies['User-Key'], currentUserData);
 }
 
-export function changeUserPassword(cookies, data){
+export function sendChangeUserPassword(cookies, data){
     const currentUserData = cookies['User-Data'];
     currentUserData.password = data.userNewPassword
     postNewData(cookies['User-Key'], currentUserData);
 }
 
-export function changeUserDescription(cookies, data){
+export function sendChangeUserDescription(cookies, data){
     const currentUserData = cookies['User-Data'];
     currentUserData.description = data.userDescription
     postNewData(cookies['User-Key'], currentUserData);

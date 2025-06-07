@@ -33,7 +33,7 @@ export const useImageUploader = (initialImage = null, onImageChange = () => {}) 
     };
 
     return {
-        image,
+        img_b64: image,
         fileInputRef,
         handleFileChange,
         handleDrop,
