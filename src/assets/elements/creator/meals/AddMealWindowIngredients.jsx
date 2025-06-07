@@ -151,6 +151,7 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
                         setActive={setActiveCategory}
                         AddWindow={true}
                         placeHolder={"Kategoria"}
+                        isCreator={true}
                     />
                     <CreatorSelect
                         options={mealUnitData}

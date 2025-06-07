@@ -39,7 +39,7 @@
     width: 80%;
     height: 80%;
     color: #818181;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     margin-top: 2%;
     float: left;
     display: flex;
@@ -66,6 +66,8 @@
     width: 80%;
     margin-left: 15%;
     height: auto;
+    max-height: 200px;
+    overflow: hidden auto;
     position: absolute;
     float: left;
     top: 100%;
@@ -73,13 +75,17 @@
     box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
     border-radius: 10px;
     margin-top: 3px;
-    overflow: hidden;
     visibility: hidden;
     z-index: 100;
 }
 
 .creator-menu-select-drop-down.active{
     visibility: visible;
+}
+
+.creator-menu-select-drop-down.creator{
+    width: 120%;
+    margin-left: 0;
 }
 
 .creator-menu-select-drop-down-item{
