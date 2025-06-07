@@ -1,10 +1,17 @@
 export const mealCategoryData = [
     'Nabiał',
-    'Warzywo',
-    'Owoc',
-    'Napój',
-    'Przyprawa',
-    'Pieczywo'
+    'Warzywa',
+    'Owoce',
+    'Napóje',
+    'Przyprawy',
+    'Pieczywa',
+    'Zbożowe',
+    'Suplementy Diety',
+    'Mięsa',
+    'Masła, Kremy, Oleje',
+    'Ryby',
+    'Miody',
+    'Przetwory'
 ]
 
 export const mealUnitData = [

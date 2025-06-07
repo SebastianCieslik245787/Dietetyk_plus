@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import DownloadIcon from "../../../images/icons/download_icon.png"
+import {mealCategoryData} from "../../../data/SelectOptionsData.js";
 
 const today = new Date();
 const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1;
@@ -55,16 +56,16 @@ const DietShoppingList = ({options, data}) => {
                 </div>
                 <div className="diet-shopping-list-items">
                     {
-                        data.map((item, index) => (
+                        data[activeIndex].map((item, index) => (
                             <div className="diet-shopping-list-item" key={index}>
                                 <div className="diet-shopping-list-item-product-name">
-                                    {item.productName}
+                                    {item.name}
                                 </div>
                                 <div className="diet-shopping-list-item-product-count">
                                     {item.count} {item.unit}
                                 </div>
                                 <div className="diet-shopping-list-item-product-category">
-                                    {item.category}
+                                    {mealCategoryData[item.categoryId]}
                                 </div>
                             </div>
                         ))
