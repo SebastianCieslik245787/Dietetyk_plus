@@ -36,6 +36,7 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
         if (ingredientId === -1) {
             setIngredientsData(prevIngredients => {
                 //TODO NOWY INGREDIENT
+                //FIXME Gdzie niby jest ten obiekt?
                 const updatedIngredients = [...prevIngredients, newIngredient];
                 ingredientId = updatedIngredients.length - 1;
 
@@ -61,6 +62,7 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
             });
         } else {
             //TODO Update meal ingredienst
+            //FIXME Baza czy nie baza?
             setData(prev => {
                 if (Array.isArray(prev.ingredients)) {
                     return {

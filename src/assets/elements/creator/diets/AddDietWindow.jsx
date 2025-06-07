@@ -3,7 +3,8 @@ import DietPlan from "../../diet/DietPlan.jsx";
 import {dietDayNames} from "../../../../data/SelectOptionsData.js";
 import {useEffect, useState} from "react";
 import DietInfoWindow from "./DietInfoWindow.jsx";
-import {mealsData2} from "../../../../data/MealsData.js";
+import {useCookies} from "react-cookie";
+import {sendDietPlanData} from "../../../../scripts/sendData/sendDietPlanData.js";
 
 /**
  * Okno dodawania diety, bądz edycji istniejącej diety
@@ -69,9 +70,12 @@ const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, se
         if(!isEdit){
             const updatedDiets = [...diets, dietData];
             setDiets(updatedDiets);
+            sendDietPlanData(dietData, cookies)
         }
         onClose();
     };
+
+    const [cookies] = useCookies(["User-Key"]);
 
     return (<>
         <div className={"add-diet-window-container"}>

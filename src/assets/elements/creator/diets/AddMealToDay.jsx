@@ -98,10 +98,13 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
 
         const updatedDietPlan = [...data.dietPlan];
         //TODO edytowanie meala
+        //FIXME To jest tego meala który jest tylkow diecie czy ten który jest w bazie?
+        //Jeśli tylko z diety to nadpisać dietę, jeśli z bazy to wysłać na bazę
         if (editMealIndex !== null && updatedDietPlan[activeIndex][editMealIndex]) {
             updatedDietPlan[activeIndex][editMealIndex] = newMealObj;
         } else {
-            //TODO DOdawanie Meala do dnia w diecie
+            //TODO Dodawanie Meala do dnia w diecie
+            //FIXME Imo wysłałbym to jako całą dietę i nadpisał starą
             updatedDietPlan[activeIndex].push(newMealObj);
         }
 
@@ -123,6 +126,7 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
         }
     }, [activeIndex, data.dietPlan, editMealIndex]);
     //TODO Own meals do wyszukiwania i ustawiania
+    //..................................... nie
     const [ownMeals, setOwnMeals] = useState(mealsData2);
     const [searchQuery, setSearchQuery] = useState("");
 

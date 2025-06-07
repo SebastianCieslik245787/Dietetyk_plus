@@ -4,9 +4,10 @@ import EditIcon from "../../../images/icons/edit_icon.png"
 import {useState} from "react";
 import {dietData} from "../../../data/DIetData.js";
 import DietPlan from "../diet/DietPlan.jsx";
-import {ingredientsData} from "../../../data/ingredients.js";
 import {emptyDiet} from "../../../data/EmptyListsData.js";
 import {dietDayNames} from "../../../data/SelectOptionsData.js";
+import {getAllIngredients} from "../../../scripts/getData/getIngredientsData.js";
+import {useCookies} from "react-cookie";
 
 const AssignDietWindow = ({onClose}) => {
     const [findDietQuery, setFindDietQuery] = useState("");
@@ -21,7 +22,10 @@ const AssignDietWindow = ({onClose}) => {
     );
 
     //TODO wczytaj ingredients z bazy
-    const [ingredients, setIngredients] = useState(ingredientsData);
+    //FIXME śmierdzi jak powtórka kodu z Creator.jsx
+    const [cookie] = useCookies(["User-Key"]);
+    const ingredientData = getAllIngredients(cookie);
+    const [ingredients, setIngredients] = useState(ingredientData);
 
     const [editDietPlan, setEditDietPlan] = useState(false);
 
@@ -77,6 +81,7 @@ const AssignDietWindow = ({onClose}) => {
                             </div>
                             {
                                 //TODO jak bedzie funckja do zapisywania dla ludzika to podmien onClose na własną
+                                //FIXME User się zapisuje czy robi to dietetyk? Jak dietetyk to chcę tutaj id usera
                             }
                             <div className={"assign-diet-window-edit-diet-plan-save-button"} onClick={onClose}>
                                 Zapisz

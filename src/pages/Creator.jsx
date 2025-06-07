@@ -10,12 +10,15 @@ import MealImg from "../images/icons/jajecznica.webp";
 import {changeDietPlanContainerSize} from "../scripts/changeDietPlanContainerSize.js";
 import {mealsData2} from "../data/MealsData.js";
 import DietItem from "../assets/elements/creator/diets/DietItem.jsx";
-import {dietData} from "../data/DIetData.js";
 import AddDietWindow from "../assets/elements/creator/diets/AddDietWindow.jsx";
 import DeleteWindow from "../assets/DeleteWindow.jsx";
 import {useDeleteFromArray} from "../assets/hooks/useDeleteFromArray.jsx";
 import {emptyDiet} from "../data/EmptyListsData.js";
-import {ingredientsData} from "../data/ingredients.js";
+import {getAllIngredients} from "../scripts/getData/getIngredientsData.js";
+import {useCookies} from "react-cookie";
+import {sendIngredientData} from "../scripts/sendData/sendIngredientData.js";
+import {getAllMeals} from "../scripts/getData/getMealsData.js";
+import {getAllDiets} from "../scripts/getData/getAllDiets.js";
 
 function Creator() {
     const [activeCreator, setActiveCreator] = useState(0);
@@ -35,13 +38,24 @@ function Creator() {
         setActiveDataIndex(prevIndex => (prevIndex === index ? null : index));
         changeDietPlanContainerSize()
     };
-    //TODO get from database
+
+    const [cookies] = useCookies(["User-Key"]);
+
+
+    const ingredientsData = getAllIngredients(cookies);
     const [ingredients, setIngredients] = useState(ingredientsData);
+
+    const mealsData = getAllMeals(cookies);
+    const [meals, setMeals] = useState(mealsData);
+
+    // TODO nie wiem czy to jest potrzebne, ale zostawiam na wszelki wypadek
+    const dietData = getAllDiets(cookies);
+    const [diets, setDiets] = useState(dietData);
 
     const handleCreatorTypeClick = (index) => {
         setActiveCreator(index);
         if (index === 0) {
-            setData(mealsData2);
+            setData(meals);
         } else {
             setData(dietData);
         }
@@ -64,13 +78,15 @@ function Creator() {
     const handleSaveMeal = (newMeal) => {
         if (activeDataIndex !== null) {
             //TODO update meal
+            //FIXME baza czy nie baza?
             setData(prevData => {
                 const updated = [...prevData];
                 updated[activeDataIndex] = newMeal;
                 return updated;
             });
         } else {
-            //TODO nowy meal
+            //TODO zapisać jego dane
+            sendIngredientData(newMeal, cookies);
             setData(prevData => [...prevData, newMeal]);
         }
         setActiveDataIndex(null);
