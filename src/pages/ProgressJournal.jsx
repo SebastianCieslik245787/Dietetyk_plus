@@ -6,6 +6,8 @@ import {validateProgressJournal} from "../scripts/validateData/validateProgressJ
 import {journalDataOperations, getEdgeValue} from "../scripts/journalDataOperations.js";
 import {getCurrentDate} from "../scripts/dateFunctions.js";
 import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
+import CreatorSelect from "../assets/elements/creator/CreatorSelect.jsx";
+import {mealCategoryData, timePeriod} from "../data/SelectOptionsData.js";
 
 const CustomTooltip = ({active, payload, label}) => {
     if (active && payload && payload.length) {
@@ -78,6 +80,8 @@ function ProgressJournal() {
         setInputValue("")
     }
 
+    const [activeTimePeriod, setActiveTimePeriod] = useState(1);
+
     return (
         <>
             <NavigationBar/>
@@ -112,10 +116,17 @@ function ProgressJournal() {
                             </div>
                         </div>
                     </div>
+                    <div className={"progress-journal-select-period"}>
+                        <CreatorSelect
+                            options={timePeriod}
+                            active={activeTimePeriod}
+                            setActive={setActiveTimePeriod}
+                        />
+                    </div>
                     <div className={"progress-journal-chart"}>
                         <LineChart
                             width={1350}
-                            height={520}
+                            height={550}
                             data={[...data[active], ...(todayData[dataTypes[active]] === -1 ? [] : [{"date": todayData.date, [dataTypes[active]]: todayData[dataTypes[active]]}])]}
                             margin={{top: 20, right: 50, bottom: 40, left: 60}}>
                             <CartesianGrid stroke="#ccc" strokeDasharray="10 10"/>

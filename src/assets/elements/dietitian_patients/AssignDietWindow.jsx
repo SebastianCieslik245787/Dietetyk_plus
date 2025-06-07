@@ -20,6 +20,7 @@ const AssignDietWindow = ({onClose}) => {
         diet.name.toLowerCase().includes(findDietQuery)
     );
 
+    //TODO wczytaj ingredients z bazy
     const [ingredients, setIngredients] = useState(ingredientsData);
 
     const [editDietPlan, setEditDietPlan] = useState(false);

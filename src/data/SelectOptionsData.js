@@ -26,3 +26,12 @@ export const dietDayNames =[
     'Sobota',
     'Niedziela'
 ]
+
+export const timePeriod = [
+    'Tydzień',
+    'Miesiąc',
+    'Kwartał',
+    'Pół roku',
+    'Rok',
+    'Od początku'
+]

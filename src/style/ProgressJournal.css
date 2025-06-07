@@ -12,9 +12,9 @@
 
 .progress-journal{
     width: 1500px;
-    height: 700px;
+    height: 750px;
     float: left;
-    margin-top: 6%;
+    margin-top: 90px;
     margin-left: calc((100% - 1500px) / 2);
     background-color: #fafafa;
     opacity: 0.97;
@@ -115,7 +115,7 @@
     height: 90%;
     width: 100%;
     float: left;
-    margin: 50px 6% 0 4%;
+    margin: 20px 6% 0 4%;
     z-index: 100;
 }
 
@@ -148,4 +148,12 @@
 
 .progress-journal-menu-error.visible{
     visibility: visible;
+}
+
+.progress-journal-select-period{
+    width: 90%;
+    float: left;
+    height: 40px;
+    margin-top: 20px;
+    margin-left: 100px;
 }
