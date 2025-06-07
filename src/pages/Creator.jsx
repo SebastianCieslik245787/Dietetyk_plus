@@ -82,8 +82,6 @@ function Creator() {
         item.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    const [isEditDiet, setIsEditDiet] = useState(false);
-
     return (
         <>
             <NavigationBar/>

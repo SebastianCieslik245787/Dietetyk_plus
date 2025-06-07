@@ -8,7 +8,7 @@ import {ingredientsData} from "../../../data/ingredients.js";
 import {emptyDiet} from "../../../data/EmptyListsData.js";
 import {dietDayNames} from "../../../data/SelectOptionsData.js";
 
-const AssignDietWindow = ({onClose}) => {
+const AssignDietWindow = ({onClose, actualKey}) => {
     const [findDietQuery, setFindDietQuery] = useState("");
     const handleChange = (e) => setFindDietQuery(e.target.value.toLowerCase());
 

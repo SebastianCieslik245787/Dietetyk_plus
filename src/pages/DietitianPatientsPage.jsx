@@ -91,7 +91,6 @@ function DietitianPatientsPage() {
                                 onEdit={(key) => {
                                     setEditDietWindow(true)
                                     setActualKey(key)
-                                    console.log("XD")
                                 }}
                             />
                         </>
@@ -108,7 +107,8 @@ function DietitianPatientsPage() {
             {
                 editDietWindow && (
                     <AssignDietWindow
-                    onClose={() => setEditDietWindow(false)}
+                        onClose={() => setEditDietWindow(false)}
+                        actualKey={actualKey}
                     />
                 )
             }
