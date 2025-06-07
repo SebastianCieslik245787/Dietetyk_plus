@@ -6,7 +6,7 @@ import {dietPurposes} from "../../../data/RegisterConsts.js";
 import {parseDateToDaysSince} from "../../../scripts/dateFunctions.js";
 
 
-const Patient = ({data, onMoreInfo, onDelete}) => {
+const Patient = ({data, onMoreInfo, onDelete, onEdit}) => {
     const key = Object.keys(data)[0];
 
     data = data[key];
@@ -38,7 +38,7 @@ const Patient = ({data, onMoreInfo, onDelete}) => {
                             <img src={`${DeleteIcon}`} alt="" onClick={() => onDelete(key)}/>
                         </div>
                         <div className="patient-info-button patient-info-button-edit">
-                            <img src={`${DietPlanIcon}`} alt=""/>
+                            <img src={`${DietPlanIcon}`} onClick={() => onEdit(key)} alt=""/>
                         </div>
                         <div className="patient-info-button patient-info-button-more-info">
                             <img src={`${MoreInfoIcon}`} alt="" onClick={onMoreInfo} />

@@ -1,4 +1,4 @@
-.dietitian-patients-container{
+.dietitian-patients-container {
     width: 80%;
     padding: 0 10% 100px 10%;
     min-height: 100vh;
@@ -10,7 +10,7 @@
     overflow: hidden auto;
 }
 
-.dietitian-patients-search-bar{
+.dietitian-patients-search-bar {
     margin-top: 130px;
     margin-left: 150px;
     width: 400px;
@@ -25,7 +25,7 @@
     color: #484848;
 }
 
-.dietitian-patients-search-bar:focus{
+.dietitian-patients-search-bar:focus {
     color: #484848;
     outline: none;
 }
@@ -34,7 +34,7 @@
     color: transparent;
 }
 
-.patient-items{
+.patient-items {
     width: 90%;
     padding-left: 5%;
     padding-right: 5%;
@@ -42,7 +42,7 @@
     position: relative;
 }
 
-.patient-container{
+.patient-container {
     width: 100%;
     height: auto;
     background-color: #F4F4F4;
@@ -54,7 +54,7 @@
     box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
 }
 
-.patient-info{
+.patient-info {
     width: 95%;
     height: auto;
     min-height: 150px;
@@ -63,7 +63,7 @@
     position: relative;
 }
 
-.patient-info-image{
+.patient-info-image {
     margin-top: 20px;
     width: 11%;
     height: 150px;
@@ -76,7 +76,7 @@
     box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
 }
 
-.patient-info-name-and-surname{
+.patient-info-name-and-surname {
     width: 55%;
     margin-left: 5%;
     height: 65px;
@@ -87,7 +87,7 @@
     color: #484848;
 }
 
-.patient-info-diet-type{
+.patient-info-diet-type {
     height: 35px;
     margin-top: -20px;
     font-size: 1.4rem;
@@ -98,7 +98,7 @@
     color: #484848;
 }
 
-.patient-info-last-edit-time{
+.patient-info-last-edit-time {
     width: 28%;
     height: 140px;
     margin-top: 10px;
@@ -108,20 +108,20 @@
     text-align: right;
 }
 
-.patient-info-expand-icon{
+.patient-info-expand-icon {
     width: 7%;
     position: relative;
     float: right;
     height: 75px;
 }
 
-.patient-info-expand-icon > img{
+.patient-info-expand-icon > img {
     width: 50px;
     height: 50px;
     float: right;
 }
 
-.patient-info-button{
+.patient-info-button {
     width: 20%;
     margin-left: 5px;
     float: right;
@@ -131,7 +131,7 @@
     justify-content: center;
 }
 
-.patient-info-button > img{
+.patient-info-button > img {
     width: 25px;
     height: 25px;
     padding: 10px;
@@ -139,11 +139,11 @@
     box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
 }
 
-.patient-info-button > img:hover{
+.patient-info-button > img:hover {
     cursor: pointer;
 }
 
-.patient-info-buttons{
+.patient-info-buttons {
     width: 20%;
     height: 50px;
     margin-left: 80%;
@@ -152,44 +152,44 @@
     margin-top: -30px;
 }
 
-.patient-info-button-delete > img{
+.patient-info-button-delete > img {
     background-color: #e53535;
     transition: 0.2s;
 }
 
-.patient-info-button-delete > img:hover{
+.patient-info-button-delete > img:hover {
     background-color: #c50a0a;
     box-shadow: 0 8px 15px -6px rgb(137, 137, 149);
 }
 
-.patient-info-button-edit > img{
+.patient-info-button-edit > img {
     background-color: #6a98da;
     transition: 0.2s;
 }
 
-.patient-info-button-edit > img:hover{
+.patient-info-button-edit > img:hover {
     background-color: #3c6fb2;
     box-shadow: 0 8px 15px -6px rgb(137, 137, 149);
 }
 
-.patient-info-button-more-info > img{
+.patient-info-button-more-info > img {
     background-color: rgba(183, 183, 183, 0.9);
     transition: 0.2s;
 }
 
-.patient-info-button-more-info > img:hover{
+.patient-info-button-more-info > img:hover {
     background-color: rgba(141, 141, 141, 0.9);;
     box-shadow: 0 8px 15px -6px rgb(137, 137, 149);
 }
 
-.patient-info-more-data{
+.patient-info-more-data {
     margin-top: 50px;
     height: 400px;
     float: left;
     margin-bottom: 50px;
 }
 
-.patient-info-more-data-header{
+.patient-info-more-data-header {
     width: 95%;
     height: 40px;
     padding-left: 5%;
@@ -199,14 +199,14 @@
     border-bottom: 1px #959292 solid;
 }
 
-.patient-informations-container{
+.patient-informations-container {
     position: fixed;
     z-index: 999;
     top: 0;
     background-color: rgba(63, 63, 63, 0.5);
 }
 
-.patient-informations-window{
+.patient-informations-window {
     width: 50%;
     margin: 8% 25%;
     height: 70%;
@@ -216,7 +216,7 @@
     box-shadow: 0 8px 15px -6px rgb(137, 137, 149);
 }
 
-.patient-informations-window-image{
+.patient-informations-window-image {
     width: 20%;
     height: 30%;
     margin-left: 30px;
@@ -227,7 +227,7 @@
     box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
 }
 
-.patient-informations-window-name-and-surname{
+.patient-informations-window-name-and-surname {
     width: 60%;
     margin-top: 50px;
     height: 10%;
@@ -238,7 +238,7 @@
     color: #484848;
 }
 
-.patient-informations-window-diet-type{
+.patient-informations-window-diet-type {
     width: 60%;
     height: 20%;
     float: left;
@@ -248,7 +248,7 @@
     color: #484848;
 }
 
-.patient-informations-window-patient-data{
+.patient-informations-window-patient-data {
     width: 40%;
     margin: 0 5%;
     height: 57%;
@@ -258,7 +258,7 @@
     line-height: 3rem;
 }
 
-.patient-informations-window-patient-medical-data{
+.patient-informations-window-patient-medical-data {
     width: 39.8%;
     padding: 0 5%;
     height: 57%;
@@ -268,12 +268,12 @@
     border-left: 1px #959292 solid;
 }
 
-.patient-informations-window-patient-medical-data-header{
+.patient-informations-window-patient-medical-data-header {
     font-size: 1.3rem;
     line-height: 2rem;
 }
 
-.close-patient-informations-window{
+.close-patient-informations-window {
     width: 3.5%;
     height: 5.5%;
     margin-right: 2%;
@@ -281,23 +281,210 @@
     float: right;
 }
 
-.close-patient-informations-window > img{
+.close-patient-informations-window > img {
     box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
     border-radius: 100%;
     transition: 0.2s;
 }
 
-.close-patient-informations-window > :hover{
+.close-patient-informations-window > :hover {
     box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
     cursor: pointer;
 }
 
-.patient-info-last-edit-time-late{
+.patient-info-last-edit-time-late {
     color: #c93939;
 }
 
-.dietitian-patients-footer{
+.dietitian-patients-footer {
     height: 100px;
     width: 100%;
     float: left;
+}
+
+.assign-diet-window-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1100;
+    display: flex;
+    background-color: rgba(72, 72, 72, 0.5);
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(6px);
+}
+
+.assign-diet-window {
+    width: 40%;
+    height: 40%;
+    background-color: #fafafa;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    border-radius: 15px;
+    position: relative;
+}
+
+.assign-diet-window-header {
+    width: 80%;
+    padding-left: 20px;
+    float: left;
+    height: 25%;
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #484848;
+}
+
+.assign-diet-window-close {
+    width: 15%;
+    float: right;
+    height: 25%;
+    display: flex;
+    justify-content: right;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.assign-diet-window-close > img {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.assign-diet-window-input {
+    margin-top: 50px;
+    margin-left: 30px;
+    float: left;
+    width: 60%;
+    height: 50px;
+    position: relative;
+}
+
+.assign-diet-window-input > input {
+    float: left;
+    width: 90%;
+    height: 50px;
+    border-radius: 20px;
+    background-color: white;
+    padding: 0 30px;
+    border: none;
+    font-size: 1rem;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    color: #484848;
+}
+
+.assign-diet-window-input > input:focus {
+    outline: none;
+}
+
+.assign-diet-window-input > input:focus::placeholder {
+    color: transparent;
+}
+
+.assign-diet-window-edit-diet-plan-button {
+    width: 25%;
+    margin-left: 50px;
+    height: 50px;
+    margin-top: 40px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.assign-diet-window-edit-diet-plan-button-icon {
+    width: 25px;
+    height: 25px;
+    margin-left: 20px;
+    float: left;
+}
+
+.assign-diet-window-edit-diet-plan-button-text {
+    float: left;
+    font-size: 1.2rem;
+    color: #484848;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+}
+
+.assign-diet-window-edit-diet-plan-button:hover {
+    box-shadow: 0 8px 20px -6px rgb(137, 137, 149);
+    background-color: #e5e4e4;
+}
+
+.assign-diet-window-edit-diet-plan-button:hover > .assign-diet-window-edit-diet-plan-button-icon {
+    filter: brightness(0) saturate(100%) invert(48%) sepia(18%) saturate(5886%) hue-rotate(329deg) brightness(91%) contrast(93%);
+}
+
+.assign-diet-window-edit-diet-plan-button:hover > .assign-diet-window-edit-diet-plan-button-text {
+    color: #E24F4F;
+}
+
+.assign-diet-window-edit-diet-plan-save-button {
+    width: 150px;
+    height: 50px;
+    background-color: #64AD56;
+    float: right;
+    margin-right: 40px;
+    border-radius: 30px;
+    margin-top: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #484848;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 8px 10px -2px rgb(137, 137, 149);
+}
+
+.assign-diet-window-edit-diet-plan-save-button:hover {
+    box-shadow: 0 8px 20px -2px rgb(137, 137, 149);
+    background-color: #49853c;
+}
+
+.assign-diet-window-input-drop-down {
+    width: 100%;
+    max-height: 200px;
+    height: auto;
+    position: absolute;
+    box-shadow: 0 8px 10px -6px rgb(137, 137, 149);
+    border-radius: 20px;
+    top: 115%;
+    left: 10px;
+    overflow: hidden scroll;
+    visibility: hidden;
+}
+
+.assign-diet-window-input-drop-down.active{
+    visibility: visible;
+}
+
+.assign-diet-window-input-drop-down-item{
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    padding: 0 20px;
+    color: #484848;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.assign-diet-window-input-drop-down-item:hover {
+    color: #E24F4F;
+    background-color: #cbc9c9;
 }

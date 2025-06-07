@@ -8,6 +8,7 @@ import {useCookies} from "react-cookie";
 import Patient from "../assets/elements/dietitian_patients/Patient.jsx";
 import DeleteWindow from "../assets/DeleteWindow.jsx";
 import {changeUserDietetic} from "../scripts/sendData/sendUserDieteticChange.js";
+import AssignDietWindow from "../assets/elements/dietitian_patients/AssignDietWindow.jsx";
 
 
 function DietitianPatientsPage() {
@@ -21,6 +22,8 @@ function DietitianPatientsPage() {
     const [filteredPatients, setFilteredPatients] = useState([]);
 
     const [actualKey, setActualKey] = useState(null);
+
+    const [editDietWindow, setEditDietWindow] = useState(false);
 
     const handleSearchChange = (e) => setSearchTerm(e.target.value);
 
@@ -69,7 +72,7 @@ function DietitianPatientsPage() {
                     value={searchTerm}
                     onChange={handleSearchChange}
                 />
-               
+
                 <div className={"patient-items"}>
                     {filteredPatients.map((item, index) => (
                         <>
@@ -85,6 +88,11 @@ function DietitianPatientsPage() {
                                     setIsDeleteWindowOpen(true)
                                     setActualKey(key)
                                 }}
+                                onEdit={(key) => {
+                                    setEditDietWindow(true)
+                                    setActualKey(key)
+                                    console.log("XD")
+                                }}
                             />
                         </>
                     ))}
@@ -97,6 +105,13 @@ function DietitianPatientsPage() {
                     onClose={() => setIsPatientClicked(false)}
                 />
             )}
+            {
+                editDietWindow && (
+                    <AssignDietWindow
+                    onClose={() => setEditDietWindow(false)}
+                    />
+                )
+            }
             {
                 isDeleteWindowOpen && (
                     <DeleteWindow
