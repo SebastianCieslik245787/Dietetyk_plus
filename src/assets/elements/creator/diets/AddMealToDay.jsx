@@ -137,7 +137,7 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
                     <div className={"add-meal-to-date-window-header"}>
                         Dodaj posiłek
                     </div>
-                    <div className={"add-meal-to-date-close-window"}>
+                    <div className={"add-meal-to-date-close-window"} onClick={onClose}>
                         <img src={`${CloseWindowIcon}`} alt=""/>
                     </div>
                     <div className={"add-meal-to-date-window-input"}>
