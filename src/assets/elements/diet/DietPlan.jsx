@@ -5,6 +5,7 @@ import Meal from "./Meal.jsx";
 import AddMealToDay from "../creator/diets/AddMealToDay.jsx";
 import CreatorAddItem from "../creator/CreatorAddItem.jsx";
 import {changeDietPlanContainerSize} from "../../../scripts/changeDietPlanContainerSize.js";
+import DeleteWindow from "../../DeleteWindow.jsx";
 
 const today = new Date();
 const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1;
@@ -15,6 +16,7 @@ const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsD
     const [addMealToDay, setAddMealToDay] = useState(false);
     const mealsRef = useRef(null);
     const [editMealIndex, setEditMealIndex] = useState(null);
+    const [deleteWindow, setDeleteWindow] = useState(false);
 
     useEffect(() => {
         if (mealsRef.current) {
@@ -130,7 +132,7 @@ const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsD
                                 setEditMealIndex(index);
                                 setAddMealToDay(true);
                             }}
-                            onClick={() => handleDeleteMeal(index)}
+                            onClick={() => setDeleteWindow(true)}
                         />
                     ))
                 ) : (
@@ -156,6 +158,18 @@ const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsD
                     editMealIndex={editMealIndex}
                 />
             )}
+            {
+                deleteWindow && (
+                    <DeleteWindow
+                        onDelete={() => {
+                            handleDeleteMeal(activeMealIndex)
+                            setDeleteWindow(false)
+                        }}
+                        onClose={() => setDeleteWindow(false)}
+                        message={"Czy napewno chcesz usunąć posiłek z diety?"}
+                    />
+                )
+            }
         </div>
     );
 };
