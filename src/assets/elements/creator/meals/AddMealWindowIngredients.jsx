@@ -27,7 +27,7 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
         const newIngredient = {
             ...ingredient,
             unit: mealUnitData[activeUnit],
-            category: activeCategory
+            categoryId: activeCategory
         };
 
         if (!validateIngredient(newIngredient, count, setAddIngredientError)) return;
@@ -82,6 +82,7 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
                     };
                 }
             });
+            console.log(newIngredient)
         }
 
         setShowIngredientsData(true)
