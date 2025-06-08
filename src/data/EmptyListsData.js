@@ -1,7 +1,15 @@
 export const emptyIngredient = {
     name: "",
-    category: "",
-    unit: ""
+    categoryId: -1,
+    unit: "",
+    macros: {
+        kcal: 0,
+        proteins: 0,
+        carbohydrates: 0,
+        fats: 0,
+        fiber: 0,
+        sugar: 0,
+    },
 }
 
 export const emptyMeal = {
