@@ -8,7 +8,7 @@ export const mealCategoryData = [
     'Zbożowe',
     'Suplementy Diety',
     'Mięsa',
-    'Masła, Kremy, Oleje',
+    'Masła, Oleje',
     'Ryby',
     'Miody',
     'Przetwory'

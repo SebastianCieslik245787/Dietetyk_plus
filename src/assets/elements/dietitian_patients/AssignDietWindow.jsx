@@ -9,7 +9,7 @@ import {dietDayNames} from "../../../data/SelectOptionsData.js";
 import {getAllIngredients} from "../../../scripts/getData/getIngredientsData.js";
 import {useCookies} from "react-cookie";
 
-const AssignDietWindow = ({onClose}) => {
+const AssignDietWindow = ({onClose, actualKey}) => {
     const [findDietQuery, setFindDietQuery] = useState("");
     const handleChange = (e) => setFindDietQuery(e.target.value.toLowerCase());
 

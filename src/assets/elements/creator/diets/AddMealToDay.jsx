@@ -112,6 +112,8 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
             ...data,
             dietPlan: updatedDietPlan
         });
+
+        //TODO tutaj mozna nadpisac bo data jest juz zupdatowana o nowego meala
         setNewMeal(emptyMeal)
         onClose();
     };

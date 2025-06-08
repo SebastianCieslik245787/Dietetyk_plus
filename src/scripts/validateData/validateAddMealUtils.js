@@ -25,13 +25,13 @@ export function validateAddMeal(data, setErrors) {
     return !hasErrors;
 }
 
-export function validateIngredient(ingredient, setError) {
+export function validateIngredient(ingredient, count, setError) {
     const countRegex = /^[1-9][0-9]*$/;
-    if (ingredient.name === '' || ingredient.unit === '' || ingredient.category === '' || ingredient.count === '') {
+    if (ingredient.name === '' || ingredient.unit === '' || ingredient.category === '') {
         setError("Wszytskie pola muszą być wypełnione!")
         return false;
     }
-    if(!countRegex.test(ingredient.count)){
+    if(!countRegex.test(count)){
         setError("Ilość musi być licbzą dodatnią!")
         return false;
     }

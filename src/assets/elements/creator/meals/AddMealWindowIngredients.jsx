@@ -7,11 +7,14 @@ import {mealCategoryData, mealUnitData} from "../../../../data/SelectOptionsData
 import {emptyIngredient} from "../../../../data/EmptyListsData.js";
 
 const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIngredientsData}) => {
-    const [addIngredientError, setAddIngredientError] = useState("");
+    const [addIngredientError, setAddIngredientError] = useState("")
 
-    const [ingredient, setIngredient] = useState(emptyIngredient);
+    const [ingredient, setIngredient] = useState(emptyIngredient)
 
     const handleChange = onChangeInput(setIngredient)
+
+    const [count, setCount] = useState("")
+    const handleChangeCount = (e) => {setCount(e.target.value);}
 
     const [activeUnit, setActiveUnit] = useState(-1)
     const [activeCategory, setActiveCategory] = useState(-1)
@@ -24,10 +27,11 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
         const newIngredient = {
             ...ingredient,
             unit: mealUnitData[activeUnit],
-            category: mealCategoryData[activeCategory]
+            category: activeCategory
         };
 
-        if (!validateIngredient(newIngredient, setAddIngredientError)) return;
+        if (!validateIngredient(newIngredient, count, setAddIngredientError)) return;
+        console.log(newIngredient)
 
         let ingredientId = ingredientsData.findIndex(
             ing => ing.name.toLowerCase() === newIngredient.name.toLowerCase()
@@ -49,7 +53,7 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
                     } else {
                         const newIngredientsObj = { ...prev.ingredients };
                         const prevCount = newIngredientsObj[ingredientId] || 0;
-                        newIngredientsObj[ingredientId] = prevCount + Number(newIngredient.count);
+                        newIngredientsObj[ingredientId] = prevCount + Number(count);
 
                         return {
                             ...prev,
@@ -72,7 +76,7 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
                 } else {
                     const newIngredientsObj = { ...prev.ingredients };
                     const prevCount = newIngredientsObj[ingredientId] || 0;
-                    newIngredientsObj[ingredientId] = prevCount + Number(newIngredient.count);
+                    newIngredientsObj[ingredientId] = prevCount + Number(count);
 
                     return {
                         ...prev,
@@ -84,6 +88,11 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
 
         setShowIngredientsData(true)
         setIngredient(emptyIngredient);
+        setActiveCategory(-1)
+        setActiveUnit(-1)
+        setCount("")
+        console.log(newIngredient)
+        console.log(ingredientsData.find(ing => ing.name.toLowerCase() === newIngredient.name.toLowerCase()));
         setAddIngredientError("");
     };
 
@@ -118,16 +127,14 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
     const handleSelectIngredient = (selectedIng) => {
         setShowIngredientsData(false)
         const unitIndex = mealUnitData.findIndex(u => u === selectedIng.unit);
-        const categoryIndex = mealCategoryData.findIndex(c => c === selectedIng.categoryId);
         setIngredient({
             name: selectedIng.name,
-            count: selectedIng.count || "",
             unit: selectedIng.unit,
-            category: selectedIng.categoryId,
+            categoryId: selectedIng.categoryId,
+            macros: selectedIng.macros,
         });
-
         setActiveUnit(unitIndex);
-        setActiveCategory(categoryIndex);
+        setActiveCategory(selectedIng.categoryId);
     };
 
     const [showIngredientsData, setShowIngredientsData] = useState(true);
@@ -146,13 +153,14 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
                             ))
                         }
                     </div>
-                    <input value={ingredient.count} id={"count"} onChange={handleChange} className="add-meal-window-name-input ingredients-count" type="text" placeholder="Wpisz ilość..." />
+                    <input value={count} onChange={handleChangeCount} className="add-meal-window-name-input ingredients-count" type="text" placeholder="Wpisz ilość..." />
                     <CreatorSelect
                         options={mealCategoryData}
                         active={activeCategory}
                         setActive={setActiveCategory}
                         AddWindow={true}
                         placeHolder={"Kategoria"}
+                        isCreator={true}
                     />
                     <CreatorSelect
                         options={mealUnitData}

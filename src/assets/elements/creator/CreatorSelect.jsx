@@ -1,7 +1,7 @@
 import Arrow from "../../../images/icons/arrow_down.png";
 import {useState} from "react";
 
-const CreatorSelect = ({options, setActive, active, AddWindow = false, placeHolder}) => {
+const CreatorSelect = ({options, setActive, active, AddWindow = false, placeHolder, isCreator=false}) => {
     const [isClicked, setIsClicked] = useState(false);
 
     return (
@@ -13,7 +13,7 @@ const CreatorSelect = ({options, setActive, active, AddWindow = false, placeHold
                 <div className="creator-menu-select-icon">
                     <img className={`${isClicked ? 'creator-menu-select-icon-active' : ''}`} src={`${Arrow}`} alt="" />
                 </div>
-                <div className={`creator-menu-select-drop-down ${isClicked ? 'active' : ''}`}>
+                <div className={`creator-menu-select-drop-down ${isClicked ? 'active' : ''} ${isCreator ? 'creator' : ''}`}>
                     {
                         options.map((option, index) => (
                             <div key={index} onClick={() => setActive(index)} className="creator-menu-select-drop-down-item">
