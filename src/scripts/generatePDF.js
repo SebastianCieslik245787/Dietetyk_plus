@@ -141,7 +141,9 @@ export function generateDietPDF(days, name, surname, logoBase64) {
                     head: [["Składnik", "Ilość", "Jednostka"]],
                     body: ingredients,
                     startY: yZakupy,
-                    styles: { font: "times-normal", fontSize: 11 },
+                    styles: { font: "times-normal", fontStyle: "normal", fontSize: 11 },
+                    headStyles: { font: "times-normal", fontStyle: "normal", fontSize: 11 },
+                    bodyStyles: { font: "times-normal", fontStyle: "normal", fontSize: 11 },
                     margin: { left: 18 }
                 });
                 yZakupy = doc.lastAutoTable.finalY + 5;
