@@ -13,6 +13,16 @@ export function generateDietPDF(days, name, surname) {
     doc.addFileToVFS("times-normal.ttf", font);
     doc.addFont("times-normal.ttf", "times-normal", "normal");
     doc.setFont("times-normal", "normal");
+
+    // Data wygenerowania
+    const today = new Date().toLocaleDateString();
+    doc.setFontSize(10);
+    doc.setFont("times-normal", "italic");
+    doc.text(`Data wygenerowania: ${today}`, 200, 16, { align: "right" }); 
+
+
+    // Tytuł
+    doc.setFont("times-normal", "normal");
     doc.setFontSize(20);
     doc.text(`Plan diety dla: ${name} ${surname}`, 14, 20);
 
@@ -24,15 +34,33 @@ export function generateDietPDF(days, name, surname) {
         let y = 30;
         days.forEach((day, dayIdx) => {
             if (y > 250) { doc.addPage(); y = 20; }
+            // Nagłówek dnia
             doc.setFont("times-normal", "bold");
             doc.setFontSize(15);
             doc.text(`Dzień ${dayIdx + 1}`, 14, y);
-            // Linia pod tytułem dnia
             doc.setDrawColor(180, 180, 180);
             doc.line(12, y + 2, 200, y + 2);
             y += 10;
 
             if (Array.isArray(day.meals) && day.meals.length > 0) {
+                // Podsumowanie makroskładników dnia
+                let sumB = 0, sumW = 0, sumT = 0, sumKcal = 0;
+                day.meals.forEach(mealObj => {
+                    if (mealObj.meal?.macros) {
+                        sumB += Number(mealObj.meal.macros.proteins) || 0;
+                        sumW += Number(mealObj.meal.macros.carbohydrates) || 0;
+                        sumT += Number(mealObj.meal.macros.fats) || 0;
+                        sumKcal += Number(mealObj.meal.macros.kcal) || 0;
+                    }
+                });
+                doc.setFont("times-normal", "italic");
+                doc.setFontSize(11);
+                doc.text(
+                    `Suma makroskładników: Białko: ${sumB}g, Węglowodany: ${sumW}g, Tłuszcze: ${sumT}g, kcal: ${sumKcal}`,
+                    18, y
+                );
+                y += 7;
+
                 day.meals.forEach((mealObj, mealIdx) => {
                     if (y > 250) { doc.addPage(); y = 20; }
                     doc.setFont("times-normal", "bold");
@@ -100,7 +128,6 @@ export function generateDietPDF(days, name, surname) {
         doc.setFont("times-normal", "bold");
         doc.setFontSize(18);
         doc.text("Lista zakupów", 14, 20);
-        // Linia pod tytułem listy zakupów
         doc.setDrawColor(180, 180, 180);
         doc.line(12, 22, 200, 22);
 
@@ -109,7 +136,6 @@ export function generateDietPDF(days, name, surname) {
             doc.setFont("times-normal", "bold");
             doc.setFontSize(14);
             doc.text(`Dzień ${dayIdx + 1}`, 14, yZakupy);
-            // Linia pod tytułem dnia zakupów
             doc.setDrawColor(200, 200, 200);
             doc.line(12, yZakupy + 2, 200, yZakupy + 2);
             yZakupy += 9;
@@ -132,10 +158,7 @@ export function generateDietPDF(days, name, surname) {
             doc.setFontSize(11);
 
             if (ingredients.length > 0) {
-            // ingredients: ["- nazwa (ilość jednostka)", ...]
-            // Rozbij na obiekty:
-            const tableData = ingredients.map(item => {
-                    // "- nazwa (ilość jednostka)"
+                const tableData = ingredients.map(item => {
                     const match = item.match(/- (.+) \((.+) (.+)\)/);
                     if (match) {
                         return [match[1], match[2], match[3]];
@@ -154,11 +177,30 @@ export function generateDietPDF(days, name, surname) {
                 doc.text("Brak składników.", 18, yZakupy);
                 yZakupy += 5;
             }
-            // Linia oddzielająca dni zakupów
             doc.setDrawColor(220, 220, 220);
             doc.line(12, yZakupy + 2, 200, yZakupy + 2);
             yZakupy += 8;
         });
+
+        // Dodajemy stronę z uwagą
+        doc.addPage();
+        doc.setFont("times-normal", "normal");
+        doc.setFontSize(12);
+        doc.text("Uwaga: W razie pytań dotyczących diety, skontaktuj się z dietetykiem.", 14, 30);
+    }
+
+    // Dodaj nagłówek i stopkę na każdej stronie
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        // Nagłówek z nazwiskiem
+        doc.setFontSize(10);
+        doc.setFont("times-normal", "italic");
+        doc.text(`${name} ${surname}`, 200, 10, { align: "right" });
+        // Stopka z numerem strony
+        doc.setFontSize(9);
+        doc.setFont("times-normal", "normal");
+        doc.text(`Strona ${i} z ${pageCount}`, 105, 292, { align: "center" });
     }
 
     doc.save(`Dieta_${name}_${surname}.pdf`);
