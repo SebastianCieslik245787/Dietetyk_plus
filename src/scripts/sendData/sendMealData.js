@@ -58,3 +58,34 @@ export function sendUpdateMealData(id, recipe, cookies) {
         }
     )
 }
+
+export function sendDeleteMealData(id, cookies) {
+    console.log("Deleting meal with ID:", id);
+    return fetch(
+        "/api/delete/meal/" + id,
+        {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": cookies["user-key"],
+            },
+        }
+    ).then(res => {
+        switch (res.status) {
+            case 200:
+                res.text().then(resp => {
+                    console.log(resp);
+                });
+                break;
+            case 401:
+                res.text().then(resp => {
+                    console.error("Unauthorized:", resp);
+                });
+                break;
+            default:
+                res.text().then(resp => {
+                    console.error("Error:", resp);
+                });
+        }
+    });
+}

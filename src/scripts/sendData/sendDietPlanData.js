@@ -20,14 +20,7 @@ export function sendDietPlanData(dietPlan, cookies) {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
-            return response.json().then(
-                data => {
-                    if (data.error) {
-                        throw new Error(data.error);
-                    }
-                    return data;
-                }
-            );
+            return response.text();
         }
     ).catch(error => {
         console.error("There was a problem with the fetch operation:", error);
@@ -66,4 +59,30 @@ export function sendUpdateDietPlanData(id, dietPlan, cookies) {
            }
        }
    );
+}
+
+export function sendDeleteDietPlanData(id, cookies) {
+    fetch(
+        `/api/delete/dietPlan/${id}`,
+        {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": cookies["user-key"],
+            },
+        }
+    ).then(r => {
+        switch (r.status) {
+            case 200:
+                r.text().then(resp => {
+                    console.log(resp);
+                });
+                break;
+            case 401:
+                alert("Niepoprawne dane logowania");
+                break;
+            default:
+                alert("Wystąpił nieznany błąd. Spróbuj ponownie później.");
+        }
+    });
 }
