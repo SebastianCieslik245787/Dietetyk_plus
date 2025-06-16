@@ -13,7 +13,7 @@ import {useCookies} from "react-cookie";
 const today = new Date();
 const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1;
 
-const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsData, setIngredientsData, onClose}) => {
+const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsData, setIngredientsData, onClose, dietKey, mealsKeys, ingredientsKeys, setIngredientsKeys}) => {
     const [activeIndex, setActiveIndex] = useState(dayOfWeek);
     const [activeMealIndex, setActiveMealIndex] = useState(null);
     const [addMealToDay, setAddMealToDay] = useState(false);
@@ -74,7 +74,7 @@ const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsD
         });
 
         //TODO id diety do której usuwamy meal
-        sendUpdateDietPlanData("DIETID", updatedDietPlan, cookies);
+        sendUpdateDietPlanData(dietKey, updatedDietPlan, cookies);
     };
 
     return (
@@ -170,6 +170,7 @@ const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsD
                     ingredientsData={ingredientsData}
                     setIngredientsData={setIngredientsData}
                     editMealIndex={editMealIndex}
+                    setIngredientsKeys={setIngredientsKeys}
                 />
             )}
             {

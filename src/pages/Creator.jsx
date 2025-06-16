@@ -125,7 +125,7 @@ function Creator() {
                 return updated;
             });
             //TODO Dodać id
-            sendUpdateMealData("DIETID", newMeal, cookies);
+            sendUpdateMealData(dietsKeys[activeDataIndex], newMeal, cookies);
         } else {
             sendMealData(newMeal, cookies);
             setData(prevData => [...prevData, newMeal]);
@@ -196,6 +196,7 @@ function Creator() {
                                                   setOpenDeleteWindow(true)
                                               }}
                                               ingredientsData={ingredients}
+                                              mealKey={mealsKeys[index]}
                                         />
                                     ))}
                             </>
@@ -238,6 +239,9 @@ function Creator() {
                         ingredientsData={ingredients}
                         setIngredientsData={setIngredients}
                         onSave={handleSaveMeal}
+                        ingredientsKeys={ingredientsKeys}
+                        mealKey={activeDataIndex !== null ? mealsKeys[activeDataIndex] : null}
+                        setIngredientsKeys={setIngredientsKeys}
                     />
                     :
                     <AddDietWindow
@@ -260,6 +264,10 @@ function Creator() {
                         setDiets={setData}
                         diets={data}
                         isEdit={edit}
+                        actualKey={activeDataIndex !== null ? dietsKeys[activeDataIndex] : null}
+                        mealsKeys={mealsKeys}
+                        ingredientsKeys={ingredientsKeys}
+                        setIngredientsKeys={setIngredientsKeys}
                     />)
                 : ''
             }

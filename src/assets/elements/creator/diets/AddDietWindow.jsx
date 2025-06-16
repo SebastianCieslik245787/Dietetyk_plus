@@ -42,7 +42,7 @@ import {sendUpdateMealData} from "../../../../scripts/sendData/sendMealData.js";
  *
  * @returns {JSX.Element} Okno dodawania, bądz edytowania diety.
  */
-const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, setIngredientsData, diets, setDiets, isEdit=false}) => {
+const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, setIngredientsData, diets, setDiets, isEdit=false, actualKey, mealsKeys, ingredientsKeys, setIngredientsKeys}) => {
     /**
      * Odpowiada za przełączanie okna z nazwą i opisem diety, na okno edycji planu diety.
      *
@@ -64,6 +64,7 @@ const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, se
      */
     useEffect(() => {
         setEditDietPlan(showDietPlan)
+        console.log(actualKey)
     }, [showDietPlan])
 
     const handleAddDiet = () => {
@@ -76,7 +77,7 @@ const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, se
         else {
             //NOTE Edycja istniejącejącej diety
             //TODO przekazać id diety do edycji
-            sendUpdateMealData("DIETID", dietData, cookies);
+            sendUpdateMealData(actualKey, dietData, cookies);
         }
         onClose();
     };
@@ -111,6 +112,10 @@ const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, se
                         if (showDietPlan) onClose();
                         setEditDietPlan(false);
                     }}
+                    mealsKeys={mealsKeys}
+                    dietKey={actualKey}
+                    ingredientsKeys={ingredientsKeys}
+                    setIngredientsKeys={setIngredientsKeys}
                 />}
         </div>
     </>)

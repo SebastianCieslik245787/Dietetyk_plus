@@ -4,10 +4,8 @@ import EditIcon from '../../../../images/icons/edit_icon.png'
 import {useEffect, useState} from "react";
 import AddMealWindow from "../meals/AddMealWindow.jsx";
 import {emptyMeal} from "../../../../data/EmptyListsData.js";
-import {mealsData2} from "../../../../data/MealsData.js";
 import {sendUpdateDietPlanData} from "../../../../scripts/sendData/sendDietPlanData.js";
 import {useCookies} from "react-cookie";
-import {getAllMeals} from "../../../../scripts/getData/getMealsData.js";
 
 /**
  * Okno dodawania lub edycji posiłku w edycji diety na stronie kreatora {@link Creator}, w oknie {@link DietPlan}.
@@ -44,7 +42,7 @@ import {getAllMeals} from "../../../../scripts/getData/getMealsData.js";
  *
  * @returns {JSX.Element}
  */
-const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, setIngredientsData, editMealIndex,}) => {
+const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, setIngredientsData, editMealIndex, mealsKeys, ingredientsKeys, dietKey, setIngredientsKeys}) => {
     /**
      * Odpowiada za otwieranie okna dodającego nowy posiłek do diety na konkretny dzień.
      *
@@ -113,7 +111,7 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
             updatedDietPlan[activeIndex].push(newMealObj);
         }
         //TODO potrzebujemy id diety, jeśli nie ma to trzeba wysłać sendDietPlanData(data, cookies) i pobrać id diety
-        sendUpdateDietPlanData("DIETID", updatedDietPlan, cookies);
+        sendUpdateDietPlanData(dietKey, updatedDietPlan, cookies);
         setData({
             ...data,
             dietPlan: updatedDietPlan
@@ -135,21 +133,7 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
 
 
     const [meals, setMeals] = useState([]);
-    //TODO Wykorszystać to
-    const [mealsKeys, setMealsKeys] = useState([]);
 
-    useEffect(() => {
-        async function getData() {
-            const [mealsK, mealsD] = await getAllMeals(cookies);
-            if (mealsD && Array.isArray(mealsD)) {
-                setMeals(mealsD || []);
-                setMealsKeys(mealsK || []);
-            } else {
-                setMeals([]);
-            }
-        }
-        getData()
-    })
     const [searchQuery, setSearchQuery] = useState("");
 
     const filteredMeals = meals.filter(meal =>
@@ -217,6 +201,8 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
                     onSave={setNewMeal}
                     ingredientsData={ingredientsData}
                     setIngredientsData={setIngredientsData}
+                    ingredientsKeys={ingredientsKeys}
+                    setIngredientsKeys={setIngredientsKeys}
                 /> : ''
             }
         </>

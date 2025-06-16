@@ -8,7 +8,7 @@ import {emptyIngredient} from "../../../../data/EmptyListsData.js";
 import {sendIngredientData, sendUpdateIngredientData} from "../../../../scripts/sendData/sendIngredientData.js";
 import {useCookies} from "react-cookie";
 
-const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIngredientsData}) => {
+const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIngredientsData, ingredientsKeys, setIngredientsKeys}) => {
     const [addIngredientError, setAddIngredientError] = useState("")
 
     const [ingredient, setIngredient] = useState(emptyIngredient)
@@ -23,10 +23,12 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
 
     const [cookies] = useCookies(["User-Key"]);
 
-    const handleClick = (ingredient) => {
+    const handleClick = async (ingredient) => {
         if (activeUnit === -1 || activeCategory === -1) {
             return;
         }
+
+        let key= null;
 
         const newIngredient = {
             ...ingredient,
@@ -67,12 +69,12 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
                 });
                 return updatedIngredients;
             });
-            const key = sendIngredientData(newIngredient, cookies);
-            // eslint-disable-next-line react-hooks/rules-of-hooks
-            useEffect(() => {
-                //TODO Zapisz id nowego składnika (chyba tak powinna wyglądać ta funkcja, nie umiem w async)
-                console.log(key)
-            }, [key]);
+            key = sendIngredientData(newIngredient, cookies);
+            setIngredientsKeys(prev => {
+                return{
+                    ...prev, key
+                }
+            })
         } else {
             //NOTE Update meal ingredienst
             //NOTE Baza czy nie baza?
@@ -103,6 +105,7 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
         setActiveUnit(-1)
         setCount("")
         setAddIngredientError("");
+        return key;
     };
 
     const handleRemove = (indexToRemove) => {
@@ -182,7 +185,7 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
                         AddWindow={true}
                         placeHolder={"Jednostka"}
                     />
-                    <div className="add-meal-window-add-ingredient" onClick={() => handleClick(ingredient)}>
+                    <div className="add-meal-window-add-ingredient" onClick={async () => handleClick(ingredient)}>
                         Dodaj
                     </div>
                     <div className={`add-meal-window-error ${addIngredientError !== '' ? 'visible' : ''} add-ingredients-error`}>

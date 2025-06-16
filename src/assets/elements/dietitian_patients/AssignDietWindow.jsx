@@ -25,7 +25,6 @@ const AssignDietWindow = ({onClose, actualKey}) => {
     );
 
     //TODO wczytaj ingredients z bazy
-    //FIXME śmierdzi jak powtórka kodu z Creator.jsx
     const [cookie] = useCookies(["User-Key"]);
     const ingredientData = getAllIngredients(cookie);
     const [ingredients, setIngredients] = useState(ingredientData);
@@ -46,6 +45,12 @@ const AssignDietWindow = ({onClose, actualKey}) => {
                             setData={setDietPlan}
                             onClick={() => setEditDietPlan(false)}
                             onClose={() => setEditDietPlan(false)}
+                            //TODO localstorage
+                            dietKey={null}
+                            //TODO dodac Melas keys
+                            mealsKeys={null}
+                            //TODO dodac Ingredienst keys
+                            ingredientsKeys={null}
                         />
                         :
                         <div className="assign-diet-window">
