@@ -27,7 +27,10 @@ export function generateDietPDF(days, name, surname) {
             doc.setFont("times-normal", "bold");
             doc.setFontSize(15);
             doc.text(`Dzień ${dayIdx + 1}`, 14, y);
-            y += 8;
+            // Linia pod tytułem dnia
+            doc.setDrawColor(180, 180, 180);
+            doc.line(12, y + 2, 200, y + 2);
+            y += 10;
 
             if (Array.isArray(day.meals) && day.meals.length > 0) {
                 day.meals.forEach((mealObj, mealIdx) => {
@@ -86,7 +89,10 @@ export function generateDietPDF(days, name, surname) {
                 doc.text("Brak posiłków w tym dniu.", 18, y);
                 y += 7;
             }
-            y += 6;
+            // Linia oddzielająca dni
+            doc.setDrawColor(200, 200, 200);
+            doc.line(12, y + 2, 200, y + 2);
+            y += 8;
         });
 
         // Dodajemy listę zakupów na końcu PDF
@@ -94,13 +100,19 @@ export function generateDietPDF(days, name, surname) {
         doc.setFont("times-normal", "bold");
         doc.setFontSize(18);
         doc.text("Lista zakupów", 14, 20);
+        // Linia pod tytułem listy zakupów
+        doc.setDrawColor(180, 180, 180);
+        doc.line(12, 22, 200, 22);
 
-        let y = 30;
+        let yZakupy = 30;
         days.forEach((day, dayIdx) => {
             doc.setFont("times-normal", "bold");
             doc.setFontSize(14);
-            doc.text(`Dzień ${dayIdx + 1}`, 14, y);
-            y += 7;
+            doc.text(`Dzień ${dayIdx + 1}`, 14, yZakupy);
+            // Linia pod tytułem dnia zakupów
+            doc.setDrawColor(200, 200, 200);
+            doc.line(12, yZakupy + 2, 200, yZakupy + 2);
+            yZakupy += 9;
 
             // Zbierz wszystkie składniki z posiłków tego dnia
             const ingredients = [];
@@ -121,15 +133,18 @@ export function generateDietPDF(days, name, surname) {
 
             if (ingredients.length > 0) {
                 ingredients.forEach(item => {
-                    if (y > 280) { doc.addPage(); y = 20; }
-                    doc.text(item, 18, y);
-                    y += 5;
+                    if (yZakupy > 280) { doc.addPage(); yZakupy = 20; }
+                    doc.text(item, 18, yZakupy);
+                    yZakupy += 5;
                 });
             } else {
-                doc.text("Brak składników.", 18, y);
-                y += 5;
+                doc.text("Brak składników.", 18, yZakupy);
+                yZakupy += 5;
             }
-            y += 5;
+            // Linia oddzielająca dni zakupów
+            doc.setDrawColor(220, 220, 220);
+            doc.line(12, yZakupy + 2, 200, yZakupy + 2);
+            yZakupy += 8;
         });
     }
 
