@@ -18,7 +18,7 @@ export function sendChangeUserDescription(cookies, data){
 }
 
 function postNewData(userKey, data){
-    fetch("/api/update", {
+    fetch("/api/update/user", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -26,7 +26,6 @@ function postNewData(userKey, data){
         },
         body: JSON.stringify(data)
     }).then(r => {
-        /*TODO powiadomienie o potencjalnym błędzie*/
         switch (r.status) {
             case 200:
                 r.text().then(resp => {
