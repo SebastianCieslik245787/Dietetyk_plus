@@ -132,11 +132,24 @@ export function generateDietPDF(days, name, surname) {
             doc.setFontSize(11);
 
             if (ingredients.length > 0) {
-                ingredients.forEach(item => {
-                    if (yZakupy > 280) { doc.addPage(); yZakupy = 20; }
-                    doc.text(item, 18, yZakupy);
-                    yZakupy += 5;
+            // ingredients: ["- nazwa (ilość jednostka)", ...]
+            // Rozbij na obiekty:
+            const tableData = ingredients.map(item => {
+                    // "- nazwa (ilość jednostka)"
+                    const match = item.match(/- (.+) \((.+) (.+)\)/);
+                    if (match) {
+                        return [match[1], match[2], match[3]];
+                    }
+                    return [item, "", ""];
                 });
+                autoTable(doc, {
+                    head: [["Składnik", "Ilość", "Jednostka"]],
+                    body: tableData,
+                    startY: yZakupy,
+                    styles: { font: "times-normal", fontSize: 11 },
+                    margin: { left: 18 }
+                });
+                yZakupy = doc.lastAutoTable.finalY + 5;
             } else {
                 doc.text("Brak składników.", 18, yZakupy);
                 yZakupy += 5;
