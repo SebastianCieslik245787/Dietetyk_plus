@@ -1,5 +1,5 @@
-export function getAllMeals(cookies){
-    fetch(
+export async function getAllMeals(cookies) {
+    const response = await fetch(
         "/api/meals",
         {
             method: "GET",
@@ -8,17 +8,28 @@ export function getAllMeals(cookies){
                 "Authorization": cookies["User-Key"],
             },
         }
-    ).then(res => res.json()
-    ).then(data => {
-        if (data.status === 200) {
-            return data.data
-        } else {
-            console.error("Error fetching ingredients:", data.message)
-            return []
+    )
+    switch (response.status) {
+        case 200: {
+            const data = await response.json()
+            if (data.error) {
+                console.log(data.error);
+            }
+
+            const mealsKeys = [];
+            const mealsData = [];
+            for (const meal of data) {
+                mealsKeys.push(Object.keys(meal)[0]);
+                mealsData.push(Object.values(meal)[0]);
+            }
+            return [mealsKeys, mealsData];
         }
-    }).catch(error => {
-        console.error("Error fetching ingredients:", error)
-        return []
-    });
-    return []
+
+        case 401:
+            console.log("Niepoprawne dane logowania");
+            break;
+        default:
+            console.log("Wystąpił nieznany błąd. Spróbuj ponownie później." + response.status);
+    }
+    return [[], []]
 }

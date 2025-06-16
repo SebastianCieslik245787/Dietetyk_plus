@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import DietInfoWindow from "./DietInfoWindow.jsx";
 import {useCookies} from "react-cookie";
 import {sendDietPlanData} from "../../../../scripts/sendData/sendDietPlanData.js";
+import {sendUpdateMealData} from "../../../../scripts/sendData/sendMealData.js";
 
 /**
  * Okno dodawania diety, bądz edycji istniejącej diety
@@ -66,11 +67,16 @@ const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, se
     }, [showDietPlan])
 
     const handleAddDiet = () => {
-        //TODO Dodawanie nowej diety
+        //NOTE Dodawanie nowej diety
         if(!isEdit){
             const updatedDiets = [...diets, dietData];
             setDiets(updatedDiets);
             sendDietPlanData(dietData, cookies)
+        }
+        else {
+            //NOTE Edycja istniejącejącej diety
+            //TODO przekazać id diety do edycji
+            sendUpdateMealData("DIETID", dietData, cookies);
         }
         onClose();
     };

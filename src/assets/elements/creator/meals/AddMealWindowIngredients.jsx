@@ -1,10 +1,12 @@
 import CreatorSelect from "../CreatorSelect.jsx";
 import IngredientItem from "./IngredientItem.jsx";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {validateIngredient} from "../../../../scripts/validateData/validateAddMealUtils.js";
 import {onChangeInput} from "../../../hooks/onChangeInput.jsx";
 import {mealCategoryData, mealUnitData} from "../../../../data/SelectOptionsData.js";
 import {emptyIngredient} from "../../../../data/EmptyListsData.js";
+import {sendIngredientData, sendUpdateIngredientData} from "../../../../scripts/sendData/sendIngredientData.js";
+import {useCookies} from "react-cookie";
 
 const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIngredientsData}) => {
     const [addIngredientError, setAddIngredientError] = useState("")
@@ -18,6 +20,8 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
 
     const [activeUnit, setActiveUnit] = useState(-1)
     const [activeCategory, setActiveCategory] = useState(-1)
+
+    const [cookies] = useCookies(["User-Key"]);
 
     const handleClick = (ingredient) => {
         if (activeUnit === -1 || activeCategory === -1) {
@@ -39,8 +43,8 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
 
         if (ingredientId === -1) {
             setIngredientsData(prevIngredients => {
-                //TODO NOWY INGREDIENT
-                //FIXME Gdzie niby jest ten obiekt?
+                //NOTE NOWY INGREDIENT
+                //NOTE Gdzie niby jest ten obiekt?
                 const updatedIngredients = [...prevIngredients, newIngredient];
                 ingredientId = updatedIngredients.length - 1;
 
@@ -61,12 +65,17 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
                         };
                     }
                 });
-
                 return updatedIngredients;
             });
+            const key = sendIngredientData(newIngredient, cookies);
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            useEffect(() => {
+                //TODO Zapisz id nowego składnika (chyba tak powinna wyglądać ta funkcja, nie umiem w async)
+                console.log(key)
+            }, [key]);
         } else {
-            //TODO Update meal ingredienst
-            //FIXME Baza czy nie baza?
+            //NOTE Update meal ingredienst
+            //NOTE Baza czy nie baza?
             setData(prev => {
                 if (Array.isArray(prev.ingredients)) {
                     return {
@@ -85,6 +94,7 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
                 }
             });
             console.log(newIngredient)
+            sendUpdateIngredientData(newIngredient, cookies, ingredientId);
         }
 
         setShowIngredientsData(true)
@@ -92,8 +102,6 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
         setActiveCategory(-1)
         setActiveUnit(-1)
         setCount("")
-        console.log(newIngredient)
-        console.log(ingredientsData.find(ing => ing.name.toLowerCase() === newIngredient.name.toLowerCase()));
         setAddIngredientError("");
     };
 
@@ -121,8 +129,12 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
         }
     };
 
-    const filteredIngredients = ingredientsData.filter((ing) =>
-        ing.name.toLowerCase().includes(ingredient.name.toLowerCase()) && ingredient.name !== ""
+    const filteredIngredients = ingredientsData.filter((ing) =>{
+        //TODO To nie działa
+            console.log(ing);
+            return true
+        }
+        // ing.name.toLowerCase().includes(ingredient.name.toLowerCase()) && ingredient.name !== ""
     );
 
     const handleSelectIngredient = (selectedIng) => {

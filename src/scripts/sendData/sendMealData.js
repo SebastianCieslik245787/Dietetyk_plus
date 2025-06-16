@@ -1,8 +1,8 @@
 export function sendMealData(recipe, cookies) {
-    recipe.img_b64 = "" //TODO
+    recipe.img_b64 = ""
 
-    return fetch(
-        "/api/meals",
+    fetch(
+        "/api/meal",
         {
             method: "POST",
             headers: {
@@ -11,14 +11,43 @@ export function sendMealData(recipe, cookies) {
             },
             body: JSON.stringify(recipe),
         }
-    )
+    ).then(res =>{
+        switch (res.status) {
+            case 200:
+                res.text().then(resp => {
+                    console.log(resp);
+                });
+                break;
+            case 400:
+                res.text().then(resp => {
+                    console.error("Bad Request:", resp);
+                });
+                break;
+            case 401:
+                res.text().then(resp => {
+                    console.error("Unauthorized:", resp);
+                });
+                break;
+            case 500:
+                res.text().then(resp => {
+                    console.error("Server Error:", resp);
+                });
+                break;
+            default:
+                console.error("Unexpected response status:", res.status);
+        }
+        }
+    ).catch(err => {
+        console.error("There was a problem with the fetch operation:", err);
+    });
 }
 
-export function sendUpdateMealData(recipe, cookies) {
-    recipe.img_b64 = "" //TODO
+//NOTE Fix this
+export function sendUpdateMealData(id, recipe, cookies) {
+    recipe.img_b64 = ""
 
     return fetch(
-        "/api/meals",
+        "/api/update/meal/" + id,
         {
             method: "POST",
             headers: {

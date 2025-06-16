@@ -2,17 +2,20 @@ import "../../../style/DieteticanPatientsPage.css";
 import CloseWindowIcon from "../../../images/icons/close_window_icon.png"
 import EditIcon from "../../../images/icons/edit_icon.png"
 import {useState} from "react";
-import {dietData} from "../../../data/DIetData.js";
 import DietPlan from "../diet/DietPlan.jsx";
 import {emptyDiet} from "../../../data/EmptyListsData.js";
 import {dietDayNames} from "../../../data/SelectOptionsData.js";
 import {getAllIngredients} from "../../../scripts/getData/getIngredientsData.js";
 import {useCookies} from "react-cookie";
+import {getAllDiets} from "../../../scripts/getData/getDietsData.js";
 
 const AssignDietWindow = ({onClose, actualKey}) => {
     const [findDietQuery, setFindDietQuery] = useState("");
     const handleChange = (e) => setFindDietQuery(e.target.value.toLowerCase());
 
+    const [cookies] = useCookies(["User-Key"]);
+    //TODO Wykorzystać to
+    const [dietKeys, dietData] = getAllDiets(cookies);
     const [diets, setDiets] = useState(dietData);
 
     const [dietPlan, setDietPlan] = useState(emptyDiet);

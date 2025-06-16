@@ -1,7 +1,7 @@
 export function sendDietPlanData(dietPlan, cookies) {
     dietPlan.dietPlan.forEach(day => {
         day.forEach(meal => {
-            meal.meal.img_b64 = ""; //TODO
+            meal.meal.img_b64 = "";
         });
     });
 
@@ -34,22 +34,36 @@ export function sendDietPlanData(dietPlan, cookies) {
     });
 }
 
-export function sendUpdateDietPlanData(dietPlan, cookies) {
+export function sendUpdateDietPlanData(id, dietPlan, cookies) {
     dietPlan.dietPlan.forEach(day => {
         day.forEach(meal => {
-            meal.meal.img_b64 = ""; //TODO
+            meal.meal.img_b64 = ""; //NOTE
         });
     });
 
-    return fetch(
-        "/api/dietPlan",
-        {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": cookies["user-key"],
-            },
-            body: JSON.stringify(dietPlan),
-        }
-    );
+   fetch(
+       `/update/id/${id}`,
+       {
+           method: "POST",
+           headers: {
+               "Content-Type": "application/json",
+               "Authorization": cookies["user-key"],
+           },
+           body: JSON.stringify(dietPlan),
+       }
+   ).then(r => {
+           switch (r.status) {
+               case 200:
+                   r.text().then(resp => {
+                       console.log(resp);
+                   });
+                   break;
+               case 401:
+                   alert("Niepoprawne dane logowania");
+                   break;
+               default:
+                   alert("Wystąpił nieznany błąd. Spróbuj ponownie później.");
+           }
+       }
+   );
 }
