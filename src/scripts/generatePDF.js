@@ -4,9 +4,10 @@ import { font } from "../scripts/fonts/times-normal.js";
 
 /**
  * Tworzy PDF z planem diety dla pacjenta oraz listą zakupów na każdy dzień.
- * @param {Array} days - Tablica dni (każdy dzień ma np. { meals: [...] })
+ * @param {Array} days - Tablica dni (każdy dzień to tablica posiłków)
  * @param {string} name - Imię pacjenta
  * @param {string} surname - Nazwisko pacjenta
+ * @param {string} logoBase64 - Logo w base64
  */
 export function generateDietPDF(days, name, surname, logoBase64) {
     const doc = new jsPDF();
@@ -21,7 +22,7 @@ export function generateDietPDF(days, name, surname, logoBase64) {
 
     // Napis "Dietetyk+" jasnoszary, wyśrodkowany na górze
     const pageWidth = doc.internal.pageSize.getWidth();
-    doc.setFont("times-normal", "bold");
+    doc.setFont("times-normal", "normal");
     doc.setFontSize(28);
     doc.setTextColor(180, 180, 180); // jasnoszary
     doc.text("Dietetyk+", pageWidth / 2, 22, { align: "center" });
@@ -30,7 +31,7 @@ export function generateDietPDF(days, name, surname, logoBase64) {
     // Data wygenerowania w prawym górnym rogu
     const today = new Date().toLocaleDateString();
     doc.setFontSize(10);
-    doc.setFont("times-normal", "italic");
+    doc.setFont("times-normal", "normal");
     doc.text(`Data wygenerowania: ${today}`, 200, 16, { align: "right" });
 
     // Tytuł wyśrodkowany, poniżej napisu Dietetyk+
@@ -47,77 +48,41 @@ export function generateDietPDF(days, name, surname, logoBase64) {
         days.forEach((day, dayIdx) => {
             if (y > 250) { doc.addPage(); y = 20; }
             // Nagłówek dnia
-            doc.setFont("times-normal", "bold");
+            doc.setFont("times-normal", "normal");
             doc.setFontSize(15);
             doc.text(`Dzień ${dayIdx + 1}`, 14, y);
             doc.setDrawColor(180, 180, 180);
             doc.line(12, y + 2, 200, y + 2);
             y += 10;
 
-            if (Array.isArray(day.meals) && day.meals.length > 0) {
-                // Podsumowanie makroskładników dnia
-                let sumB = 0, sumW = 0, sumT = 0, sumKcal = 0;
-                day.meals.forEach(mealObj => {
-                    if (mealObj.meal?.macros) {
-                        sumB += Number(mealObj.meal.macros.proteins) || 0;
-                        sumW += Number(mealObj.meal.macros.carbohydrates) || 0;
-                        sumT += Number(mealObj.meal.macros.fats) || 0;
-                        sumKcal += Number(mealObj.meal.macros.kcal) || 0;
-                    }
-                });
-                doc.setFont("times-normal", "italic");
-                doc.setFontSize(11);
-                doc.text(
-                    `Suma makroskładników: Białko: ${sumB}g, Węglowodany: ${sumW}g, Tłuszcze: ${sumT}g, kcal: ${sumKcal}`,
-                    18, y
-                );
-                y += 7;
-
-                day.meals.forEach((mealObj, mealIdx) => {
+            if (Array.isArray(day) && day.length > 0) {
+                day.forEach((mealObj) => {
                     if (y > 250) { doc.addPage(); y = 20; }
-                    doc.setFont("times-normal", "bold");
+                    doc.setFont("times-normal", "normal");
                     doc.setFontSize(13);
-                    doc.text(`${mealObj.label || ""}: ${mealObj.meal?.name || ""}`, 18, y);
+                    doc.text(`${mealObj.name || ""}: ${mealObj.meal?.name || ""}`, 18, y);
                     y += 7;
 
-                    if (mealObj.meal?.macros) {
+                    // Składniki do posiłku - małą czcionką
+                    if (Array.isArray(mealObj.meal?.ingredients) && mealObj.meal.ingredients.length > 0) {
                         doc.setFont("times-normal", "normal");
-                        doc.setFontSize(11);
-                        autoTable(doc, {
-                            head: [["Białko (g)", "Węglowodany (g)", "Tłuszcze (g)", "kcal"]],
-                            body: [[
-                                mealObj.meal.macros.proteins,
-                                mealObj.meal.macros.carbohydrates,
-                                mealObj.meal.macros.fats,
-                                mealObj.meal.macros.kcal
-                            ]],
-                            startY: y,
-                            theme: "grid",
-                            styles: { font: "times-normal", fontSize: 10 },
-                            margin: { left: 18 }
-                        });
-                        y = doc.lastAutoTable.finalY + 2;
-                    }
-
-                    if (Array.isArray(mealObj.meal?.ingredients)) {
-                        doc.setFont("times-normal", "normal");
-                        doc.setFontSize(11);
-                        doc.text("Składniki:", 18, y);
+                        doc.setFontSize(9);
+                        doc.text("Produkty:", 20, y);
                         y += 5;
-                        mealObj.meal.ingredients
-                            .filter(i => i.name)
-                            .forEach(i => {
-                                doc.text(`- ${i.name} (${i.count} ${i.unit})`, 22, y);
-                                y += 5;
-                            });
+                        mealObj.meal.ingredients.forEach(i => {
+                            doc.text(`- ${i.name} (${i.count} ${i.unit})`, 24, y);
+                            y += 4;
+                        });
                     }
 
+                    // Przepis
                     if (mealObj.meal?.recipe) {
-                        doc.setFont("times-normal", "italic");
+                        doc.setFont("times-normal", "normal");
                         doc.setFontSize(11);
                         doc.text("Przepis:", 18, y);
                         y += 5;
                         doc.setFont("times-normal", "normal");
+                        doc.setFontSize(11);
                         doc.text(doc.splitTextToSize(mealObj.meal.recipe, 170), 22, y);
                         y += 10 + Math.ceil(mealObj.meal.recipe.length / 90) * 5;
                     }
@@ -137,7 +102,7 @@ export function generateDietPDF(days, name, surname, logoBase64) {
 
         // Dodajemy listę zakupów na końcu PDF
         doc.addPage();
-        doc.setFont("times-normal", "bold");
+        doc.setFont("times-normal", "normal");
         doc.setFontSize(18);
         doc.text("Lista zakupów", 14, 20);
         doc.setDrawColor(180, 180, 180);
@@ -145,7 +110,7 @@ export function generateDietPDF(days, name, surname, logoBase64) {
 
         let yZakupy = 30;
         days.forEach((day, dayIdx) => {
-            doc.setFont("times-normal", "bold");
+            doc.setFont("times-normal", "normal");
             doc.setFontSize(14);
             doc.text(`Dzień ${dayIdx + 1}`, 14, yZakupy);
             doc.setDrawColor(200, 200, 200);
@@ -154,14 +119,16 @@ export function generateDietPDF(days, name, surname, logoBase64) {
 
             // Zbierz wszystkie składniki z posiłków tego dnia
             const ingredients = [];
-            if (Array.isArray(day.meals)) {
-                day.meals.forEach(mealObj => {
+            if (Array.isArray(day)) {
+                day.forEach(mealObj => {
                     if (Array.isArray(mealObj.meal?.ingredients)) {
-                        mealObj.meal.ingredients
-                            .filter(i => i.name)
-                            .forEach(i => {
-                                ingredients.push(`- ${i.name} (${i.count} ${i.unit})`);
-                            });
+                        mealObj.meal.ingredients.forEach(i => {
+                            ingredients.push([
+                                i.name || "",
+                                i.count || "",
+                                i.unit || ""
+                            ]);
+                        });
                     }
                 });
             }
@@ -170,16 +137,9 @@ export function generateDietPDF(days, name, surname, logoBase64) {
             doc.setFontSize(11);
 
             if (ingredients.length > 0) {
-                const tableData = ingredients.map(item => {
-                    const match = item.match(/- (.+) \((.+) (.+)\)/);
-                    if (match) {
-                        return [match[1], match[2], match[3]];
-                    }
-                    return [item, "", ""];
-                });
                 autoTable(doc, {
                     head: [["Składnik", "Ilość", "Jednostka"]],
-                    body: tableData,
+                    body: ingredients,
                     startY: yZakupy,
                     styles: { font: "times-normal", fontSize: 11 },
                     margin: { left: 18 }
@@ -196,7 +156,7 @@ export function generateDietPDF(days, name, surname, logoBase64) {
 
         // --- PODSUMOWANIE ZAKUPÓW Z CAŁEGO OKRESU ---
         doc.addPage();
-        doc.setFont("times-normal", "bold");
+        doc.setFont("times-normal", "normal");
         doc.setFontSize(18);
         doc.text("Podsumowanie zakupów", 14, 20);
         doc.setDrawColor(180, 180, 180);
@@ -205,18 +165,16 @@ export function generateDietPDF(days, name, surname, logoBase64) {
         // Zbierz i zsumuj wszystkie składniki
         const allIngredients = {};
         days.forEach(day => {
-            if (Array.isArray(day.meals)) {
-                day.meals.forEach(mealObj => {
+            if (Array.isArray(day)) {
+                day.forEach(mealObj => {
                     if (Array.isArray(mealObj.meal?.ingredients)) {
-                        mealObj.meal.ingredients
-                            .filter(i => i.name)
-                            .forEach(i => {
-                                const key = `${i.name}|${i.unit}`;
-                                if (!allIngredients[key]) {
-                                    allIngredients[key] = { name: i.name, count: 0, unit: i.unit };
-                                }
-                                allIngredients[key].count += Number(i.count) || 0;
-                            });
+                        mealObj.meal.ingredients.forEach(i => {
+                            const key = `${i.name}|${i.unit}`;
+                            if (!allIngredients[key]) {
+                                allIngredients[key] = { name: i.name, count: 0, unit: i.unit };
+                            }
+                            allIngredients[key].count += Number(i.count) || 0;
+                        });
                     }
                 });
             }
@@ -232,7 +190,9 @@ export function generateDietPDF(days, name, surname, logoBase64) {
                 head: [["Składnik", "Łączna ilość", "Jednostka"]],
                 body: summaryTable,
                 startY: 30,
-                styles: { font: "times-normal", fontSize: 11 },
+                styles: { font: "times-normal", fontStyle: "normal", fontSize: 11 },
+                headStyles: { font: "times-normal", fontStyle: "normal", fontSize: 11 },
+                bodyStyles: { font: "times-normal", fontStyle: "normal", fontSize: 11 },
                 margin: { left: 18 }
             });
         } else {
@@ -243,7 +203,7 @@ export function generateDietPDF(days, name, surname, logoBase64) {
 
         // --- LOGO I PODPIS DIETETYKA ---
         doc.addPage();
-        doc.setFont("times-normal", "bold");
+        doc.setFont("times-normal", "normal");
         doc.setFontSize(16);
         doc.text("Podpis dietetyka", 14, 30);
 
@@ -274,7 +234,7 @@ export function generateDietPDF(days, name, surname, logoBase64) {
         doc.setPage(i);
         // Nagłówek z nazwiskiem
         doc.setFontSize(10);
-        doc.setFont("times-normal", "italic");
+        doc.setFont("times-normal", "normal");
         doc.text(`${name} ${surname}`, 200, 10, { align: "right" });
         // Stopka z numerem strony
         doc.setFontSize(9);

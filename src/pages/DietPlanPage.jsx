@@ -24,12 +24,11 @@ function DietPlanPage() {
     const [dietData, setDietData] = useState(dietPlanData);
 
     const handleDownloadPDF = async () => {
-        const name = cookies.name || "Pacjent";
-        const surname = cookies.surname || "";
-        const logoBase64 = await getBase64FromUrl("src/images/transparent_logo.png");
-        generateDietPDF(dietData.days, name, surname, logoBase64);
+    const name = cookies.name || "Pacjent";
+    const surname = cookies.surname || "";
+    const logoBase64 = await getBase64FromUrl("src/images/transparent_logo.png");
+    generateDietPDF(dietData, name, surname, logoBase64);
     };
-
     return (
         <div className="diet-plan-container">
             <NavigationBar/>
