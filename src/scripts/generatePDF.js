@@ -1,62 +1,135 @@
 import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+import { font } from "../scripts/fonts/times-normal.js";
 
 /**
- * Tworzy PDF z planem diety dla pacjenta.
+ * Tworzy PDF z planem diety dla pacjenta oraz listą zakupów na każdy dzień.
  * @param {Array} days - Tablica dni (każdy dzień ma np. { meals: [...] })
  * @param {string} name - Imię pacjenta
  * @param {string} surname - Nazwisko pacjenta
  */
 export function generateDietPDF(days, name, surname) {
     const doc = new jsPDF();
-    doc.setFontSize(18);
+    doc.addFileToVFS("times-normal.ttf", font);
+    doc.addFont("times-normal.ttf", "times-normal", "normal");
+    doc.setFont("times-normal", "normal");
+    doc.setFontSize(20);
     doc.text(`Plan diety dla: ${name} ${surname}`, 14, 20);
 
     if (!Array.isArray(days) || days.length === 0) {
+        doc.setFont("times-normal", "normal");
         doc.setFontSize(12);
-        doc.text("Brak danych do wyswietlenia.", 14, 30);
+        doc.text("Brak danych do wyświetlenia.", 14, 30);
     } else {
         let y = 30;
         days.forEach((day, dayIdx) => {
-            if (y > 260) { doc.addPage(); y = 20; }
-            doc.setFontSize(14);
+            if (y > 250) { doc.addPage(); y = 20; }
+            doc.setFont("times-normal", "bold");
+            doc.setFontSize(15);
             doc.text(`Dzień ${dayIdx + 1}`, 14, y);
             y += 8;
 
             if (Array.isArray(day.meals) && day.meals.length > 0) {
                 day.meals.forEach((mealObj, mealIdx) => {
-                    if (y > 260) { doc.addPage(); y = 20; }
-                    doc.setFontSize(12);
-                    doc.text(`${mealObj.label || ""}: ${mealObj.meal?.name || ""}`, 14, y);
-                    y += 6;
+                    if (y > 250) { doc.addPage(); y = 20; }
+                    doc.setFont("times-normal", "bold");
+                    doc.setFontSize(13);
+                    doc.text(`${mealObj.label || ""}: ${mealObj.meal?.name || ""}`, 18, y);
+                    y += 7;
+
                     if (mealObj.meal?.macros) {
-                        doc.setFontSize(10);
-                        doc.text(
-                            `Białko: ${mealObj.meal.macros.proteins}g, Węglowodany: ${mealObj.meal.macros.carbohydrates}g, Tłuszcze: ${mealObj.meal.macros.fats}g, kcal: ${mealObj.meal.macros.kcal}`,
-                            14,
-                            y
-                        );
-                        y += 5;
+                        doc.setFont("times-normal", "normal");
+                        doc.setFontSize(11);
+                        autoTable(doc, {
+                            head: [["Białko (g)", "Węglowodany (g)", "Tłuszcze (g)", "kcal"]],
+                            body: [[
+                                mealObj.meal.macros.proteins,
+                                mealObj.meal.macros.carbohydrates,
+                                mealObj.meal.macros.fats,
+                                mealObj.meal.macros.kcal
+                            ]],
+                            startY: y,
+                            theme: "grid",
+                            styles: { font: "times-normal", fontSize: 10 },
+                            margin: { left: 18 }
+                        });
+                        y = doc.lastAutoTable.finalY + 2;
                     }
+
                     if (Array.isArray(mealObj.meal?.ingredients)) {
-                        const ingredients = mealObj.meal.ingredients
-                            .filter(i => i.name)
-                            .map(i => `${i.name} - ${i.count} ${i.unit}`)
-                            .join(", ");
-                        doc.text(`Składniki: ${ingredients}`, 14, y);
+                        doc.setFont("times-normal", "normal");
+                        doc.setFontSize(11);
+                        doc.text("Składniki:", 18, y);
                         y += 5;
+                        mealObj.meal.ingredients
+                            .filter(i => i.name)
+                            .forEach(i => {
+                                doc.text(`- ${i.name} (${i.count} ${i.unit})`, 22, y);
+                                y += 5;
+                            });
                     }
+
                     if (mealObj.meal?.recipe) {
-                        doc.text(`Przepis: ${mealObj.meal.recipe}`, 14, y, { maxWidth: 180 });
-                        y += 8;
+                        doc.setFont("times-normal", "italic");
+                        doc.setFontSize(11);
+                        doc.text("Przepis:", 18, y);
+                        y += 5;
+                        doc.setFont("times-normal", "normal");
+                        doc.text(doc.splitTextToSize(mealObj.meal.recipe, 170), 22, y);
+                        y += 10 + Math.ceil(mealObj.meal.recipe.length / 90) * 5;
                     }
-                    y += 2;
+                    y += 4;
                 });
             } else {
-                doc.setFontSize(10);
-                doc.text("Brak posiłków w tym dniu.", 14, y);
-                y += 6;
+                doc.setFont("times-normal", "normal");
+                doc.setFontSize(11);
+                doc.text("Brak posiłków w tym dniu.", 18, y);
+                y += 7;
             }
-            y += 4;
+            y += 6;
+        });
+
+        // Dodajemy listę zakupów na końcu PDF
+        doc.addPage();
+        doc.setFont("times-normal", "bold");
+        doc.setFontSize(18);
+        doc.text("Lista zakupów", 14, 20);
+
+        let y = 30;
+        days.forEach((day, dayIdx) => {
+            doc.setFont("times-normal", "bold");
+            doc.setFontSize(14);
+            doc.text(`Dzień ${dayIdx + 1}`, 14, y);
+            y += 7;
+
+            // Zbierz wszystkie składniki z posiłków tego dnia
+            const ingredients = [];
+            if (Array.isArray(day.meals)) {
+                day.meals.forEach(mealObj => {
+                    if (Array.isArray(mealObj.meal?.ingredients)) {
+                        mealObj.meal.ingredients
+                            .filter(i => i.name)
+                            .forEach(i => {
+                                ingredients.push(`- ${i.name} (${i.count} ${i.unit})`);
+                            });
+                    }
+                });
+            }
+
+            doc.setFont("times-normal", "normal");
+            doc.setFontSize(11);
+
+            if (ingredients.length > 0) {
+                ingredients.forEach(item => {
+                    if (y > 280) { doc.addPage(); y = 20; }
+                    doc.text(item, 18, y);
+                    y += 5;
+                });
+            } else {
+                doc.text("Brak składników.", 18, y);
+                y += 5;
+            }
+            y += 5;
         });
     }
 
