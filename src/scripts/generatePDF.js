@@ -8,30 +8,42 @@ import { font } from "../scripts/fonts/times-normal.js";
  * @param {string} name - Imię pacjenta
  * @param {string} surname - Nazwisko pacjenta
  */
-export function generateDietPDF(days, name, surname) {
+export function generateDietPDF(days, name, surname, logoBase64) {
     const doc = new jsPDF();
     doc.addFileToVFS("times-normal.ttf", font);
     doc.addFont("times-normal.ttf", "times-normal", "normal");
     doc.setFont("times-normal", "normal");
 
-    // Data wygenerowania
+    // Dodaj logo w lewym górnym rogu (jeśli jest)
+    if (logoBase64) {
+        doc.addImage(logoBase64, "PNG", 10, 10, 30, 30);
+    }
+
+    // Napis "Dietetyk+" jasnoszary, wyśrodkowany na górze
+    const pageWidth = doc.internal.pageSize.getWidth();
+    doc.setFont("times-normal", "bold");
+    doc.setFontSize(28);
+    doc.setTextColor(180, 180, 180); // jasnoszary
+    doc.text("Dietetyk+", pageWidth / 2, 22, { align: "center" });
+    doc.setTextColor(0, 0, 0); // reset koloru na czarny
+
+    // Data wygenerowania w prawym górnym rogu
     const today = new Date().toLocaleDateString();
     doc.setFontSize(10);
     doc.setFont("times-normal", "italic");
-    doc.text(`Data wygenerowania: ${today}`, 200, 16, { align: "right" }); 
+    doc.text(`Data wygenerowania: ${today}`, 200, 16, { align: "right" });
 
-
-    // Tytuł
+    // Tytuł wyśrodkowany, poniżej napisu Dietetyk+
     doc.setFont("times-normal", "normal");
     doc.setFontSize(20);
-    doc.text(`Plan diety dla: ${name} ${surname}`, 14, 20);
+    doc.text(`Plan diety dla: ${name} ${surname}`, pageWidth / 2, 36, { align: "center" });
 
     if (!Array.isArray(days) || days.length === 0) {
         doc.setFont("times-normal", "normal");
         doc.setFontSize(12);
-        doc.text("Brak danych do wyświetlenia.", 14, 30);
+        doc.text("Brak danych do wyświetlenia.", 14, 50);
     } else {
-        let y = 30;
+        let y = 46;
         days.forEach((day, dayIdx) => {
             if (y > 250) { doc.addPage(); y = 20; }
             // Nagłówek dnia
@@ -181,6 +193,73 @@ export function generateDietPDF(days, name, surname) {
             doc.line(12, yZakupy + 2, 200, yZakupy + 2);
             yZakupy += 8;
         });
+
+        // --- PODSUMOWANIE ZAKUPÓW Z CAŁEGO OKRESU ---
+        doc.addPage();
+        doc.setFont("times-normal", "bold");
+        doc.setFontSize(18);
+        doc.text("Podsumowanie zakupów", 14, 20);
+        doc.setDrawColor(180, 180, 180);
+        doc.line(12, 22, 200, 22);
+
+        // Zbierz i zsumuj wszystkie składniki
+        const allIngredients = {};
+        days.forEach(day => {
+            if (Array.isArray(day.meals)) {
+                day.meals.forEach(mealObj => {
+                    if (Array.isArray(mealObj.meal?.ingredients)) {
+                        mealObj.meal.ingredients
+                            .filter(i => i.name)
+                            .forEach(i => {
+                                const key = `${i.name}|${i.unit}`;
+                                if (!allIngredients[key]) {
+                                    allIngredients[key] = { name: i.name, count: 0, unit: i.unit };
+                                }
+                                allIngredients[key].count += Number(i.count) || 0;
+                            });
+                    }
+                });
+            }
+        });
+        const summaryTable = Object.values(allIngredients).map(i => [
+            i.name,
+            i.count % 1 === 0 ? i.count : i.count.toFixed(2),
+            i.unit
+        ]);
+
+        if (summaryTable.length > 0) {
+            autoTable(doc, {
+                head: [["Składnik", "Łączna ilość", "Jednostka"]],
+                body: summaryTable,
+                startY: 30,
+                styles: { font: "times-normal", fontSize: 11 },
+                margin: { left: 18 }
+            });
+        } else {
+            doc.setFont("times-normal", "normal");
+            doc.setFontSize(11);
+            doc.text("Brak składników do podsumowania.", 18, 35);
+        }
+
+        // --- LOGO I PODPIS DIETETYKA ---
+        doc.addPage();
+        doc.setFont("times-normal", "bold");
+        doc.setFontSize(16);
+        doc.text("Podpis dietetyka", 14, 30);
+
+        // Dodaj logo (base64 PNG przekazany jako argument logoBase64)
+        if (logoBase64) {
+            const logoWidth = 40;
+            const logoHeight = 40;
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const x = (pageWidth - logoWidth) / 2;
+            doc.addImage(logoBase64, "PNG", x, 40, logoWidth, logoHeight);
+        }
+
+        doc.setFont("times-normal", "normal");
+        doc.setFontSize(12);
+        doc.text("....................................................", 70, 70);
+        doc.text("Podpis i pieczątka", 70, 78);
 
         // Dodajemy stronę z uwagą
         doc.addPage();
