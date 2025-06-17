@@ -14,7 +14,6 @@ function Dietitians(){
         userData.role==="user" ? userData.dieteticId !== "": true //Dietetyk nie ma przycisku więc ma "tak jakby był przypisany"
     );
     const handleAssign = (key) => {
-        /*TODO*/
         console.log("Zapisanie się do dietetyka: " + key);
         changeUserDietetic("add", key, cookies)
         setIsAssigned(!isAssigned);

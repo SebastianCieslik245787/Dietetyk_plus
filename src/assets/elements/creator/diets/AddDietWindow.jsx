@@ -3,7 +3,8 @@ import DietPlan from "../../diet/DietPlan.jsx";
 import {dietDayNames} from "../../../../data/SelectOptionsData.js";
 import {useEffect, useState} from "react";
 import DietInfoWindow from "./DietInfoWindow.jsx";
-import {mealsData2} from "../../../../data/MealsData.js";
+import {useCookies} from "react-cookie";
+import {sendDietPlanData, sendUpdateDietPlanData} from "../../../../scripts/sendData/sendDietPlanData.js";
 
 /**
  * Okno dodawania diety, bądz edycji istniejącej diety
@@ -40,7 +41,7 @@ import {mealsData2} from "../../../../data/MealsData.js";
  *
  * @returns {JSX.Element} Okno dodawania, bądz edytowania diety.
  */
-const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, setIngredientsData, diets, setDiets, isEdit=false}) => {
+const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, setIngredientsData, diets, setDiets, isEdit= false, actualKey, mealsData, mealsKeys, ingredientsKeys, setIngredientsKeys}) => {
     /**
      * Odpowiada za przełączanie okna z nazwą i opisem diety, na okno edycji planu diety.
      *
@@ -65,10 +66,15 @@ const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, se
     }, [showDietPlan])
 
     const handleAddDiet = () => {
-        //TODO Dodawanie nowej diety
+        //NOTE Dodawanie nowej diety
         if(!isEdit){
             const updatedDiets = [...diets, dietData];
             setDiets(updatedDiets);
+            sendDietPlanData(dietData, cookies)
+        }
+        else {
+            //TODO przekazać id diety do edycji
+            sendUpdateDietPlanData(actualKey, dietData, cookies);
         }
         else{
             //TODO Zmiana nie po nazwie ale po id
@@ -79,6 +85,8 @@ const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, se
         }
         onClose();
     };
+
+    const [cookies] = useCookies(["User-Key"]);
 
     return (<>
         <div className={"add-diet-window-container"}>
@@ -108,6 +116,11 @@ const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, se
                         if (showDietPlan) onClose();
                         setEditDietPlan(false);
                     }}
+                    mealsData={mealsData}
+                    mealsKeys={mealsKeys}
+                    dietKey={actualKey}
+                    ingredientsKeys={ingredientsKeys}
+                    setIngredientsKeys={setIngredientsKeys}
                 />}
         </div>
     </>)

@@ -3,7 +3,7 @@ import "../style/UserSettings.css";
 import UserSettingsInput from "../assets/elements/user_settings/UserSettingsInput.jsx";
 import UserSettingsLabel from "../assets/elements/user_settings/UserSettingsLabel.jsx";
 import UserSettingsTextArea from "../assets/elements/user_settings/UserSettingsTextArea.jsx";
-import { changeUserData, changeUserPassword, changeUserDescription } from "../scripts/sendData/sendUserSettingsChangeData.js";
+import { sendChangeUserData, sendChangeUserPassword, sendChangeUserDescription } from "../scripts/sendData/sendUserSettingsChangeData.js";
 import { validateChangePassword, validatePersonalData } from "../scripts/validateData/validateUserSettingsUtils.js";
 import { useEffect, useMemo, useState } from "react";
 import { useImageUploader } from "../assets/hooks/useImageUploader.jsx";
@@ -21,7 +21,7 @@ export function UserSettings() {
         userSurname: userData?.surname || "",
         userEmail: userData?.email || "",
         userPhone: userData?.phone || "",
-        image: userData?.img_b64 || LoadImageIcon
+        img_b64: userData?.img_b64 || LoadImageIcon
     }), [userData]);
 
     const initialDescription = useMemo(() => userData?.description || "", [userData]);
@@ -52,8 +52,8 @@ export function UserSettings() {
         handleFileChange,
         handleDrop,
         handleDragOver
-    } = useImageUploader(initialData.image, (base64data) => {
-        setUserPersonalData((prev) => ({ ...prev, image: base64data }));
+    } = useImageUploader(initialData.img_b64, (base64data) => {
+        setUserPersonalData((prev) => ({ ...prev, img_b64: base64data }));
         setIsModifiedPersonalData(true);
     });
 
@@ -73,12 +73,12 @@ export function UserSettings() {
     const handleSubmit = () => {
         if (actualSettings === 0) {
             if (!validatePersonalData(userPersonalData, setErrors)) return;
-            changeUserData(cookies, userPersonalData);
+            sendChangeUserData(cookies, userPersonalData);
         } else if (actualSettings === 1) {
             if (!validateChangePassword(userPasswordData, setErrors)) return;
-            changeUserPassword(cookies, userPasswordData);
+            sendChangeUserPassword(cookies, userPasswordData);
         } else {
-            changeUserDescription(cookies, userDescription);
+            sendChangeUserDescription(cookies, userDescription);
         }
         console.log(userPersonalData);
     };
@@ -100,12 +100,12 @@ export function UserSettings() {
                     {actualSettings === 0 && (
                         <>
                             <div
-                                className={`user-settings-input-img ${userPersonalData.image !== LoadImageIcon ? 'changed' : ''}`}
+                                className={`user-settings-input-img ${userPersonalData.img_b64 !== LoadImageIcon ? 'changed' : ''}`}
                                 onDrop={handleDrop}
                                 onDragOver={handleDragOver}
                                 onClick={() => fileInputRef.current.click()}
                             >
-                                <img src={`${image}`} className={userPersonalData.image === LoadImageIcon ? 'preview' : ''} alt="preview" />
+                                <img src={`${image}`} className={userPersonalData.img_b64 === LoadImageIcon ? 'preview' : ''} alt="preview" />
                                 <input
                                     type="file"
                                     accept="image/*"

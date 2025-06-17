@@ -47,7 +47,6 @@ const PatientInformation = ({patientData, onClose}) => {
                         <br/>
                         Wiek: {age} {latVariant(age)}
                         <br/>
-                        {/*TODO: Dodać gdzieś podgląd daty urodzenia*/}
                         {/*<br/>*/}
                         {/*Data urodzenia: {data.birthdate}*/}
                         {/*<br/>*/}

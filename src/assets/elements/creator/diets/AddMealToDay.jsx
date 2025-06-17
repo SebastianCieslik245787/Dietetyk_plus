@@ -4,7 +4,7 @@ import EditIcon from '../../../../images/icons/edit_icon.png'
 import {useEffect, useState} from "react";
 import AddMealWindow from "../meals/AddMealWindow.jsx";
 import {emptyMeal} from "../../../../data/EmptyListsData.js";
-import {mealsData2} from "../../../../data/MealsData.js";
+import {useCookies} from "react-cookie";
 
 /**
  * Okno dodawania lub edycji posiłku w edycji diety na stronie kreatora {@link Creator}, w oknie {@link DietPlan}.
@@ -41,7 +41,7 @@ import {mealsData2} from "../../../../data/MealsData.js";
  *
  * @returns {JSX.Element}
  */
-const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, setIngredientsData, editMealIndex,}) => {
+const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, setIngredientsData, editMealIndex, mealsData, mealsKeys, ingredientsKeys, dietKey, setIngredientsKeys}) => {
     /**
      * Odpowiada za otwieranie okna dodającego nowy posiłek do diety na konkretny dzień.
      *
@@ -83,6 +83,8 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
      */
     const [mealName, setMealName] = useState("");
 
+    const [cookies] = useCookies(['user-key', 'user-data']);
+
     /**
      * Funkcja dodająca nowy posiłek do aktualnych danych.
      *
@@ -97,20 +99,21 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
         };
 
         const updatedDietPlan = [...data.dietPlan];
-        //TODO edytowanie meala
+        //NOTE edytowanie meala
+        //NOTE To jest tego meala który jest tylkow diecie czy ten który jest w bazie?
+        //Jeśli tylko z diety to nadpisać dietę, jeśli z bazy to wysłać na bazę
         if (editMealIndex !== null && updatedDietPlan[activeIndex][editMealIndex]) {
             updatedDietPlan[activeIndex][editMealIndex] = newMealObj;
         } else {
-            //TODO DOdawanie Meala do dnia w diecie
+            //NOTE Dodawanie Meala do dnia w diecie
+            //NOTE Imo wysłałbym to jako całą dietę i nadpisał starą
             updatedDietPlan[activeIndex].push(newMealObj);
         }
-
         setData({
             ...data,
             dietPlan: updatedDietPlan
         });
 
-        //TODO tutaj mozna nadpisac bo data jest juz zupdatowana o nowego meala
         setNewMeal(emptyMeal)
         onClose();
     };
@@ -124,11 +127,10 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
             setNewMeal(mealToEdit);
         }
     }, [activeIndex, data.dietPlan, editMealIndex]);
-    //TODO Own meals do wyszukiwania i ustawiania
-    const [ownMeals, setOwnMeals] = useState(mealsData2);
+
     const [searchQuery, setSearchQuery] = useState("");
 
-    const filteredMeals = ownMeals.filter(meal =>
+    const filteredMeals = mealsData.filter(meal =>
         meal.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
@@ -154,9 +156,9 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
                         />
                         <div className={`drop-down-own-meals ${showOwnMeals ? 'active' : ''}`}>
                             {
-                                filteredMeals.map((meal, index) => (
+                                filteredMeals.map((meal) => (
                                     <div
-                                        key={index}
+                                        key={mealsKeys[mealsData.indexOf(meal)]}
                                         className={`own-meal-item ${showOwnMeals ? 'active' : ''}`}
                                         onClick={() => {
                                             setNewMeal(meal);
@@ -188,11 +190,12 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
             {
                 addNewMealWindow ? <AddMealWindow
                     onClose={() => setAddNewMealWindow(false)}
-                    isEdit={true}
                     data={!showOwnMeals && searchQuery !== '' ? newMeal : newMeal.meal}
                     onSave={setNewMeal}
                     ingredientsData={ingredientsData}
                     setIngredientsData={setIngredientsData}
+                    ingredientsKeys={ingredientsKeys}
+                    setIngredientsKeys={setIngredientsKeys}
                 /> : ''
             }
         </>

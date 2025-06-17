@@ -42,5 +42,5 @@ export function sendRegisterData(data){
            },
            body: jsonRegisterData
        }
-   ).then(r => {console.log(r.status)/*TODO powiadomienie o potencjalnym błędzie*/})
+   ).then(r => {console.log(r.status)})
 }

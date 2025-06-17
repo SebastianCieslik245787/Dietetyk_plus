@@ -4,7 +4,6 @@ export function Login(setCookie, navigate) {
 
     if(validateEmail(email) && validatePassword(password)){
         document.querySelector(".login-error-label").style.visibility = "hidden";
-        //TODO send data to server
         fetch(
             "/api/login",
             {

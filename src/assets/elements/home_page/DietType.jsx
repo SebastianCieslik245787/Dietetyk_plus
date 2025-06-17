@@ -9,7 +9,7 @@ const DietType = ({data, direction}) => {
     return (
         <>
             <div ref={elementRef}  className={`${direction === 'left' ? 'upper-diet-type' : 'lower-diet-type'} diet-type ${isVisible ? 'visible' : ''}`}>
-                <img src={data.image} alt=""/>
+                <img src={data.img_b64} alt=""/>
                 <div className={direction === 'left' ? 'upper-diet-type-text-content' : 'lower-diet-type-text-content'}>
                     <div className={direction === 'left' ? 'upper-diet-type-header' : 'lower-diet-type-header'}>
                         <p className={direction === 'left' ? 'upper-diet-type-header-text' : 'lower-diet-type-header-text'}>

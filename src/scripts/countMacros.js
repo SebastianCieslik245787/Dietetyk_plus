@@ -8,6 +8,10 @@ export function countMacros(ingredients) {
         sugar: 0.0
     }
 
+    if (!ingredients || ingredients.length === 0) {
+        return data;
+    }
+
     for(let i = 0; i < ingredients.length; i++) {
         console.log(ingredients[i]);
         data.kcal += ingredients[i].macros.kcal;

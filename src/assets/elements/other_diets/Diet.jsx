@@ -6,7 +6,7 @@
  * @param {Object} data - Dane diety.
  * @property {string} data.name - Nazwa diety.
  * @property {string} data.description - Opis diety.
- * @property {Object} data.image - Zdjęcie diety.
+ * @property {Object} data.img_b64 - Zdjęcie diety.
  *
  * @returns {JSX.Element} Element wyświetlany na stronie {@link OtherDiets}
  */
@@ -15,7 +15,7 @@ const Diet = ({data}) => {
         <>
             <div className="other-diet-item">
                 <div className="other-diet-image">
-                    <img src={data.image} alt=""/>
+                    <img src={data.img_b64} alt=""/>
                 </div>
                 <div className="other-diet-title">
                     {data.name}

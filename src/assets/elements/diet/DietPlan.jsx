@@ -7,17 +7,33 @@ import AddMealToDay from "../creator/diets/AddMealToDay.jsx";
 import CreatorAddItem from "../creator/CreatorAddItem.jsx";
 import {changeDietPlanContainerSize} from "../../../scripts/changeDietPlanContainerSize.js";
 import DeleteWindow from "../../DeleteWindow.jsx";
+import {useCookies} from "react-cookie";
 
 const today = new Date();
 const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1;
 
-const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsData, setIngredientsData, onClose}) => {
+const DietPlan = ({
+                      options,
+                      data,
+                      setData,
+                      isEdit = false,
+                      onClick,
+                      ingredientsData,
+                      setIngredientsData,
+                      onClose,
+                      dietKey,
+                      mealsData,
+                      mealsKeys,
+                      ingredientsKeys,
+                      setIngredientsKeys
+                  }) => {
     const [activeIndex, setActiveIndex] = useState(dayOfWeek);
     const [activeMealIndex, setActiveMealIndex] = useState(null);
     const [addMealToDay, setAddMealToDay] = useState(false);
     const mealsRef = useRef(null);
     const [editMealIndex, setEditMealIndex] = useState(null);
     const [deleteWindow, setDeleteWindow] = useState(false);
+
 
     useEffect(() => {
         if (mealsRef.current) {
@@ -54,7 +70,7 @@ const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsD
     const handleMealToggle = (index) =>
         setActiveMealIndex((prevIndex) => (prevIndex === index ? null : index));
 
-    //TODO Usuwanie meala z aktualnej diety
+    //NOTE Usuwanie meala z aktualnej diety
     const handleDeleteMeal = (mealIndex) => {
         const updatedDietPlan = [...data.dietPlan];
 
@@ -75,7 +91,7 @@ const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsD
             {
                 isEdit && (
                     <div className={"diet-plan-menu-close"}>
-                        <img src={`${CloseIcon}`} alt="" onClick={onClose} />
+                        <img src={`${CloseIcon}`} alt="" onClick={onClose}/>
                     </div>
                 )}
             <div className="diet-plan-menu">
@@ -129,12 +145,18 @@ const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsD
                     meals.map((meal, index) => (
                         <Meal
                             key={`day-${activeIndex}-meal-${index}`}
-                            data={meal}
+                            data={
+                                {
+                                    name: meal.name,
+                                    meal: mealsData[mealsKeys.indexOf(meal.meal)],
+                                }
+                            }
                             isActive={activeMealIndex === index}
                             onToggle={() => handleMealToggle(index)}
                             index={index}
                             isEdit={isEdit}
                             ingredientsData={ingredientsData}
+                            ingredientsKeys={ingredientsKeys}
                             onEdit={() => {
                                 setEditMealIndex(index);
                                 setAddMealToDay(true);
@@ -162,7 +184,10 @@ const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsD
                     onClose={() => setAddMealToDay(false)}
                     ingredientsData={ingredientsData}
                     setIngredientsData={setIngredientsData}
+                    setIngredientsKeys={setIngredientsKeys}
                     editMealIndex={editMealIndex}
+                    mealsData={mealsData}
+                    mealsKeys={mealsKeys}
                 />
             )}
             {
