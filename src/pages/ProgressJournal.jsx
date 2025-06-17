@@ -21,11 +21,13 @@ const CustomTooltip = ({active, payload, label, activeType}) => {
                     activeType === 2
                         ? (
                             <>
-                                <p className="label">{`Ciśnienie skurczowe: ${payload[0]?.value}`}</p>
-                                <p className="label">{`Ciśnienie rozkurczowe: ${payload[1]?.value}`}</p>
+                                <p className="label">{`Ciśnienie: ${payload[0]?.value}`}</p>
+                                <p className="label">{`Puls: ${payload[1]?.value}`}</p>
                             </>
                         )
-                        : <p className="label">{`Wartość: ${payload[0].value}`}</p>
+                        : (
+                            activeType === 0 ? <p className="label">{`Waga: ${payload[0].value}`}</p> : <p className="label">{`Poz. Cukru: ${payload[0].value}`}</p>
+                        )
                 }
             </div>
         );
@@ -42,8 +44,8 @@ function ProgressJournal() {
     const [error, setError] = useState("");
     const userData = getDataFromLocalStorage("")
 
-    const doesTodayDataExist = userData.medicalData.journal[userData.medicalData.journal.length-1]?.date === getCurrentDate()
-    const [todayData, setTodayData] = useState(doesTodayDataExist ? userData.medicalData.journal[userData.medicalData.journal.length-1] : {
+    const doesTodayDataExist = userData.medicalData.journal[userData.medicalData.journal.length - 1]?.date === getCurrentDate()
+    const [todayData, setTodayData] = useState(doesTodayDataExist ? userData.medicalData.journal[userData.medicalData.journal.length - 1] : {
         "date": getCurrentDate(),
         "weight": -1,
         "glucose": -1,
@@ -51,7 +53,7 @@ function ProgressJournal() {
     })
 
     const updateSetTodayData = (value) => {
-        if(active === 2){
+        if (active === 2) {
             let temp = value.split("/")
             setTodayData(prev => ({
                 ...prev,
@@ -72,7 +74,7 @@ function ProgressJournal() {
 
     const [inputValue, setInputValue] = useState("");
 
-    const handleChange = (e) =>  setInputValue(e.target.value);
+    const handleChange = (e) => setInputValue(e.target.value);
 
     const handleUpdate = () => {
         if (active === 0) {
@@ -80,14 +82,12 @@ function ProgressJournal() {
                 setIsWeightEdited(true);
                 updateSetTodayData(inputValue);
             }
-        }
-        else if( active === 1) {
+        } else if (active === 1) {
             if (validateProgressJournal(inputValue, setError)) {
                 setIsBloodSugarEdited(true);
                 updateSetTodayData(inputValue);
             }
-        }
-        else{
+        } else {
             if (validateProgressJournalPressureAndPulse(inputValue, setError)) {
                 setIsBloodPressureEdited(true);
                 updateSetTodayData(inputValue);
@@ -108,7 +108,7 @@ function ProgressJournal() {
             ...(todayData[dataTypes[active]] === -1 ? [] : [{
                 date: todayData.date,
                 [dataTypes[active]]: todayData[dataTypes[active]],
-                [dataTypes[active+1]]: todayData[dataTypes[active+1]],
+                [dataTypes[active + 1]]: todayData[dataTypes[active + 1]],
             }])
         ] : [
             ...data[active],
@@ -188,7 +188,7 @@ function ProgressJournal() {
                                 ...(todayData[dataTypes[active]] === -1 ? [] : [{
                                     date: todayData.date,
                                     [dataTypes[active]]: todayData[dataTypes[active]],
-                                    [dataTypes[active+1]]: todayData[dataTypes[active+1]],
+                                    [dataTypes[active + 1]]: todayData[dataTypes[active + 1]],
                                 }])
                             ] : [
                                 ...data[active],
@@ -214,19 +214,25 @@ function ProgressJournal() {
                                 dot={true}
                                 dataKey={dataTypes[active]}
                                 domain={[
-                                    getEdgeValue(getPartialData([...data[active], ...(todayData[dataTypes[active]] === -1 ? [] : [{"date": todayData.date, [dataTypes[active]]: todayData[dataTypes[active]]}])], activeTimePeriod), dataTypes[active], "min"),
-                                    getEdgeValue(getPartialData([...data[active], ...(todayData[dataTypes[active]] === -1 ? [] : [{"date": todayData.date, [dataTypes[active]]: todayData[dataTypes[active]]}])], activeTimePeriod), dataTypes[active], "max")
+                                    getEdgeValue(getPartialData([...data[active], ...(todayData[dataTypes[active]] === -1 ? [] : [{
+                                        "date": todayData.date,
+                                        [dataTypes[active]]: todayData[dataTypes[active]]
+                                    }])], activeTimePeriod), dataTypes[active], "min"),
+                                    getEdgeValue(getPartialData([...data[active], ...(todayData[dataTypes[active]] === -1 ? [] : [{
+                                        "date": todayData.date,
+                                        [dataTypes[active]]: todayData[dataTypes[active]]
+                                    }])], activeTimePeriod), dataTypes[active], "max")
                                 ]
-                            }
+                                }
                             >
                                 <Label value={dataTypesLabels[active]} position="insideLeft" angle={-90}
                                        offset={-45}/>
                             </YAxis>
-                            <Tooltip content={CustomTooltip}/>
+                            <Tooltip content={(props) => <CustomTooltip {...props} activeType={active}/>}/>
                             <Line type={"natural"} dataKey={dataTypes[active]} stroke="#3c6fb2"/>
                             {
                                 active === 2 && (
-                                    <Line type="natural" dataKey={dataTypes[active+1]} stroke="#de0404"/>
+                                    <Line type="natural" dataKey={dataTypes[active + 1]} stroke="#de0404"/>
                                 )
                             }
                         </LineChart>
