@@ -10,11 +10,14 @@ import { useImageUploader } from "../assets/hooks/useImageUploader.jsx";
 import LoadImageIcon from "../images/icons/add_image_icon.png";
 import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
 import {useCookies} from "react-cookie";
+import {useNavigate} from "react-router-dom";
 
 export function UserSettings() {
     const userData = getDataFromLocalStorage("");
     const [cookies] = useCookies(["User-Key"]);
     const [actualSettings, setActualSettings] = useState(0);
+
+    const navigator = useNavigate();
 
     const initialData = useMemo(() => ({
         userName: userData?.name || "",
@@ -82,6 +85,7 @@ export function UserSettings() {
         } else if (actualSettings === 1) {
             if (!validateChangePassword(userPasswordData, setErrors)) return;
             sendChangeUserPassword(cookies, userPasswordData);
+            navigator("/logout")
         } else {
             sendChangeUserDescription(cookies, userDescription);
         }
