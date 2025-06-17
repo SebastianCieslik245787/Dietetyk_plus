@@ -10,6 +10,8 @@ import {useEffect, useState} from "react";
 import {getDietPlanData} from "../scripts/getData/getDietsData.js";
 import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
 import {getAllIngredients} from "../scripts/getData/getIngredientsData.js";
+import {useConnection} from "../assets/ConnectionProvider.jsx";
+import Error from "../assets/elements/error_page/Error.jsx";
 
 function getBase64FromUrl(url) {
     return fetch(url)
@@ -23,6 +25,8 @@ function getBase64FromUrl(url) {
 }
 
 function DietPlanPage() {
+    const {isConnected} = useConnection();
+
     const [cookies] = useCookies(["User-Key"]);
     const [dietData, setDietData] = useState(dietPlanData);
     const [ingredientsData, setIngredientsData] = useState([]);
@@ -44,26 +48,33 @@ function DietPlanPage() {
                 console.error("Nie udało się załadować składników diety.");
             }
         }
+
         loadDietData();
     }, [cookies]);
 
     const handleDownloadPDF = async () => {
-    const name = getDataFromLocalStorage("name")
-    const surname = getDataFromLocalStorage("surname")
-    const logoBase64 = await getBase64FromUrl("src/images/transparent_logo.png");
-    generateDietPDF(dietData, name, surname, logoBase64);
+        const name = getDataFromLocalStorage("name")
+        const surname = getDataFromLocalStorage("surname")
+        const logoBase64 = await getBase64FromUrl("src/images/transparent_logo.png");
+        generateDietPDF(dietData, name, surname, logoBase64);
     };
     return (
-        <div className="diet-plan-container">
-            <NavigationBar/>
-            <DietPlan
-                options={dietDayNames}
-                data={dietData}
-                setData={setDietData}
-                onClick={handleDownloadPDF}
-                ingredientsData={ingredientsData}
+        isConnected ? (
+            <div className="diet-plan-container">
+                <NavigationBar/>
+                <DietPlan
+                    options={dietDayNames}
+                    data={dietData}
+                    setData={setDietData}
+                    onClick={handleDownloadPDF}
+                    ingredientsData={ingredientsData}
+                />
+            </div>) : (
+            <Error
+                errorCode={"Error 404"}
+                errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
             />
-        </div>
+        )
     );
 }
 

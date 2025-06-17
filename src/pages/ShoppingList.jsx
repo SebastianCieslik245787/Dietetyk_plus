@@ -5,20 +5,29 @@ import DietShoppingList from "../assets/elements/diet/DietShoppingList.jsx";
 import {dietDayNames} from "../data/SelectOptionsData.js";
 import {createShoppingList} from "../scripts/shoppingListUtils.js";
 import {dietPlanData} from "../data/dietPlanDataUser.js";
+import {useConnection} from "../assets/ConnectionProvider.jsx";
+import Error from "../assets/elements/error_page/Error.jsx";
 
 function ShoppingList() {
     const shoppingList = createShoppingList(dietPlanData)
+    const {isConnected} = useConnection();
 
     return (
-        <>
-            <NavigationBar/>
-            <div className="diet-plan-container">
-                <DietShoppingList
-                    options={dietDayNames}
-                    data={shoppingList}
-                />
-            </div>
-        </>
+        isConnected ? (
+            <>
+                <NavigationBar/>
+                <div className="diet-plan-container">
+                    <DietShoppingList
+                        options={dietDayNames}
+                        data={shoppingList}
+                    />
+                </div>
+            </>) : (
+            <Error
+                errorCode={"Error 404"}
+                errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
+            />
+        )
     );
 }
 

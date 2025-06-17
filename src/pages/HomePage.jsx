@@ -18,8 +18,12 @@ import {
     reportsAndDataAnalysisOfferData
 } from "../data/OfferData.js";
 import OfferItem from "../assets/elements/home_page/OfferItem.jsx";
+import {useConnection} from "../assets/ConnectionProvider.jsx";
+import Error from "../assets/elements/error_page/Error.jsx";
 
 function HomePage() {
+    const {isConnected} = useConnection();
+
     const navigate = useNavigate();
     const [actualSlide, setActualSlide] = useState(0);
     const [prevSlide, setPrevSlide] = useState(null);
@@ -67,123 +71,130 @@ function HomePage() {
         return () => observer.disconnect();
     }, []);
 
-    return (<>
-            <NavigationBar/>
-            <div className="main-container">
-                <div className="section-container slides">
-                    {slides.map((slide, index) => (
-                        <Slide
-                            key={index}
-                            data={slide}
-                            actual={index === actualSlide}
-                            prev={index === prevSlide}
-                            direction={index % 2 === 1 ? "left" : "right"}
-                        />
-                    ))}
-                </div>
-                <div className="header">
-                    <p className="header-text">
-                        Rodzaje diet
-                    </p>
-                </div>
-                <div className="section-container">
-                    <img src={`${typesOfDietBackGround}`} alt="Why Diet"/>
-                    <div className="type-of-diets-content">
-                        <DietType
-                            data={otherDietsData[first]}
-                            direction={'left'}
-                        />
-                        <DietType
-                            data={otherDietsData[second]}
-                            direction={'right'}
-                        />
-                        <div className="other-diets-button" onClick={() => navigate("/diets")}>
-                            <p className="other-diets-button-text">
-                                Inne diety
-                            </p>
-                            <img src={`${linkIcon}`} alt="link-icon"/>
+    return (
+            isConnected ? (
+                <>
+                    <NavigationBar/>
+                    <div className="main-container">
+                        <div className="section-container slides">
+                            {slides.map((slide, index) => (
+                                <Slide
+                                    key={index}
+                                    data={slide}
+                                    actual={index === actualSlide}
+                                    prev={index === prevSlide}
+                                    direction={index % 2 === 1 ? "left" : "right"}
+                                />
+                            ))}
                         </div>
-                    </div>
-                </div>
-                <div className="header">
-                    <p className="header-text">
-                        Nasza oferta
-                    </p>
-                </div>
-                <div className="section-container">
-                    <img src={`${ourOfferBackGround}`} alt="Why Diet"/>
-                    <div className="our-offer-content">
-                        {[dietitianConsultationOfferData, individualDietOfferData, reportsAndDataAnalysisOfferData].map((offer, index) => (
-                            <div
-                                className="offers"
-                                key={index}
-                                ref={(el) => offerRefs.current[index] = el}
-                            >
-                                <div className="offer-content">
-                                    <div className="offer-header">
-                                        <p className="offer-header-text">{offer.label}</p>
-                                    </div>
-                                    <div className="offer-items">
-                                        {offer.items.map((item, i) => (
-                                            <OfferItem key={i} data={item}/>
-                                        ))}
-                                    </div>
+                        <div className="header">
+                            <p className="header-text">
+                                Rodzaje diet
+                            </p>
+                        </div>
+                        <div className="section-container">
+                            <img src={`${typesOfDietBackGround}`} alt="Why Diet"/>
+                            <div className="type-of-diets-content">
+                                <DietType
+                                    data={otherDietsData[first]}
+                                    direction={'left'}
+                                />
+                                <DietType
+                                    data={otherDietsData[second]}
+                                    direction={'right'}
+                                />
+                                <div className="other-diets-button" onClick={() => navigate("/diets")}>
+                                    <p className="other-diets-button-text">
+                                        Inne diety
+                                    </p>
+                                    <img src={`${linkIcon}`} alt="link-icon"/>
                                 </div>
                             </div>
-                        ))}
-                    </div>
-                </div>
-                <div className="header">
-                    <p className="header-text">
-                        Jak się z nami skontaktować?
-                    </p>
-                </div>
-                <div className="home-contact-container">
-                    <div className="contact-bar">
-                        <p className="contact-text">
-                            +48 123 456 789
-                        </p>
-                        <img src={`${phoneIcon}`} alt="phone-icon"/>
-                    </div>
-                    <div className="contact-bar">
-                        <p className="contact-text">
-                            dietetyk@gmail.com
-                        </p>
-                        <img src={`${emailIcon}`} alt="email-icon"/>
-                    </div>
-                </div>
-                <div className="footer-container">
-                    <div className="footer-content">
-                        <img src={`${logo}`} alt=""/>
-                        <div className="footer-column">
-                            <p className="footer-column-header">
-                                Mapa Strony:
-                            </p>
-                            <p className="column-paragraph">
-                                • Oferta<br/>
-                                • O nas<br/>
-                                • Kontakt
+                        </div>
+                        <div className="header">
+                            <p className="header-text">
+                                Nasza oferta
                             </p>
                         </div>
-                        <div className="footer-column">
-                            <p className="footer-column-header">
-                                Adres:
-                            </p>
-                            <p className="column-paragraph">
-                                al. Stanisława Wyszyńskiego 45
-                                <br/>
-                                Bełchatów, 97-400
+                        <div className="section-container">
+                            <img src={`${ourOfferBackGround}`} alt="Why Diet"/>
+                            <div className="our-offer-content">
+                                {[dietitianConsultationOfferData, individualDietOfferData, reportsAndDataAnalysisOfferData].map((offer, index) => (
+                                    <div
+                                        className="offers"
+                                        key={index}
+                                        ref={(el) => offerRefs.current[index] = el}
+                                    >
+                                        <div className="offer-content">
+                                            <div className="offer-header">
+                                                <p className="offer-header-text">{offer.label}</p>
+                                            </div>
+                                            <div className="offer-items">
+                                                {offer.items.map((item, i) => (
+                                                    <OfferItem key={i} data={item}/>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="header">
+                            <p className="header-text">
+                                Jak się z nami skontaktować?
                             </p>
                         </div>
-                        <div className="footer-copyrights">
-                            <p className="footer-copyrights-text">
-                                Copyright © 2025 Dietetyk+ All rights reserved.
-                            </p>
+                        <div className="home-contact-container">
+                            <div className="contact-bar">
+                                <p className="contact-text">
+                                    +48 123 456 789
+                                </p>
+                                <img src={`${phoneIcon}`} alt="phone-icon"/>
+                            </div>
+                            <div className="contact-bar">
+                                <p className="contact-text">
+                                    dietetyk@gmail.com
+                                </p>
+                                <img src={`${emailIcon}`} alt="email-icon"/>
+                            </div>
+                        </div>
+                        <div className="footer-container">
+                            <div className="footer-content">
+                                <img src={`${logo}`} alt=""/>
+                                <div className="footer-column">
+                                    <p className="footer-column-header">
+                                        Mapa Strony:
+                                    </p>
+                                    <p className="column-paragraph">
+                                        • Oferta<br/>
+                                        • O nas<br/>
+                                        • Kontakt
+                                    </p>
+                                </div>
+                                <div className="footer-column">
+                                    <p className="footer-column-header">
+                                        Adres:
+                                    </p>
+                                    <p className="column-paragraph">
+                                        al. Stanisława Wyszyńskiego 45
+                                        <br/>
+                                        Bełchatów, 97-400
+                                    </p>
+                                </div>
+                                <div className="footer-copyrights">
+                                    <p className="footer-copyrights-text">
+                                        Copyright © 2025 Dietetyk+ All rights reserved.
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </>
+                </>) : (
+                <Error
+                    errorCode={"Error 404"}
+                    errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
+                />
+            )
     )
 }
 
