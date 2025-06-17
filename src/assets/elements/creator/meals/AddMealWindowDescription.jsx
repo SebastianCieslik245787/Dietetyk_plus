@@ -34,7 +34,7 @@ const AddMealWindowDescription = ({data, setData, errors}) => {
                     onDragOver={handleDragOver}
                     onClick={() => fileInputRef.current.click()}
                 >
-                    <img src={`${image !== undefined ? image : DefaultIcon}`} className="preview"  alt=""/>
+                    <img src={data.img_b64 !== ""? data.img_b64 : DefaultIcon} className="preview"  alt=""/>
                     <input
                         type="file"
                         accept="image/*"

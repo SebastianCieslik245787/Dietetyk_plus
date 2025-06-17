@@ -222,3 +222,7 @@
     width: 150px;
     height: 150px;
 }
+
+.preview:hover{
+    filter: brightness(0) saturate(100%) invert(38%) sepia(77%) saturate(920%) hue-rotate(324deg) brightness(95%) contrast(86%);
+}

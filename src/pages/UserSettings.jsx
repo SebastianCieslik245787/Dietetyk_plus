@@ -10,7 +10,6 @@ import { useImageUploader } from "../assets/hooks/useImageUploader.jsx";
 import LoadImageIcon from "../images/icons/add_image_icon.png";
 import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
 import {useCookies} from "react-cookie";
-import UserIcon from "../images/icons/deafult_user_icon.png"
 
 export function UserSettings() {
     const userData = getDataFromLocalStorage("");
@@ -57,6 +56,11 @@ export function UserSettings() {
         setUserPersonalData((prev) => ({ ...prev, img_b64: base64data }));
         setIsModifiedPersonalData(true);
     });
+
+    useEffect(() => {
+        console.log("Image base64:", image);
+        console.log("userData.img_b64:", userData?.img_b64);
+    }, [image, userData]);
 
     useEffect(() => {
         if (actualSettings === 1) {
@@ -106,7 +110,7 @@ export function UserSettings() {
                                 onDragOver={handleDragOver}
                                 onClick={() => fileInputRef.current.click()}
                             >
-                                <img src={`${image !== undefined ? image : UserIcon}`} className={userPersonalData.img_b64 === LoadImageIcon ? 'preview' : ''} alt="preview" />
+                                <img src={userPersonalData.img_b64} className={userPersonalData.img_b64 === LoadImageIcon ? 'preview' : ''} alt="preview" />
                                 <input
                                     type="file"
                                     accept="image/*"
