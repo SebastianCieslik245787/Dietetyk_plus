@@ -62,3 +62,139 @@ export const emptyDiet = {
         [],
     ]
 }
+
+export const emptyShoppingList = [
+    [
+        {
+            name: "",
+            meal: {
+                name: "",
+                img_b64: "",
+                ingredients: [
+                    {
+                        name: "",
+                        count: 0,
+                        unit: "",
+                        macros: { kcal: 0, proteins: 0, carbohydrates: 0, fats: 0, fiber: 0, sugar: 0 },
+                        categoryId: 0
+                    }
+                    ],
+                recipe: ""
+            }
+        }
+    ],
+    [
+        {
+            name: "",
+            meal: {
+                name: "",
+                img_b64: "",
+                ingredients: [
+                    {
+                        name: "",
+                        count: 0,
+                        unit: "",
+                        macros: { kcal: 0, proteins: 0, carbohydrates: 0, fats: 0, fiber: 0, sugar: 0 },
+                        categoryId: 0
+                    }
+                ],
+                recipe: ""
+            }
+        }
+    ],
+    [
+        {
+            name: "",
+            meal: {
+                name: "",
+                img_b64: "",
+                ingredients: [
+                    {
+                        name: "",
+                        count: 0,
+                        unit: "",
+                        macros: { kcal: 0, proteins: 0, carbohydrates: 0, fats: 0, fiber: 0, sugar: 0 },
+                        categoryId: 0
+                    }
+                ],
+                recipe: ""
+            }
+        }
+    ],
+    [
+        {
+            name: "",
+            meal: {
+                name: "",
+                img_b64: "",
+                ingredients: [
+                    {
+                        name: "",
+                        count: 0,
+                        unit: "",
+                        macros: { kcal: 0, proteins: 0, carbohydrates: 0, fats: 0, fiber: 0, sugar: 0 },
+                        categoryId: 0
+                    }
+                ],
+                recipe: ""
+            }
+        }
+    ],
+    [
+        {
+            name: "",
+            meal: {
+                name: "",
+                img_b64: "",
+                ingredients: [
+                    {
+                        name: "",
+                        count: 0,
+                        unit: "",
+                        macros: { kcal: 0, proteins: 0, carbohydrates: 0, fats: 0, fiber: 0, sugar: 0 },
+                        categoryId: 0
+                    }
+                ],
+                recipe: ""
+            }
+        }
+    ],
+    [
+        {
+            name: "",
+            meal: {
+                name: "",
+                img_b64: "",
+                ingredients: [
+                    {
+                        name: "",
+                        count: 0,
+                        unit: "",
+                        macros: { kcal: 0, proteins: 0, carbohydrates: 0, fats: 0, fiber: 0, sugar: 0 },
+                        categoryId: 0
+                    }
+                ],
+                recipe: ""
+            }
+        }
+    ],
+    [
+        {
+            name: "",
+            meal: {
+                name: "",
+                img_b64: "",
+                ingredients: [
+                    {
+                        name: "",
+                        count: 0,
+                        unit: "",
+                        macros: { kcal: 0, proteins: 0, carbohydrates: 0, fats: 0, fiber: 0, sugar: 0 },
+                        categoryId: 0
+                    }
+                ],
+                recipe: ""
+            }
+        }
+    ]
+]
