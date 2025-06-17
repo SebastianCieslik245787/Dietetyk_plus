@@ -95,12 +95,21 @@ function Creator() {
 
     const handleCreatorTypeClick = (index) => {
         setActiveCreator(index);
-        if (index === 0) {
+    }
+
+    useEffect(() => {
+        if (activeCreator === 0) {
             setData(meals);
+            setFilteredData(meals);
         } else {
             setData(diets);
+            setFilteredData(diets);
         }
-    }
+    }, [activeCreator, meals, diets]);
+
+    useEffect(() => {
+        console.log("Aktualne dane:", data);
+    }, [data]);
 
      const createEmptyDiet = () => ({
         name: '',
@@ -183,27 +192,34 @@ function Creator() {
                     {activeCreator === 0 ? (
                             <>
                                 {
-                                    filteredData.map((meal, index) => (
-                                        <Meal key={index}
-                                              data={meal}
-                                              mealImg={MealImg}
-                                              isActive={activeDataIndex === index}
-                                              onToggle={() => handleMealToggle(index)}
-                                              index={index}
-                                              onEdit={() => {
-                                                  setOpenAddItemWindow(true)
-                                                  setEdit(true)
-                                              }}
-                                              isCreator={true}
-                                              onClick={() => {
-                                                  setActiveDataIndex(index)
-                                                  setOpenDeleteWindow(true)
-                                              }}
-                                              ingredientsData={ingredients}
-                                              ingredientsKeys={ingredientsKeys}
-                                              mealKey={mealsKeys[index]}
-                                        />
-                                    ))}
+                                    filteredData.map((meal, index) => {
+                                        if (meal && typeof meal === 'object' && 'name' in meal && 'ingredients' in meal) {
+                                            return (
+                                                <Meal key={index}
+                                                      data={meal}
+                                                      mealImg={MealImg}
+                                                      isActive={activeDataIndex === index}
+                                                      onToggle={() => handleMealToggle(index)}
+                                                      index={index}
+                                                      onEdit={() => {
+                                                          setOpenAddItemWindow(true)
+                                                          setEdit(true)
+                                                      }}
+                                                      isCreator={true}
+                                                      onClick={() => {
+                                                          setActiveDataIndex(index)
+                                                          setOpenDeleteWindow(true)
+                                                      }}
+                                                      ingredientsData={ingredients}
+                                                      ingredientsKeys={ingredientsKeys}
+                                                      mealKey={mealsKeys[index]}
+                                                />
+                                            );
+                                        } else {
+                                            return null;
+                                        }
+                                    })
+                                }
                             </>
                         ) :
                         (
