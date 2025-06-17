@@ -7,7 +7,7 @@ import MacrosTable from "./MacrosTable.jsx";
 import {countMacros, countMacrosCreator} from "../../../scripts/countMacros.js";
 import DefaultMealIcon from "../../../images/icons/default_meal_icon.jpg";
 
-const Meal = ({data, isActive, onToggle, isCreator = false, onEdit, onClick, ingredientsData, isEdit=false}) => {
+const Meal = ({data, isActive, onToggle, isCreator = false, onEdit, onClick, ingredientsData, ingredientsKeys, isEdit=false}) => {
     const separatorRef = useRef(null);
     const leftSideRef = useRef(null);
     const rightSideRef = useRef(null);
@@ -61,7 +61,7 @@ const Meal = ({data, isActive, onToggle, isCreator = false, onEdit, onClick, ing
                     <div className="meal-info-right-elements">
                         { (isCreator || isEdit) ? (isEdit ? data.meal.ingredients !== undefined : data.ingredients !== undefined) ?
                             Object.entries(isEdit ? data.meal.ingredients : data.ingredients).map(([id, quantity]) => {
-                                    const ingredient = ingredientsData[Number(id)];
+                                    const ingredient = ingredientsData[ingredientsKeys.indexOf(id)];
 
                                     if (!ingredient) return null;
 

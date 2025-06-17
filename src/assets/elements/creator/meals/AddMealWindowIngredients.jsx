@@ -5,8 +5,10 @@ import {validateIngredient} from "../../../../scripts/validateData/validateAddMe
 import {onChangeInput} from "../../../hooks/onChangeInput.jsx";
 import {mealCategoryData, mealUnitData} from "../../../../data/SelectOptionsData.js";
 import {emptyIngredient} from "../../../../data/EmptyListsData.js";
+import {sendIngredientData, sendUpdateIngredientData} from "../../../../scripts/sendData/sendIngredientData.js";
+import {useCookies} from "react-cookie";
 
-const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIngredientsData}) => {
+const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIngredientsData, ingredientsKeys, setIngredientsKeys}) => {
     const [addIngredientError, setAddIngredientError] = useState("")
 
     const [ingredient, setIngredient] = useState(emptyIngredient)
@@ -19,10 +21,14 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
     const [activeUnit, setActiveUnit] = useState(-1)
     const [activeCategory, setActiveCategory] = useState(-1)
 
-    const handleClick = (ingredient) => {
+    const [cookies] = useCookies(["User-Key"]);
+
+    const handleClick = async (ingredient) => {
         if (activeUnit === -1 || activeCategory === -1) {
             return;
         }
+
+        let key= null;
 
         const newIngredient = {
             ...ingredient,
@@ -31,40 +37,36 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
         };
 
         if (!validateIngredient(newIngredient, count, setAddIngredientError)) return;
-        console.log(newIngredient)
 
-        let ingredientId = ingredientsData.findIndex(
+        let ingredientId = ingredientsKeys[ingredientsData.findIndex(
             ing => ing.name.toLowerCase() === newIngredient.name.toLowerCase()
-        );
+        )] || -1; //Niepotrzebne bo findIndex zwraca -1 jeśli nie znajdzie
 
         if (ingredientId === -1) {
-            setIngredientsData(prevIngredients => {
-                //TODO NOWY INGREDIENT
-                const updatedIngredients = [...prevIngredients, newIngredient];
-                ingredientId = updatedIngredients.length - 1;
+            key = await sendIngredientData(newIngredient, cookies);
 
-                setData(prev => {
-                    if (Array.isArray(prev.ingredients)) {
-                        return {
-                            ...prev,
-                            ingredients: [...prev.ingredients, newIngredient],
-                        };
-                    } else {
-                        const newIngredientsObj = { ...prev.ingredients };
-                        const prevCount = newIngredientsObj[ingredientId] || 0;
-                        newIngredientsObj[ingredientId] = prevCount + Number(count);
+            setIngredientsKeys(prev => [...prev, key]);
+            setIngredientsData(prevIngredients => [...prevIngredients, newIngredient]);
+            setData(prev => {
+                if (Array.isArray(prev.ingredients)) {
+                    return {
+                        ...prev,
+                        ingredients: [...prev.ingredients, newIngredient],
+                    };
+                } else {
+                    const newIngredientsObj = { ...prev.ingredients };
+                    const prevCount = newIngredientsObj[key] || 0;
+                    newIngredientsObj[key] = prevCount + Number(count);
 
-                        return {
-                            ...prev,
-                            ingredients: newIngredientsObj,
-                        };
-                    }
-                });
-
-                return updatedIngredients;
+                    return {
+                        ...prev,
+                        ingredients: newIngredientsObj,
+                    };
+                }
             });
         } else {
-            //TODO Update meal ingredienst
+            //NOTE Update meal ingredienst
+            //NOTE Baza czy nie baza?
             setData(prev => {
                 if (Array.isArray(prev.ingredients)) {
                     return {
@@ -76,13 +78,14 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
                     const prevCount = newIngredientsObj[ingredientId] || 0;
                     newIngredientsObj[ingredientId] = prevCount + Number(count);
 
+                    console.log(newIngredientsObj)
                     return {
                         ...prev,
                         ingredients: newIngredientsObj,
                     };
                 }
             });
-            console.log(newIngredient)
+            await sendUpdateIngredientData(ingredientId, newIngredient, cookies);
         }
 
         setShowIngredientsData(true)
@@ -90,9 +93,8 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
         setActiveCategory(-1)
         setActiveUnit(-1)
         setCount("")
-        console.log(newIngredient)
-        console.log(ingredientsData.find(ing => ing.name.toLowerCase() === newIngredient.name.toLowerCase()));
         setAddIngredientError("");
+        return key;
     };
 
     const handleRemove = (indexToRemove) => {
@@ -125,6 +127,7 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
 
     const handleSelectIngredient = (selectedIng) => {
         setShowIngredientsData(false)
+        console.log(selectedIng);
         const unitIndex = mealUnitData.findIndex(u => u === selectedIng.unit);
         setIngredient({
             name: selectedIng.name,
@@ -145,11 +148,12 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
                     <input value={ingredient.name} id={"name"} onChange={handleChange} className="add-meal-window-name-input ingredients" type="text" placeholder="Wpisz nazwę..." />
                     <div className={`drop-down-ingredients ${ingredient.name !== '' && showIngredientsData ? 'active' : ''}`}>
                         {
-                            filteredIngredients.map((ing, index) => (
-                                <div key={index} className={`drop-down-ingredient-item ${ingredient.name !== '' && showIngredientsData ? 'active' : ''}`} onClick={() => handleSelectIngredient(ing)}>
+                            filteredIngredients.map((ing) => (
+                                <div key={ingredientsKeys[ingredientsData.indexOf(ing)]}
+                                     className={`drop-down-ingredient-item ${ingredient.name !== '' && showIngredientsData ? 'active' : ''}`}
+                                     onClick={() => handleSelectIngredient(ing)}>
                                     {ing.name}
-                                </div>
-                            ))
+                                </div>))
                         }
                     </div>
                     <input value={count} onChange={handleChangeCount} className="add-meal-window-name-input ingredients-count" type="text" placeholder="Wpisz ilość..." />
@@ -168,7 +172,7 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
                         AddWindow={true}
                         placeHolder={"Jednostka"}
                     />
-                    <div className="add-meal-window-add-ingredient" onClick={() => handleClick(ingredient)}>
+                    <div className="add-meal-window-add-ingredient" onClick={async () => handleClick(ingredient)}>
                         Dodaj
                     </div>
                     <div className={`add-meal-window-error ${addIngredientError !== '' ? 'visible' : ''} add-ingredients-error`}>
@@ -178,7 +182,7 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
                 <div className="add-meal-window-ingredients-items">
                     {
                         Object.entries(data.ingredients).map(([id, quantity], index) => {
-                            const ingredient = ingredientsData[Number(id)];
+                            const ingredient = ingredientsData[ingredientsKeys.indexOf(id)];
 
                             if (!ingredient) return null;
 

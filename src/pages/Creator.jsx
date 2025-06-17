@@ -8,24 +8,26 @@ import AddMealWindow from "../assets/elements/creator/meals/AddMealWindow.jsx";
 import Meal from "../assets/elements/diet/Meal.jsx";
 import MealImg from "../images/icons/jajecznica.webp";
 import {changeDietPlanContainerSize} from "../scripts/changeDietPlanContainerSize.js";
-import {mealsData2} from "../data/MealsData.js";
 import DietItem from "../assets/elements/creator/diets/DietItem.jsx";
-import {dietData} from "../data/DIetData.js";
 import AddDietWindow from "../assets/elements/creator/diets/AddDietWindow.jsx";
 import DeleteWindow from "../assets/DeleteWindow.jsx";
 import {useDeleteFromArray} from "../assets/hooks/useDeleteFromArray.jsx";
 import {emptyDiet} from "../data/EmptyListsData.js";
-import {ingredientsData} from "../data/ingredients.js";
+import {getAllIngredients} from "../scripts/getData/getIngredientsData.js";
+import {useCookies} from "react-cookie";
+import {getAllMeals} from "../scripts/getData/getMealsData.js";
+import {getAllDiets} from "../scripts/getData/getDietsData.js";
+import {sendDeleteMealData, sendMealData, sendUpdateMealData} from "../scripts/sendData/sendMealData.js";
+import {sendDeleteDietPlanData} from "../scripts/sendData/sendDietPlanData.js";
 
 function Creator() {
     const [activeCreator, setActiveCreator] = useState(0);
-    const [edit,setEdit] = useState(false);
+    const [edit, setEdit] = useState(false);
 
     const [openAddItemWindow, setOpenAddItemWindow] = useState(false);
 
     const [activeDataIndex, setActiveDataIndex] = useState(null);
 
-    const [data, setData, removeDataAtIndex] = useDeleteFromArray(mealsData2);
 
     const [openDeleteWindow, setOpenDeleteWindow] = useState(false);
 
@@ -35,15 +37,69 @@ function Creator() {
         setActiveDataIndex(prevIndex => (prevIndex === index ? null : index));
         changeDietPlanContainerSize()
     };
-    //TODO get from database
-    const [ingredients, setIngredients] = useState(ingredientsData);
+
+    const [cookies] = useCookies(["User-Key"]);
+
+
+
+    const [isLoaded, setIsLoaded] = useState(false)
+
+    const [ingredients, setIngredients] = useState([]);
+    const [meals, setMeals] = useState([]);
+    const [diets, setDiets] = useState([]);
+
+    const [ingredientsKeys, setIngredientsKeys] = useState([]);
+    const [mealsKeys, setMealsKeys] = useState([]);
+    const [dietsKeys, setDietsKeys] = useState([]);
+
+
+    const [data, setData, removeDataAtIndex] = useDeleteFromArray([]);
+    const [filteredData, setFilteredData] = useState([]);
+
+
+
+
+    useEffect(() => {
+        (async () => {
+
+            const [mealsK, mealsD] = await getAllMeals(cookies);
+            if (mealsD && Array.isArray(mealsD) && mealsK && Array.isArray(mealsK)) {
+                setMeals(mealsD || []);
+                setMealsKeys(mealsK || []);
+                setFilteredData(mealsD)
+            } else {
+                setMeals([]);
+            }
+
+            setIsLoaded(true);
+
+            const [ingredientsKeys, ingredientsData] = await getAllIngredients(cookies);
+            if (ingredientsData && Array.isArray(ingredientsData)) {
+                setIngredients(ingredientsData);
+                setIngredientsKeys(ingredientsKeys || []);
+            } else {
+                setIngredients([]);
+            }
+
+            const [dietKeys,dietData] = await getAllDiets(cookies);
+            if (dietData && Array.isArray(dietData)) {
+                setDiets(dietData);
+                setDietsKeys(dietKeys || []);
+            } else {
+                setDiets([]);
+            }
+
+        })();
+    }, [cookies]);
+
+
 
     const handleCreatorTypeClick = (index) => {
         setActiveCreator(index);
         if (index === 0) {
-            setData(mealsData2);
+            setData(meals);
         } else {
-            setData(dietData);
+            setData(diets);
         }
     }
 
@@ -69,14 +125,14 @@ function Creator() {
 
     const handleSaveMeal = (newMeal) => {
         if (activeDataIndex !== null) {
-            //TODO update meal
             setData(prevData => {
                 const updated = [...prevData];
                 updated[activeDataIndex] = newMeal;
                 return updated;
             });
+            sendUpdateMealData(dietsKeys[activeDataIndex], newMeal, cookies);
         } else {
-            //TODO nowy meal
+            sendMealData(newMeal, cookies);
             setData(prevData => [...prevData, newMeal]);
         }
         setActiveDataIndex(null);
@@ -84,11 +140,22 @@ function Creator() {
 
     const [searchQuery, setSearchQuery] = useState("");
 
-    const filteredData = data.filter(item =>
-        item.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    useEffect(() => {
+        if (!Array.isArray(data)) { // Dodatkowe zabezpieczenie
+            setFilteredData([]);
+            return;
+        }
+        const filtered = data.filter(item => {
+            if (item && typeof item.name === 'string') {
+                return item.name.toLowerCase().includes(searchQuery.toLowerCase());
+            }
+            return false;
+        });
+        setFilteredData(filtered);
+    }, [data, searchQuery]);
 
     return (
+        isLoaded ? (
         <>
             <NavigationBar/>
             <div className="creator-container" ref={creatorContainer}>
@@ -134,6 +201,8 @@ function Creator() {
                                                   setOpenDeleteWindow(true)
                                               }}
                                               ingredientsData={ingredients}
+                                              ingredientsKeys={ingredientsKeys}
+                                              mealKey={mealsKeys[index]}
                                         />
                                     ))}
                             </>
@@ -141,7 +210,7 @@ function Creator() {
                         (
                             <>
                                 {
-                                    filteredData .map((diet, index) => (
+                                    filteredData.map((diet, index) => (
                                         <DietItem
                                             key={index}
                                             data={diet}
@@ -176,6 +245,9 @@ function Creator() {
                         ingredientsData={ingredients}
                         setIngredientsData={setIngredients}
                         onSave={handleSaveMeal}
+                        ingredientsKeys={ingredientsKeys}
+                        mealKey={activeDataIndex !== null ? mealsKeys[activeDataIndex] : null}
+                        setIngredientsKeys={setIngredientsKeys}
                     />
                     :
                     <AddDietWindow
@@ -198,6 +270,11 @@ function Creator() {
                         setDiets={setData}
                         diets={data}
                         isEdit={edit}
+                        actualKey={activeDataIndex !== null ? dietsKeys[activeDataIndex] : null}
+                        mealsKeys={mealsKeys}
+                        mealsData={meals}
+                        ingredientsKeys={ingredientsKeys}
+                        setIngredientsKeys={setIngredientsKeys}
                     />)
                 : ''
             }
@@ -206,6 +283,9 @@ function Creator() {
                     <DeleteWindow
                         onClose={() => setOpenDeleteWindow(false)}
                         onDelete={() => {
+                            activeCreator === 0 ?
+                                sendDeleteMealData(mealsKeys[activeDataIndex], cookies):
+                                sendDeleteDietPlanData(dietsKeys[activeDataIndex], cookies)
                             removeDataAtIndex(activeDataIndex)
                             setActiveDataIndex(null)
                             setOpenDeleteWindow(false)
@@ -214,6 +294,7 @@ function Creator() {
                     /> : ''
             }
         </>
+        ) : ""
     );
 }
 

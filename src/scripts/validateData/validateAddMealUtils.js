@@ -40,5 +40,5 @@ export function validateIngredient(ingredient, count, setError) {
 }
 
 export function isEditedMeal(data) {
-    return data.name !== '' || data.ingredients.length > 0 || data.image !== null || data.recipe !== '';
+    return data.name !== '' || data.ingredients.length > 0 || data.img_b64 !== null || data.recipe !== '';
 }

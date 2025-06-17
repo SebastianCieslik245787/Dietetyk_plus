@@ -2,16 +2,21 @@ import "../../../style/DieteticanPatientsPage.css";
 import CloseWindowIcon from "../../../images/icons/close_window_icon.png"
 import EditIcon from "../../../images/icons/edit_icon.png"
 import {useState} from "react";
-import {dietData} from "../../../data/DIetData.js";
 import DietPlan from "../diet/DietPlan.jsx";
-import {ingredientsData} from "../../../data/ingredients.js";
 import {emptyDiet} from "../../../data/EmptyListsData.js";
 import {dietDayNames} from "../../../data/SelectOptionsData.js";
+import {getAllIngredients} from "../../../scripts/getData/getIngredientsData.js";
+import {useCookies} from "react-cookie";
+import {getAllDiets} from "../../../scripts/getData/getDietsData.js";
+import {getDataFromLocalStorage} from "../../../scripts/getDataFromLocalStorage.js";
 
 const AssignDietWindow = ({onClose, actualKey}) => {
     const [findDietQuery, setFindDietQuery] = useState("");
     const handleChange = (e) => setFindDietQuery(e.target.value.toLowerCase());
 
+    const [cookies] = useCookies(["User-Key"]);
+    //TODO Wykorzystać to
+    const [dietKeys, dietData] = getAllDiets(cookies);
     const [diets, setDiets] = useState(dietData);
 
     const [dietPlan, setDietPlan] = useState(emptyDiet);
@@ -20,8 +25,9 @@ const AssignDietWindow = ({onClose, actualKey}) => {
         diet.name.toLowerCase().includes(findDietQuery)
     );
 
-    //TODO wczytaj ingredients z bazy
-    const [ingredients, setIngredients] = useState(ingredientsData);
+    const [cookie] = useCookies(["User-Key"]);
+    const [ingredientKeys, ingredientData] = getAllIngredients(cookie);
+    const [ingredients, setIngredients] = useState(ingredientData);
 
     const [editDietPlan, setEditDietPlan] = useState(false);
 
@@ -39,6 +45,12 @@ const AssignDietWindow = ({onClose, actualKey}) => {
                             setData={setDietPlan}
                             onClick={() => setEditDietPlan(false)}
                             onClose={() => setEditDietPlan(false)}
+                            dietKey={getDataFromLocalStorage("currentDietId")}
+                            //TODO dodac Melas keys
+                            mealsKeys={null}
+                            mealsData={[]}
+                            //TODO dodac Ingredienst keys
+                            ingredientsKeys={null}
                         />
                         :
                         <div className="assign-diet-window">
@@ -77,6 +89,7 @@ const AssignDietWindow = ({onClose, actualKey}) => {
                             </div>
                             {
                                 //TODO jak bedzie funckja do zapisywania dla ludzika to podmien onClose na własną
+                                //FIXME User się zapisuje czy robi to dietetyk? Jak dietetyk to chcę tutaj id usera
                             }
                             <div className={"assign-diet-window-edit-diet-plan-save-button"} onClick={onClose}>
                                 Zapisz

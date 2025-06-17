@@ -157,3 +157,46 @@
     margin-top: 20px;
     margin-left: 100px;
 }
+
+.chart-legend{
+    width: 200px;
+    top: 120px;
+    position: absolute;
+    height: 60px;
+    right: calc((100% - 200px)/2);
+}
+
+.chart-legend-item{
+    height: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    float: left;
+    position: relative;
+}
+
+.chart-legend-item-circle{
+    height: 20px;
+    width: 20px;
+    background-color: #3c6fb2;
+    border-radius: 10px;
+    float: left;
+}
+
+.chart-legend-item-description{
+    width: calc(100% - 50px);
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    color: #3c6fb2;
+    float: left;
+    font-size: 1.2rem;
+}
+
+.chart-legend-item-circle.second{
+    background-color: #de0404;
+}
+
+.chart-legend-item-description.second{
+    color: #de0404;
+}
