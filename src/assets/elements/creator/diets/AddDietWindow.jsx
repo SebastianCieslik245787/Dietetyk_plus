@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import DietInfoWindow from "./DietInfoWindow.jsx";
 import {useCookies} from "react-cookie";
 import {sendDietPlanData, sendUpdateDietPlanData} from "../../../../scripts/sendData/sendDietPlanData.js";
+import {validateAddDiet} from "../../../../scripts/validateData/validateAddDietUtils.js";
 
 /**
  * Okno dodawania diety, bądz edycji istniejącej diety
@@ -41,7 +42,21 @@ import {sendDietPlanData, sendUpdateDietPlanData} from "../../../../scripts/send
  *
  * @returns {JSX.Element} Okno dodawania, bądz edytowania diety.
  */
-const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, setIngredientsData, diets, setDiets, isEdit= false, actualKey, mealsData, mealsKeys, ingredientsKeys, setIngredientsKeys}) => {
+const AddDietWindow = ({
+                           data,
+                           showDietPlan = false,
+                           onClose,
+                           ingredientsData,
+                           setIngredientsData,
+                           diets,
+                           setDiets,
+                           isEdit = false,
+                           actualKey,
+                           mealsData,
+                           mealsKeys,
+                           ingredientsKeys,
+                           setIngredientsKeys
+                       }) => {
     /**
      * Odpowiada za przełączanie okna z nazwą i opisem diety, na okno edycji planu diety.
      *
@@ -66,13 +81,14 @@ const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, se
     }, [showDietPlan])
 
     const handleAddDiet = () => {
+        if (!validateAddDiet(setErrors, dietData)) return
+
         //NOTE Dodawanie nowej diety
-        if(!isEdit){
+        if (!isEdit) {
             const updatedDiets = [...diets, dietData];
             setDiets(updatedDiets);
             sendDietPlanData(dietData, cookies)
-        }
-        else {
+        } else {
             //TODO przekazać id diety do edycji
             const updatedDiets = diets.map(diet =>
                 diet.name === dietData.name ? dietData : diet
@@ -85,6 +101,11 @@ const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, se
 
     const [cookies] = useCookies(["User-Key"]);
 
+    const [errors, setErrors] = useState({
+        name: "",
+        description: "",
+    });
+
     return (<>
         <div className={"add-diet-window-container"}>
             {(!editDietPlan && showDietPlan === false) ?
@@ -96,6 +117,7 @@ const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, se
                     setData={setDietData}
                     onClose={onClose}
                     onSave={handleAddDiet}
+                    errors={errors}
                 />
                 :
                 <DietPlan
@@ -118,6 +140,7 @@ const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, se
                     dietKey={actualKey}
                     ingredientsKeys={ingredientsKeys}
                     setIngredientsKeys={setIngredientsKeys}
+                    isCreator={true}
                 />}
         </div>
     </>)

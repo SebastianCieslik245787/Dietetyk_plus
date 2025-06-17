@@ -25,7 +25,8 @@ const DietPlan = ({
                       mealsData,
                       mealsKeys,
                       ingredientsKeys,
-                      setIngredientsKeys
+                      setIngredientsKeys,
+                      isCreator=false
                   }) => {
     const [activeIndex, setActiveIndex] = useState(dayOfWeek);
     const [activeMealIndex, setActiveMealIndex] = useState(null);
@@ -156,6 +157,7 @@ const DietPlan = ({
                                 setEditMealIndex(index);
                                 setAddMealToDay(true);
                             }}
+                            isCreator={isCreator}
                             onClick={() => setDeleteWindow(true)}
                         />
                     ))

@@ -24,7 +24,7 @@ import {onChangeInput} from "../../../hooks/onChangeInput.jsx";
  *
  * @returns {JSX.Element} Okno dodawania lub edycji nazwy i opisu diety.
  */
-const DietInfoWindow = ({onClick, data, setData, onClose, onSave}) => {
+const DietInfoWindow = ({onClick, data, setData, onClose, onSave, errors}) => {
     /**
      * Funkcja obserwująca zmiany w polu edycji i zamieniająca je w danych diety.
      *
@@ -44,8 +44,8 @@ const DietInfoWindow = ({onClick, data, setData, onClose, onSave}) => {
                 <div className={"diet-info-body"}>
                     <div className={"diet-info-name"}>
                         <input id={"name"} onChange={handleChange} value={data.name} type="text" placeholder={"Wpisz nazwę..."} className="diet-info-input"/>
-                        <div className={`diet-info-error`}>
-                            XDD
+                        <div className={`diet-info-error ${errors.name !== "" ? 'active' : ''}`}>
+                            {errors.name}
                         </div>
                     </div>
                     <div className={"diet-info-edit-plan-button"} onClick={onClick}>
@@ -58,8 +58,8 @@ const DietInfoWindow = ({onClick, data, setData, onClose, onSave}) => {
                     </div>
                     <div className={"diet-info-description"}>
                         <textarea value={data.description} placeholder={'Opisz...'} id={"description"} onChange={handleChange}/>
-                        <div className={`diet-info-error description`}>
-                            XDD
+                        <div className={`diet-info-error ${errors.description !== "" ? 'active' : ''} description`}>
+                            {errors.description}
                         </div>
                     </div>
                 </div>

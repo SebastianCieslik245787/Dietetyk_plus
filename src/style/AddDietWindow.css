@@ -81,6 +81,10 @@
     visibility: hidden;
 }
 
+.diet-info-error.active{
+    visibility: visible;
+}
+
 .diet-info-edit-plan-button{
     width: 20%;
     height: 40px;

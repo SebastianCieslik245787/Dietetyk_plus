@@ -55,7 +55,7 @@ function validateEmail(email) {
     const errorField = document.getElementById("emailError");
     const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (email === "" || !EMAIL_REGEX.test(email)) {
-        setErrorField(errorField, "Email address is invalid! (abc@abc.abc)");
+        setErrorField(errorField, "Adres e-mail jest nie poprawny!");
         return false;
     }
     fetch(
@@ -69,7 +69,7 @@ function validateEmail(email) {
         }
     ).then(r => {
         if (r.status === 409) {
-            setErrorField(errorField, "Email already exists!");
+            setErrorField(errorField, "E-mail jest już używany!");
             return false;
         }
     }
@@ -81,7 +81,7 @@ function validateEmail(email) {
 function validateName(name) {
     const errorField = document.getElementById("nameError");
     if (name === "") {
-        setErrorField(errorField, "Name is required!");
+        setErrorField(errorField, "Pole Imie jest wymagane!");
         return false;
     }
     errorField.style.visibility = "hidden";
@@ -91,7 +91,7 @@ function validateName(name) {
 function validateSurname(surname) {
     const errorField = document.getElementById("surnameError");
     if (surname === "") {
-        setErrorField(errorField, "Surname is required!");
+        setErrorField(errorField, "Pole Nazwisko jest wymagane!");
         return false;
     }
     errorField.style.visibility = "hidden";
@@ -102,7 +102,7 @@ function validatePassword(password) {
     const errorField = document.getElementById("passwordError");
     const PASSWORD_REGEX = /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
     if (password === "" && !PASSWORD_REGEX.test(password)) {
-        setErrorField(errorField, "Password is invalid! (Use minimum 1 Capital letter, 1 digit, 1 special sign, and minimum 8 sings)");
+        setErrorField(errorField, "Hasło niepoprawne");
         return false;
     }
     errorField.style.visibility = "hidden";
@@ -112,7 +112,7 @@ function validatePassword(password) {
 function validateConfirmPassword(confirmPassword, password) {
     const errorField = document.getElementById("confirmPasswordError");
     if (confirmPassword !== password || confirmPassword === "") {
-        setErrorField(errorField, "Password are not the same!");
+        setErrorField(errorField, "Hasła nie są identyczne!");
         return false;
     }
     errorField.style.visibility = "hidden";
@@ -123,7 +123,7 @@ function validatePhoneNumber(phoneNumber) {
     const errorField = document.getElementById("phoneNumberError");
     const PHONE_NUMBER_REGEX = /^(?:\+48\s?\d{9}|\+48\s?\d{3}\s\d{3}\s\d{3}|\+48\s?\d{3}-\d{3}-\d{3}|\d{9}|\d{3}\s\d{3}\s\d{3}|\d{3}-\d{3}-\d{3})$/;
     if (phoneNumber === "" && !PHONE_NUMBER_REGEX.test(phoneNumber)) {
-        setErrorField(errorField, "Phone number is invalid!");
+        setErrorField(errorField, "Numer telefonu jest niepoprawny!");
         return false;
     }
     errorField.style.visibility = "hidden";
@@ -133,7 +133,7 @@ function validatePhoneNumber(phoneNumber) {
 function validateBirthDate(birthDate) {
     const errorField = document.getElementById("birthDateError");
     if (birthDate === "") {
-        setErrorField(errorField, "Birth date is required!");
+        setErrorField(errorField, "Data urodzenia jest wymagana!");
         return false;
     }
     let today = new Date();
@@ -148,7 +148,7 @@ function validateBirthDate(birthDate) {
     }
 
     if (age < 0 || age < 18) {
-        setErrorField(errorField, "You are to young!");
+        setErrorField(errorField, "Jestes za młody!");
         return false;
     }
     errorField.style.visibility = "hidden";
@@ -158,7 +158,7 @@ function validateBirthDate(birthDate) {
 function validateGender(gender){
     const errorField = document.getElementById("genderError");
     if(gender === ""){
-        setErrorField(errorField, "Gender is required!");
+        setErrorField(errorField, "Płeć jest wymagana!");
         return false;
     }
     errorField.style.visibility = "hidden";
@@ -169,7 +169,7 @@ function validateHeight(height) {
     const errorField = document.getElementById("heightError");
     const HEIGHT_REGEX = /^(1\d\d)|(2[0-5]\d)$/;
     if (height === "" || !HEIGHT_REGEX.test(height)) {
-        setErrorField(errorField, "Height is invalid!");
+        setErrorField(errorField, "Wzrost jest niepoprawny!");
         return false;
     }
     errorField.style.visibility = "hidden";
@@ -180,7 +180,7 @@ function validateWeight(weight) {
     const errorField = document.getElementById("weightError");
     const WEIGHT_REGEX = /^(\d\d)|(\d\d\d)$/;
     if (weight === "" || !WEIGHT_REGEX.test(weight)) {
-        setErrorField(errorField, "Weight is invalid!");
+        setErrorField(errorField, "Waga jest niepoprawna!");
         return false;
     }
     errorField.style.visibility = "hidden";
@@ -190,7 +190,7 @@ function validateWeight(weight) {
 function validateJobType(jobType) {
     const errorField = document.getElementById("jobError");
     if(jobType === "") {
-        setErrorField(errorField, "Job type is required!");
+        setErrorField(errorField, "Typ pracy jest wymagany!");
         return false;
     }
     errorField.style.visibility = "hidden";
@@ -200,7 +200,7 @@ function validateJobType(jobType) {
 function validateDietPurpose(purpose) {
     const errorField = document.getElementById("dietPurposeError");
     if (purpose === "") {
-        setErrorField(errorField, "Diet purpose is required!");
+        setErrorField(errorField, "Cel diety jest wymagany!");
         return false;
     }
     errorField.style.visibility = "hidden";
