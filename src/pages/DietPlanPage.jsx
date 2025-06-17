@@ -10,6 +10,7 @@ import {useEffect, useState} from "react";
 import {getDietPlanData} from "../scripts/getData/getDietsData.js";
 import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
 import {getAllIngredients} from "../scripts/getData/getIngredientsData.js";
+import TransparentLogo from "../images/transparent_logo.png";
 
 function getBase64FromUrl(url) {
     return fetch(url)
@@ -47,9 +48,9 @@ function DietPlanPage() {
     }, [cookies]);
 
     const handleDownloadPDF = async () => {
-    const name = getDataFromLocalStorage("name")
-    const surname = getDataFromLocalStorage("surname")
-    const logoBase64 = await getBase64FromUrl("src/images/transparent_logo.png");
+    const name = getDataFromLocalStorage("name") || "Pacjent";
+    const surname = getDataFromLocalStorage("surname") || "";
+    const logoBase64 = await getBase64FromUrl(TransparentLogo);
     generateDietPDF(dietData, name, surname, logoBase64);
     };
     return (
