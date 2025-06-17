@@ -7,7 +7,6 @@ import AddMealToDay from "../creator/diets/AddMealToDay.jsx";
 import CreatorAddItem from "../creator/CreatorAddItem.jsx";
 import {changeDietPlanContainerSize} from "../../../scripts/changeDietPlanContainerSize.js";
 import DeleteWindow from "../../DeleteWindow.jsx";
-import {useCookies} from "react-cookie";
 
 const today = new Date();
 const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1;
@@ -21,7 +20,6 @@ const DietPlan = ({
                       ingredientsData,
                       setIngredientsData,
                       onClose,
-                      dietKey,
                       mealsData,
                       mealsKeys,
                       ingredientsKeys,

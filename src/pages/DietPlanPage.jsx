@@ -6,7 +6,10 @@ import {dietPlanData} from "../data/dietPlanDataUser.js";
 import {dietDayNames} from "../data/SelectOptionsData.js";
 import {generateDietPDF} from "../scripts/generatePDF.js";
 import {useCookies} from "react-cookie";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {getDietPlanData} from "../scripts/getData/getDietsData.js";
+import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
+import {getAllIngredients} from "../scripts/getData/getIngredientsData.js";
 
 function getBase64FromUrl(url) {
     return fetch(url)
@@ -20,12 +23,33 @@ function getBase64FromUrl(url) {
 }
 
 function DietPlanPage() {
-    const [cookies] = useCookies(["name", "surname"]);
+    const [cookies] = useCookies(["User-Key"]);
     const [dietData, setDietData] = useState(dietPlanData);
+    const [ingredientsData, setIngredientsData] = useState([]);
+
+    useEffect(() => {
+        async function loadDietData() {
+            const data = await getDietPlanData(getDataFromLocalStorage("currentDietId"), cookies)
+            if (data) {
+                console.log(data)
+                setDietData(data);
+            } else {
+                console.error("Nie udało się załadować planu diety.");
+            }
+
+            const ingredients = await getAllIngredients(cookies);
+            if (ingredients) {
+                setIngredientsData(ingredients);
+            } else {
+                console.error("Nie udało się załadować składników diety.");
+            }
+        }
+        loadDietData();
+    }, [cookies]);
 
     const handleDownloadPDF = async () => {
-    const name = cookies.name || "Pacjent";
-    const surname = cookies.surname || "";
+    const name = getDataFromLocalStorage("name")
+    const surname = getDataFromLocalStorage("surname")
     const logoBase64 = await getBase64FromUrl("src/images/transparent_logo.png");
     generateDietPDF(dietData, name, surname, logoBase64);
     };
@@ -37,6 +61,7 @@ function DietPlanPage() {
                 data={dietData}
                 setData={setDietData}
                 onClick={handleDownloadPDF}
+                ingredientsData={ingredientsData}
             />
         </div>
     );

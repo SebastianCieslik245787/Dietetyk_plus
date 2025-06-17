@@ -52,7 +52,6 @@ export async function getDietPlanData(id, cookies) {
             if (data.error) {
                 console.log(data.error);
             }
-
             return data;
         }
 
