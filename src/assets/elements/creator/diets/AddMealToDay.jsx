@@ -84,9 +84,7 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
      * @default Brak nazwy.
      */
     const [mealName, setMealName] = useState("");
-
-
-    const [cookies] = useCookies(['user-key', 'user-data']);
+    const [cookies] = useCookies(['User-Key']);
 
     /**
      * Funkcja dodająca nowy posiłek do aktualnych danych.

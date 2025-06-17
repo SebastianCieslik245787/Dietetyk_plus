@@ -13,8 +13,10 @@ async function getUsersData(cookies, type){
 
         switch (response.status) {
             case 200:
-                { const data = await response.json();
-                return data || []; }
+                {
+                    const data = await response.json();
+                    return data || [];
+                }
             case 401:
                 alert("Niepoprawne dane logowania");
                 return [];

@@ -1,4 +1,5 @@
 import {getDataFromLocalStorage} from "../getDataFromLocalStorage.js";
+import {sendUpdateDietPlanData} from "./sendDietPlanData.js";
 
 export function changeUserDietetic(type, userOrDietitianId, cookies) {
     fetch(
@@ -33,7 +34,11 @@ export function changeUserDietetic(type, userOrDietitianId, cookies) {
     })
 }
 
-export function changeUserDietPlan(userId, dietId, cookies) {
+export function changeUserDietPlan(userId, dietId, cookies, dietData = null) {
+    if (userId === dietId){
+        sendUpdateDietPlanData(userId, dietData, cookies);
+    }
+
     fetch(
         `/api/update/patient/${userId}/${dietId}`,
         {

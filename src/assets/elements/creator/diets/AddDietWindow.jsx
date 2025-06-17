@@ -82,7 +82,7 @@ const AddDietWindow = ({
 
     const handleAddDiet = () => {
         if (!validateAddDiet(setErrors, dietData)) return
-
+        dietData.isPrivate = 0
         //NOTE Dodawanie nowej diety
         if (!isEdit) {
             const updatedDiets = [...diets, dietData];

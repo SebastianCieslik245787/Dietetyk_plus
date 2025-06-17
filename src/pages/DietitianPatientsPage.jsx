@@ -26,6 +26,7 @@ function DietitianPatientsPage() {
     const [filteredPatients, setFilteredPatients] = useState([]);
 
     const [actualKey, setActualKey] = useState(null);
+    const [currentDietId, setCurrentDietId] = useState(null);
 
     const [editDietWindow, setEditDietWindow] = useState(false);
 
@@ -34,7 +35,7 @@ function DietitianPatientsPage() {
     const handleDelete = (key) => {
         changeUserDietetic("remove", key, cookies)
         setIsDeleteWindowOpen(false);
-        console.log("usuniento pacjenta");
+        console.log("usunięto pacjenta");
     }
 
     useEffect(() => {
@@ -88,13 +89,13 @@ function DietitianPatientsPage() {
                                     onMoreInfo={() => {
                                         setExpandedPatientIndex(index)
                                         setIsPatientClicked(true);
-                                        console.log(filteredPatients[expandedPatientIndex])
                                     }}
                                     onDelete={(key) => {
                                         setIsDeleteWindowOpen(true)
                                         setActualKey(key)
                                     }}
-                                    onEdit={(key) => {
+                                    onEdit={(key, dietId) => {
+                                        setCurrentDietId(dietId)
                                         setEditDietWindow(true)
                                         setActualKey(key)
                                     }}
@@ -115,6 +116,7 @@ function DietitianPatientsPage() {
                         <AssignDietWindow
                             onClose={() => setEditDietWindow(false)}
                             actualKey={actualKey}
+                            dietId={currentDietId || ""}
                         />
                     )
                 }
