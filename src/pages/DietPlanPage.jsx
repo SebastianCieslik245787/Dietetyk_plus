@@ -64,6 +64,7 @@ function DietPlanPage() {
                 onClick={handleDownloadPDF}
                 ingredientsData={ingredientsData}
                 ingredientsKeys={ingredientsKeys}
+                isUser={true}
             />
         </div>
     );
