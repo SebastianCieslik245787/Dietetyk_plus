@@ -35,6 +35,10 @@ export function countMacrosCreator(ingredients, ingredientsArray) {
         sugar: 0.0
     };
 
+    if (!ingredients || ingredients.length === 0) {
+        return totalMacros;
+    }
+
     for (const [id, quantity] of Object.entries(ingredients)) {
         const ingredientData = ingredientsArray.find((item, index) => String(index) === id);
 

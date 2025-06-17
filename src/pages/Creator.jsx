@@ -8,13 +8,16 @@ import AddMealWindow from "../assets/elements/creator/meals/AddMealWindow.jsx";
 import Meal from "../assets/elements/diet/Meal.jsx";
 import MealImg from "../images/icons/jajecznica.webp";
 import {changeDietPlanContainerSize} from "../scripts/changeDietPlanContainerSize.js";
-import {mealsData2} from "../data/MealsData.js";
 import DietItem from "../assets/elements/creator/diets/DietItem.jsx";
-import {dietData} from "../data/DIetData.js";
 import AddDietWindow from "../assets/elements/creator/diets/AddDietWindow.jsx";
 import DeleteWindow from "../assets/DeleteWindow.jsx";
 import {useDeleteFromArray} from "../assets/hooks/useDeleteFromArray.jsx";
-import {ingredientsData} from "../data/ingredients.js";
+import {useCookies} from "react-cookie";
+import {getAllMeals} from "../scripts/getData/getMealsData.js";
+import {getAllIngredients} from "../scripts/getData/getIngredientsData.js";
+import {getAllDiets} from "../scripts/getData/getDietsData.js";
+import {sendDeleteMealData, sendMealData, sendUpdateMealData} from "../scripts/sendData/sendMealData.js";
+import {sendDeleteDietPlanData} from "../scripts/sendData/sendDietPlanData.js";
 
 function Creator() {
     const [activeCreator, setActiveCreator] = useState(0);

@@ -4,7 +4,7 @@ import Dietitian from "../assets/elements/dietitians/Dietitian.jsx";
 import {useEffect, useState} from "react";
 import {useCookies} from "react-cookie";
 import {getDietitiansData} from "../scripts/getData/getUsersData.js";
-import {changeUserDietetic} from "../scripts/sendData/sendUserDieteticChange.js";
+import {changeUserDietetic} from "../scripts/sendData/sendPatientDataChange.js";
 
 function Dietitians(){
     const [cookies] = useCookies(["User-Key"]);

@@ -32,3 +32,29 @@ export function changeUserDietetic(type, userOrDietitianId, cookies) {
         }
     })
 }
+
+export function changeUserDietPlan(userId, dietId, cookies) {
+    fetch(
+        `/api/update/patient/${userId}/${dietId}`,
+        {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": cookies['User-Key'],
+            },
+        }
+    ).then(r => {
+        switch (r.status) {
+            case 200:
+                r.text().then(resp => {
+                    console.log(resp);
+                })
+                break;
+            case 401:
+                alert("Niepoprawne dane logowania");
+                break;
+            default:
+                alert("Wystąpił nieznany błąd. Spróbuj ponownie później.");
+        }
+    })
+}

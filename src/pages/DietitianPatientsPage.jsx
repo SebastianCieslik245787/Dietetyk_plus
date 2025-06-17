@@ -7,7 +7,7 @@ import PatientInformations from "../assets/elements/dietitian_patients/PatientIn
 import {useCookies} from "react-cookie";
 import Patient from "../assets/elements/dietitian_patients/Patient.jsx";
 import DeleteWindow from "../assets/DeleteWindow.jsx";
-import {changeUserDietetic} from "../scripts/sendData/sendUserDieteticChange.js";
+import {changeUserDietetic} from "../scripts/sendData/sendPatientDataChange.js";
 import AssignDietWindow from "../assets/elements/dietitian_patients/AssignDietWindow.jsx";
 
 
@@ -30,9 +30,8 @@ function DietitianPatientsPage() {
     const handleDelete = (key) => {
         changeUserDietetic("remove", key, cookies)
         setIsDeleteWindowOpen(false);
-        console.log("usunieto pacjeta");
+        console.log("usuniento pacjenta");
     }
-
 
     useEffect(() => {
         (async () => {

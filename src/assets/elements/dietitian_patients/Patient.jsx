@@ -8,9 +8,7 @@ import {parseDateToDaysSince} from "../../../scripts/dateFunctions.js";
 
 const Patient = ({data, onMoreInfo, onDelete, onEdit}) => {
     const key = Object.keys(data)[0];
-
     data = data[key];
-
     const lastEdit = parseDateToDaysSince(data.lastUpdated);
 
     return(

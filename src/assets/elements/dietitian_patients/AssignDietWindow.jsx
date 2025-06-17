@@ -1,7 +1,7 @@
 import "../../../style/DieteticanPatientsPage.css";
 import CloseWindowIcon from "../../../images/icons/close_window_icon.png"
 import EditIcon from "../../../images/icons/edit_icon.png"
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import DietPlan from "../diet/DietPlan.jsx";
 import {emptyDiet} from "../../../data/EmptyListsData.js";
 import {dietDayNames} from "../../../data/SelectOptionsData.js";
@@ -9,6 +9,8 @@ import {getAllIngredients} from "../../../scripts/getData/getIngredientsData.js"
 import {useCookies} from "react-cookie";
 import {getAllDiets} from "../../../scripts/getData/getDietsData.js";
 import {getDataFromLocalStorage} from "../../../scripts/getDataFromLocalStorage.js";
+import {getAllMeals} from "../../../scripts/getData/getMealsData.js";
+import {changeUserDietPlan} from "../../../scripts/sendData/sendPatientDataChange.js";
 
 const AssignDietWindow = ({onClose, actualKey}) => {
     const [findDietQuery, setFindDietQuery] = useState("");
@@ -16,18 +18,39 @@ const AssignDietWindow = ({onClose, actualKey}) => {
 
     const [cookies] = useCookies(["User-Key"]);
     //TODO Wykorzystać to
-    const [dietKeys, dietData] = getAllDiets(cookies);
-    const [diets, setDiets] = useState(dietData);
+    const [dietKeys, setDietKeys] = useState([])
+    const [dietData, setDietData] = useState([]);
+
+    const [ingredientsKeys, setIngredientsKeys] = useState([]);
+    const [ingredientsData, setIngredientsData] = useState([]);
+
+    const [mealsKeys, setMealsKeys] = useState([]);
+    const [mealsData, setMealsData] = useState([]);
+
+    useEffect(() => {
+        async function fetchDiets() {
+            const [keys, data] = await getAllDiets(cookies);
+            setDietKeys(keys);
+            setDietData(data);
+
+            const [ingredientsKeys, ingredientsData] = await getAllIngredients(cookies);
+            setIngredientsKeys(ingredientsKeys);
+            setIngredientsData(ingredientsData);
+
+            const [mealsData, mealsKeys] = await getAllMeals(cookies);
+            setMealsData(mealsData);
+            setMealsKeys(mealsKeys);
+        }
+        fetchDiets()
+
+    }, [cookies])
+
 
     const [dietPlan, setDietPlan] = useState(emptyDiet);
 
-    const filteredDiets = diets.filter(diet =>
+    const filteredDiets = dietData.filter(diet =>
         diet.name.toLowerCase().includes(findDietQuery)
     );
-
-    const [cookie] = useCookies(["User-Key"]);
-    const [ingredientKeys, ingredientData] = getAllIngredients(cookie);
-    const [ingredients, setIngredients] = useState(ingredientData);
 
     const [editDietPlan, setEditDietPlan] = useState(false);
 
@@ -38,8 +61,8 @@ const AssignDietWindow = ({onClose, actualKey}) => {
                     editDietPlan ?
                         <DietPlan
                             options={dietDayNames}
-                            ingredientsData={ingredients}
-                            setIngredientsData={setIngredients}
+                            ingredientsData={ingredientsData}
+                            setIngredientsData={setIngredientsData}
                             data={dietPlan}
                             isEdit={true}
                             setData={setDietPlan}
@@ -47,10 +70,10 @@ const AssignDietWindow = ({onClose, actualKey}) => {
                             onClose={() => setEditDietPlan(false)}
                             dietKey={getDataFromLocalStorage("currentDietId")}
                             //TODO dodac Melas keys
-                            mealsKeys={null}
-                            mealsData={[]}
+                            mealsKeys={mealsKeys}
+                            mealsData={mealsData}
                             //TODO dodac Ingredienst keys
-                            ingredientsKeys={null}
+                            ingredientsKeys={ingredientsKeys}
                         />
                         :
                         <div className="assign-diet-window">
@@ -69,8 +92,8 @@ const AssignDietWindow = ({onClose, actualKey}) => {
                                         filteredDiets.map((diet, index) => (
                                             <div key={index} className={"assign-diet-window-input-drop-down-item"}
                                                  onClick={() => {
-                                                     setDietPlan(diets[index].dietPlan);
-                                                     setFindDietQuery(diets[index].name);
+                                                     setDietPlan(dietData[index].dietPlan);
+                                                     setFindDietQuery(dietData[index].name);
                                                  }}>
                                                 {diet.name}
                                             </div>
@@ -87,11 +110,13 @@ const AssignDietWindow = ({onClose, actualKey}) => {
                                     Edytuj plan
                                 </p>
                             </div>
-                            {
-                                //TODO jak bedzie funckja do zapisywania dla ludzika to podmien onClose na własną
-                                //FIXME User się zapisuje czy robi to dietetyk? Jak dietetyk to chcę tutaj id usera
-                            }
-                            <div className={"assign-diet-window-edit-diet-plan-save-button"} onClick={onClose}>
+                            <div className={"assign-diet-window-edit-diet-plan-save-button"} onClick={()=> {
+                                changeUserDietPlan(
+                                    actualKey,
+                                    dietKeys[dietData.findIndex(diet => diet.dietPlan === dietPlan)], //FIXME
+                                    cookies)
+                                onClose()
+                            }}>
                                 Zapisz
                             </div>
                         </div>
