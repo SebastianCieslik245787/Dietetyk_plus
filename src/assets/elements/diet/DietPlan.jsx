@@ -145,12 +145,7 @@ const DietPlan = ({
                     meals.map((meal, index) => (
                         <Meal
                             key={`day-${activeIndex}-meal-${index}`}
-                            data={
-                                {
-                                    name: meal.name,
-                                    meal: mealsData[mealsKeys.indexOf(meal.meal)],
-                                }
-                            }
+                            data={meal}
                             isActive={activeMealIndex === index}
                             onToggle={() => handleMealToggle(index)}
                             index={index}
