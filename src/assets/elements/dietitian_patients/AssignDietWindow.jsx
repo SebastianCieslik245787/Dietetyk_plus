@@ -8,6 +8,7 @@ import {dietDayNames} from "../../../data/SelectOptionsData.js";
 import {getAllIngredients} from "../../../scripts/getData/getIngredientsData.js";
 import {useCookies} from "react-cookie";
 import {getAllDiets} from "../../../scripts/getData/getDietsData.js";
+import {getDataFromLocalStorage} from "../../../scripts/getDataFromLocalStorage.js";
 
 const AssignDietWindow = ({onClose, actualKey}) => {
     const [findDietQuery, setFindDietQuery] = useState("");
@@ -24,9 +25,8 @@ const AssignDietWindow = ({onClose, actualKey}) => {
         diet.name.toLowerCase().includes(findDietQuery)
     );
 
-    //TODO wczytaj ingredients z bazy
     const [cookie] = useCookies(["User-Key"]);
-    const ingredientData = getAllIngredients(cookie);
+    const [ingredientKeys, ingredientData] = getAllIngredients(cookie);
     const [ingredients, setIngredients] = useState(ingredientData);
 
     const [editDietPlan, setEditDietPlan] = useState(false);
@@ -45,10 +45,10 @@ const AssignDietWindow = ({onClose, actualKey}) => {
                             setData={setDietPlan}
                             onClick={() => setEditDietPlan(false)}
                             onClose={() => setEditDietPlan(false)}
-                            //TODO localstorage
-                            dietKey={null}
+                            dietKey={getDataFromLocalStorage("currentDietId")}
                             //TODO dodac Melas keys
                             mealsKeys={null}
+                            mealsData={[]}
                             //TODO dodac Ingredienst keys
                             ingredientsKeys={null}
                         />

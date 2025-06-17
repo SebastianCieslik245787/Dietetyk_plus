@@ -7,7 +7,7 @@ import UnsavedChangesWindow from "./UnsavedChangesWindow.jsx";
 import {isEditedMeal, validateAddMeal} from "../../../../scripts/validateData/validateAddMealUtils.js";
 import {emptyMeal} from "../../../../data/EmptyListsData.js";
 
-const AddMealWindow = ({onClose, data, onSave, ingredientsData, setIngredientsData, ingredientsKeys, mealKey, setIngredientsKeys}) => {
+const AddMealWindow = ({onClose, data, onSave, ingredientsData, setIngredientsData, ingredientsKeys, setIngredientsKeys}) => {
     const [activeOption, setActiveOption] = useState(0);
     const [isEdited, setIsEdited] = useState(false);
 

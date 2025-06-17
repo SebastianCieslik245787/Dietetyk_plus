@@ -1,10 +1,4 @@
 export function sendDietPlanData(dietPlan, cookies) {
-    dietPlan.dietPlan.forEach(day => {
-        day.forEach(meal => {
-            meal.meal.img_b64 = "";
-        });
-    });
-
     fetch(
         "/api/dietPlan",
         {
@@ -28,14 +22,8 @@ export function sendDietPlanData(dietPlan, cookies) {
 }
 
 export function sendUpdateDietPlanData(id, dietPlan, cookies) {
-    dietPlan.dietPlan.forEach(day => {
-        day.forEach(meal => {
-            meal.meal.img_b64 = ""; //NOTE
-        });
-    });
-
    fetch(
-       `/update/id/${id}`,
+       `/api/update/dietPlan/${id}`,
        {
            method: "POST",
            headers: {

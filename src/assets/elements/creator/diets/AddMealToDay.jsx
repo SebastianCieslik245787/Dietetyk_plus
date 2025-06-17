@@ -4,7 +4,6 @@ import EditIcon from '../../../../images/icons/edit_icon.png'
 import {useEffect, useState} from "react";
 import AddMealWindow from "../meals/AddMealWindow.jsx";
 import {emptyMeal} from "../../../../data/EmptyListsData.js";
-import {sendUpdateDietPlanData} from "../../../../scripts/sendData/sendDietPlanData.js";
 import {useCookies} from "react-cookie";
 
 /**
@@ -42,7 +41,7 @@ import {useCookies} from "react-cookie";
  *
  * @returns {JSX.Element}
  */
-const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, setIngredientsData, editMealIndex, mealsKeys, ingredientsKeys, dietKey, setIngredientsKeys}) => {
+const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, setIngredientsData, editMealIndex, mealsData, mealsKeys, ingredientsKeys, dietKey, setIngredientsKeys}) => {
     /**
      * Odpowiada za otwieranie okna dodającego nowy posiłek do diety na konkretny dzień.
      *
@@ -110,8 +109,6 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
             //NOTE Imo wysłałbym to jako całą dietę i nadpisał starą
             updatedDietPlan[activeIndex].push(newMealObj);
         }
-        //TODO potrzebujemy id diety, jeśli nie ma to trzeba wysłać sendDietPlanData(data, cookies) i pobrać id diety
-        sendUpdateDietPlanData(dietKey, updatedDietPlan, cookies);
         setData({
             ...data,
             dietPlan: updatedDietPlan
@@ -131,12 +128,9 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
         }
     }, [activeIndex, data.dietPlan, editMealIndex]);
 
-
-    const [meals, setMeals] = useState([]);
-
     const [searchQuery, setSearchQuery] = useState("");
 
-    const filteredMeals = meals.filter(meal =>
+    const filteredMeals = mealsData.filter(meal =>
         meal.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
@@ -162,9 +156,9 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
                         />
                         <div className={`drop-down-own-meals ${showOwnMeals ? 'active' : ''}`}>
                             {
-                                filteredMeals.map((meal, index) => (
+                                filteredMeals.map((meal) => (
                                     <div
-                                        key={index}
+                                        key={mealsKeys[mealsData.indexOf(meal)]}
                                         className={`own-meal-item ${showOwnMeals ? 'active' : ''}`}
                                         onClick={() => {
                                             setNewMeal(meal);
@@ -196,7 +190,6 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
             {
                 addNewMealWindow ? <AddMealWindow
                     onClose={() => setAddNewMealWindow(false)}
-                    isEdit={true}
                     data={!showOwnMeals && searchQuery !== '' ? newMeal : newMeal.meal}
                     onSave={setNewMeal}
                     ingredientsData={ingredientsData}

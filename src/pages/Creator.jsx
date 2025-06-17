@@ -195,6 +195,7 @@ function Creator() {
                                                   setOpenDeleteWindow(true)
                                               }}
                                               ingredientsData={ingredients}
+                                              ingredientsKeys={ingredientsKeys}
                                               mealKey={mealsKeys[index]}
                                         />
                                     ))}
@@ -265,6 +266,7 @@ function Creator() {
                         isEdit={edit}
                         actualKey={activeDataIndex !== null ? dietsKeys[activeDataIndex] : null}
                         mealsKeys={mealsKeys}
+                        mealsData={meals}
                         ingredientsKeys={ingredientsKeys}
                         setIngredientsKeys={setIngredientsKeys}
                     />)

@@ -1,6 +1,6 @@
 import CreatorSelect from "../CreatorSelect.jsx";
 import IngredientItem from "./IngredientItem.jsx";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {validateIngredient} from "../../../../scripts/validateData/validateAddMealUtils.js";
 import {onChangeInput} from "../../../hooks/onChangeInput.jsx";
 import {mealCategoryData, mealUnitData} from "../../../../data/SelectOptionsData.js";
@@ -37,44 +37,33 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
         };
 
         if (!validateIngredient(newIngredient, count, setAddIngredientError)) return;
-        console.log(newIngredient)
 
-        let ingredientId = ingredientsData.findIndex(
+        let ingredientId = ingredientsKeys[ingredientsData.findIndex(
             ing => ing.name.toLowerCase() === newIngredient.name.toLowerCase()
-        );
+        )] || -1; //Niepotrzebne bo findIndex zwraca -1 jeśli nie znajdzie
 
         if (ingredientId === -1) {
-            setIngredientsData(prevIngredients => {
-                //NOTE NOWY INGREDIENT
-                //NOTE Gdzie niby jest ten obiekt?
-                const updatedIngredients = [...prevIngredients, newIngredient];
-                ingredientId = updatedIngredients.length - 1;
+            key = await sendIngredientData(newIngredient, cookies);
 
-                setData(prev => {
-                    if (Array.isArray(prev.ingredients)) {
-                        return {
-                            ...prev,
-                            ingredients: [...prev.ingredients, newIngredient],
-                        };
-                    } else {
-                        const newIngredientsObj = { ...prev.ingredients };
-                        const prevCount = newIngredientsObj[ingredientId] || 0;
-                        newIngredientsObj[ingredientId] = prevCount + Number(count);
+            setIngredientsKeys(prev => [...prev, key]);
+            setIngredientsData(prevIngredients => [...prevIngredients, newIngredient]);
+            setData(prev => {
+                if (Array.isArray(prev.ingredients)) {
+                    return {
+                        ...prev,
+                        ingredients: [...prev.ingredients, newIngredient],
+                    };
+                } else {
+                    const newIngredientsObj = { ...prev.ingredients };
+                    const prevCount = newIngredientsObj[key] || 0;
+                    newIngredientsObj[key] = prevCount + Number(count);
 
-                        return {
-                            ...prev,
-                            ingredients: newIngredientsObj,
-                        };
-                    }
-                });
-                return updatedIngredients;
-            });
-            key = sendIngredientData(newIngredient, cookies);
-            setIngredientsKeys(prev => {
-                return{
-                    ...prev, key
+                    return {
+                        ...prev,
+                        ingredients: newIngredientsObj,
+                    };
                 }
-            })
+            });
         } else {
             //NOTE Update meal ingredienst
             //NOTE Baza czy nie baza?
@@ -89,14 +78,14 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
                     const prevCount = newIngredientsObj[ingredientId] || 0;
                     newIngredientsObj[ingredientId] = prevCount + Number(count);
 
+                    console.log(newIngredientsObj)
                     return {
                         ...prev,
                         ingredients: newIngredientsObj,
                     };
                 }
             });
-            console.log(newIngredient)
-            sendUpdateIngredientData(newIngredient, cookies, ingredientId);
+            await sendUpdateIngredientData(ingredientId, newIngredient, cookies);
         }
 
         setShowIngredientsData(true)
@@ -132,16 +121,13 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
         }
     };
 
-    const filteredIngredients = ingredientsData.filter((ing) =>{
-        //TODO To nie działa
-            console.log(ing);
-            return true
-        }
-        // ing.name.toLowerCase().includes(ingredient.name.toLowerCase()) && ingredient.name !== ""
+    const filteredIngredients = ingredientsData.filter((ing) =>
+        ing.name.toLowerCase().includes(ingredient.name.toLowerCase()) && ingredient.name !== ""
     );
 
     const handleSelectIngredient = (selectedIng) => {
         setShowIngredientsData(false)
+        console.log(selectedIng);
         const unitIndex = mealUnitData.findIndex(u => u === selectedIng.unit);
         setIngredient({
             name: selectedIng.name,
@@ -162,11 +148,12 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
                     <input value={ingredient.name} id={"name"} onChange={handleChange} className="add-meal-window-name-input ingredients" type="text" placeholder="Wpisz nazwę..." />
                     <div className={`drop-down-ingredients ${ingredient.name !== '' && showIngredientsData ? 'active' : ''}`}>
                         {
-                            filteredIngredients.map((ing, index) => (
-                                <div key={index} className={`drop-down-ingredient-item ${ingredient.name !== '' && showIngredientsData ? 'active' : ''}`} onClick={() => handleSelectIngredient(ing)}>
+                            filteredIngredients.map((ing) => (
+                                <div key={ingredientsKeys[ingredientsData.indexOf(ing)]}
+                                     className={`drop-down-ingredient-item ${ingredient.name !== '' && showIngredientsData ? 'active' : ''}`}
+                                     onClick={() => handleSelectIngredient(ing)}>
                                     {ing.name}
-                                </div>
-                            ))
+                                </div>))
                         }
                     </div>
                     <input value={count} onChange={handleChangeCount} className="add-meal-window-name-input ingredients-count" type="text" placeholder="Wpisz ilość..." />
@@ -195,7 +182,7 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
                 <div className="add-meal-window-ingredients-items">
                     {
                         Object.entries(data.ingredients).map(([id, quantity], index) => {
-                            const ingredient = ingredientsData[Number(id)];
+                            const ingredient = ingredientsData[ingredientsKeys.indexOf(id)];
 
                             if (!ingredient) return null;
 

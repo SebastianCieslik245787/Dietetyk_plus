@@ -7,13 +7,26 @@ import AddMealToDay from "../creator/diets/AddMealToDay.jsx";
 import CreatorAddItem from "../creator/CreatorAddItem.jsx";
 import {changeDietPlanContainerSize} from "../../../scripts/changeDietPlanContainerSize.js";
 import DeleteWindow from "../../DeleteWindow.jsx";
-import {sendUpdateDietPlanData} from "../../../scripts/sendData/sendDietPlanData.js";
 import {useCookies} from "react-cookie";
 
 const today = new Date();
 const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1;
 
-const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsData, setIngredientsData, onClose, dietKey, mealsData, mealsKeys, ingredientsKeys, setIngredientsKeys}) => {
+const DietPlan = ({
+                      options,
+                      data,
+                      setData,
+                      isEdit = false,
+                      onClick,
+                      ingredientsData,
+                      setIngredientsData,
+                      onClose,
+                      dietKey,
+                      mealsData,
+                      mealsKeys,
+                      ingredientsKeys,
+                      setIngredientsKeys
+                  }) => {
     const [activeIndex, setActiveIndex] = useState(dayOfWeek);
     const [activeMealIndex, setActiveMealIndex] = useState(null);
     const [addMealToDay, setAddMealToDay] = useState(false);
@@ -21,7 +34,6 @@ const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsD
     const [editMealIndex, setEditMealIndex] = useState(null);
     const [deleteWindow, setDeleteWindow] = useState(false);
 
-    const [cookies] = useCookies(["User-Key"]);
 
     useEffect(() => {
         if (mealsRef.current) {
@@ -72,17 +84,17 @@ const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsD
             ...data,
             dietPlan: updatedDietPlan
         });
-
-        //TODO id diety do której usuwamy meal
-        sendUpdateDietPlanData(dietKey, updatedDietPlan, cookies);
     };
+
+    console.log("mealsData", mealsData);
+    console.log("mealsKeys", mealsKeys);
 
     return (
         <div className="diet-plan-content" id="diet-plan-content">
             {
                 isEdit && (
                     <div className={"diet-plan-menu-close"}>
-                        <img src={`${CloseIcon}`} alt="" onClick={onClose} />
+                        <img src={`${CloseIcon}`} alt="" onClick={onClose}/>
                     </div>
                 )}
             <div className="diet-plan-menu">
@@ -142,6 +154,7 @@ const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsD
                             index={index}
                             isEdit={isEdit}
                             ingredientsData={ingredientsData}
+                            ingredientsKeys={ingredientsKeys}
                             onEdit={() => {
                                 setEditMealIndex(index);
                                 setAddMealToDay(true);
@@ -169,8 +182,10 @@ const DietPlan = ({options, data, setData, isEdit = false, onClick, ingredientsD
                     onClose={() => setAddMealToDay(false)}
                     ingredientsData={ingredientsData}
                     setIngredientsData={setIngredientsData}
-                    editMealIndex={editMealIndex}
                     setIngredientsKeys={setIngredientsKeys}
+                    editMealIndex={editMealIndex}
+                    mealsData={mealsData}
+                    mealsKeys={mealsKeys}
                 />
             )}
             {

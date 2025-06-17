@@ -12,11 +12,7 @@ export async function sendIngredientData(ingredient, cookies) {
     )
     switch (response.status) {
         case 200: {
-            const data = await response.json()
-            if (data.error) {
-                console.log(data.error);
-            }
-            return data;
+            return response.text();
         }
         case 401:
             console.log("Niepoprawne dane logowania");
@@ -37,6 +33,19 @@ export function sendUpdateIngredientData(id, ingredient, cookies) {
                 "Authorization": cookies["user-key"],
             },
             body: JSON.stringify(ingredient),
+        }
+    )
+}
+
+export function sendDeleteIngredientData(id, cookies) {
+    return fetch(
+        "/api/delete/ingredient/" + id,
+        {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": cookies["user-key"],
+            },
         }
     )
 }
