@@ -1,4 +1,5 @@
 import LoadImageIcon from "../../../../images/icons/add_image_icon.png"
+import DefaultIcon from "../../../../images/icons/add_image_icon.png"
 import {useState} from "react";
 import {useImageUploader} from "../../../hooks/useImageUploader.jsx";
 import {onChangeInput} from "../../../hooks/onChangeInput.jsx";
@@ -33,7 +34,7 @@ const AddMealWindowDescription = ({data, setData, errors}) => {
                     onDragOver={handleDragOver}
                     onClick={() => fileInputRef.current.click()}
                 >
-                    <img src={`${image}`} className="preview"  alt=""/>
+                    <img src={`${image !== undefined ? image : DefaultIcon}`} className="preview"  alt=""/>
                     <input
                         type="file"
                         accept="image/*"
