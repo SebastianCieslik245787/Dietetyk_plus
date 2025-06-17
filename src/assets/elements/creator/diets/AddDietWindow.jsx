@@ -70,6 +70,13 @@ const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, se
             const updatedDiets = [...diets, dietData];
             setDiets(updatedDiets);
         }
+        else{
+            //TODO Zmiana nie po nazwie ale po id
+            const updatedDiets = diets.map(diet =>
+                diet.name === dietData.name ? dietData : diet
+            );
+            setDiets(updatedDiets);
+        }
         onClose();
     };
 
