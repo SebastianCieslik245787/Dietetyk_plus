@@ -74,14 +74,11 @@ const AddDietWindow = ({data, showDietPlan = false, onClose, ingredientsData, se
         }
         else {
             //TODO przekazać id diety do edycji
-            sendUpdateDietPlanData(actualKey, dietData, cookies);
-        }
-        else{
-            //TODO Zmiana nie po nazwie ale po id
             const updatedDiets = diets.map(diet =>
                 diet.name === dietData.name ? dietData : diet
             );
             setDiets(updatedDiets);
+            sendUpdateDietPlanData(actualKey, dietData, cookies);
         }
         onClose();
     };
