@@ -47,6 +47,12 @@ function Creator() {
         }
     }
 
+     const createEmptyDiet = () => ({
+        name: '',
+        description: '',
+        dietPlan: [[], [], [], [], [], [], []]
+    });
+
     const creatorContainer = useRef(null);
 
     useEffect(() => {
@@ -104,8 +110,8 @@ function Creator() {
                     <CreatorAddItem
                         placeHolder={activeCreator === 0 ? 'Dodaj danie' : 'Dodaj diete'}
                         onClick={() => {
-                            setOpenAddItemWindow(true)
                             setActiveDataIndex(null)
+                            setOpenAddItemWindow(true)
                         }}
                     />
                     {activeCreator === 0 ? (
@@ -179,7 +185,7 @@ function Creator() {
                             typeof data[activeDataIndex] === "object" &&
                             "dietPlan" in data[activeDataIndex]
                                 ? data[activeDataIndex]
-                                : emptyDiet
+                                : createEmptyDiet()
                         }
                         showDietPlan={showDietPlan}
                         onClose={() => {
