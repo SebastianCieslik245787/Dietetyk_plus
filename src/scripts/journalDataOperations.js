@@ -1,14 +1,8 @@
 import {timePeriodValues} from "../data/SelectOptionsData.js";
 
 function roundOneDec(num) {
+    if (num < 0) return 0;
     return Number(num.toFixed(1))
-}
-
-function chooseValueBasedOnType(element, dataType) {
-    if (dataType === "max"){
-        return element.pressure > element.pulse ? element.pressure : element.pulse
-    }
-    return element.pressure < element.pulse ? element.pressure : element.pulse
 }
 
 function fixJournalData(data) {
@@ -72,23 +66,30 @@ export function journalDataOperations(data) {
 
 
 export function getEdgeValue(data, dataType, valueType) {
-    let ret = valueType === "max" ? -Infinity : Infinity;
+    let max = -Infinity;
+    let min = Infinity;
     data.forEach(element => {
         if (dataType === "weight") {
             element = element.weight
         } else if (dataType === "glucose") {
             element = element.glucose
-        } else if (dataType === "pressure") {
-            element = chooseValueBasedOnType(element, dataType)
         }
-        if ((element > ret && valueType === "max") || (element < ret && valueType === "min")) {
-            ret = element
+        if (dataType === "pressure") {
+            if (element.pressure > max) max = element.pressure
+            if (element.pressure < min) min = element.pressure
+            if (element.pulse > max) max = element.pulse
+            if (element.pulse < min) min = element.pulse
+        }
+        else {
+            if (element > max) max = element
+            if (element < min) min = element
         }
     })
-    if (ret === -Infinity || ret === Infinity) {
+    if (max === -Infinity || min === Infinity) {
         return 0
     }
-    return roundOneDec((valueType === "max" ? ret * 1.01 : ret * 0.99))
+    const diff = max - min;
+    return roundOneDec((valueType === "max" ? max + diff*0.1 : min - diff*0.1))
 
 }
 
