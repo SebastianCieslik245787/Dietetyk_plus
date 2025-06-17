@@ -14,7 +14,7 @@ const MacrosTable = ({data, isCreator=false}) => {
                 </div>
                 <div className="meal-info-macros-item">
                     <p className="meal-info-macros-item-value">
-                        {data.proteins.toFixed(1)}g
+                        {data.proteins.toFixed(1)} g
                     </p>
                     <p className="meal-info-macros-item-label">
                         Białko
@@ -22,7 +22,7 @@ const MacrosTable = ({data, isCreator=false}) => {
                 </div>
                 <div className="meal-info-macros-item">
                     <p className="meal-info-macros-item-value">
-                        {data.carbohydrates.toFixed(1)}g
+                        {data.carbohydrates.toFixed(1)} g
                     </p>
                     <p className="meal-info-macros-item-label">
                         Węgl.
@@ -30,7 +30,7 @@ const MacrosTable = ({data, isCreator=false}) => {
                 </div>
                 <div className="meal-info-macros-item">
                     <p className="meal-info-macros-item-value">
-                        {data.fats.toFixed(1)}
+                        {data.fats.toFixed(1)} g
                     </p>
                     <p className="meal-info-macros-item-label">
                         Tłusz.
@@ -38,7 +38,7 @@ const MacrosTable = ({data, isCreator=false}) => {
                 </div>
                 <div className="meal-info-macros-item">
                     <p className="meal-info-macros-item-value">
-                        {data.sugar.toFixed(1)}
+                        {data.sugar.toFixed(1)} g
                     </p>
                     <p className="meal-info-macros-item-label">
                         Cukier
@@ -46,7 +46,7 @@ const MacrosTable = ({data, isCreator=false}) => {
                 </div>
                 <div className="meal-info-macros-item">
                     <p className="meal-info-macros-item-value">
-                        {data.fiber.toFixed(1)}
+                        {data.fiber.toFixed(1)} g
                     </p>
                     <p className="meal-info-macros-item-label">
                         Błon.
