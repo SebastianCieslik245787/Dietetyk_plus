@@ -74,6 +74,8 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
      */
     const [newMeal, setNewMeal] = useState(emptyMeal);
 
+    const [errorName, setErrorName] = useState("");
+    const [errorMeal, setErrorMeal] = useState("");
     /**
      * Nazwa posiłku (np. Śniadanie).
      *
@@ -83,6 +85,7 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
      */
     const [mealName, setMealName] = useState("");
 
+
     const [cookies] = useCookies(['user-key', 'user-data']);
 
     /**
@@ -91,6 +94,16 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
      * @type {function}
      */
     const handleAddMeal = () => {
+        if(!mealName){
+            setErrorName("Nazwa posiłku jest wymagana!")
+        }
+        else setErrorName("");
+
+        if(!newMeal || (newMeal.name === emptyMeal.name && newMeal.img_b64 === emptyMeal.img_b64 && newMeal.recipe === emptyMeal.recipe && newMeal.ingredients === emptyMeal.ingredients)){
+            setErrorMeal("Nie utworzono posiłku!")
+        }
+        else setErrorMeal("");
+
         if (!mealName || !newMeal) return;
 
         const newMealObj = {
@@ -147,6 +160,9 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
                     <div className={"add-meal-to-date-window-input"}>
                         <input value={mealName} onChange={(e) => setMealName(e.target.value)} type="text"
                                placeholder={"Wpisz nazwę posiłku..."}/>
+                        <div className={"add-meal-to-date-window-input-error"}>
+                            {errorName}
+                        </div>
                     </div>
                     <div className={"add-meal-to-date-window-input search-meal"}>
                         <input type="text" placeholder={"Wyszukaj danie..."} value={searchQuery} onChange={(e) => {
@@ -154,6 +170,9 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
                             setShowOwnMeals(true)
                         }}
                         />
+                        <div className={"add-meal-to-date-window-input-error"}>
+                            {errorMeal}
+                        </div>
                         <div className={`drop-down-own-meals ${showOwnMeals ? 'active' : ''}`}>
                             {
                                 filteredMeals.map((meal) => (
