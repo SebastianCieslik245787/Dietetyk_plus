@@ -1,13 +1,13 @@
 import "../style/ProgressJournal.css"
 import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 import {CartesianGrid, Label, Legend, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {validateProgressJournal} from "../scripts/validateData/validateProgressJournal.js";
-import {journalDataOperations, getEdgeValue} from "../scripts/journalDataOperations.js";
+import {journalDataOperations, getEdgeValue, getPartialData} from "../scripts/journalDataOperations.js";
 import {getCurrentDate} from "../scripts/dateFunctions.js";
 import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
 import CreatorSelect from "../assets/elements/creator/CreatorSelect.jsx";
-import {timePeriod} from "../data/SelectOptionsData.js";
+import {timePeriod, timePeriodValues} from "../data/SelectOptionsData.js";
 
 const CustomTooltip = ({active, payload, label, activeType}) => {
     if (active && payload && payload.length) {
@@ -55,7 +55,7 @@ function ProgressJournal() {
     };
 
     const data = journalDataOperations(userData.medicalData.journal);
-    const dataTypes = ["weight", "glucose", "pressure"];
+    const dataTypes = ["weight", "glucose", "pressure", "pulse"];
     const dataTypesLabels = ["Waga [kg]", "Poziom cukru", "Ciśnienie / Puls"];
 
     const [inputValue, setInputValue] = useState("");
@@ -90,7 +90,22 @@ function ProgressJournal() {
     }
 
     const [activeTimePeriod, setActiveTimePeriod] = useState(1);
-
+    useEffect(() => {
+        console.log(getPartialData(active === 2 ? [
+            ...data[active],
+            ...(todayData[dataTypes[active]] === -1 ? [] : [{
+                date: todayData.date,
+                [dataTypes[active]]: todayData[dataTypes[active]],
+                [dataTypes[active+1]]: todayData[dataTypes[active+1]],
+            }])
+        ] : [
+            ...data[active],
+            ...(todayData[dataTypes[active]] === -1 ? [] : [{
+                date: todayData.date,
+                [dataTypes[active]]: todayData[dataTypes[active]]
+            }])
+        ], timePeriodValues[activeTimePeriod]))
+    }, [active, activeTimePeriod, data, dataTypes, todayData]);
     return (
         <>
             <NavigationBar/>
@@ -156,13 +171,12 @@ function ProgressJournal() {
                         <LineChart
                             width={1350}
                             height={550}
-                            data={active === 2 ? [
+                            data={getPartialData(active === 2 ? [
                                 ...data[active],
                                 ...(todayData[dataTypes[active]] === -1 ? [] : [{
                                     date: todayData.date,
                                     [dataTypes[active]]: todayData[dataTypes[active]],
-                                    //TODO Podmień wartość jak będzie druga
-                                    [dataTypes[active]]: todayData[dataTypes[active]],
+                                    [dataTypes[active+1]]: todayData[dataTypes[active+1]],
                                 }])
                             ] : [
                                 ...data[active],
@@ -170,7 +184,7 @@ function ProgressJournal() {
                                     date: todayData.date,
                                     [dataTypes[active]]: todayData[dataTypes[active]]
                                 }])
-                            ]}
+                            ], activeTimePeriod)}
                             margin={{top: 20, right: 50, bottom: 40, left: 60}}>
                             <CartesianGrid stroke="#ccc" strokeDasharray="10 10"/>
                             <XAxis
@@ -188,19 +202,19 @@ function ProgressJournal() {
                                 dot={true}
                                 dataKey={dataTypes[active]}
                                 domain={[
-                                    getEdgeValue([...data[active], ...(todayData[dataTypes[active]] === -1 ? [] : [{"date": todayData.date, [dataTypes[active]]: todayData[dataTypes[active]]}])], dataTypes[active], "min"),
-                                    getEdgeValue([...data[active], ...(todayData[dataTypes[active]] === -1 ? [] : [{"date": todayData.date, [dataTypes[active]]: todayData[dataTypes[active]]}])], dataTypes[active], "max")
-                                ]}
+                                    getEdgeValue(getPartialData([...data[active], ...(todayData[dataTypes[active]] === -1 ? [] : [{"date": todayData.date, [dataTypes[active]]: todayData[dataTypes[active]]}])], activeTimePeriod), dataTypes[active], "min"),
+                                    getEdgeValue(getPartialData([...data[active], ...(todayData[dataTypes[active]] === -1 ? [] : [{"date": todayData.date, [dataTypes[active]]: todayData[dataTypes[active]]}])], activeTimePeriod), dataTypes[active], "max")
+                                ]
+                            }
                             >
                                 <Label value={dataTypesLabels[active]} position="insideLeft" angle={-90}
                                        offset={-45}/>
                             </YAxis>
                             <Tooltip content={CustomTooltip}/>
                             <Line type={"natural"} dataKey={dataTypes[active]} stroke="#3c6fb2"/>
-                            //TODO Podmień wartość jak będzie druga
                             {
                                 active === 2 && (
-                                    <Line type="natural" dataKey={dataTypes[active]} stroke="#de0404"/>
+                                    <Line type="natural" dataKey={dataTypes[active+1]} stroke="#de0404"/>
                                 )
                             }
                         </LineChart>

@@ -42,3 +42,5 @@ export const timePeriod = [
     'Rok',
     'Od początku'
 ]
+
+export const timePeriodValues = [7, 30, 90, 180, 365, -1]
