@@ -39,7 +39,7 @@ export function validateChangePassword(data, setErrors) {
         hasErrors = true
     }
     else{
-        if(!comparePasswords(data.userPassword, data.userNewPassword)){
+        if(comparePasswords(data.userPassword, data.userNewPassword)){
             errors.userNewPassword = "Hasło nie może być identyczne ze starytm hasłem!"
             hasErrors = true
         }
