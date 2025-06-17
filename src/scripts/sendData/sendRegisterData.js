@@ -1,3 +1,5 @@
+import {getCurrentDate} from "../dateFunctions.js";
+
 export function sendRegisterData(data){
     const { dataProcessingConsent: _, statute: __, confirmPassword: ___, height, weight, gender, diseases, allergies, otherDiseases, otherAllergies, ...filteredData } = data;
     otherDiseases.split(",")
@@ -16,7 +18,7 @@ export function sendRegisterData(data){
                 }
             })
         })
-    filteredData["medicalData"] = {
+    filteredData.medicalData = {
         height: height,
         weight: weight,
         gender: gender === "female",
@@ -24,11 +26,12 @@ export function sendRegisterData(data){
         allergies: allergies,
         journal: []
     };
-    filteredData["dieteticId"] = "";
-    filteredData["currentDietId"] = "";
-    filteredData["img_b64"] = "";
-    filteredData["description"] = "";
-    filteredData["role"] = "user"
+    filteredData.dieteticId = "";
+    filteredData.currentDietId = "";
+    filteredData.img_b64 = "";
+    filteredData.description = "";
+    filteredData.role = "user";
+    filteredData.lastUpdated = getCurrentDate()
 
     const jsonRegisterData = JSON.stringify(filteredData, null, 2);
     // console.log(jsonRegisterData);
