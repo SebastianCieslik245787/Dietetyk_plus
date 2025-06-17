@@ -7,17 +7,18 @@ import {emptyDiet} from "../../../data/EmptyListsData.js";
 import {dietDayNames} from "../../../data/SelectOptionsData.js";
 import {getAllIngredients} from "../../../scripts/getData/getIngredientsData.js";
 import {useCookies} from "react-cookie";
-import {getAllDiets} from "../../../scripts/getData/getDietsData.js";
+import {getAllDiets, getDietPlanData} from "../../../scripts/getData/getDietsData.js";
 import {getDataFromLocalStorage} from "../../../scripts/getDataFromLocalStorage.js";
 import {getAllMeals} from "../../../scripts/getData/getMealsData.js";
 import {changeUserDietPlan} from "../../../scripts/sendData/sendPatientDataChange.js";
 
-const AssignDietWindow = ({onClose, actualKey}) => {
+
+const AssignDietWindow = ({onClose, actualKey, dietId = ""}) => {
     const [findDietQuery, setFindDietQuery] = useState("");
     const handleChange = (e) => setFindDietQuery(e.target.value.toLowerCase());
 
     const [cookies] = useCookies(["User-Key"]);
-    //TODO Wykorzystać to
+
     const [dietKeys, setDietKeys] = useState([])
     const [dietData, setDietData] = useState([]);
 
@@ -27,26 +28,38 @@ const AssignDietWindow = ({onClose, actualKey}) => {
     const [mealsKeys, setMealsKeys] = useState([]);
     const [mealsData, setMealsData] = useState([]);
 
+    const [dietPlan, setDietPlan] = useState(emptyDiet);
+
     useEffect(() => {
         async function fetchDiets() {
             const [keys, data] = await getAllDiets(cookies);
             setDietKeys(keys);
             setDietData(data);
 
+            if (dietId !== "") {
+                if (dietId === actualKey) {
+                    const privateDiet = await getDietPlanData(dietId, cookies)
+                    if (privateDiet && privateDiet !== emptyDiet) {
+                        setDietPlan(privateDiet)
+                    }
+                }
+                if (keys.indexOf(dietId) !== -1) {
+                    setDietPlan(data[keys.indexOf(dietId)])
+                }
+            }
+
             const [ingredientsKeys, ingredientsData] = await getAllIngredients(cookies);
             setIngredientsKeys(ingredientsKeys);
             setIngredientsData(ingredientsData);
 
-            const [mealsData, mealsKeys] = await getAllMeals(cookies);
+            const [mealsKeys, mealsData] = await getAllMeals(cookies);
             setMealsData(mealsData);
             setMealsKeys(mealsKeys);
         }
+
         fetchDiets()
+    }, [actualKey, cookies, dietId])
 
-    }, [cookies])
-
-
-    const [dietPlan, setDietPlan] = useState(emptyDiet);
 
     const filteredDiets = dietData.filter(diet =>
         diet.name.toLowerCase().includes(findDietQuery)
@@ -68,7 +81,7 @@ const AssignDietWindow = ({onClose, actualKey}) => {
                             setData={setDietPlan}
                             onClick={() => setEditDietPlan(false)}
                             onClose={() => setEditDietPlan(false)}
-                            dietKey={getDataFromLocalStorage("currentDietId")}
+                            dietKey={dietId || getDataFromLocalStorage("currentDietId")}
                             mealsKeys={mealsKeys}
                             mealsData={mealsData}
                             ingredientsKeys={ingredientsKeys}
@@ -83,16 +96,15 @@ const AssignDietWindow = ({onClose, actualKey}) => {
                             </div>
                             <div className={"assign-diet-window-input"}>
                                 <input type="text" value={findDietQuery} onChange={handleChange}
-                                       placeholder="Wyszukaj istniejącą diete..."/>
+                                       placeholder={dietPlan === emptyDiet ? "Wyszukaj istniejącą diete..." : dietPlan.name}/>
                                 <div
                                     className={`assign-diet-window-input-drop-down ${filteredDiets.length > 0 && findDietQuery !== '' ? 'active' : ''}`}>
                                     {
                                         filteredDiets.map((diet, index) => (
                                             <div key={index} className={"assign-diet-window-input-drop-down-item"}
                                                  onClick={() => {
-                                                     setDietPlan(dietData[index].dietPlan);
+                                                     setDietPlan(dietData[index]);
                                                      setFindDietQuery(dietData[index].name);
-                                                     console.log(dietData[index]);
                                                  }}>
                                                 {diet.name}
                                             </div>
@@ -109,11 +121,16 @@ const AssignDietWindow = ({onClose, actualKey}) => {
                                     Edytuj plan
                                 </p>
                             </div>
-                            <div className={"assign-diet-window-edit-diet-plan-save-button"} onClick={()=> {
+                            <div className={"assign-diet-window-edit-diet-plan-save-button"} onClick={() => {
+                                const dietId = dietKeys[dietData.findIndex(diet => diet === dietPlan)] || actualKey
+                                dietPlan.isPrivate = 1
+                                dietPlan.name = "Personalna dieta"
                                 changeUserDietPlan(
                                     actualKey,
-                                    dietKeys[dietData.findIndex(diet => diet.dietPlan === dietPlan)], //FIXME
-                                    cookies)
+                                    dietId,
+                                    cookies,
+                                    dietId===actualKey ? dietPlan : null,
+                                    )
                                 onClose()
                             }}>
                                 Zapisz

@@ -1,3 +1,5 @@
+import {emptyDiet} from "../../data/EmptyListsData.js";
+
 export async function getAllDiets(cookies) {
     const response = await fetch(
         "/api/dietPlans",
@@ -61,5 +63,5 @@ export async function getDietPlanData(id, cookies) {
         default:
             console.log("Wystąpił nieznany błąd. Spróbuj ponownie później." + response.status);
     }
-    return []
+    return emptyDiet
 }

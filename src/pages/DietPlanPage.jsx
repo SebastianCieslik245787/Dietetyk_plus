@@ -31,8 +31,7 @@ function DietPlanPage() {
         async function loadDietData() {
             const data = await getDietPlanData(getDataFromLocalStorage("currentDietId"), cookies)
             if (data) {
-                console.log(data)
-                setDietData(data);
+                setDietData(data.dietPlan);
             } else {
                 console.error("Nie udało się załadować planu diety.");
             }

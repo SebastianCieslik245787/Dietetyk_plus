@@ -36,7 +36,7 @@ const Patient = ({data, onMoreInfo, onDelete, onEdit}) => {
                             <img src={`${DeleteIcon}`} alt="" onClick={() => onDelete(key)}/>
                         </div>
                         <div className="patient-info-button patient-info-button-edit">
-                            <img src={`${DietPlanIcon}`} onClick={() => onEdit(key)} alt=""/>
+                            <img src={`${DietPlanIcon}`} onClick={() => onEdit(key, data.currentDietId)} alt=""/>
                         </div>
                         <div className="patient-info-button patient-info-button-more-info">
                             <img src={`${MoreInfoIcon}`} alt="" onClick={onMoreInfo} />
