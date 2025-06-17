@@ -86,9 +86,6 @@ const DietPlan = ({
         });
     };
 
-    console.log("mealsData", mealsData);
-    console.log("mealsKeys", mealsKeys);
-
     return (
         <div className="diet-plan-content" id="diet-plan-content">
             {
@@ -148,7 +145,12 @@ const DietPlan = ({
                     meals.map((meal, index) => (
                         <Meal
                             key={`day-${activeIndex}-meal-${index}`}
-                            data={meal}
+                            data={
+                                {
+                                    name: meal.name,
+                                    meal: mealsData[mealsKeys.indexOf(meal.meal)],
+                                }
+                            }
                             isActive={activeMealIndex === index}
                             onToggle={() => handleMealToggle(index)}
                             index={index}
