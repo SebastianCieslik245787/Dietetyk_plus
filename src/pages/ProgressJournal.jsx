@@ -1,6 +1,6 @@
 import "../style/ProgressJournal.css"
 import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
-import {CartesianGrid, Label, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
+import {CartesianGrid, Label, Legend, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
 import {useState} from "react";
 import {validateProgressJournal} from "../scripts/validateData/validateProgressJournal.js";
 import {journalDataOperations, getEdgeValue} from "../scripts/journalDataOperations.js";
@@ -9,12 +9,21 @@ import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
 import CreatorSelect from "../assets/elements/creator/CreatorSelect.jsx";
 import {timePeriod} from "../data/SelectOptionsData.js";
 
-const CustomTooltip = ({active, payload, label}) => {
+const CustomTooltip = ({active, payload, label, activeType}) => {
     if (active && payload && payload.length) {
         return (
             <div className="custom-tooltip">
                 <p className="label">{`Dzień: ${label}`}</p>
-                <p className="label">{`Wartość: ${payload[0].value}`}</p>
+                {
+                    activeType === 2
+                        ? (
+                            <>
+                                <p className="label">{`Ciśnienie skurczowe: ${payload[0]?.value}`}</p>
+                                <p className="label">{`Ciśnienie rozkurczowe: ${payload[1]?.value}`}</p>
+                            </>
+                        )
+                        : <p className="label">{`Wartość: ${payload[0].value}`}</p>
+                }
             </div>
         );
     }
@@ -47,7 +56,7 @@ function ProgressJournal() {
 
     const data = journalDataOperations(userData.medicalData.journal);
     const dataTypes = ["weight", "glucose", "pressure"];
-    const dataTypesLabels = ["Waga", "Poziom cukru", "Ciśnienie"];
+    const dataTypesLabels = ["Waga [kg]", "Poziom cukru", "Ciśnienie / Puls"];
 
     const [inputValue, setInputValue] = useState("");
 
@@ -100,7 +109,7 @@ function ProgressJournal() {
                         </div>
                         <div className={`progress-journal-menu-option  ${active === 2 ? 'active' : ''}`}
                              onClick={() => handleClick(2)}>
-                            Ciśnienie
+                            Ciśnienie i Puls
                             <div className={"progress-journal-menu-option-bottom-bar"}/>
                         </div>
                         <div
@@ -123,11 +132,45 @@ function ProgressJournal() {
                             setActive={setActiveTimePeriod}
                         />
                     </div>
+                    <div className={"chart-legend"}>
+                        <div className={"chart-legend-item"}>
+                            <div className={"chart-legend-item-circle"}/>
+                            <div className={"chart-legend-item-description"}>
+                                {active === 0 ? 'Waga' : (active === 1 ? 'Poziom cukru' : 'Ciśnienie')}
+                            </div>
+                        </div>
+                        {
+                            active === 2 && (
+                                <>
+                                    <div className={"chart-legend-item"}>
+                                        <div className={"chart-legend-item-circle second"}/>
+                                        <div className={"chart-legend-item-description second"}>
+                                            Puls
+                                        </div>
+                                    </div>
+                                </>
+                            )
+                        }
+                    </div>
                     <div className={"progress-journal-chart"}>
                         <LineChart
                             width={1350}
                             height={550}
-                            data={[...data[active], ...(todayData[dataTypes[active]] === -1 ? [] : [{"date": todayData.date, [dataTypes[active]]: todayData[dataTypes[active]]}])]}
+                            data={active === 2 ? [
+                                ...data[active],
+                                ...(todayData[dataTypes[active]] === -1 ? [] : [{
+                                    date: todayData.date,
+                                    [dataTypes[active]]: todayData[dataTypes[active]],
+                                    //TODO Podmień wartość jak będzie druga
+                                    [dataTypes[active]]: todayData[dataTypes[active]],
+                                }])
+                            ] : [
+                                ...data[active],
+                                ...(todayData[dataTypes[active]] === -1 ? [] : [{
+                                    date: todayData.date,
+                                    [dataTypes[active]]: todayData[dataTypes[active]]
+                                }])
+                            ]}
                             margin={{top: 20, right: 50, bottom: 40, left: 60}}>
                             <CartesianGrid stroke="#ccc" strokeDasharray="10 10"/>
                             <XAxis
@@ -154,6 +197,12 @@ function ProgressJournal() {
                             </YAxis>
                             <Tooltip content={CustomTooltip}/>
                             <Line type={"natural"} dataKey={dataTypes[active]} stroke="#3c6fb2"/>
+                            //TODO Podmień wartość jak będzie druga
+                            {
+                                active === 2 && (
+                                    <Line type="natural" dataKey={dataTypes[active]} stroke="#de0404"/>
+                                )
+                            }
                         </LineChart>
                     </div>
                 </div>
