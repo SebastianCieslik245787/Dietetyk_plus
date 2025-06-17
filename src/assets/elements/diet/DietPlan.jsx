@@ -180,6 +180,7 @@ const DietPlan = ({
                     ingredientsData={ingredientsData}
                     setIngredientsData={setIngredientsData}
                     setIngredientsKeys={setIngredientsKeys}
+                    ingredientsKeys={ingredientsKeys}
                     editMealIndex={editMealIndex}
                     mealsData={mealsData}
                     mealsKeys={mealsKeys}

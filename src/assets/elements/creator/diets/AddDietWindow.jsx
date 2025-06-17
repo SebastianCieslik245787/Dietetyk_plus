@@ -140,7 +140,6 @@ const AddDietWindow = ({
                     dietKey={actualKey}
                     ingredientsKeys={ingredientsKeys}
                     setIngredientsKeys={setIngredientsKeys}
-                    isCreator={true}
                 />}
         </div>
     </>)
