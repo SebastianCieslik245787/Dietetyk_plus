@@ -82,6 +82,7 @@ function DietitianPatientsPage() {
                                 onMoreInfo={() => {
                                     setExpandedPatientIndex(index)
                                     setIsPatientClicked(true);
+                                    console.log(filteredPatients[expandedPatientIndex])
                                 }}
                                 onDelete={(key) => {
                                     setIsDeleteWindowOpen(true)

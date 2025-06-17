@@ -250,23 +250,27 @@
 }
 
 .patient-informations-window-patient-data {
-    width: 40%;
-    margin: 0 5%;
+    width: 44%;
+    padding-left: 5%;
+    margin-right: 1%;
     height: 57%;
     float: left;
     font-size: 1.1rem;
     color: #484848;
     line-height: 3rem;
+    overflow: hidden auto;
 }
 
 .patient-informations-window-patient-medical-data {
     width: 39.8%;
-    padding: 0 5%;
+    padding-left: 5%;
+    margin-right: 2%;
     height: 57%;
     float: left;
     font-size: 0.8rem;
     color: #484848;
     border-left: 1px #959292 solid;
+    overflow: hidden auto;
 }
 
 .patient-informations-window-patient-medical-data-header {

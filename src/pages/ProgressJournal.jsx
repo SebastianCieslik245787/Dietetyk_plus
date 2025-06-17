@@ -2,7 +2,10 @@ import "../style/ProgressJournal.css"
 import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 import {CartesianGrid, Label, Legend, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
 import {useEffect, useState} from "react";
-import {validateProgressJournal} from "../scripts/validateData/validateProgressJournal.js";
+import {
+    validateProgressJournal,
+    validateProgressJournalPressureAndPulse
+} from "../scripts/validateData/validateProgressJournal.js";
 import {journalDataOperations, getEdgeValue, getPartialData} from "../scripts/journalDataOperations.js";
 import {getCurrentDate} from "../scripts/dateFunctions.js";
 import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
@@ -44,10 +47,19 @@ function ProgressJournal() {
         "date": getCurrentDate(),
         "weight": -1,
         "glucose": -1,
-        "pressure": -1
+        "pressure": -1,
     })
 
     const updateSetTodayData = (value) => {
+        if(active === 2){
+            let temp = value.split("/")
+            setTodayData(prev => ({
+                ...prev,
+                [dataTypes[active]]: Number(temp[0]),
+                [dataTypes[active + 1]]: Number(temp[1])
+            }));
+            return
+        }
         setTodayData(prev => ({
             ...prev,
             [dataTypes[active]]: Number(value)
@@ -76,7 +88,7 @@ function ProgressJournal() {
             }
         }
         else{
-            if (validateProgressJournal(inputValue, setError)) {
+            if (validateProgressJournalPressureAndPulse(inputValue, setError)) {
                 setIsBloodPressureEdited(true);
                 updateSetTodayData(inputValue);
             }

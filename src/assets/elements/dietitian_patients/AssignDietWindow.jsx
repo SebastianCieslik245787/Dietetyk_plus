@@ -69,10 +69,8 @@ const AssignDietWindow = ({onClose, actualKey}) => {
                             onClick={() => setEditDietPlan(false)}
                             onClose={() => setEditDietPlan(false)}
                             dietKey={getDataFromLocalStorage("currentDietId")}
-                            //TODO dodac Melas keys
                             mealsKeys={mealsKeys}
                             mealsData={mealsData}
-                            //TODO dodac Ingredienst keys
                             ingredientsKeys={ingredientsKeys}
                         />
                         :
@@ -94,6 +92,7 @@ const AssignDietWindow = ({onClose, actualKey}) => {
                                                  onClick={() => {
                                                      setDietPlan(dietData[index].dietPlan);
                                                      setFindDietQuery(dietData[index].name);
+                                                     console.log(dietData[index]);
                                                  }}>
                                                 {diet.name}
                                             </div>

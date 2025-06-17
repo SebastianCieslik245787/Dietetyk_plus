@@ -41,18 +41,25 @@ const PatientInformation = ({patientData, onClose}) => {
                         Rodzaj diety: {(dietPurposes.find(purpose => purpose.value === data.dietPurpose)?.label || "")}
                     </div>
                     <div className="patient-informations-window-patient-data">
+                        Płeć: {data.gender}
+                        <br/>
                         Nr tel: {data.phone}
                         <br/>
                         E-mail: {data.email}
                         <br/>
                         Wiek: {age} {latVariant(age)}
                         <br/>
-                        {/*<br/>*/}
-                        {/*Data urodzenia: {data.birthdate}*/}
-                        {/*<br/>*/}
+                        Data urodzenia: {data.birthdate}
+                        <br/>
                         Waga: {data.medicalData.weight}kg
                         <br/>
                         Wzrost: {data.medicalData.height}cm
+                        <br/>
+                        Cel diety: {data.dietPurpose}
+                        <br/>
+                        Ilość posiłków: {data.mealsCount}
+                        <br/>
+                        Typ pracy: {data.jobType}
                     </div>
                     <div className="patient-informations-window-patient-medical-data">
                         <span className="patient-informations-window-patient-medical-data-header">Choroby:</span>
