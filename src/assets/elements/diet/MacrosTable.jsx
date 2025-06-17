@@ -36,6 +36,22 @@ const MacrosTable = ({data, isCreator=false}) => {
                         Tłusz.
                     </p>
                 </div>
+                <div className="meal-info-macros-item">
+                    <p className="meal-info-macros-item-value">
+                        {data.sugar.toFixed(1)}
+                    </p>
+                    <p className="meal-info-macros-item-label">
+                        Cukier
+                    </p>
+                </div>
+                <div className="meal-info-macros-item">
+                    <p className="meal-info-macros-item-value">
+                        {data.fiber.toFixed(1)}
+                    </p>
+                    <p className="meal-info-macros-item-label">
+                        Błon.
+                    </p>
+                </div>
             </div>
         </>
     );
