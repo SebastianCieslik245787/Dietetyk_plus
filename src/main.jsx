@@ -15,6 +15,10 @@ import RecoverPassword from "./pages/RecoverPassword.jsx";
 import Creator from "./pages/Creator.jsx";
 import ProgressJournal from "./pages/ProgressJournal.jsx";
 import DietitianPatientsPage from "./pages/DietitianPatientsPage.jsx";
+import Error404 from "./pages/Error404.jsx";
+import Error401 from "./pages/Error401.jsx";
+import Error403 from "./pages/Error403.jsx";
+import Error500 from "./pages/Error500.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "./style/style.css"
 import {CookiesProvider} from "react-cookie";
@@ -81,6 +85,10 @@ createRoot(document.getElementById('root')).render(
                 <Route path={"/creator"} element={<Creator/>}/>
                 <Route path={"/progress-journal"} element={<ProgressJournal/>}/>
                 <Route path={"/recover-password"} element={<RecoverPassword/>}/>
+                <Route path={"/error-404"} element={<Error404/>}/>
+                <Route path={"/error-401"} element={<Error401/>}/>
+                <Route path={"/error-403"} element={<Error403/>}/>
+                <Route path={"/error-500"} element={<Error500/>}/>
             </Routes>
         </BrowserRouter>
     </CookiesProvider>

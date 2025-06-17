@@ -37,6 +37,7 @@ function SecondStep({formData, setFormData}) {
                     required={true}
                     label="Płeć:"
                     error="genderError"
+                    labelTextType={"normal"}
                 />
                 <RegisterInputText
                     value={formData.weight}

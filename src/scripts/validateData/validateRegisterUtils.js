@@ -101,7 +101,7 @@ function validateSurname(surname) {
 function validatePassword(password) {
     const errorField = document.getElementById("passwordError");
     const PASSWORD_REGEX = /^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
-    if (password === "" && !PASSWORD_REGEX.test(password)) {
+    if (password === "" || !PASSWORD_REGEX.test(password)) {
         setErrorField(errorField, "Hasło niepoprawne");
         return false;
     }
@@ -122,7 +122,7 @@ function validateConfirmPassword(confirmPassword, password) {
 function validatePhoneNumber(phoneNumber) {
     const errorField = document.getElementById("phoneNumberError");
     const PHONE_NUMBER_REGEX = /^(?:\+48\s?\d{9}|\+48\s?\d{3}\s\d{3}\s\d{3}|\+48\s?\d{3}-\d{3}-\d{3}|\d{9}|\d{3}\s\d{3}\s\d{3}|\d{3}-\d{3}-\d{3})$/;
-    if (phoneNumber === "" && !PHONE_NUMBER_REGEX.test(phoneNumber)) {
+    if (phoneNumber === "" || !PHONE_NUMBER_REGEX.test(phoneNumber)) {
         setErrorField(errorField, "Numer telefonu jest niepoprawny!");
         return false;
     }
