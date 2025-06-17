@@ -17,7 +17,8 @@ import {getAllIngredients} from "../scripts/getData/getIngredientsData.js";
 import {useCookies} from "react-cookie";
 import {getAllMeals} from "../scripts/getData/getMealsData.js";
 import {getAllDiets} from "../scripts/getData/getDietsData.js";
-import {sendMealData, sendUpdateMealData} from "../scripts/sendData/sendMealData.js";
+import {sendDeleteMealData, sendMealData, sendUpdateMealData} from "../scripts/sendData/sendMealData.js";
+import {sendDeleteDietPlanData} from "../scripts/sendData/sendDietPlanData.js";
 
 function Creator() {
     const [activeCreator, setActiveCreator] = useState(0);
@@ -47,7 +48,6 @@ function Creator() {
     const [meals, setMeals] = useState([]);
     const [diets, setDiets] = useState([]);
 
-    // TODO Wykorzystać to
     const [ingredientsKeys, setIngredientsKeys] = useState([]);
     const [mealsKeys, setMealsKeys] = useState([]);
     const [dietsKeys, setDietsKeys] = useState([]);
@@ -124,7 +124,6 @@ function Creator() {
                 updated[activeDataIndex] = newMeal;
                 return updated;
             });
-            //TODO Dodać id
             sendUpdateMealData(dietsKeys[activeDataIndex], newMeal, cookies);
         } else {
             sendMealData(newMeal, cookies);
@@ -276,6 +275,9 @@ function Creator() {
                     <DeleteWindow
                         onClose={() => setOpenDeleteWindow(false)}
                         onDelete={() => {
+                            activeCreator === 0 ?
+                                sendDeleteMealData(mealsKeys[activeDataIndex], cookies):
+                                sendDeleteDietPlanData(dietsKeys[activeDataIndex], cookies)
                             removeDataAtIndex(activeDataIndex)
                             setActiveDataIndex(null)
                             setOpenDeleteWindow(false)
