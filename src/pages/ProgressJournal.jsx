@@ -39,7 +39,7 @@ function ProgressJournal() {
     const [error, setError] = useState("");
     const userData = getDataFromLocalStorage("")
 
-    const doesTodayDataExist = userData.medicalData.journal[userData.medicalData.journal.length-1].date === getCurrentDate()
+    const doesTodayDataExist = userData.medicalData.journal[userData.medicalData.journal.length-1]?.date === getCurrentDate()
     const [todayData, setTodayData] = useState(doesTodayDataExist ? userData.medicalData.journal[userData.medicalData.journal.length-1] : {
         "date": getCurrentDate(),
         "weight": -1,
