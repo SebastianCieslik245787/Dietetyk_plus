@@ -1,6 +1,4 @@
 export function sendMealData(recipe, cookies) {
-    recipe.img_b64 = ""
-
     fetch(
         "/api/meal",
         {

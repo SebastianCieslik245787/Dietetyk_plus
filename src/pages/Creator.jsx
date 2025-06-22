@@ -105,7 +105,7 @@ function Creator() {
             setData(diets);
             setFilteredData(diets);
         }
-    }, [activeCreator, meals, diets]);
+    }, [activeCreator, meals, diets, setData]);
 
     useEffect(() => {
         console.log("Aktualne dane:", data);

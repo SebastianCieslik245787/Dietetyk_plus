@@ -4,7 +4,6 @@ import EditIcon from '../../../../images/icons/edit_icon.png'
 import {useEffect, useState} from "react";
 import AddMealWindow from "../meals/AddMealWindow.jsx";
 import {emptyMeal} from "../../../../data/EmptyListsData.js";
-import {useCookies} from "react-cookie";
 
 /**
  * Okno dodawania lub edycji posiłku w edycji diety na stronie kreatora {@link Creator}, w oknie {@link DietPlan}.

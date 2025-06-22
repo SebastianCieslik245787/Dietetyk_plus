@@ -12,7 +12,7 @@ export async function sendIngredientData(ingredient, cookies) {
     )
     switch (response.status) {
         case 200: {
-            return response.text();
+            return response.json();
         }
         case 401:
             console.log("Niepoprawne dane logowania");

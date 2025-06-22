@@ -2,7 +2,7 @@ import DefaultPatientIcon from "../../../images/icons/deafult_user_icon.png"
 import closeWindowIcon from "../../../images/icons/close_window_icon.png"
 
 import {useRef} from "react";
-import {dietPurposes} from "../../../data/RegisterConsts.js";
+import {dietPurposes, jobTypes, mealsCount} from "../../../data/RegisterConsts.js";
 
 import {parseDateToYearSince} from "../../../scripts/dateFunctions.js";
 import useClickOutside from "../../hooks/OnClickOutsideWindow.jsx";
@@ -41,7 +41,7 @@ const PatientInformation = ({patientData, onClose}) => {
                         Rodzaj diety: {(dietPurposes.find(purpose => purpose.value === data.dietPurpose)?.label || "")}
                     </div>
                     <div className="patient-informations-window-patient-data">
-                        Płeć: {data.gender}
+                        Płeć: {data.gender === 0 ? "Mężczyzna" : "Kobieta"}
                         <br/>
                         Nr tel: {data.phone}
                         <br/>
@@ -55,11 +55,11 @@ const PatientInformation = ({patientData, onClose}) => {
                         <br/>
                         Wzrost: {data.medicalData.height}cm
                         <br/>
-                        Cel diety: {data.dietPurpose}
+                        Cel diety: {dietPurposes.find(purpose => purpose.value === data.dietPurpose)?.label}
                         <br/>
-                        Ilość posiłków: {data.mealsCount}
+                        Ilość posiłków: {mealsCount.find(purpose => purpose.value === data.mealsCount)?.label}
                         <br/>
-                        Typ pracy: {data.jobType}
+                        Typ pracy: {jobTypes.find(purpose => purpose.value === data.jobType)?.label}
                     </div>
                     <div className="patient-informations-window-patient-medical-data">
                         <span className="patient-informations-window-patient-medical-data-header">Choroby:</span>
