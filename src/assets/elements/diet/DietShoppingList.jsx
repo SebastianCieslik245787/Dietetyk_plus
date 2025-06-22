@@ -1,14 +1,34 @@
-import React, {useState} from "react";
-import DownloadIcon from "../../../images/icons/download_icon.png"
-import {mealCategoryData} from "../../../data/SelectOptionsData.js";
+import React, { useState } from "react";
+import DownloadIcon from "../../../images/icons/download_icon.png";
+import { mealCategoryData } from "../../../data/SelectOptionsData.js";
+import { generateShoppingListPDF } from "../../../scripts/generateShoppingListPDF.js"; // import funkcji PDF
+import TransparentLogo from "../../../images/transparent_logo.png";
 
 const today = new Date();
 const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1;
 
-const DietShoppingList = ({options, data}) => {
+function getBase64FromUrl(url) {
+    return fetch(url)
+        .then(response => response.blob())
+        .then(blob => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+        }));
+}
+
+
+const DietShoppingList = ({ options, data, userName = "Pacjent", userSurname = "" }) => {
     const [activeIndex, setActiveIndex] = useState(dayOfWeek);
 
     const handleItemClick = (index) => setActiveIndex(index);
+
+    const handleDownload = async () => {
+        const logoBase64 = await getBase64FromUrl(TransparentLogo);
+        generateShoppingListPDF(data, userName, userSurname, logoBase64);
+    };
+
 
     return (
         <div className="diet-plan-content" id={"diet-plan-content"}>
@@ -34,7 +54,7 @@ const DietShoppingList = ({options, data}) => {
                         </div>
                     ))}
                 </div>
-                <div className="diet-plan-menu-button">
+                <div className="diet-plan-menu-button" onClick={handleDownload}>
                     <img src={`${DownloadIcon}`} alt=""/>
                     <p className="diet-plan-menu-button-text">
                         Pobierz

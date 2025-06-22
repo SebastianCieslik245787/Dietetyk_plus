@@ -24,7 +24,8 @@ const DietPlan = ({
                       mealsKeys,
                       ingredientsKeys,
                       setIngredientsKeys,
-                      isCreator=false
+                      isCreator = false,
+                      isUser = false
                   }) => {
     const [activeIndex, setActiveIndex] = useState(dayOfWeek);
     const [activeMealIndex, setActiveMealIndex] = useState(null);
@@ -88,7 +89,7 @@ const DietPlan = ({
     return (
         <div className="diet-plan-content" id="diet-plan-content">
             {
-                isEdit && (
+                isEdit && !isUser && (
                     <div className={"diet-plan-menu-close"}>
                         <img src={`${CloseIcon}`} alt="" onClick={onClose}/>
                     </div>
@@ -123,11 +124,11 @@ const DietPlan = ({
                 </div>
                 <div className="diet-plan-menu-button" onClick={onClick}>
                     <img
-                        src={isEdit ? `${SaveIcon}` : `${DownloadIcon}`}
+                        src={isEdit && !isUser ? `${SaveIcon}` : `${DownloadIcon}`}
                         alt=""
                     />
                     <p className="diet-plan-menu-button-text">
-                        {isEdit ? "Zapisz" : "Pobierz"}
+                        {isEdit && !isUser ? "Zapisz" : "Pobierz"}
                     </p>
                 </div>
             </div>
@@ -164,7 +165,7 @@ const DietPlan = ({
                         Brak posiłków do wyświetlenia.
                     </p>
                 )}
-                {isEdit && (
+                {isEdit && !isUser && (
                     <CreatorAddItem
                         placeHolder={"Dodaj posiłek"}
                         onClick={() => setAddMealToDay(true)}

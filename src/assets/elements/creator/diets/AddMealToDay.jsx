@@ -41,7 +41,8 @@ import {useCookies} from "react-cookie";
  *
  * @returns {JSX.Element}
  */
-const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, setIngredientsData, editMealIndex, mealsData, mealsKeys, ingredientsKeys, dietKey, setIngredientsKeys}) => {
+const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, setIngredientsData, editMealIndex, mealsData, mealsKeys, ingredientsKeys,
+                          setIngredientsKeys}) => {
     /**
      * Odpowiada za otwieranie okna dodającego nowy posiłek do diety na konkretny dzień.
      *
@@ -84,8 +85,6 @@ const AddMealToDay = ({data, setData, activeIndex, onClose, ingredientsData, set
      * @default Brak nazwy.
      */
     const [mealName, setMealName] = useState("");
-    const [cookies] = useCookies(['User-Key']);
-
     /**
      * Funkcja dodająca nowy posiłek do aktualnych danych.
      *

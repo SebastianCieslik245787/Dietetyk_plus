@@ -1,12 +1,22 @@
-export function createShoppingList(fullDietData) {
+import {emptyShoppingList} from "../data/EmptyListsData.js";
+
+export function createShoppingList(fullDietData, ingredientsData, ingredientsKeys) {
+    if (
+        !fullDietData ||
+        !Array.isArray(ingredientsData) || ingredientsData.length === 0 ||
+        !Array.isArray(ingredientsKeys) || ingredientsKeys.length === 0
+    ) {
+        return emptyShoppingList;
+    }
 
     return fullDietData.map((dayMeals) => {
-
         const dailyShoppingMap = new Map();
 
         dayMeals.forEach(mealBlock => {
-            mealBlock.meal.ingredients.forEach(ingredient => {
-                const { name, count, unit, categoryId } = ingredient;
+            Object.entries(mealBlock.meal.ingredients).forEach(([id, count]) => {
+                const ingredientIndex = ingredientsKeys.indexOf(id);
+                if (ingredientIndex === -1) return;
+                const {name, unit, categoryId} = ingredientsData[ingredientIndex];
 
                 if (!name || count === 0) return;
 

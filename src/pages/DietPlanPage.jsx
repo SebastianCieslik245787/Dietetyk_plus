@@ -2,7 +2,6 @@ import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
 import DietPlan from "../assets/elements/diet/DietPlan.jsx";
 
 import "../style/DietPlan.css";
-import {dietPlanData} from "../data/dietPlanDataUser.js";
 import {dietDayNames} from "../data/SelectOptionsData.js";
 import {generateDietPDF} from "../scripts/generatePDF.js";
 import {useCookies} from "react-cookie";
@@ -12,6 +11,8 @@ import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
 import {getAllIngredients} from "../scripts/getData/getIngredientsData.js";
 import {useConnection} from "../assets/ConnectionProvider.jsx";
 import Error from "../assets/elements/error_page/Error.jsx";
+import {emptyDiet} from "../data/EmptyListsData.js";
+import TransparentLogo from "../images/transparent_logo.png";
 
 function getBase64FromUrl(url) {
     return fetch(url)
@@ -28,33 +29,34 @@ function DietPlanPage() {
     const {isConnected} = useConnection();
 
     const [cookies] = useCookies(["User-Key"]);
-    const [dietData, setDietData] = useState(dietPlanData);
+    const [dietData, setDietData] = useState(emptyDiet);
     const [ingredientsData, setIngredientsData] = useState([]);
+    const [ingredientsKeys, setIngredientsKeys] = useState([]);
 
     useEffect(() => {
         async function loadDietData() {
             const data = await getDietPlanData(getDataFromLocalStorage("currentDietId"), cookies)
             if (data) {
-                setDietData(data.dietPlan);
+                setDietData(data);
             } else {
                 console.error("Nie udało się załadować planu diety.");
             }
-
-            const ingredients = await getAllIngredients(cookies);
-            if (ingredients) {
-                setIngredientsData(ingredients);
+            const [inkeys, indata] = await getAllIngredients(cookies);
+            if (indata) {
+                setIngredientsData(indata);
+                setIngredientsKeys(inkeys);
             } else {
                 console.error("Nie udało się załadować składników diety.");
             }
         }
 
         loadDietData();
-    }, [cookies]);
+    }, [cookies, ingredientsData]);
 
     const handleDownloadPDF = async () => {
-        const name = getDataFromLocalStorage("name")
-        const surname = getDataFromLocalStorage("surname")
-        const logoBase64 = await getBase64FromUrl("src/images/transparent_logo.png");
+        const name = getDataFromLocalStorage("name") || "Pacjent";
+        const surname = getDataFromLocalStorage("surname") || "";
+        const logoBase64 = await getBase64FromUrl(TransparentLogo);
         generateDietPDF(dietData, name, surname, logoBase64);
     };
     return (
@@ -62,11 +64,14 @@ function DietPlanPage() {
             <div className="diet-plan-container">
                 <NavigationBar/>
                 <DietPlan
+                    isEdit={true}
                     options={dietDayNames}
                     data={dietData}
                     setData={setDietData}
                     onClick={handleDownloadPDF}
                     ingredientsData={ingredientsData}
+                    ingredientsKeys={ingredientsKeys}
+                    isUser={true}
                 />
             </div>) : (
             <Error

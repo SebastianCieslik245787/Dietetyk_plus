@@ -11,14 +11,18 @@ function LogOutPage() {
 
     const [, cookies, removeCookie] = useCookies(["User-Key"]);
 
+    // Kopia, aby móc usunąć przed wysłaniem żądania, tak aby nie musieć czekać na odpowiedź serwera
+    const temp = cookies["User-Key"];
+    removeCookie("User-Key");
     localStorage.removeItem("User-Data");
+
     fetch(
         "/api/logout",
         {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": cookies["User-Key"]
+                "Authorization": temp
             }
         }
     ).then(r => {
@@ -30,8 +34,6 @@ function LogOutPage() {
     }).catch(() => {
         console.log("Błąd sieciowy podczas wylogowywania");
     })
-    /*Nie ma znaczenia czy wylogowanie się faktycznie powiodło bo użytkownik i tak nie ma dostępu do aplikacji*/
-    removeCookie("User-Key");
 
     return (
         isConnected ? (

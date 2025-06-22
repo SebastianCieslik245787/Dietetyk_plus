@@ -4,6 +4,7 @@ export function sendChangeUserData(cookies, data){
     const currentUserData = getDataFromLocalStorage("")
     currentUserData.email = data.userEmail
     currentUserData.phone = data.userPhone
+    currentUserData.img_b64 = data.img_b64
     postNewData(cookies['User-Key'], currentUserData);
 }
 

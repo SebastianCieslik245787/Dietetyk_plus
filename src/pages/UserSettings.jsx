@@ -16,6 +16,7 @@ import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
 import {useCookies} from "react-cookie";
 import {useConnection} from "../assets/ConnectionProvider.jsx";
 import Error from "../assets/elements/error_page/Error.jsx";
+import {useNavigate} from "react-router-dom";
 
 export function UserSettings() {
     const {isConnected} = useConnection();
@@ -23,6 +24,8 @@ export function UserSettings() {
     const userData = getDataFromLocalStorage("");
     const [cookies] = useCookies(["User-Key"]);
     const [actualSettings, setActualSettings] = useState(0);
+
+    const navigator = useNavigate();
 
     const initialData = useMemo(() => ({
         userName: userData?.name || "",
@@ -90,6 +93,7 @@ export function UserSettings() {
         } else if (actualSettings === 1) {
             if (!validateChangePassword(userPasswordData, setErrors)) return;
             sendChangeUserPassword(cookies, userPasswordData);
+            navigator("/logout")
         } else {
             sendChangeUserDescription(cookies, userDescription);
         }
