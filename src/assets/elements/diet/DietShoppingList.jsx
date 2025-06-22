@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import DownloadIcon from "../../../images/icons/download_icon.png";
-import { mealCategoryData } from "../../../data/SelectOptionsData.js";
-import { generateShoppingListPDF } from "../../../scripts/generateShoppingListPDF.js"; // import funkcji PDF
+import {mealCategoryData} from "../../../data/SelectOptionsData.js";
+import {generateShoppingListPDF} from "../../../scripts/generateShoppingListPDF.js";
 import TransparentLogo from "../../../images/transparent_logo.png";
 
 const today = new Date();
@@ -18,8 +18,7 @@ function getBase64FromUrl(url) {
         }));
 }
 
-
-const DietShoppingList = ({ options, data, userName = "Pacjent", userSurname = "" }) => {
+const DietShoppingList = ({options, data, userName = "Pacjent", userSurname = ""}) => {
     const [activeIndex, setActiveIndex] = useState(dayOfWeek);
 
     const handleItemClick = (index) => setActiveIndex(index);
@@ -28,7 +27,6 @@ const DietShoppingList = ({ options, data, userName = "Pacjent", userSurname = "
         const logoBase64 = await getBase64FromUrl(TransparentLogo);
         generateShoppingListPDF(data, userName, userSurname, logoBase64);
     };
-
 
     return (
         <div className="diet-plan-content" id={"diet-plan-content"}>
@@ -76,19 +74,24 @@ const DietShoppingList = ({ options, data, userName = "Pacjent", userSurname = "
                 </div>
                 <div className="diet-shopping-list-items">
                     {
-                        data[activeIndex].map((item, index) => (
-                            <div className="diet-shopping-list-item" key={index}>
-                                <div className="diet-shopping-list-item-product-name">
-                                    {item.name}
+                        function () {
+                            if (!data || !data[activeIndex]) {
+                                return;
+                            }
+                            return data[activeIndex].map((item, index) => (
+                                <div className="diet-shopping-list-item" key={index}>
+                                    <div className="diet-shopping-list-item-product-name">
+                                        {item.name}
+                                    </div>
+                                    <div className="diet-shopping-list-item-product-count">
+                                        {item.count} {item.unit}
+                                    </div>
+                                    <div className="diet-shopping-list-item-product-category">
+                                        {mealCategoryData[item.categoryId]}
+                                    </div>
                                 </div>
-                                <div className="diet-shopping-list-item-product-count">
-                                    {item.count} {item.unit}
-                                </div>
-                                <div className="diet-shopping-list-item-product-category">
-                                    {mealCategoryData[item.categoryId]}
-                                </div>
-                            </div>
-                        ))
+                            ))
+                        }()
                     }
                 </div>
             </div>
