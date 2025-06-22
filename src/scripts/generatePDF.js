@@ -4,12 +4,12 @@ import { font } from "../scripts/fonts/times-normal.js";
 
 /**
  * Tworzy PDF z planem diety dla pacjenta (bez listy zakupów).
- * @param {Array} days - Tablica dni (każdy dzień to tablica posiłków)
+ * @param {Array} diet - Tablica dni (każdy dzień to tablica posiłków)
  * @param {string} name - Imię pacjenta
  * @param {string} surname - Nazwisko pacjenta
  * @param {string} logoBase64 - Logo w base64
  */
-export function generateDietPDF(days, name, surname, logoBase64) {
+export function generateDietPDF(diet, name, surname, logoBase64) {
     const doc = new jsPDF();
     doc.addFileToVFS("times-normal.ttf", font);
     doc.addFont("times-normal.ttf", "times-normal", "normal");
@@ -39,13 +39,13 @@ export function generateDietPDF(days, name, surname, logoBase64) {
     doc.setFontSize(20);
     doc.text(`Plan diety dla: ${name} ${surname}`, pageWidth / 2, 36, { align: "center" });
 
-    if (!Array.isArray(days) || days.length === 0) {
+    if (!Array.isArray(diet.dietPlan) || diet.dietPlan.length === 0) {
         doc.setFont("times-normal", "normal");
         doc.setFontSize(12);
         doc.text("Brak danych do wyświetlenia.", 14, 50);
     } else {
         let y = 46;
-        days.forEach((day, dayIdx) => {
+        diet.dietPlan.forEach((day, dayIdx) => {
             if (y > 250) { doc.addPage(); y = 20; }
             // Nagłówek dnia
             doc.setFont("times-normal", "normal");

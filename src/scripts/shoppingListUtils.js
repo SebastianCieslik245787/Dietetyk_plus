@@ -9,7 +9,7 @@ export function createShoppingList(fullDietData, ingredientsData, ingredientsKey
         return emptyShoppingList;
     }
 
-    return fullDietData.map((dayMeals) => {
+    return fullDietData.dietPlan.map((dayMeals) => {
         const dailyShoppingMap = new Map();
 
         dayMeals.forEach(mealBlock => {

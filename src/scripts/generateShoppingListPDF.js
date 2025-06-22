@@ -1,6 +1,6 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import { font } from "./fonts/times-normal.js";
+import {font} from "./fonts/times-normal.js";
 
 /**
  * Tworzy PDF tylko z podsumowaniem zakupów.
@@ -25,17 +25,17 @@ export function generateShoppingListPDF(days, name, surname, logoBase64) {
     doc.setFont("times-normal", "normal");
     doc.setFontSize(28);
     doc.setTextColor(180, 180, 180);
-    doc.text("Dietetyk+", pageWidth / 2, 22, { align: "center" });
+    doc.text("Dietetyk+", pageWidth / 2, 22, {align: "center"});
     doc.setTextColor(0, 0, 0);
 
     // Data wygenerowania w prawym górnym rogu
     const today = new Date().toLocaleDateString();
     doc.setFontSize(10);
-    doc.text(`Data wygenerowania: ${today}`, 200, 16, { align: "right" });
+    doc.text(`Data wygenerowania: ${today}`, 200, 16, {align: "right"});
 
     // Tytuł wyśrodkowany
     doc.setFontSize(20);
-    doc.text(`Lista zakupów dla: ${name} ${surname}`, pageWidth / 2, 36, { align: "center" });
+    doc.text(`Lista zakupów dla: ${name} ${surname}`, pageWidth / 2, 36, {align: "center"});
 
     // --- PODSUMOWANIE ZAKUPÓW Z CAŁEGO OKRESU ---
     doc.setFontSize(18);
@@ -48,17 +48,14 @@ export function generateShoppingListPDF(days, name, surname, logoBase64) {
     if (Array.isArray(days)) {
         days.forEach(day => {
             if (Array.isArray(day)) {
-                day.forEach(mealObj => {
-                    if (Array.isArray(mealObj.meal?.ingredients)) {
-                        mealObj.meal.ingredients.forEach(i => {
-                            const key = `${i.name}|${i.unit}`;
-                            if (!allIngredients[key]) {
-                                allIngredients[key] = { name: i.name, count: 0, unit: i.unit };
-                            }
-                            allIngredients[key].count += Number(i.count) || 0;
-                        });
+                day.forEach(i => {
+                    const key = `${i.name}|${i.unit}`;
+                    if (!allIngredients[key]) {
+                        allIngredients[key] = {name: i.name, count: 0, unit: i.unit};
                     }
+                    allIngredients[key].count += Number(i.count) || 0;
                 });
+
             }
         });
     }
@@ -73,10 +70,10 @@ export function generateShoppingListPDF(days, name, surname, logoBase64) {
             head: [["Składnik", "Łączna ilość", "Jednostka"]],
             body: summaryTable,
             startY: 60,
-            styles: { font: "times-normal", fontStyle: "normal", fontSize: 11 },
-            headStyles: { font: "times-normal", fontStyle: "normal", fontSize: 11 },
-            bodyStyles: { font: "times-normal", fontStyle: "normal", fontSize: 11 },
-            margin: { left: 18 }
+            styles: {font: "times-normal", fontStyle: "normal", fontSize: 11},
+            headStyles: {font: "times-normal", fontStyle: "normal", fontSize: 11},
+            bodyStyles: {font: "times-normal", fontStyle: "normal", fontSize: 11},
+            margin: {left: 18}
         });
     } else {
         doc.setFontSize(11);
@@ -88,9 +85,9 @@ export function generateShoppingListPDF(days, name, surname, logoBase64) {
     for (let i = 1; i <= pageCount; i++) {
         doc.setPage(i);
         doc.setFontSize(10);
-        doc.text(`${name} ${surname}`, 200, 10, { align: "right" });
+        doc.text(`${name} ${surname}`, 200, 10, {align: "right"});
         doc.setFontSize(9);
-        doc.text(`Strona ${i} z ${pageCount}`, 105, 292, { align: "center" });
+        doc.text(`Strona ${i} z ${pageCount}`, 105, 292, {align: "center"});
     }
 
     doc.save(`Lista_zakupow_${name}_${surname}.pdf`);

@@ -51,7 +51,7 @@ function DietPlanPage() {
         }
 
         loadDietData();
-    }, [cookies, ingredientsData]);
+    }, [cookies]);
 
     const handleDownloadPDF = async () => {
         const name = getDataFromLocalStorage("name") || "Pacjent";
