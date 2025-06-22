@@ -2,6 +2,9 @@ import logo from "../images/logo.webp";
 
 import "../style/AboutUs.css"
 import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
+import {useConnection} from "../assets/ConnectionProvider.jsx";
+import Error from "../assets/elements/error_page/Error.jsx";
+
 
 /**
  * Strona zawierająca informacje o ofercie serwisu.
@@ -10,7 +13,10 @@ import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
  * @returns {JSX.Element} - Strona zawierająca informacje o ofercie serwisu.
  */
 function AboutUs() {
+    const {isConnected} = useConnection();
+
     return (
+        isConnected ? (
         <>
             <NavigationBar/>
             <div className="about-us-container">
@@ -40,6 +46,12 @@ function AboutUs() {
                     <img src={logo} alt=""/>
             </div>
         </>
+        ) : (
+            <Error
+                errorCode={"Error 404"}
+                errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
+            />
+        )
     )
 }
 

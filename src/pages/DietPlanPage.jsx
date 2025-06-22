@@ -9,6 +9,8 @@ import {useEffect, useState} from "react";
 import {getDietPlanData} from "../scripts/getData/getDietsData.js";
 import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
 import {getAllIngredients} from "../scripts/getData/getIngredientsData.js";
+import {useConnection} from "../assets/ConnectionProvider.jsx";
+import Error from "../assets/elements/error_page/Error.jsx";
 import {emptyDiet} from "../data/EmptyListsData.js";
 import TransparentLogo from "../images/transparent_logo.png";
 
@@ -24,6 +26,8 @@ function getBase64FromUrl(url) {
 }
 
 function DietPlanPage() {
+    const {isConnected} = useConnection();
+
     const [cookies] = useCookies(["User-Key"]);
     const [dietData, setDietData] = useState(emptyDiet);
     const [ingredientsData, setIngredientsData] = useState([]);
@@ -45,29 +49,36 @@ function DietPlanPage() {
                 console.error("Nie udało się załadować składników diety.");
             }
         }
+
         loadDietData();
     }, [cookies, ingredientsData]);
 
     const handleDownloadPDF = async () => {
-    const name = getDataFromLocalStorage("name") || "Pacjent";
-    const surname = getDataFromLocalStorage("surname") || "";
-    const logoBase64 = await getBase64FromUrl(TransparentLogo);
-    generateDietPDF(dietData, name, surname, logoBase64);
+        const name = getDataFromLocalStorage("name") || "Pacjent";
+        const surname = getDataFromLocalStorage("surname") || "";
+        const logoBase64 = await getBase64FromUrl(TransparentLogo);
+        generateDietPDF(dietData, name, surname, logoBase64);
     };
     return (
-        <div className="diet-plan-container">
-            <NavigationBar/>
-            <DietPlan
-                isEdit={true}
-                options={dietDayNames}
-                data={dietData}
-                setData={setDietData}
-                onClick={handleDownloadPDF}
-                ingredientsData={ingredientsData}
-                ingredientsKeys={ingredientsKeys}
-                isUser={true}
+        isConnected ? (
+            <div className="diet-plan-container">
+                <NavigationBar/>
+                <DietPlan
+                    isEdit={true}
+                    options={dietDayNames}
+                    data={dietData}
+                    setData={setDietData}
+                    onClick={handleDownloadPDF}
+                    ingredientsData={ingredientsData}
+                    ingredientsKeys={ingredientsKeys}
+                    isUser={true}
+                />
+            </div>) : (
+            <Error
+                errorCode={"Error 404"}
+                errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
             />
-        </div>
+        )
     );
 }
 

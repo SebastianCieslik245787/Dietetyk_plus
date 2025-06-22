@@ -10,6 +10,8 @@ import "../style/ShoppingList.css"
     import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
     import {getDietPlanData} from "../scripts/getData/getDietsData.js";
     import {getAllIngredients} from "../scripts/getData/getIngredientsData.js";
+    import {useConnection} from "../assets/ConnectionProvider.jsx";
+    import Error from "../assets/elements/error_page/Error.jsx";
 
     function ShoppingList() {
         const [cookies] = useCookies(["User-Key"]);
@@ -20,7 +22,9 @@ import "../style/ShoppingList.css"
         const [ingredientsKeys, setIngredientsKeys] = useState([]);
 
         const [shoppingList, setShoppingList] = useState(emptyShoppingList);
-
+      
+        const {isConnected} = useConnection();
+      
         useEffect(() => {
             async function fetchDietData(){
                 const dietPlanData = await getDietPlanData(dietId, cookies);
@@ -38,6 +42,7 @@ import "../style/ShoppingList.css"
         }, [dietData, ingredientsData, ingredientsKeys]);
 
         return (
+          isConnected ? (
             <>
                 <NavigationBar/>
                 <div className="diet-plan-container">
@@ -46,8 +51,13 @@ import "../style/ShoppingList.css"
                         data={shoppingList}
                     />
                 </div>
-            </>
-        );
-    }
+            </>) : (
+            <Error
+                errorCode={"Error 404"}
+                errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
+            />
+        )
+    );
+}
 
-    export default ShoppingList;
+export default ShoppingList;

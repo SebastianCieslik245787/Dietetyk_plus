@@ -6,13 +6,17 @@ import {useCookies} from "react-cookie";
 import {getDietitiansData} from "../scripts/getData/getUsersData.js";
 import {changeUserDietetic} from "../scripts/sendData/sendPatientDataChange.js";
 import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
+import {useConnection} from "../assets/ConnectionProvider.jsx";
+import Error from "../assets/elements/error_page/Error.jsx";
 
-function Dietitians(){
+function Dietitians() {
+    const {isConnected} = useConnection();
+
     const [cookies] = useCookies(["User-Key"]);
     const userData = getDataFromLocalStorage("");
     const [dietitians, setDietitians] = useState([]);
     const [isAssigned, setIsAssigned] = useState(
-        userData.role==="user" ? userData.dieteticId !== "": true //Dietetyk nie ma przycisku więc ma "tak jakby był przypisany"
+        userData.role === "user" ? userData.dieteticId !== "" : true //Dietetyk nie ma przycisku więc ma "tak jakby był przypisany"
     );
     const handleAssign = (key) => {
         console.log("Zapisanie się do dietetyka: " + key);
@@ -28,21 +32,29 @@ function Dietitians(){
     }, [cookies]);
 
     return (
-        <>
-            <NavigationBar/>
-            <div className="offer-container">
-                <div className="offer-dietitian-container">
-                    {dietitians.map((item, index) => (
-                        <Dietitian
-                            data={item}
-                            key={index}
-                            isAssigned={isAssigned}
-                            onClick={handleAssign}
-                            position={index % 2 === 1 ? "right" : "left"}
-                        />
-                    ))}
+        isConnected ? (
+            <>
+                <NavigationBar/>
+                <div className="offer-container">
+                    <div className="offer-dietitian-container">
+                        {dietitians.map((item, index) => (
+                            <Dietitian
+                                data={item}
+                                key={index}
+                                isAssigned={isAssigned}
+                                onClick={handleAssign}
+                                position={index % 2 === 1 ? "right" : "left"}
+                            />
+                        ))}
+                    </div>
                 </div>
-            </div>
-        </>
+            </>) : (
+            <Error
+                errorCode={"Error 404"}
+                errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
+            />
+        )
     );
-} export default Dietitians;
+}
+
+export default Dietitians;

@@ -1,8 +1,12 @@
 import "../style/LogoutPage.css"
 import {useNavigate} from "react-router-dom";
 import {useCookies} from "react-cookie";
+import {useConnection} from "../assets/ConnectionProvider.jsx";
+import Error from "../assets/elements/error_page/Error.jsx";
 
-function LogOutPage(){
+function LogOutPage() {
+    const {isConnected} = useConnection();
+
     const navigate = useNavigate();
 
     const [, cookies, removeCookie] = useCookies(["User-Key"]);
@@ -27,22 +31,30 @@ function LogOutPage(){
         } else {
             console.log("Błąd podczas wylogowywania");
         }
-    }).catch(()=> {
+    }).catch(() => {
         console.log("Błąd sieciowy podczas wylogowywania");
     })
 
     return (
-        <>
-            <div className="logout-coinatiner">
-                <div className="logout-panel">
-                    <div className="logout-information">
-                        Pomyślnie Wylogowano...
-                    </div>
-                    <div className="logout-back-to-homepage">
-                        <p onClick={() => navigate("/home")}>Powrót do strony głównej</p>
+        isConnected ? (
+            <>
+                <div className="logout-coinatiner">
+                    <div className="logout-panel">
+                        <div className="logout-information">
+                            Pomyślnie Wylogowano...
+                        </div>
+                        <div className="logout-back-to-homepage">
+                            <p onClick={() => navigate("/home")}>Powrót do strony głównej</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </>
-    );
-} export default LogOutPage;
+            </>) : (
+            <Error
+                errorCode={"Error 404"}
+                errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
+            />
+        )
+    )
+}
+
+export default LogOutPage;
