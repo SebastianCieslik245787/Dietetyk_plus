@@ -35,7 +35,7 @@ const Meal = ({data, isActive, onToggle, isCreator = false, onEdit, onClick, ing
                     <>
                         <MacrosTable
                             isCreator={isCreator}
-                            data={countMacrosCreator(data.ingredients, ingredientsData)}
+                            data={countMacrosCreator(data.ingredients, ingredientsData, ingredientsKeys)}
                         />
                     </>
                 )}
@@ -44,13 +44,12 @@ const Meal = ({data, isActive, onToggle, isCreator = false, onEdit, onClick, ing
             </div>
             <div className={`meal-body ${isCreator ? 'creator' : ''} ${isActive ? "" : "meal-body-hidden"}`}>
                 <div className={`meal-info-left-side ${isCreator ? 'creator' : ''}`} ref={leftSideRef}>
-                    <img src={(isCreator || isEdit) ? (data.img_b64 !== '' ? DefaultMealIcon : DefaultMealIcon) :
-                        (data.meal.img_b64 !== '' ?  URL.createObjectURL(data.meal.img_b64) : DefaultMealIcon)} alt=""/>
+                    <img src={(data.img_b64 !== '' && data.img_b64 !== undefined) ? data.img_b64 : (data.meal !== undefined && data.meal.img_b64 !== '' && data.meal.img_b64 !== undefined) ? data.meal.img_b64 : DefaultMealIcon} alt=""/>
                     <p className="meal-info-meal-name">
                         {isCreator ? data.name : data.meal.name}
                     </p>
                     <MacrosTable
-                        data={(isCreator && data.ingredients !== undefined)  || (isEdit && data.meal.ingredients !== undefined)  ? (isEdit ? countMacrosCreator(data.meal.ingredients, ingredientsData) : countMacrosCreator(data.ingredients, ingredientsData)) : countMacros(data.meal.ingredients)}
+                        data={(isCreator && data.ingredients !== undefined)  || (isEdit && data.meal.ingredients !== undefined)  ? (isEdit ? countMacrosCreator(data.meal.ingredients, ingredientsData, ingredientsKeys) : countMacrosCreator(data.ingredients, ingredientsData, ingredientsKeys)) : countMacros(data.meal.ingredients)}
                     />
                 </div>
                 <div className={"meal-info-divider"} ref={separatorRef}></div>

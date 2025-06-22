@@ -43,7 +43,10 @@ const AddMealWindowIngredients = ({data, setData, errors, ingredientsData, setIn
         )] || -1; //Niepotrzebne bo findIndex zwraca -1 jeśli nie znajdzie
 
         if (ingredientId === -1) {
-            key = await sendIngredientData(newIngredient, cookies);
+            const ing = await sendIngredientData(newIngredient, cookies);
+            const [key, macros] = Object.entries(ing)[0]
+
+            newIngredient.macro = macros;
 
             setIngredientsKeys(prev => [...prev, key]);
             setIngredientsData(prevIngredients => [...prevIngredients, newIngredient]);

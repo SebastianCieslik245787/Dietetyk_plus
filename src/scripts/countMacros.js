@@ -25,7 +25,7 @@ export function countMacros(ingredients) {
     return data;
 }
 
-export function countMacrosCreator(ingredients, ingredientsArray) {
+export function countMacrosCreator(ingredients, ingredientsArray, ingredientsKeys) {
     const totalMacros = {
         kcal: 0.0,
         proteins: 0.0,
@@ -39,8 +39,9 @@ export function countMacrosCreator(ingredients, ingredientsArray) {
         return totalMacros;
     }
 
+
     for (const [id, quantity] of Object.entries(ingredients)) {
-        const ingredientData = ingredientsArray.find((item, index) => String(index) === id);
+        const ingredientData = ingredientsArray[ingredientsKeys.indexOf(id)];
 
         if (!ingredientData) continue;
 
