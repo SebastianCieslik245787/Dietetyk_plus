@@ -10,8 +10,6 @@ import {useCookies} from "react-cookie";
 import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
 import {getDietPlanData} from "../scripts/getData/getDietsData.js";
 import {getAllIngredients} from "../scripts/getData/getIngredientsData.js";
-import {useConnection} from "../assets/ConnectionProvider.jsx";
-import Error from "../assets/elements/error_page/Error.jsx";
 
 function ShoppingList() {
     const [cookies] = useCookies(["User-Key"]);
@@ -24,8 +22,6 @@ function ShoppingList() {
     const [ingredientsKeys, setIngredientsKeys] = useState([]);
 
     const [shoppingList, setShoppingList] = useState(emptyDiet);
-
-    const {isConnected} = useConnection();
 
     useEffect(() => {
         async function fetchDietData() {
@@ -45,23 +41,17 @@ function ShoppingList() {
     }, [dietData, ingredientsData, ingredientsKeys]);
 
     return (
-        isConnected ? (
-            <>
-                <NavigationBar/>
-                <div className="diet-plan-container">
-                    <DietShoppingList
-                        userName={name}
-                        userSurname={surname}
-                        options={dietDayNames}
-                        data={shoppingList}
-                    />
-                </div>
-            </>) : (
-            <Error
-                errorCode={"Error 404"}
-                errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
-            />
-        )
+        <>
+            <NavigationBar/>
+            <div className="diet-plan-container">
+                <DietShoppingList
+                    userName={name}
+                    userSurname={surname}
+                    options={dietDayNames}
+                    data={shoppingList}
+                />
+            </div>
+        </>
     );
 }
 

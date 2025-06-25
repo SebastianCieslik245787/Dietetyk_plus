@@ -1,7 +1,7 @@
 import "../style/ProgressJournal.css"
 import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
-import {CartesianGrid, Label, Legend, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
-import {useEffect, useState} from "react";
+import {CartesianGrid, Label, Line, LineChart, Tooltip, XAxis, YAxis} from "recharts";
+import {useState} from "react";
 import {
     validateProgressJournal,
     validateProgressJournalPressureAndPulse
@@ -10,9 +10,7 @@ import {journalDataOperations, getEdgeValue, getPartialData} from "../scripts/jo
 import {getCurrentDate} from "../scripts/dateFunctions.js";
 import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
 import CreatorSelect from "../assets/elements/creator/CreatorSelect.jsx";
-import {timePeriod, timePeriodValues} from "../data/SelectOptionsData.js";
-import {useConnection} from "../assets/ConnectionProvider.jsx";
-import Error from "../assets/elements/error_page/Error.jsx";
+import {timePeriod} from "../data/SelectOptionsData.js";
 import {sendUserJournalDataChange} from "../scripts/sendData/sendUserMedicalDataChange.js";
 import {useCookies} from "react-cookie";
 
@@ -42,7 +40,6 @@ const CustomTooltip = ({active, payload, label, activeType}) => {
 };
 
 function ProgressJournal() {
-    const {isConnected} = useConnection();
 
     const [active, setActive] = useState(0);
     const [isWeightEdited, setIsWeightEdited] = useState(false);
@@ -164,8 +161,7 @@ function ProgressJournal() {
 
     const [activeTimePeriod, setActiveTimePeriod] = useState(1);
     return (
-        isConnected ? (
-            <>
+        <>
             <NavigationBar/>
             <div className={"progress-journal-container"}>
                 <div className={"progress-journal"}>
@@ -266,12 +262,7 @@ function ProgressJournal() {
                     </div>
                 </div>
             </div>
-        </>) : (
-            <Error
-                errorCode={"Error 404"}
-                errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
-            />
-        )
+        </>
     );
 }
 

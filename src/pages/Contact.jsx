@@ -4,8 +4,6 @@ import emailIcon from "../images/icons/email_icon.png";
 
 import "../style/Contact.css"
 import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
-import {useConnection} from "../assets/ConnectionProvider.jsx";
-import Error from "../assets/elements/error_page/Error.jsx";
 
 /**
  * Strona z informacjami o kontakcie z właścicielami serwisu.
@@ -15,10 +13,8 @@ import Error from "../assets/elements/error_page/Error.jsx";
  * @returns {JSX.Element} - Strona z informacjami o kontakcie z właścicielami serwisu
  */
 function Contact() {
-    const {isConnected} = useConnection();
 
     return (
-        isConnected ? (
             <>
                 <NavigationBar/>
                 <div className="contact-container">
@@ -43,12 +39,7 @@ function Contact() {
                     </div>
                     <img src={`${logo}`} alt=""/>
                 </div>
-            </>) : (
-            <Error
-                errorCode={"Error 404"}
-                errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
-            />
-        )
+            </>
     )
 }
 

@@ -9,8 +9,6 @@ import {useEffect, useState} from "react";
 import {getDietPlanData} from "../scripts/getData/getDietsData.js";
 import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
 import {getAllIngredients} from "../scripts/getData/getIngredientsData.js";
-import {useConnection} from "../assets/ConnectionProvider.jsx";
-import Error from "../assets/elements/error_page/Error.jsx";
 import {emptyDiet} from "../data/EmptyListsData.js";
 import TransparentLogo from "../images/transparent_logo.png";
 
@@ -26,7 +24,6 @@ function getBase64FromUrl(url) {
 }
 
 function DietPlanPage() {
-    const {isConnected} = useConnection();
 
     const [cookies] = useCookies(["User-Key"]);
     const [dietData, setDietData] = useState(emptyDiet);
@@ -60,25 +57,19 @@ function DietPlanPage() {
         generateDietPDF(dietData, name, surname, logoBase64);
     };
     return (
-        isConnected ? (
-            <div className="diet-plan-container">
-                <NavigationBar/>
-                <DietPlan
-                    isEdit={true}
-                    options={dietDayNames}
-                    data={dietData}
-                    setData={setDietData}
-                    onClick={handleDownloadPDF}
-                    ingredientsData={ingredientsData}
-                    ingredientsKeys={ingredientsKeys}
-                    isUser={true}
-                />
-            </div>) : (
-            <Error
-                errorCode={"Error 404"}
-                errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
+        <div className="diet-plan-container">
+            <NavigationBar/>
+            <DietPlan
+                isEdit={true}
+                options={dietDayNames}
+                data={dietData}
+                setData={setDietData}
+                onClick={handleDownloadPDF}
+                ingredientsData={ingredientsData}
+                ingredientsKeys={ingredientsKeys}
+                isUser={true}
             />
-        )
+        </div>
     );
 }
 
