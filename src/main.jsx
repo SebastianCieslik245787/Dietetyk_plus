@@ -22,7 +22,6 @@ import Error500 from "./pages/Error500.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import "./style/style.css"
 import {CookiesProvider} from "react-cookie";
-import {ConnectionProvider} from "./assets/ConnectionProvider.jsx";
 
 /**
  * Punkt wejściowy aplikacji React.
@@ -67,32 +66,30 @@ import {ConnectionProvider} from "./assets/ConnectionProvider.jsx";
  */
 createRoot(document.getElementById('root')).render(
     <CookiesProvider>
-        <ConnectionProvider>
-            <BrowserRouter>
-                <Routes>
-                    <Route path={"*"} element={<Homepage/>}/>
-                    <Route path={"/home"} element={<Homepage/>}/>
-                    <Route path={"/login"} element={<Login/>}/>
-                    <Route path={"/about-us"} element={<AboutUs/>}/>
-                    <Route path={"/contact"} element={<Contact/>}/>
-                    <Route path={"/register"} element={<Register/>}/>
-                    <Route path={"/account-created"} element={<AccountCreated/>}/>
-                    <Route path={"/diet-plan"} element={<DietPlanPage/>}/>
-                    <Route path={"/user-settings"} element={<UserSettings/>}/>
-                    <Route path={"/patients"} element={<DietitianPatientsPage/>}/>
-                    <Route path={"/diets"} element={<OtherDiets/>}/>
-                    <Route path={"/dietitians"} element={<Dietitians/>}/>
-                    <Route path={"/logout"} element={<LogOutPage/>}/>
-                    <Route path={"/shopping-list"} element={<ShoppingList/>}/>
-                    <Route path={"/creator"} element={<Creator/>}/>
-                    <Route path={"/progress-journal"} element={<ProgressJournal/>}/>
-                    <Route path={"/recover-password"} element={<RecoverPassword/>}/>
-                    <Route path={"/error-404"} element={<Error404/>}/>
-                    <Route path={"/error-401"} element={<Error401/>}/>
-                    <Route path={"/error-403"} element={<Error403/>}/>
-                    <Route path={"/error-500"} element={<Error500/>}/>
-                </Routes>
-            </BrowserRouter>
-        </ConnectionProvider>
+        <BrowserRouter>
+            <Routes>
+                <Route path={"*"} element={<Homepage/>}/>
+                <Route path={"/home"} element={<Homepage/>}/>
+                <Route path={"/login"} element={<Login/>}/>
+                <Route path={"/about-us"} element={<AboutUs/>}/>
+                <Route path={"/contact"} element={<Contact/>}/>
+                <Route path={"/register"} element={<Register/>}/>
+                <Route path={"/account-created"} element={<AccountCreated/>}/>
+                <Route path={"/diet-plan"} element={<DietPlanPage/>}/>
+                <Route path={"/user-settings"} element={<UserSettings/>}/>
+                <Route path={"/patients"} element={<DietitianPatientsPage/>}/>
+                <Route path={"/diets"} element={<OtherDiets/>}/>
+                <Route path={"/dietitians"} element={<Dietitians/>}/>
+                <Route path={"/logout"} element={<LogOutPage/>}/>
+                <Route path={"/shopping-list"} element={<ShoppingList/>}/>
+                <Route path={"/creator"} element={<Creator/>}/>
+                <Route path={"/progress-journal"} element={<ProgressJournal/>}/>
+                <Route path={"/recover-password"} element={<RecoverPassword/>}/>
+                <Route path={"/error-404"} element={<Error404/>}/>
+                <Route path={"/error-401"} element={<Error401/>}/>
+                <Route path={"/error-403"} element={<Error403/>}/>
+                <Route path={"/error-500"} element={<Error500/>}/>
+            </Routes>
+        </BrowserRouter>
     </CookiesProvider>
 )

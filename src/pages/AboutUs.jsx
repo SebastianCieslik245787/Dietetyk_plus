@@ -2,8 +2,6 @@ import logo from "../images/logo.webp";
 
 import "../style/AboutUs.css"
 import NavigationBar from "../assets/elements/navigation/NavigationBar.jsx";
-import {useConnection} from "../assets/ConnectionProvider.jsx";
-import Error from "../assets/elements/error_page/Error.jsx";
 
 
 /**
@@ -13,10 +11,8 @@ import Error from "../assets/elements/error_page/Error.jsx";
  * @returns {JSX.Element} - Strona zawierająca informacje o ofercie serwisu.
  */
 function AboutUs() {
-    const {isConnected} = useConnection();
 
     return (
-        isConnected ? (
         <>
             <NavigationBar/>
             <div className="about-us-container">
@@ -28,30 +24,26 @@ function AboutUs() {
                         • Nasi klienci obdarzeni są opieką najlepszych dietetyków.
                         <br/><br/>
                         • Nasz zespół to dietetycy kliniczni, sportowi i psychodietetycy, którzy regularnie prowadzą
-                        wykłady na konferencjach i stale  poszerzają swoją wiedzę, aby być na bieżąco z najnowszymi
-                         badaniami.
+                        wykłady na konferencjach i stale poszerzają swoją wiedzę, aby być na bieżąco z najnowszymi
+                        badaniami.
                         <br/><br/>
                         • Do każdego pacjenta wystosowujemy indywidualną ofertę w zależności od indywidualnych potrzeb.
                         <br/><br/>
-                        • Każdy dietetyk pracuje z wybraną grupą podopiecznych, dzięki czemu może poświęcić Ci maksymalną
+                        • Każdy dietetyk pracuje z wybraną grupą podopiecznych, dzięki czemu może poświęcić Ci
+                        maksymalną
                         uwagę i dostosować plan do Twoich indywidualnych potrzeb.
                         <br/><br/>
                         • W świecie automatyzacji stawiamy na budowanie prawdziwych relacji. Zawsze rozmawiasz ze
                         specjalistą, który jest zaangażowany i wspiera Cię na każdym kroku.
                         <br/><br/>
-                        • W dowolnym momencie możesz zadzwonić na naszą infolinię, dbamy o to by nasi klienci mogli zawsze
+                        • W dowolnym momencie możesz zadzwonić na naszą infolinię, dbamy o to by nasi klienci mogli
+                        zawsze
                         uzyskać pomoc 24/7.
                     </p>
                 </div>
-                    <img src={logo} alt=""/>
+                <img src={logo} alt=""/>
             </div>
         </>
-        ) : (
-            <Error
-                errorCode={"Error 404"}
-                errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
-            />
-        )
     )
 }
 

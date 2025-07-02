@@ -10,11 +10,8 @@ import {
     sendVerificationCode
 } from "../scripts/sendData/sendPasswordRecoveryData.js";
 import {emptyRecoverPassword} from "../data/EmptyListsData.js";
-import {useConnection} from "../assets/ConnectionProvider.jsx";
-import Error from "../assets/elements/error_page/Error.jsx";
 
 function RecoverPassword() {
-    const {isConnected} = useConnection();
 
     const navigate = useNavigate();
     const [cookies, setCookie] = useCookies(['User-Key']);
@@ -58,138 +55,132 @@ function RecoverPassword() {
     };
 
     return (
-        isConnected ? (
-            <div className="recover-password-container">
-                <div className="recover-password-panel">
-                    <div className="recover-password-header">
-                        {activeStep !== 3 ? "Odzyskiwanie hasła" : ""}
-                    </div>
-                    <div className={`step ${activeStep === 0 ? "visible" : ''}`}>
-                        <RecoverPasswordInput
-                            data={data.email}
-                            setData={setData}
-                            placeHolder={"Wpisz e-mail..."}
-                            name={'email'}
-                            error={errors.email}
-                        />
-                        <div className={`recover-password-next-button ${data.email !== '' ? "visible" : ""}`}
-                             onClick={() => {
-                                 sendPasswordRecoveryEmail(data.email)
-                                     .then(resp => {
-                                         switch (resp.status) {
-                                             case 200:
-                                                 setActiveStep(1);
-                                                 break;
-                                             case 400:
-                                                 setErrors({
-                                                     ...errors,
-                                                     email: "Niepoprawny adres e-mail"
-                                                 });
-                                                 break;
-                                             case 404:
-                                                 setErrors({
-                                                     ...errors,
-                                                     email: "Nie znaleziono użytkownika"
-                                                 });
-                                                 break;
-                                             default:
-                                                 setErrors({
-                                                     ...errors,
-                                                     email: "Wystąpił nieznany błąd"
-                                                 });
-                                         }
-                                     })
-                             }}>
-                            Dalej
-                        </div>
-                    </div>
-                    <div className={`step ${activeStep === 1 ? "visible" : ''}`}>
-                        <div className="recover-password-label">
-                            Kod weryfikacjyny:
-                        </div>
-                        <VerificationCode
-                            data={code}
-                            setData={setCode}
-                            handleSubmit={handleSubmit}
-                        />
-                    </div>
-                    <div className={`step ${activeStep === 2 ? "visible" : ''}`} style={{marginTop: "-10%"}}>
-                        <RecoverPasswordInput
-                            data={data.password}
-                            setData={setData}
-                            placeHolder={"Wpisz nowe hasło..."}
-                            name={'password'}
-                            error={errors.password}
-                        />
-                        <RecoverPasswordInput
-                            data={data.passwordConfirmation}
-                            setData={setData}
-                            placeHolder={"Potwierdz hasło..."}
-                            name={'passwordConfirmation'}
-                            error={errors.passwordConfirmation}
-                        />
-                        <div className={`recover-password-next-button visible`} style={{marginTop: "1%"}}
-                             onClick={() => {
-                                 if (data.password !== data.passwordConfirmation) {
-                                     setErrors({
-                                         ...errors,
-                                         passwordConfirmation: "Hasła nie są takie same"
-                                     });
-                                 } else {
-                                     setErrors({
-                                         ...errors,
-                                         passwordConfirmation: ""
-                                     });
-                                 }
-                                 sendPasswordNewPassword(cookies['User-Key'], data.password)
-                                     .then(resp => {
-                                         switch (resp.status) {
-                                             case 200:
-                                                 setActiveStep(3);
-                                                 resp.json().then(data => {
-                                                     console.log(data);
-                                                     localStorage.setItem("User-Data", JSON.stringify(data));
-                                                 })
-                                                 break;
-                                             case 400:
-                                                 setErrors({
-                                                     ...errors,
-                                                     password: "Niepoprawne hasło"
-                                                 });
-                                                 break;
-                                             case 404:
-                                                 setErrors({
-                                                     ...errors,
-                                                     password: "Nie znaleziono użytkownika"
-                                                 });
-                                                 break;
-                                             default:
-                                                 setErrors({
-                                                     ...errors,
-                                                     password: "Wystąpił nieznany błąd"
-                                                 });
-                                         }
-                                     })
-                             }
-                             }>
-                            Dalej
-                        </div>
-                    </div>
-                    <div className={`step ${activeStep === 3 ? "visible" : ''}`} style={{marginTop: "-5%"}}>
-                        <div className="recover-password-message">
-                            Pomyślnie zmieniono hasło
-                        </div>
-                        <div className={'recover-password-home-page'} onClick={() => navigate("/home")}>
-                            Powrót do strony głównej
-                        </div>
+        <div className="recover-password-container">
+            <div className="recover-password-panel">
+                <div className="recover-password-header">
+                    {activeStep !== 3 ? "Odzyskiwanie hasła" : ""}
+                </div>
+                <div className={`step ${activeStep === 0 ? "visible" : ''}`}>
+                    <RecoverPasswordInput
+                        data={data.email}
+                        setData={setData}
+                        placeHolder={"Wpisz e-mail..."}
+                        name={'email'}
+                        error={errors.email}
+                    />
+                    <div className={`recover-password-next-button ${data.email !== '' ? "visible" : ""}`}
+                         onClick={() => {
+                             sendPasswordRecoveryEmail(data.email)
+                                 .then(resp => {
+                                     switch (resp.status) {
+                                         case 200:
+                                             setActiveStep(1);
+                                             break;
+                                         case 400:
+                                             setErrors({
+                                                 ...errors,
+                                                 email: "Niepoprawny adres e-mail"
+                                             });
+                                             break;
+                                         case 404:
+                                             setErrors({
+                                                 ...errors,
+                                                 email: "Nie znaleziono użytkownika"
+                                             });
+                                             break;
+                                         default:
+                                             setErrors({
+                                                 ...errors,
+                                                 email: "Wystąpił nieznany błąd"
+                                             });
+                                     }
+                                 })
+                         }}>
+                        Dalej
                     </div>
                 </div>
-            </div>) : (
-            <Error
-                errorCode={"Error 404"}
-                errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
-            />
-        )
+                <div className={`step ${activeStep === 1 ? "visible" : ''}`}>
+                    <div className="recover-password-label">
+                        Kod weryfikacjyny:
+                    </div>
+                    <VerificationCode
+                        data={code}
+                        setData={setCode}
+                        handleSubmit={handleSubmit}
+                    />
+                </div>
+                <div className={`step ${activeStep === 2 ? "visible" : ''}`} style={{marginTop: "-10%"}}>
+                    <RecoverPasswordInput
+                        data={data.password}
+                        setData={setData}
+                        placeHolder={"Wpisz nowe hasło..."}
+                        name={'password'}
+                        error={errors.password}
+                    />
+                    <RecoverPasswordInput
+                        data={data.passwordConfirmation}
+                        setData={setData}
+                        placeHolder={"Potwierdz hasło..."}
+                        name={'passwordConfirmation'}
+                        error={errors.passwordConfirmation}
+                    />
+                    <div className={`recover-password-next-button visible`} style={{marginTop: "1%"}}
+                         onClick={() => {
+                             if (data.password !== data.passwordConfirmation) {
+                                 setErrors({
+                                     ...errors,
+                                     passwordConfirmation: "Hasła nie są takie same"
+                                 });
+                             } else {
+                                 setErrors({
+                                     ...errors,
+                                     passwordConfirmation: ""
+                                 });
+                             }
+                             sendPasswordNewPassword(cookies['User-Key'], data.password)
+                                 .then(resp => {
+                                     switch (resp.status) {
+                                         case 200:
+                                             setActiveStep(3);
+                                             resp.json().then(data => {
+                                                 console.log(data);
+                                                 localStorage.setItem("User-Data", JSON.stringify(data));
+                                             })
+                                             break;
+                                         case 400:
+                                             setErrors({
+                                                 ...errors,
+                                                 password: "Niepoprawne hasło"
+                                             });
+                                             break;
+                                         case 404:
+                                             setErrors({
+                                                 ...errors,
+                                                 password: "Nie znaleziono użytkownika"
+                                             });
+                                             break;
+                                         default:
+                                             setErrors({
+                                                 ...errors,
+                                                 password: "Wystąpił nieznany błąd"
+                                             });
+                                     }
+                                 })
+                         }
+                         }>
+                        Dalej
+                    </div>
+                </div>
+                <div className={`step ${activeStep === 3 ? "visible" : ''}`} style={{marginTop: "-5%"}}>
+                    <div className="recover-password-message">
+                        Pomyślnie zmieniono hasło
+                    </div>
+                    <div className={'recover-password-home-page'} onClick={() => navigate("/home")}>
+                        Powrót do strony głównej
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 }
 

@@ -17,11 +17,8 @@ import {
 } from "../scripts/validateData/validateRegisterUtils.js";
 import {sendRegisterData} from "../scripts/sendData/sendRegisterData.js";
 import {emptyRegister} from "../data/EmptyListsData.js";
-import {useConnection} from "../assets/ConnectionProvider.jsx";
-import Error from "../assets/elements/error_page/Error.jsx";
 
 function Register() {
-    const {isConnected} = useConnection();
 
     const navigate = useNavigate();
 
@@ -84,55 +81,49 @@ function Register() {
     }
 
     return (
-        isConnected ? (
-            <>
-                <div className="register-container">
-                    <div className="register-content">
-                        <div className="register-header">
-                            <p className="register-header-text">
-                                Rejestracja
-                            </p>
+        <>
+            <div className="register-container">
+                <div className="register-content">
+                    <div className="register-header">
+                        <p className="register-header-text">
+                            Rejestracja
+                        </p>
+                    </div>
+                    <div className="register-requirement">
+                        <p className="register-requirement-text">
+                            * - Pole wymagane
+                        </p>
+                    </div>
+                    <div className={`register-step ${animationClass}`}>
+                        {renderStepContent()}
+                    </div>
+                    <div className="register-navigation">
+                        <div className="register-navigation-undo">
+                            <div
+                                className={`register-navigation-button button-undo ${step === 1 ? "disable-button" : ""}`}
+                                onClick={handleBack}>
+                                <img src={`${arrows}`} alt=""/>
+                                <p className="register-navigation-button-text">Powrót</p>
+                            </div>
                         </div>
-                        <div className="register-requirement">
-                            <p className="register-requirement-text">
-                                * - Pole wymagane
-                            </p>
-                        </div>
-                        <div className={`register-step ${animationClass}`}>
-                            {renderStepContent()}
-                        </div>
-                        <div className="register-navigation">
-                            <div className="register-navigation-undo">
+                        <div className="register-navigation-steps">
+                            {[1, 2, 3, 4, 5].map((i) => (
                                 <div
-                                    className={`register-navigation-button button-undo ${step === 1 ? "disable-button" : ""}`}
-                                    onClick={handleBack}>
-                                    <img src={arrows} alt=""/>
-                                    <p className="register-navigation-button-text">Powrót</p>
-                                </div>
-                            </div>
-                            <div className="register-navigation-steps">
-                                {[1, 2, 3, 4, 5].map((i) => (
-                                    <div
-                                        key={i}
-                                        className={`register-navigation-steps-item ${step === i ? "register-navigation-steps-item-active" : ""}`}
-                                    />
-                                ))}
-                            </div>
-                            <div className="register-navigation-next">
-                                <div className="register-navigation-button button-next" onClick={handleNext}>
-                                    <p className="register-navigation-button-text button-next-text">Dalej</p>
-                                    <img src={arrows} alt=""/>
-                                </div>
+                                    key={i}
+                                    className={`register-navigation-steps-item ${step === i ? "register-navigation-steps-item-active" : ""}`}
+                                />
+                            ))}
+                        </div>
+                        <div className="register-navigation-next">
+                            <div className="register-navigation-button button-next" onClick={handleNext}>
+                                <p className="register-navigation-button-text button-next-text">Dalej</p>
+                                <img src={`${arrows}`} alt=""/>
                             </div>
                         </div>
                     </div>
                 </div>
-            </>) : (
-            <Error
-                errorCode={"Error 404"}
-                errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
-            />
-        )
+            </div>
+        </>
     )
 }
 

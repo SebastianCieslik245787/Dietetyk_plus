@@ -14,12 +14,9 @@ import {useImageUploader} from "../assets/hooks/useImageUploader.jsx";
 import LoadImageIcon from "../images/icons/add_image_icon.png";
 import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
 import {useCookies} from "react-cookie";
-import {useConnection} from "../assets/ConnectionProvider.jsx";
-import Error from "../assets/elements/error_page/Error.jsx";
 import {useNavigate} from "react-router-dom";
 
 export function UserSettings() {
-    const {isConnected} = useConnection();
 
     const userData = getDataFromLocalStorage("");
     const [cookies] = useCookies(["User-Key"]);
@@ -101,152 +98,146 @@ export function UserSettings() {
     };
 
     return (
-        isConnected ? (
-            <>
-                <NavigationBar/>
-                <div className="user-settings-container">
-                    <div className="user-settings-personal-data">
-                        <UserSettingsLabel
-                            labels={
-                                userData.role === "user"
-                                    ? ["Dane Personalne", "Zmiana hasła"]
-                                    : ["Dane Personalne", "Zmiana hasła", "Opis"]
-                            }
-                            onClick={setActualSettings}
-                            isActive={actualSettings}
-                        />
-                        {actualSettings === 0 && (
-                            <>
-                                <div
-                                    className={`user-settings-input-img ${userPersonalData.img_b64 !== LoadImageIcon ? 'changed' : ''}`}
-                                    onDrop={handleDrop}
-                                    onDragOver={handleDragOver}
-                                    onClick={() => fileInputRef.current.click()}
-                                >
-                                    <img src={userPersonalData.img_b64}
-                                         className={userPersonalData.img_b64 === LoadImageIcon ? 'preview' : ''}
-                                         alt="preview"/>
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        style={{display: "none"}}
-                                        ref={fileInputRef}
-                                        onChange={handleFileChange}
-                                    />
-                                </div>
-                                <UserSettingsInput
-                                    id="userName"
-                                    label="Imię:"
-                                    value={userPersonalData.userName}
-                                    setFormData={setUserPersonalData}
-                                    type="text"
+        <>
+            <NavigationBar/>
+            <div className="user-settings-container">
+                <div className="user-settings-personal-data">
+                    <UserSettingsLabel
+                        labels={
+                            userData.role === "user"
+                                ? ["Dane Personalne", "Zmiana hasła"]
+                                : ["Dane Personalne", "Zmiana hasła", "Opis"]
+                        }
+                        onClick={setActualSettings}
+                        isActive={actualSettings}
+                    />
+                    {actualSettings === 0 && (
+                        <>
+                            <div
+                                className={`user-settings-input-img ${userPersonalData.img_b64 !== LoadImageIcon ? 'changed' : ''}`}
+                                onDrop={handleDrop}
+                                onDragOver={handleDragOver}
+                                onClick={() => fileInputRef.current.click()}
+                            >
+                                <img src={userPersonalData.img_b64}
+                                     className={userPersonalData.img_b64 === LoadImageIcon ? 'preview' : ''}
+                                     alt="preview"/>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    style={{display: "none"}}
+                                    ref={fileInputRef}
+                                    onChange={handleFileChange}
                                 />
-                                <UserSettingsInput
-                                    id="userSurname"
-                                    label="Nazwisko:"
-                                    value={userPersonalData.userSurname}
-                                    setFormData={setUserPersonalData}
-                                    type="text"
-                                />
-                                <UserSettingsInput
-                                    id="userEmail"
-                                    placeHolder="Wpisz e-mail..."
-                                    label="E-mail:"
-                                    value={userPersonalData.userEmail}
-                                    setFormData={setUserPersonalData}
-                                    type="text"
-                                    readOnly={false}
-                                    setError={setErrors}
-                                    error={errors.userEmail}
-                                />
-                                <UserSettingsInput
-                                    id="userPhone"
-                                    placeHolder="Wpisz nr telefonu..."
-                                    label="Nr telefonu:"
-                                    value={userPersonalData.userPhone}
-                                    setFormData={setUserPersonalData}
-                                    type="text"
-                                    readOnly={false}
-                                    setError={setErrors}
-                                    error={errors.userPhone}
-                                />
-                                <div
-                                    className={`user-settings-save-button ${
-                                        isModifiedPersonalData ? "user-settings-save-button-active" : ""
-                                    } personal-data`}
-                                    onClick={handleSubmit}
-                                >
-                                    Zapisz
-                                </div>
-                            </>
-                        )}
-                        {actualSettings === 1 && (
-                            <>
-                                <UserSettingsInput
-                                    id="userPassword"
-                                    label="Aktualne Hasło:"
-                                    placeHolder="Wpisz aktualne hasło..."
-                                    value={userPasswordData.userPassword}
-                                    setFormData={setUserPasswordData}
-                                    type="password"
-                                    readOnly={false}
-                                    error={errors.userPassword}
-                                />
-                                <UserSettingsInput
-                                    id="userNewPassword"
-                                    placeHolder="Wpisz nowe hasło..."
-                                    label="Nowe hasło:"
-                                    value={userPasswordData.userNewPassword}
-                                    setFormData={setUserPasswordData}
-                                    type="password"
-                                    readOnly={false}
-                                    error={errors.userNewPassword}
-                                />
-                                <UserSettingsInput
-                                    id="userConfirmPassword"
-                                    placeHolder="Potwierdź hasło..."
-                                    label="Potwierdź hasło:"
-                                    value={userPasswordData.userConfirmPassword}
-                                    setFormData={setUserPasswordData}
-                                    type="password"
-                                    readOnly={false}
-                                    error={errors.userConfirmPassword}
-                                />
-                                <div
-                                    className={`user-settings-save-button ${
-                                        isModifiedPassword ? "user-settings-save-button-active" : ""
-                                    }`}
-                                    onClick={handleSubmit}
-                                >
-                                    Zapisz
-                                </div>
-                            </>
-                        )}
-                        {actualSettings === 2 && (
-                            <>
-                                <UserSettingsTextArea
-                                    placeHolder="Opisz siebie..."
-                                    setFormData={setUserDescription}
-                                    value={userDescription}
-                                />
-                                <div
-                                    className={`user-settings-save-button ${
-                                        isModifiedDescription ? "user-settings-save-button-active" : ""
-                                    }`}
-                                    onClick={handleSubmit}
-                                >
-                                    Zapisz
-                                </div>
-                            </>
-                        )}
-                    </div>
+                            </div>
+                            <UserSettingsInput
+                                id="userName"
+                                label="Imię:"
+                                value={userPersonalData.userName}
+                                setFormData={setUserPersonalData}
+                                type="text"
+                            />
+                            <UserSettingsInput
+                                id="userSurname"
+                                label="Nazwisko:"
+                                value={userPersonalData.userSurname}
+                                setFormData={setUserPersonalData}
+                                type="text"
+                            />
+                            <UserSettingsInput
+                                id="userEmail"
+                                placeHolder="Wpisz e-mail..."
+                                label="E-mail:"
+                                value={userPersonalData.userEmail}
+                                setFormData={setUserPersonalData}
+                                type="text"
+                                readOnly={false}
+                                setError={setErrors}
+                                error={errors.userEmail}
+                            />
+                            <UserSettingsInput
+                                id="userPhone"
+                                placeHolder="Wpisz nr telefonu..."
+                                label="Nr telefonu:"
+                                value={userPersonalData.userPhone}
+                                setFormData={setUserPersonalData}
+                                type="text"
+                                readOnly={false}
+                                setError={setErrors}
+                                error={errors.userPhone}
+                            />
+                            <div
+                                className={`user-settings-save-button ${
+                                    isModifiedPersonalData ? "user-settings-save-button-active" : ""
+                                } personal-data`}
+                                onClick={handleSubmit}
+                            >
+                                Zapisz
+                            </div>
+                        </>
+                    )}
+                    {actualSettings === 1 && (
+                        <>
+                            <UserSettingsInput
+                                id="userPassword"
+                                label="Aktualne Hasło:"
+                                placeHolder="Wpisz aktualne hasło..."
+                                value={userPasswordData.userPassword}
+                                setFormData={setUserPasswordData}
+                                type="password"
+                                readOnly={false}
+                                error={errors.userPassword}
+                            />
+                            <UserSettingsInput
+                                id="userNewPassword"
+                                placeHolder="Wpisz nowe hasło..."
+                                label="Nowe hasło:"
+                                value={userPasswordData.userNewPassword}
+                                setFormData={setUserPasswordData}
+                                type="password"
+                                readOnly={false}
+                                error={errors.userNewPassword}
+                            />
+                            <UserSettingsInput
+                                id="userConfirmPassword"
+                                placeHolder="Potwierdź hasło..."
+                                label="Potwierdź hasło:"
+                                value={userPasswordData.userConfirmPassword}
+                                setFormData={setUserPasswordData}
+                                type="password"
+                                readOnly={false}
+                                error={errors.userConfirmPassword}
+                            />
+                            <div
+                                className={`user-settings-save-button ${
+                                    isModifiedPassword ? "user-settings-save-button-active" : ""
+                                }`}
+                                onClick={handleSubmit}
+                            >
+                                Zapisz
+                            </div>
+                        </>
+                    )}
+                    {actualSettings === 2 && (
+                        <>
+                            <UserSettingsTextArea
+                                placeHolder="Opisz siebie..."
+                                setFormData={setUserDescription}
+                                value={userDescription}
+                            />
+                            <div
+                                className={`user-settings-save-button ${
+                                    isModifiedDescription ? "user-settings-save-button-active" : ""
+                                }`}
+                                onClick={handleSubmit}
+                            >
+                                Zapisz
+                            </div>
+                        </>
+                    )}
                 </div>
-            </>) : (
-            <Error
-                errorCode={"Error 404"}
-                errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
-            />
-        )
+            </div>
+        </>
     );
 }
 

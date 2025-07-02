@@ -9,12 +9,9 @@ import Patient from "../assets/elements/dietitian_patients/Patient.jsx";
 import DeleteWindow from "../assets/DeleteWindow.jsx";
 import {changeUserDietetic} from "../scripts/sendData/sendPatientDataChange.js";
 import AssignDietWindow from "../assets/elements/dietitian_patients/AssignDietWindow.jsx";
-import {useConnection} from "../assets/ConnectionProvider.jsx";
-import Error from "../assets/elements/error_page/Error.jsx";
 
 
 function DietitianPatientsPage() {
-    const {isConnected} = useConnection();
 
     const [searchTerm, setSearchTerm] = useState("");
     const [expandedPatientIndex, setExpandedPatientIndex] = useState(null);
@@ -69,72 +66,66 @@ function DietitianPatientsPage() {
     }, [isPatientClicked]);
 
     return (
-        isConnected ? (
-            <>
-                <NavigationBar/>
-                <div className="dietitian-patients-container">
-                    <SearchBar
-                        placeHolder={"Wpisz..."}
-                        value={searchTerm}
-                        onChange={handleSearchChange}
-                    />
+        <>
+            <NavigationBar/>
+            <div className="dietitian-patients-container">
+                <SearchBar
+                    placeHolder={"Wpisz..."}
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                />
 
-                    <div className={"patient-items"}>
-                        {filteredPatients.map((item, index) => (
-                            <>
-                                <Patient
-                                    data={item}
-                                    key={index}
-                                    cookies={cookies}
-                                    onMoreInfo={() => {
-                                        setExpandedPatientIndex(index)
-                                        setIsPatientClicked(true);
-                                    }}
-                                    onDelete={(key) => {
-                                        setIsDeleteWindowOpen(true)
-                                        setActualKey(key)
-                                    }}
-                                    onEdit={(key, dietId) => {
-                                        setCurrentDietId(dietId)
-                                        setEditDietWindow(true)
-                                        setActualKey(key)
-                                    }}
-                                />
-                            </>
-                        ))}
-                        <div className="dietitian-patients-footer"/>
-                    </div>
+                <div className={"patient-items"}>
+                    {filteredPatients.map((item, index) => (
+                        <>
+                            <Patient
+                                data={item}
+                                key={index}
+                                cookies={cookies}
+                                onMoreInfo={() => {
+                                    setExpandedPatientIndex(index)
+                                    setIsPatientClicked(true);
+                                }}
+                                onDelete={(key) => {
+                                    setIsDeleteWindowOpen(true)
+                                    setActualKey(key)
+                                }}
+                                onEdit={(key, dietId) => {
+                                    setCurrentDietId(dietId)
+                                    setEditDietWindow(true)
+                                    setActualKey(key)
+                                }}
+                            />
+                        </>
+                    ))}
+                    <div className="dietitian-patients-footer"/>
                 </div>
-                {isPatientClicked && (
-                    <PatientInformations
-                        patientData={filteredPatients[expandedPatientIndex]}
-                        onClose={() => setIsPatientClicked(false)}
+            </div>
+            {isPatientClicked && (
+                <PatientInformations
+                    patientData={filteredPatients[expandedPatientIndex]}
+                    onClose={() => setIsPatientClicked(false)}
+                />
+            )}
+            {
+                editDietWindow && (
+                    <AssignDietWindow
+                        onClose={() => setEditDietWindow(false)}
+                        actualKey={actualKey}
+                        dietId={currentDietId || ""}
                     />
-                )}
-                {
-                    editDietWindow && (
-                        <AssignDietWindow
-                            onClose={() => setEditDietWindow(false)}
-                            actualKey={actualKey}
-                            dietId={currentDietId || ""}
-                        />
-                    )
-                }
-                {
-                    isDeleteWindowOpen && (
-                        <DeleteWindow
-                            message={"Czy napewno chcesz usunąć pacjenta?"}
-                            onClose={() => setIsDeleteWindowOpen(false)}
-                            onDelete={() => handleDelete(actualKey)}
-                        />
-                    )
-                }
-            </>) : (
-            <Error
-                errorCode={"Error 404"}
-                errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
-            />
-        )
+                )
+            }
+            {
+                isDeleteWindowOpen && (
+                    <DeleteWindow
+                        message={"Czy napewno chcesz usunąć pacjenta?"}
+                        onClose={() => setIsDeleteWindowOpen(false)}
+                        onDelete={() => handleDelete(actualKey)}
+                    />
+                )
+            }
+        </>
     )
 }
 

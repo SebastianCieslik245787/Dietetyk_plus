@@ -6,12 +6,8 @@ import {useCookies} from "react-cookie";
 import {getDietitiansData} from "../scripts/getData/getUsersData.js";
 import {changeUserDietetic} from "../scripts/sendData/sendPatientDataChange.js";
 import {getDataFromLocalStorage} from "../scripts/getDataFromLocalStorage.js";
-import {useConnection} from "../assets/ConnectionProvider.jsx";
-import Error from "../assets/elements/error_page/Error.jsx";
 
 function Dietitians() {
-    const {isConnected} = useConnection();
-
     const [cookies] = useCookies(["User-Key"]);
     const userData = getDataFromLocalStorage("");
     const [dietitians, setDietitians] = useState([]);
@@ -32,28 +28,22 @@ function Dietitians() {
     }, [cookies]);
 
     return (
-        isConnected ? (
-            <>
-                <NavigationBar/>
-                <div className="offer-container">
-                    <div className="offer-dietitian-container">
-                        {dietitians.map((item, index) => (
-                            <Dietitian
-                                data={item}
-                                key={index}
-                                isAssigned={isAssigned}
-                                onClick={handleAssign}
-                                position={index % 2 === 1 ? "right" : "left"}
-                            />
-                        ))}
-                    </div>
+        <>
+            <NavigationBar/>
+            <div className="offer-container">
+                <div className="offer-dietitian-container">
+                    {dietitians.map((item, index) => (
+                        <Dietitian
+                            data={item}
+                            key={index}
+                            isAssigned={isAssigned}
+                            onClick={handleAssign}
+                            position={index % 2 === 1 ? "right" : "left"}
+                        />
+                    ))}
                 </div>
-            </>) : (
-            <Error
-                errorCode={"Error 404"}
-                errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
-            />
-        )
+            </div>
+        </>
     );
 }
 

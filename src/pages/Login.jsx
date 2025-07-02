@@ -2,11 +2,8 @@ import "../style/Login.css"
 import {useNavigate} from "react-router-dom";
 import {Login} from "../scripts/login.js"
 import {useCookies} from "react-cookie";
-import {useConnection} from "../assets/ConnectionProvider.jsx";
-import Error from "../assets/elements/error_page/Error.jsx";
 
 function LoginPage() {
-    const {isConnected} = useConnection();
 
     const navigate = useNavigate();
     const [, setCookie,] = useCookies([]);
@@ -16,7 +13,6 @@ function LoginPage() {
     };
 
     return (
-        isConnected ? (
             <>
                 <div className="login-container">
                     <div className="login-panel">
@@ -58,12 +54,7 @@ function LoginPage() {
                         </form>
                     </div>
                 </div>
-            </>) : (
-            <Error
-                errorCode={"Error 404"}
-                errorMessage={"Nie znaleziono strony lub zasobu, którego szukasz."}
-            />
-        )
+            </>
     )
 }
 
