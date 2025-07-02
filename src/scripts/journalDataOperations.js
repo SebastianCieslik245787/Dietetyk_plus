@@ -10,7 +10,6 @@ function fixJournalData(data) {
     let next, prev;
     for (let i = 0; i < data.length; i++) {
 
-
         // W przypadku kiedy jest tylko jedna wartość w tablicy
         // i nie można się odnieść do poprzedniej lub następnej wartości
         // to po prostu zwracamy tę wartość
